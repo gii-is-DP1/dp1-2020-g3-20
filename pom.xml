@@ -32,6 +32,14 @@
 
     </properties>
 	<developers>
+	 	<developer>
+		<id>vicmonpui</id>
+		<name>vicmonpui</name>
+ 		<email>victormp00@gmail.com</email>
+ 		<roles>
+ 		<role>comediante</role>
+ 		</roles>
+ 		</developer>
  		<developer>
  		<id>Jostabrod</id>
  		<name>Jose</name>
@@ -40,8 +48,6 @@
  		<role>leader</role>
  		</roles>
  		</developer>
-
- 		
 	</developers>
     <dependencies>
         <!-- Spring and Spring Boot dependencies -->
