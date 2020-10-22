@@ -62,3 +62,8 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
+-- Creacion usuario ferangmor
+INSERT INTO users(username,password,enabled) VALUES ('f3rangmor','f3rpass',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (4,'f3rangmor','owner');
+INSERT INTO owners VALUES (11, 'Fernando', 'Angulo', 'Av. Reina Mercede sn', 'Sevilla', '657356473', 'f3rangmor');
+INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (14, 'boxi', '2012-06-08', 2, 11);
