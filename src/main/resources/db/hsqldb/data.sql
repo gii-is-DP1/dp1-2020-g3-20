@@ -67,3 +67,9 @@ INSERT INTO users(username,password,enabled) VALUES ('f3rangmor','f3rpass',TRUE)
 INSERT INTO authorities(id,username,authority) VALUES (4,'f3rangmor','owner');
 INSERT INTO owners VALUES (11, 'Fernando', 'Angulo', 'Av. Reina Mercede sn', 'Sevilla', '657356473', 'f3rangmor');
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (14, 'boxi', '2012-06-08', 2, 11);
+
+-- Creacion usuario alisanhos
+INSERT INTO users(username,password,enabled) VALUES ('alisanhos','Pet_ASH.23',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (5,'alisanhos','owner');
+INSERT INTO owners VALUES (12, 'Alex', 'Hossdorf', 'Calle Tarfia', 'Sevilla', '695199919', 'alisanhos');
+INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (15, 'Keka', '2019-05-23', 2, 12);
