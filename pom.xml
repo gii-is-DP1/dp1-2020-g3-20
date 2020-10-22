@@ -35,6 +35,18 @@
 
 	<developers>
     <developer>
+			<id>Alex</id>
+			<name>Alexander Hossdorf</name>
+			<email>alexhossdorf@gmail.com</email>
+			<roles>
+				<role>tribandera</role>
+			</roles>
+			<properties>
+				<picUrl> https://i.pinimg.com/originals/72/77/a6/7277a6b6099e8b8061333fd9e9341d81.jpg</picUrl>
+			</properties>
+		</developer>
+    
+    <developer>
     	<id>ferangmor</id>
     	<name>Fernando</name>
     	<email>ferangmor@alum.us.es</email>
