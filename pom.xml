@@ -31,7 +31,25 @@
         <spring-format.version>0.0.19</spring-format.version>
 
     </properties>
-
+    
+    
+	<developers>
+		<developer>
+			<id>Alex</id>
+			<name>Alexander Hossdorf</name>
+			<email>alexhossdorf@gmail.com</email>
+			<url></url>
+			<roles>
+				<role>Cute Designer</role>
+			</roles>
+			<properties>
+				<picUrl> https://i.pinimg.com/originals/72/77/a6/7277a6b6099e8b8061333fd9e9341d81.jpg</picUrl>
+			</properties>
+		</developer>
+	</developers>
+	
+	
+	
     <dependencies>
         <!-- Spring and Spring Boot dependencies -->
         <dependency>
