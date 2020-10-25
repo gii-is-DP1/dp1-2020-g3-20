@@ -73,3 +73,9 @@ INSERT INTO users(username,password,enabled) VALUES ('alisanhos','Pet_ASH.23',TR
 INSERT INTO authorities(id,username,authority) VALUES (5,'alisanhos','owner');
 INSERT INTO owners VALUES (12, 'Alex', 'Hossdorf', 'Calle Tarfia', 'Sevilla', '695199919', 'alisanhos');
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (15, 'Keka', '2019-05-23', 2, 12);
+
+-- Creacion usuario horgarler
+INSERT INTO users(username,password,enabled) VALUES ('horgarler','Tarfia75B',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (6,'horgarler','owner');
+INSERT INTO owners VALUES (13, 'Horacio', 'Garcia', 'Calle Tarfia', 'Sevilla', '670219587', 'horgarler');
+INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (16, 'Geko', '1997-01-06', 3, 13);
