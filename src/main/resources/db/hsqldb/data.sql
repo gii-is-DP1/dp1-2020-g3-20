@@ -79,3 +79,15 @@ INSERT INTO users(username,password,enabled) VALUES ('horgarler','Tarfia75B',TRU
 INSERT INTO authorities(id,username,authority) VALUES (6,'horgarler','owner');
 INSERT INTO owners VALUES (13, 'Horacio', 'Garcia', 'Calle Tarfia', 'Sevilla', '670219587', 'horgarler');
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (16, 'Geko', '1997-01-06', 3, 13);
+
+-- Creacion usuario vicmonpui
+INSERT INTO users(username,password,enabled) VALUES ('vicmonpui','Flores54A',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (7,'vicmonpui','owner');
+INSERT INTO owners VALUES (14, 'Victor', 'Monteseirin', 'Calle Nogales', 'Sevilla', '678543534', 'vicmonpui');
+INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (17, 'Pogo', '2018-04-15', 4, 14);
+
+-- Creacion usuario jostabrod
+INSERT INTO users(username,password,enabled) VALUES ('jostabrod','vEvRvOL123',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (8,'jostabrod','owner');
+INSERT INTO owners VALUES (15, 'Jose', 'Tabares', 'Calle Franco', 'Sevilla', '647235916', 'jostabrod');
+INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (18, 'Curro', '2015-01-18', 2, 15);
