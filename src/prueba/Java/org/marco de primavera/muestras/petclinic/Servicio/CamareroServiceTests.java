@@ -18,7 +18,8 @@ class CamareroServiceTests {
 	@Test
 	public void testCountWithInitialData() {
 		int count= camSer.camareroCount();
-		assertEquals(count,0);
-	}
+		assertEquals(count,1);
+    }
+
 
 }
