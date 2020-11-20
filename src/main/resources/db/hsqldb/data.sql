@@ -62,14 +62,37 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
--- Creacion usuario ferangmor
+
+INSERT INTO camarero(id,name,apellido,gmail,telefono,contraseña) VALUES (1, 'Victor', 'El Tito', 'eltitovictor@gmail.com',6464646464,'12345');
+
+
+
 INSERT INTO users(username,password,enabled) VALUES ('f3rangmor','f3rpass',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (4,'f3rangmor','owner');
 INSERT INTO owners VALUES (11, 'Fernando', 'Angulo', 'Av. Reina Mercede sn', 'Sevilla', '657356473', 'f3rangmor');
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (14, 'boxi', '2012-06-08', 2, 11);
 
--- Creacion usuario alisanhos
+
 INSERT INTO users(username,password,enabled) VALUES ('alisanhos','Pet_ASH.23',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (5,'alisanhos','owner');
 INSERT INTO owners VALUES (12, 'Alex', 'Hossdorf', 'Calle Tarfia', 'Sevilla', '695199919', 'alisanhos');
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (15, 'Keka', '2019-05-23', 2, 12);
+
+
+INSERT INTO users(username,password,enabled) VALUES ('horgarler','Tarfia75B',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (6,'horgarler','owner');
+INSERT INTO owners VALUES (13, 'Horacio', 'Garcia', 'Calle Tarfia', 'Sevilla', '670219587', 'horgarler');
+INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (16, 'Geko', '1997-01-06', 3, 13);
+
+
+INSERT INTO users(username,password,enabled) VALUES ('vicmonpui','Flores54A',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (7,'vicmonpui','owner');
+INSERT INTO owners VALUES (14, 'Victor', 'Monteseirin', 'Calle Nogales', 'Sevilla', '678543534', 'vicmonpui');
+INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (17, 'Pogo', '2018-04-15', 4, 14);
+
+
+INSERT INTO users(username,password,enabled) VALUES ('jostabrod','vEvRvOL123',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (8,'jostabrod','owner');
+INSERT INTO owners VALUES (15, 'Jose', 'Tabares', 'Calle Franco', 'Sevilla', '647235916', 'jostabrod');
+INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (18, 'Curro', '2015-01-18', 2, 15);
+
