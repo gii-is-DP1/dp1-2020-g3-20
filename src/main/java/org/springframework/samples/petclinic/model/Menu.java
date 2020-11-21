@@ -1,5 +1,5 @@
 package org.springframework.samples.petclinic.model;
-//esto es una prueba
+
 import javax.persistence.Entity;
 
 
