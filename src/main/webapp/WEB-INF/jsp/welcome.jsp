@@ -10,6 +10,7 @@
     <div class="row">
     <h2>Project ${title}</h2>
     <p><h2>Group ${group} </h2></p>
+        <img src="/resources/images/Foorder1x191.png" alt="FoorderLogo"/>
     	<p><ul>
     	<c:forEach items="${people}" var="person">
     		<li>${person.firstName} ${person.lastName}</li>
