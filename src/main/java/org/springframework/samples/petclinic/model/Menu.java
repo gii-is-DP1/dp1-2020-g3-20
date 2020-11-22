@@ -7,6 +7,6 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Menu extends BaseEntity{
+public class Menu extends NamedEntity{
 	
 }
