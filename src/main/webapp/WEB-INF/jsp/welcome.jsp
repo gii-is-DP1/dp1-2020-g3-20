@@ -10,16 +10,11 @@
     <div class="row">
     <h2>Project ${title}</h2>
     <p><h2>Group ${group} </h2></p>
+        <img src="/resources/images/Foorder1x191.png" alt="FoorderLogo"/>
     	<p><ul>
     	<c:forEach items="${people}" var="person">
     		<li>${person.firstName} ${person.lastName}</li>
     	</c:forEach>
-    	
-    	
     	</ul></p>
-        <div class="col-md-12">
-            <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
-            <img class="img-responsive" src="${petsImage}"/>
-        </div>
     </div>
 </petclinic:layout>

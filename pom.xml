@@ -31,7 +31,47 @@
         <spring-format.version>0.0.19</spring-format.version>
 
     </properties>
+
 	<developers>
+    <developer>
+ 	<id>Hache</id>
+ 	<name>Horacio</name>
+ 	<email>geko.hor@gmail.com</email>
+ 	<url>http://www.tmht.com/leo</url>
+ 	<roles>
+ 	<role>developer</role>
+ 	</roles>
+ 	<properties>
+ 	<picUrl>
+	https://i.pinimg.com/564x/9f/3d/0d/9f3d0d9e76b111b02ad47d7c948d42c9.jpg
+	</picUrl>
+ 	</properties>
+ 	</developer>
+    <developer>
+			<id>Alex</id>
+			<name>Alexander Hossdorf</name>
+			<email>alexhossdorf@gmail.com</email>
+			<roles>
+				<role>tribandera</role>
+			</roles>
+			<properties>
+				<picUrl> https://i.pinimg.com/originals/72/77/a6/7277a6b6099e8b8061333fd9e9341d81.jpg</picUrl>
+			</properties>
+		</developer>
+    
+    <developer>
+    	<id>ferangmor</id>
+    	<name>Fernando</name>
+    	<email>ferangmor@alum.us.es</email>
+    	<url>http://www.tmht.com/leo</url>
+    	<roles>
+    		<role>developer</role>
+    	</roles>
+    	<properties>
+    	  <picUrl>http://www.tmht.com/leo</picUrl>
+    	</properties> 
+    	</developer>
+    
 	 	<developer>
 		<id>vicmonpui</id>
 		<name>vicmonpui</name>
@@ -40,6 +80,7 @@
  		<role>comediante</role>
  		</roles>
  		</developer>
+    
  		<developer>
  		<id>Jostabrod</id>
  		<name>Jose</name>
@@ -49,6 +90,8 @@
  		</roles>
  		</developer>
 	</developers>
+
+
     <dependencies>
         <!-- Spring and Spring Boot dependencies -->
         <dependency>
