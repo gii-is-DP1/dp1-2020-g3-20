@@ -39,6 +39,12 @@
                    </spring:url>
                    <a href="${fn:escapeXml(propietarioURL)}">Delete</a>
                 </td>
+                 <td>
+           	    	<spring:url value="/propietarios/edit/{propietarioId}" var="propietarioEditUrl">
+    		  			<spring:param name="propietarioId" value="${propietario.id}"/>
+  					</spring:url>
+                	<a href="${fn:escapeXml(propietarioEditUrl)}">Modify</a>
+                </td>
              
             </tr>
         </c:forEach>
