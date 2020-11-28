@@ -14,12 +14,12 @@
             <petclinic:inputField label="apellido" name="apellido"/>
             <petclinic:inputField label="gmail" name="gmail"/>
             <petclinic:inputField label="telefono" name="telefono"/>
-            <petclinic:inputField label="contraseña" name="contraseña"/>
+            <petclinic:inputField label="contrasena" name="contrasena"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="hidden" name="id" value="${camarero.id}">  
-                <button class="btn btn-default" type="submit">Añadir camarero</button>
+                <button class="btn btn-default" type="submit">Anadir camarero</button>
                   
             </div>
         </div>
