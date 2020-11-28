@@ -38,8 +38,12 @@
                    		  <spring:param name="managerId" value="${manager.id}"/>
                    </spring:url>
                    <a href="${fn:escapeXml(managerURL)}">Delete</a>
+               
+           	    	<spring:url value="/managers/edit/{managerId}" var="managerEditUrl">
+    		  			<spring:param name="managerId" value="${manager.id}"/>
+  					</spring:url>
+                	<a href="${fn:escapeXml(managerEditUrl)}">Modify</a>
                 </td>
-      
 
                 
             </tr>
