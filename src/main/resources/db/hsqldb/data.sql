@@ -63,9 +63,10 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
 
-INSERT INTO camarero(id,name,apellido,gmail,telefono,contraseña) VALUES (1, 'Victor', 'El Tito', 'eltitovictor@gmail.com',6464646464,'12345');
-
-
+INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'taburete', 'El capo', 'eltitocapo@gmail.com',646464664);
+INSERT INTO camarero(id,name,apellido,gmail,telefono,contrasena) VALUES (1, 'Victor', 'El Tito', 'eltitovictor@gmail.com',6464646464,'12345');
+INSERT INTO manager(id,name,apellido,gmail,telefono,contrasena) VALUES (2, 'Alexander', 'El Tribandera', 'tribanderaAlexito@gmail.com', 678431588, '12345');
+INSERT INTO propietario(id,name,apellido,gmail,telefono,contrasena) VALUES (1, 'Abdel', 'Ch', 'Abdch@gmail.com', 602354622, '12345');
 
 INSERT INTO users(username,password,enabled) VALUES ('f3rangmor','f3rpass',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (4,'f3rangmor','owner');
@@ -95,4 +96,3 @@ INSERT INTO users(username,password,enabled) VALUES ('jostabrod','vEvRvOL123',TR
 INSERT INTO authorities(id,username,authority) VALUES (8,'jostabrod','owner');
 INSERT INTO owners VALUES (15, 'Jose', 'Tabares', 'Calle Franco', 'Sevilla', '647235916', 'jostabrod');
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (18, 'Curro', '2015-01-18', 2, 15);
-
