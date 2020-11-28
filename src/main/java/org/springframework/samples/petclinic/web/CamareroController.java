@@ -61,6 +61,7 @@ public class CamareroController {
 		if(cam.isPresent()) {
 			camareroService.borrarCamarero(camareroId);
 			modelMap.addAttribute("message", "successfuly deleted");
+			vista=listadoCamareros(modelMap);
 		}else {
 			modelMap.addAttribute("message", "not found");
 			vista=listadoCamareros(modelMap);
