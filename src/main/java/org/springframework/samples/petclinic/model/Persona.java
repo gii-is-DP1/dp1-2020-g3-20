@@ -24,8 +24,8 @@ public class Persona extends BaseEntity {
 	private String telefono;
 
     @Size(min = 3, max = 50)
-	@Column(name = "contraseña")
-	private String contraseña;
+	@Column(name = "contrasena")
+	private String contrasena;
 
 	public String getName() {
 		return name;
@@ -59,18 +59,18 @@ public class Persona extends BaseEntity {
 		this.telefono = telefono;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 	@Override
 	public String toString() {
 		return "Persona [name=" + name + ", apellido=" + apellido + ", gmail=" + gmail + ", telefono=" + telefono
-				+ ", contraseña=" + contraseña + "]";
+				+ ", contrasena=" + contrasena + "]";
 	}
 
 
