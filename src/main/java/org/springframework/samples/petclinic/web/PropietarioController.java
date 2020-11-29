@@ -46,7 +46,7 @@ public class PropietarioController {
 		String vista= "propietarios/listaPropietarios";
 		if(result.hasErrors()) {
 			modelMap.addAttribute("propietario", propietario);
-			return "camareros/editCamarero";
+			return "propietarios/editPropietario";
 		}else {
 			propietarioService.guardarPropietario(propietario);
 			modelMap.addAttribute("message", "successfuly saved");

@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -40,5 +41,60 @@ class ValidatorTests {
 		assertThat(violation.getPropertyPath().toString()).isEqualTo("firstName");
 		assertThat(violation.getMessage()).isEqualTo("must not be empty");
 	}
+	
+	// TESTS PARA Propietario -----------------------------------------------------------------------
+	
+		@Test
+		@DisplayName("Validar una Propietario Correcto")
+		void shouldNotValidateReviewWhenValorationIncorrect() {
+
+			LocaleContextHolder.setLocale(Locale.ENGLISH);
+			Propietario propietario = new Propietario();
+			propietario.setName("Jose");;
+			propietario.setApellido("Alves");
+			propietario.setTelefono("600234321");
+			propietario.setGmail("abdche@gmail.com");
+			propietario.setContraseña("12345678");
+
+			Validator validator = createValidator();
+			Set<ConstraintViolation<Propietario>> constraintViolations = validator.validate(propietario);
+
+			assertThat(constraintViolations.size()).isEqualTo(0);
+				
+			}
+		@Test
+		@DisplayName("Validar un propietario incorrecto")
+		void shouldNotValidateWhenAllFieldsIncorrect() {
+
+			Propietario propietario = new Propietario();
+			propietario.setName("");
+			propietario.setApellido("");
+			propietario.setTelefono("");
+			propietario.setGmail("");
+			propietario.setContraseña("");
+
+			Validator validator = createValidator();
+			Set<ConstraintViolation<Propietario>> constraintViolations = validator.validate(propietario);
+			assertThat(constraintViolations.size()).isEqualTo(5);
+			for (ConstraintViolation<Propietario> d : constraintViolations) {
+				if (d.getPropertyPath().toString().equals("name")) {
+					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
+				}
+				if (d.getPropertyPath().toString().equals("apellido")) {
+					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
+				}
+				if (d.getPropertyPath().toString().equals("gmail")) {
+					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
+				}
+				if (d.getPropertyPath().toString().equals("telefono")) {
+					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
+				}
+				if (d.getPropertyPath().toString().equals("contraseña")) {
+					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
+				}
+
+			}
+
+		}
 
 }
