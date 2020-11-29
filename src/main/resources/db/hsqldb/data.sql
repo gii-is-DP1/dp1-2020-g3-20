@@ -67,6 +67,7 @@ INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'taburete', 'E
 INSERT INTO camarero(id,name,apellido,gmail,telefono,contrasena) VALUES (1, 'Victor', 'El Tito', 'eltitovictor@gmail.com',6464646464,'12345');
 INSERT INTO manager(id,name,apellido,gmail,telefono,contrasena) VALUES (2, 'Alexander', 'El Tribandera', 'tribanderaAlexito@gmail.com', 678431588, '12345');
 INSERT INTO propietario(id,name,apellido,gmail,telefono,contrasena) VALUES (1, 'Abdel', 'Ch', 'Abdch@gmail.com', 602354622, '12345');
+INSERT INTO plato(id,name,precio) VALUES (1, 'Albondigas', 2);
 
 INSERT INTO users(username,password,enabled) VALUES ('f3rangmor','f3rpass',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (4,'f3rangmor','owner');
