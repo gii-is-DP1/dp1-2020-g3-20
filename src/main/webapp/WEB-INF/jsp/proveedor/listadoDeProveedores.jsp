@@ -45,7 +45,12 @@
                     </spring:url>
                  	<a href="${fn:escapeXml(proveedorUrl)}">Delete</a>
                 </td>
-				
+				<td>
+           	    	<spring:url value="/proveedor/edit/{proveedorId}" var="proveedorEditUrl">
+    		  			<spring:param name="proveedorId" value="${proveedor.id}"/>
+  					</spring:url>
+                	<a href="${fn:escapeXml(proveedorEditUrl)}">Actualizar proveedor</a>
+                </td>
               
                 
             </tr>

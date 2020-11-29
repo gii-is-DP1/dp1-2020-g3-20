@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.samples.petclinic.service.ProveedorService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -63,5 +64,30 @@ public class ProveedorController {
 		return view;
 		
 	}
+	@GetMapping(value = "/edit/{proveedorId}")
+	public String initUpdateProveedorForm(@PathVariable("proveedorId") int proveedorId, ModelMap model) {
+		String vista= "proveedor/editarProveedor";
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		Proveedor proveedor =  proveedorService.provedroporid(proveedorId).get();
+			model.addAttribute(proveedor);
+			return vista;
+	}
+	@PostMapping(value = "/edit")
+	public String processUpdateProveedorForm(@Valid Proveedor proveedor, BindingResult result,ModelMap modelMap) {
+		
+		String vista= "proveedor/editarProveedor";
+		
+		if(result.hasErrors()) {
+			modelMap.addAttribute("proveedor", proveedor);
+		
+			return vista;
+		}
+		else {
+		this.proveedorService.save(proveedor);
+			return "redirect:/proveedor";
+		
+	}
 	
 }
+	}
