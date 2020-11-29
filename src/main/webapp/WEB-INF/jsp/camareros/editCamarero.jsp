@@ -10,7 +10,7 @@
     <h2>Camarero</h2>
     <form:form modelAttribute="camarero" class="form-horizontal" id="add-camarero-form" action="/camareros/save">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="nombre" name="name"/>
+            <petclinic:inputField label="name" name="name"/>
             <petclinic:inputField label="apellido" name="apellido"/>
             <petclinic:inputField label="gmail" name="gmail"/>
             <petclinic:inputField label="telefono" name="telefono"/>
