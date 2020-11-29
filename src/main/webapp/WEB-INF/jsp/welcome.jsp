@@ -11,6 +11,27 @@
     <h2>Project ${title}</h2>
     <p><h2>Group ${group} </h2></p>
         <img src="/resources/images/Foorder1x191.png" alt="FoorderLogo"/>
+        <form method="get" action="/propietarios">
+      		<button class="btn btn-default" type="submit">Propietarios</button>
+ 		</form>
+  		<form method="get" action="/managers">
+      		<button class="btn btn-default" type="submit">Managers</button>
+  		</form>
+  		<form method="get" action="/camareros">
+      		<button class="btn btn-default" type="submit">Camareros</button>
+  		</form>
+  		<form method="get" action="/cocinero">
+      		<button class="btn btn-default" type="submit">Cocineros</button>
+  		</form>
+  		<form method="get" action="/proveedor">
+      		<button class="btn btn-default" type="submit">Proveedores</button>
+  		</form>
+  		<form method="get" action="/platos">
+      		<button class="btn btn-default" type="submit">Platos</button>
+  		</form>
+  		<form method="get" action="/producto">
+      		<button class="btn btn-default" type="submit">Productos</button>
+  		</form>
     	<p><ul>
     	<c:forEach items="${people}" var="person">
     		<li>${person.firstName} ${person.lastName}</li>
