@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import lombok.Data;
 @Data
 @Entity
-public class Propietario extends Persona {
+public class Propietario extends Empleado {
 	
 
 }
