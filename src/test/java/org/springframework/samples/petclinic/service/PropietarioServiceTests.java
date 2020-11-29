@@ -47,7 +47,7 @@ public class PropietarioServiceTests {
 		assertThat(p.getApellido().equals("Ch"));
 		assertThat(p.getGmail().equals("Abdch@gmail.com"));
 		assertThat(p.getTelefono().equals("602354622"));
-		assertThat(p.getContraseña().equals("12345"));
+		assertThat(p.getContrasena().equals("12345"));
 
 	}
 	
@@ -59,7 +59,7 @@ public class PropietarioServiceTests {
 		p.setName("abdel");
 		p.setApellido("Chell");
         p.setGmail("abdel@gmail.com");
-		p.setContraseña("1234567");
+		p.setContrasena("1234567");
 		p.setTelefono("602343454");
 		
 		this.pr.save(p);
@@ -75,7 +75,7 @@ public class PropietarioServiceTests {
 		p.setName("abdel");
 		p.setApellido("Ch");
         p.setGmail("abdel");
-		p.setContraseña("1234567");
+		p.setContrasena("1234567");
 		p.setTelefono("602343454");
 		assertThrows(ConstraintViolationException.class, () -> {
 			this.pr.save(p);
@@ -91,7 +91,7 @@ public class PropietarioServiceTests {
 		p.setName("abdel");
 		p.setApellido("Ch");
         p.setGmail("abdel");
-		p.setContraseña("1");
+		p.setContrasena("1");
 		p.setTelefono("602343454");
 		assertThrows(ConstraintViolationException.class, () -> {
 			this.pr.save(p);

@@ -54,7 +54,7 @@ class ValidatorTests {
 			propietario.setApellido("Alves");
 			propietario.setTelefono("600234321");
 			propietario.setGmail("abdche@gmail.com");
-			propietario.setContraseña("12345678");
+			propietario.setContrasena("12345678");
 
 			Validator validator = createValidator();
 			Set<ConstraintViolation<Propietario>> constraintViolations = validator.validate(propietario);
@@ -71,7 +71,7 @@ class ValidatorTests {
 			propietario.setApellido("");
 			propietario.setTelefono("");
 			propietario.setGmail("");
-			propietario.setContraseña("");
+			propietario.setContrasena("");
 
 			Validator validator = createValidator();
 			Set<ConstraintViolation<Propietario>> constraintViolations = validator.validate(propietario);
