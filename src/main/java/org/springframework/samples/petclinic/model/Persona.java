@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 @MappedSuperclass
@@ -14,7 +15,7 @@ public class Persona extends BaseEntity {
     @Size(min = 3, max = 50)
 	@Column(name = "apellido")
 	private String apellido;
-    
+    @Email(message="text is not a valid email")
     @Size(min = 3, max = 50)
 	@Column(name = "gmail")
 	private String gmail;
