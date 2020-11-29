@@ -6,7 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 @MappedSuperclass
-public class Persona extends BaseEntity {
+public class Empleado extends BaseEntity {
 
     @Size(min = 3, max = 50)
 	@Column(name = "name")
@@ -23,7 +23,11 @@ public class Persona extends BaseEntity {
     @Size(min = 3, max = 50)
 	@Column(name = "telefono")
 	private String telefono;
-
+    
+    @Size(min = 3, max = 50)
+	@Column(name = "usuario")
+	private String usuario;
+    
     @Size(min = 3, max = 50)
 	@Column(name = "contrasena")
 	private String contrasena;
@@ -59,6 +63,14 @@ public class Persona extends BaseEntity {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+	
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
 
 	public String getContrasena() {
 		return contrasena;
@@ -71,7 +83,7 @@ public class Persona extends BaseEntity {
 	@Override
 	public String toString() {
 		return "Persona [name=" + name + ", apellido=" + apellido + ", gmail=" + gmail + ", telefono=" + telefono
-				+ ", contrasena=" + contrasena + "]";
+				+ ", usuario=" + usuario + "]";
 	}
 
 

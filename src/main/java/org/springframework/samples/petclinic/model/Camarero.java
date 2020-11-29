@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Camarero extends Persona{
+public class Camarero extends Empleado{
 	
 }

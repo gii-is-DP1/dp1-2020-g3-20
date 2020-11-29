@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Cocinero extends Persona{
+public class Cocinero extends Empleado{
 
 	
 }

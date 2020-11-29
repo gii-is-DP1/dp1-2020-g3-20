@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Manager extends Persona {
+public class Manager extends Empleado {
 
 }
