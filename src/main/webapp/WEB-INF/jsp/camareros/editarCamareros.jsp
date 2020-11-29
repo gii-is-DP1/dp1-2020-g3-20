@@ -14,6 +14,7 @@
            <petclinic:inputField label="apellido" name="apellido"/>
            <petclinic:inputField label="gmail" name="gmail"/>
            <petclinic:inputField label="telefono" name="telefono"/>
+           <petclinic:inputField label="usuario" name="usuario"/>
            <petclinic:inputField label="contrasena" name="contrasena"/>
             
         </div>

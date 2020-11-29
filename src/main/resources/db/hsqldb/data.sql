@@ -69,7 +69,7 @@ INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES 
 INSERT INTO producto(id,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima) VALUES (1,'Pan', '2020-01-01', 2, 5, 10);
 INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'taburete', 'El capo', 'eltitocapo@gmail.com',646464664);
 INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2, 'Alexander', 'El Tribandera', 'tribanderaAlexito@gmail.com', 678431588,'Alex', '12345');
-INSERT INTO propietario(id,name,apellido,gmail,telefono,usario,contrasena) VALUES (1, 'Abdel', 'Ch', 'Abdch@gmail.com', 602354622,'Abd', '12345');
+INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Abdel', 'Ch', 'Abdch@gmail.com', 602354622,'Abd', '12345');
 INSERT INTO plato(id,name,precio) VALUES (1, 'Albondigas', 2);
 
 
