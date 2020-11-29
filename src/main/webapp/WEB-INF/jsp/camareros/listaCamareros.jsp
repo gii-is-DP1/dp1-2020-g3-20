@@ -15,6 +15,7 @@
             <th>Apellido</th>
             <th>Telefono</th>
             <th>Gmail</th>
+            <th>Usuario</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -32,6 +33,9 @@
                 </td>
                 <td>
                    	<c:out value="${camarero.gmail}"/>
+                </td>
+                <td>
+                   	<c:out value="${camarero.usuario}"/>
                 </td>
                 <td>
                    <spring:url value="/camareros/delete/{camareroId}" var="camareroURL">

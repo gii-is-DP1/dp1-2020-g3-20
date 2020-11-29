@@ -3,13 +3,14 @@ package org.springframework.samples.petclinic.model;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @MappedSuperclass
 public class Empleado extends BaseEntity {
 
-    @Size(min = 3, max = 50)
 	@Column(name = "name")
+	@NotEmpty
 	private String name;
     
     @Size(min = 3, max = 50)
@@ -82,7 +83,7 @@ public class Empleado extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "Persona [name=" + name + ", apellido=" + apellido + ", gmail=" + gmail + ", telefono=" + telefono
+		return "Empleado [name=" + name + ", apellido=" + apellido + ", gmail=" + gmail + ", telefono=" + telefono
 				+ ", usuario=" + usuario + "]";
 	}
 
