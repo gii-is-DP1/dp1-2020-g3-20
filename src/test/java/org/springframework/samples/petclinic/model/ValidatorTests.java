@@ -29,16 +29,16 @@ class ValidatorTests {
 	void shouldNotValidateWhenFirstNameEmpty() {
 
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
-		Person person = new Person();
-		person.setFirstName("");
-		person.setLastName("smith");
+		Persona persona = new Persona();
+		persona.setName("");
+		persona.setApellido("smith");
 
 		Validator validator = createValidator();
-		Set<ConstraintViolation<Person>> constraintViolations = validator.validate(person);
+		Set<ConstraintViolation<Persona>> constraintViolations = validator.validate(persona);
 
 		assertThat(constraintViolations.size()).isEqualTo(1);
-		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
-		assertThat(violation.getPropertyPath().toString()).isEqualTo("firstName");
+		ConstraintViolation<Persona> violation = constraintViolations.iterator().next();
+		assertThat(violation.getPropertyPath().toString()).isEqualTo("name");
 		assertThat(violation.getMessage()).isEqualTo("must not be empty");
 	}
 	
@@ -78,7 +78,7 @@ class ValidatorTests {
 			assertThat(constraintViolations.size()).isEqualTo(5);
 			for (ConstraintViolation<Propietario> d : constraintViolations) {
 				if (d.getPropertyPath().toString().equals("name")) {
-					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
+					assertThat(d.getMessage()).isEqualTo("must not be empty");
 				}
 				if (d.getPropertyPath().toString().equals("apellido")) {
 					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
@@ -96,5 +96,21 @@ class ValidatorTests {
 			}
 
 		}
-
+		// TESTS PARA Platos -----------------------------------------------------------------------
+		@Test
+		@DisplayName("Validar un plato sin precio")
+		void ValidacionPrecioNoVacio() {
+			
+			Plato plato= new Plato();
+			
+			plato.setPrecio("");
+			Validator validator = createValidator();
+			Set<ConstraintViolation<Plato>> constraintViolations = validator.validate(plato);
+			for (ConstraintViolation<Plato> d : constraintViolations) {
+				if (d.getPropertyPath().toString().equals("precio")) {
+					assertThat(d.getMessage()).isEqualTo("no puede estar vacío");
+				}
+			}
+		}
+		
 }

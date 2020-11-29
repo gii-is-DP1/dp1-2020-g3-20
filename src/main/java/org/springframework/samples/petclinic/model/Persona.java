@@ -3,13 +3,15 @@ package org.springframework.samples.petclinic.model;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @MappedSuperclass
 public class Persona extends BaseEntity {
 
-    @Size(min = 3, max = 50)
+    
 	@Column(name = "name")
+	@NotEmpty
 	private String name;
     
     @Size(min = 3, max = 50)
