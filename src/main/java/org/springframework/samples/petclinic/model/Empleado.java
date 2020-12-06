@@ -2,19 +2,21 @@ package org.springframework.samples.petclinic.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @MappedSuperclass
-public class Persona extends BaseEntity {
+public class Empleado extends BaseEntity {
 
-    @Size(min = 3, max = 50)
 	@Column(name = "name")
+	@NotEmpty
 	private String name;
     
     @Size(min = 3, max = 50)
 	@Column(name = "apellido")
 	private String apellido;
-    
+    @Email(message="text is not a valid email")
     @Size(min = 3, max = 50)
 	@Column(name = "gmail")
 	private String gmail;
@@ -22,10 +24,14 @@ public class Persona extends BaseEntity {
     @Size(min = 3, max = 50)
 	@Column(name = "telefono")
 	private String telefono;
-
+    
     @Size(min = 3, max = 50)
-	@Column(name = "contraseña")
-	private String contraseña;
+	@Column(name = "usuario")
+	private String usuario;
+    
+    @Size(min = 3, max = 50)
+	@Column(name = "contrasena")
+	private String contrasena;
 
 	public String getName() {
 		return name;
@@ -58,19 +64,27 @@ public class Persona extends BaseEntity {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-
-	public String getContraseña() {
-		return contraseña;
+	
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getContrasena() {
+		return contrasena;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 	@Override
 	public String toString() {
-		return "Persona [name=" + name + ", apellido=" + apellido + ", gmail=" + gmail + ", telefono=" + telefono
-				+ ", contraseña=" + contraseña + "]";
+		return "Empleado [name=" + name + ", apellido=" + apellido + ", gmail=" + gmail + ", telefono=" + telefono
+				+ ", usuario=" + usuario + "]";
 	}
 
 

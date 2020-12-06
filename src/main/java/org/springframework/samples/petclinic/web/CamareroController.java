@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-
-
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -61,6 +59,7 @@ public class CamareroController {
 		if(cam.isPresent()) {
 			camareroService.borrarCamarero(camareroId);
 			modelMap.addAttribute("message", "successfuly deleted");
+			vista=listadoCamareros(modelMap);
 		}else {
 			modelMap.addAttribute("message", "not found");
 			vista=listadoCamareros(modelMap);
@@ -68,6 +67,29 @@ public class CamareroController {
 		return vista;
 		
 	}
-	
+	@GetMapping(value = "/edit/{camareroId}")
+	public String initUpdateCamareroForm(@PathVariable("camareroId") int camareroId, ModelMap model) {
+		String vista= "camareros/editarCamareros";
+		
+			Camarero cam =  camareroService.buscaCamareroPorId(camareroId).get();
+			model.addAttribute(cam);
+			return vista;
+	}
+	@PostMapping(value = "/edit")
+	public String processUpdateCamareroForm(@Valid Camarero camarero, BindingResult result,ModelMap modelMap) {
+		
+		String vista= "camareros/editarCamareros";
+		
+		if(result.hasErrors()) {
+			modelMap.addAttribute("camarero", camarero);
+		
+			return vista;
+		}
+		else {
+		this.camareroService.guardarCamarero(camarero);
+			return "redirect:/camareros";
+	}
+		
+	}
 	
 }

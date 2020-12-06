@@ -15,6 +15,7 @@
             <th>Apellido</th>
             <th>Telefono</th>
             <th>Gmail</th>
+            <th>Usuario</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -34,10 +35,18 @@
                    	<c:out value="${camarero.gmail}"/>
                 </td>
                 <td>
+                   	<c:out value="${camarero.usuario}"/>
+                </td>
+                <td>
                    <spring:url value="/camareros/delete/{camareroId}" var="camareroURL">
                    		  <spring:param name="camareroId" value="${camarero.id}"/>
                    </spring:url>
                    <a href="${fn:escapeXml(camareroURL)}">Delete</a>
+                   
+                    <spring:url value="/camareros/edit/{camareroId}" var="camareroEditUrl">
+    		  			<spring:param name="camareroId" value="${camarero.id}"/>
+  					</spring:url>
+                	<a href="${fn:escapeXml(camareroEditUrl)}">Modify</a>
                 </td>
       
 <!--

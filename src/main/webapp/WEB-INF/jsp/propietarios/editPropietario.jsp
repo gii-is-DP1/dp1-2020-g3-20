@@ -6,11 +6,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
-<petclinic:layout pageName="camareros">
-    <h2>Camarero</h2>
-    <form:form modelAttribute="camarero" class="form-horizontal" id="add-camarero-form" action="/camareros/save">
+<petclinic:layout pageName="propietarios">
+    <h2>Propietario</h2>
+    <form:form modelAttribute="propietario" class="form-horizontal" id="add-propietario-form" action="/propietarios/save">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="name" name="name"/>
+            <petclinic:inputField label="nombre" name="name"/>
             <petclinic:inputField label="apellido" name="apellido"/>
             <petclinic:inputField label="gmail" name="gmail"/>
             <petclinic:inputField label="telefono" name="telefono"/>
@@ -19,8 +19,8 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <input type="hidden" name="id" value="${camarero.id}">  
-                <button class="btn btn-default" type="submit">Anadir camarero</button>
+                <input type="hidden" name="id" value="${propietario.id}">  
+                <button class="btn btn-default" type="submit">Anadir propietario</button>
                   
             </div>
         </div>
