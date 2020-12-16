@@ -5,19 +5,28 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.model.TipoProducto;
-import org.springframework.samples.petclinic.repository.PetRepository;
+import org.springframework.samples.petclinic.repository.LineaPedidoRepository;
 import org.springframework.samples.petclinic.repository.ProductoRepository;
-import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductoService {
-
-	@Autowired
+	
 	private ProductoRepository productoRepo;
+	//Hemos añadido lineaPedido 
+	private LineaPedidoRepository linRepo;
+	
+	//Hemos añadido esto
+	@Autowired
+	public ProductoService(ProductoRepository productoRepo,
+			LineaPedidoRepository linRepo) {
+		this.productoRepo = productoRepo;
+		this.linRepo = linRepo;
+	}
 	
 	@Transactional
 	public int productoCount() {
@@ -49,13 +58,30 @@ public class ProductoService {
 	}
 	
 	//Esto pertenece a la clase TipoProducto
-	@Autowired
-	public ProductoService(ProductoRepository productoRepo) {
-		this.productoRepo = productoRepo;
-	}
-	
 	@Transactional(readOnly = true)
 	public Collection<TipoProducto> encontrarTiposProducto() throws DataAccessException {
 		return productoRepo.encontrarTiposProducto();
+	}
+	
+	
+	@Transactional
+	public void saveLineaPedido(LineaPedido lineaPedido) throws DataAccessException {
+		linRepo.save(lineaPedido);
+	}
+	
+	@Transactional
+	public void borrarLineaPedido(Integer id) {
+		linRepo.deleteById(id);
+	}
+	
+	
+	@Transactional
+	public Iterable<LineaPedido> findAllLineaPedido(){
+		return linRepo.findAll();
+	}
+	
+	@Transactional
+	public Optional<LineaPedido> buscaLineaPedido(Integer id) {
+		return linRepo.findById(id);
 	}
 }

@@ -75,9 +75,14 @@ INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES 
 INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Horacio', 'Garcia', 'horgarler@gmail.com',6969696969,'Hori','qwerty');
 INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima) VALUES (1,6,'Pan', '2020-01-01', 2, 5, 10);
 INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'taburete', 'El capo', 'eltitocapo@gmail.com',646464664);
+INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (2, 'el', 'Pana', 'elpana@gmail.com',696969696);
 INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2, 'Alexander', 'El Tribandera', 'tribanderaAlexito@gmail.com', 678431588,'Alex', '12345');
 INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Abdel', 'Ch', 'Abdch@gmail.com', 602354622,'Abd', '12345');
-INSERT INTO plato(id,name,precio) VALUES (1, 'Albondigas', 2);
+/*INSERT INTO plato(id,name,precio) VALUES (1, 'Albondigas', 2);*/
+INSERT INTO pedido(id,fechapedido,fechaentrega,costetotal,hallegado,proveedor_id) VALUES (1, '2020-01-04', '2020-01-20', 20, 'TRUE', 1);
+INSERT INTO lineapedido(id,producto_id,cantidad,precio,pedido_id) VALUES (1, 1, 10, 2.0, 1);
+INSERT INTO pedido(id,fechapedido,fechaentrega,costetotal,hallegado,proveedor_id) VALUES (2, '2022-04-08', '2022-04-10', 80, 'TRUE', 2);
+INSERT INTO lineapedido(id,producto_id,cantidad,precio,pedido_id) VALUES (2, 1, 52, 9.0, 2);
 
 
 INSERT INTO users(username,password,enabled) VALUES ('f3rangmor','f3rpass',TRUE);
