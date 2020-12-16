@@ -91,7 +91,7 @@ class ValidatorTests {
 				if (d.getPropertyPath().toString().equals("telefono")) {
 					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
 				}
-				if (d.getPropertyPath().toString().equals("contraseña")) {
+				if (d.getPropertyPath().toString().equals("contrasena")) {
 					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
 				}
 
@@ -150,7 +150,7 @@ class ValidatorTests {
 		}
 		// TESTS PARA menu -----------------------------------------------------------------------
 		@Test
-		@DisplayName("Validar una Proveedor Correcto")
+		@DisplayName("Validar una Menú Correcto")
 		void shouldNotValidatemenuReviewWhenValorationIncorrect() {
 
 			LocaleContextHolder.setLocale(Locale.ENGLISH);
@@ -165,7 +165,7 @@ class ValidatorTests {
 				
 			}
 		@Test
-		@DisplayName("Validar un Proveedor incorrecto")
+		@DisplayName("Validar un Menú incorrecto")
 		void shouldNotValidatemenuWhenAllFieldsIncorrect() {
 
 			Menu Menu = new Menu();
@@ -192,8 +192,9 @@ class ValidatorTests {
 
 			LocaleContextHolder.setLocale(Locale.ENGLISH);
 			Producto Producto = new Producto();
+			TipoProducto TestTP = new TipoProducto() ;
 			Producto.setName("Misco");
-			Producto.seteProducto(E_Producto.CARNE);
+			Producto.setTipoProducto(TestTP);
 			Producto.setCantMin(1);
 			Producto.setCantAct(2);
 			Producto.setCantMax(5);

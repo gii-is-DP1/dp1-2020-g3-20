@@ -19,7 +19,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="hidden" name="id" value="${proveedor.id}">  
-                <button class="btn btn-default" type="submit">Añadir proveedor</button>
+                <button class="btn btn-default" type="submit">Anadir proveedor</button>
                   
             </div>
         </div>
