@@ -63,10 +63,17 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
 
+INSERT INTO tipoproducto VALUES (1, 'carne');
+INSERT INTO tipoproducto VALUES (2, 'pescado');
+INSERT INTO tipoproducto VALUES (3, 'frutasyverduras');
+INSERT INTO tipoproducto VALUES (4, 'lacteos');
+INSERT INTO tipoproducto VALUES (5, 'bebidas');
+INSERT INTO tipoproducto VALUES (6, 'otros');
+
 
 INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Victor', 'El Tito', 'eltitovictor@gmail.com',6464646464,'Bones','12345');
 INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Horacio', 'Garcia', 'horgarler@gmail.com',6969696969,'Hori','qwerty');
-INSERT INTO producto(id,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima) VALUES (1,'Pan', '2020-01-01', 2, 5, 10);
+INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima) VALUES (1,6,'Pan', '2020-01-01', 2, 5, 10);
 INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'taburete', 'El capo', 'eltitocapo@gmail.com',646464664);
 INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2, 'Alexander', 'El Tribandera', 'tribanderaAlexito@gmail.com', 678431588,'Alex', '12345');
 INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Abdel', 'Ch', 'Abdch@gmail.com', 602354622,'Abd', '12345');
