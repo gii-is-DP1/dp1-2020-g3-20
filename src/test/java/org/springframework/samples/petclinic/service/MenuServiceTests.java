@@ -18,7 +18,7 @@ class MenuServiceTests {
 	@Test
 	public void testCountWithInitialData() {
 		int count= menSer.menuCount();
-		assertEquals(count,1);
+		assertEquals(count,0);
 	}
 
 }

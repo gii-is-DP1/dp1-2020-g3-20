@@ -8,5 +8,5 @@ import lombok.Data;
 @Entity
 public class Plato extends NamedEntity{
 	
-	private String precio;
+	
 }

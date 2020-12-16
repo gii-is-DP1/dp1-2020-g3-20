@@ -117,4 +117,3 @@ public class PropietarioServiceTests {
 		assertThat(pro.get()).isEqualTo(null);
 			
 	}*/
-}
