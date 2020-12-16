@@ -62,7 +62,7 @@ public class ProductoController {
 		@PostMapping(path="/save")
 		public String guardarProducto(ProductoDTO producto,BindingResult result,ModelMap modelMap) throws ParseException {
 			String vista= "producto/listaProducto";
-			final Producto productoFinal = productoConverter.covertDTOToEntity(producto);
+			final Producto productoFinal = productoConverter.convertProductoDTOToEntity(producto);
 			productoFinal.setTipoProducto(tipoProductoFormatter.parse(producto.getTipoproductodto(), Locale.ENGLISH));
 			
 			if(result.hasErrors()) {
@@ -74,7 +74,6 @@ public class ProductoController {
 				vista=listadoProducto(modelMap);
 			}
 			return vista; 
-			
 		}
 		
 		@GetMapping(path="/delete/{productoId}")
@@ -92,25 +91,34 @@ public class ProductoController {
 		}
 		
 		@GetMapping(value = "/edit/{productoId}")
-		public String initUpdateProductoForm(@PathVariable("productoId") int productoId, ModelMap model) {
+		public String initUpdateProductoForm(@PathVariable("productoId") int productoId, ModelMap model) {		
 			String vista= "producto/editarProducto";
+			
+//			Collection<TipoProducto> collectionTipoProducto = this.productoService.encontrarTiposProducto();
+//			modelMap.addAttribute("listaTipos", collectionTipoProducto);
+//			modelMap.addAttribute("producto",new ProductoDTO());			
+			
+			Collection<TipoProducto> collectionTipoProducto = this.productoService.encontrarTiposProducto();
+			model.addAttribute("listaTipos", collectionTipoProducto);
 			Producto producto =  productoService.buscaProductoPorId(productoId).get();
-			model.addAttribute(producto);
+			ProductoDTO productoConvertido = productoConverter.convertEntityToProductoDTO(producto);
+			productoConvertido.setTipoproductodto(producto.getTipoProducto().getName());
+			System.out.println(productoConvertido.toString());
+			model.addAttribute("producto", productoConvertido);
 			return vista;
 		}
 		@PostMapping(value = "/edit")
-		public String processUpdateProductoForm(@Valid Producto producto, BindingResult result,ModelMap modelMap) {
-			
-			String vista= "producto";
-			
+		public String processUpdateProductoForm(ProductoDTO producto, BindingResult result,ModelMap modelMap) throws ParseException {
+			final Producto productoFinal = productoConverter.convertProductoDTOToEntity(producto);
+			productoFinal.setTipoProducto(tipoProductoFormatter.parse(producto.getTipoproductodto(), Locale.ENGLISH));
 			if(result.hasErrors()) {
 				modelMap.addAttribute("producto", producto);
-			
-				return vista;
+				return "producto/editarProducto";
 			}
 			else {
-			this.productoService.guardarProducto(producto);
-				return "redirect:/producto";
+			this.productoService.guardarProducto(productoFinal);
+			modelMap.addAttribute("message", "successfuly saved");
+			return "redirect:/producto";
 		}
 	}
 }

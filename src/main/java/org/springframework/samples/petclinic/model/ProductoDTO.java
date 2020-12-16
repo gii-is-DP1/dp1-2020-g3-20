@@ -5,10 +5,9 @@ import lombok.Data;
 
 @Data
 public class ProductoDTO {
-	private String tipoproductodto;
-	
 	private Integer id;
 	private String name;
+	private String tipoproductodto;
 	private int cantMin;
 	private int cantAct;
 	private int cantMax;

@@ -18,11 +18,10 @@
             <petclinic:inputField label="Cantidad actual" name="cantAct"/>
             <petclinic:inputField label="Cantidad maxima" name="cantMax"/>
         </div>
-      <div class="form-group">
+      	<div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="hidden" name="id" value="${producto.id}">  
                 <button class="btn btn-default" type="submit">Actualizar producto</button>
-                  
             </div>
         </div>
     </form:form>
