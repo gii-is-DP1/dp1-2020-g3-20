@@ -21,7 +21,7 @@
       <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="hidden" name="id" value="${cocinero.id}">  
-                <button class="btn btn-default" type="submit">Editar cocinero</button>
+                <button class="btn btn-default" type="submit">Actualizar cocinero</button>
             </div>
         </div>
     </form:form>

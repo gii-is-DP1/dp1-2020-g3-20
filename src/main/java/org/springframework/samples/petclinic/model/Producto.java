@@ -4,17 +4,24 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
+@EqualsAndHashCode(callSuper = true,doNotUseGetters = true)
 @Entity
 @Table(name = "producto")
 public class Producto extends NamedEntity{
-	@Column(name = "tipo_producto")
-	private E_Producto eProducto;
+	
+	@ManyToOne
+	@JoinColumn(name = "tipo_producto")
+	private TipoProducto tipoProducto;
     
 	@Column(name = "fecha_caducidad")
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
@@ -30,12 +37,12 @@ public class Producto extends NamedEntity{
 	private int cantMax;
 	
 	
-	public E_Producto geteProducto() {
-		return eProducto;
+	public TipoProducto getTipoProducto() {
+		return tipoProducto;
 	}
 
-	public void seteProducto(E_Producto eProducto) {
-		this.eProducto = eProducto;
+	public void setTipoProducto(TipoProducto tipoProducto) {
+		this.tipoProducto = tipoProducto;
 	}
 
 	public LocalDate getFechaCaducidad() {
@@ -69,7 +76,4 @@ public class Producto extends NamedEntity{
 	public void setCantMax(int cantMax) {
 		this.cantMax = cantMax;
 	}
-	
-
-
 }

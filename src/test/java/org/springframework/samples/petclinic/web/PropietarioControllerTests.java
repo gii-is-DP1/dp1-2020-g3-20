@@ -41,7 +41,7 @@ public class PropietarioControllerTests {
     	propietario.setName("anna");
     	propietario.setApellido("Alvarez");
     	propietario.setTelefono("621213243");
-    	propietario.setContraseña("1234567");
+    	propietario.setContrasena("1234567");
     	propietario.setGmail("Anna@gmail.com");
     	
     	
@@ -67,7 +67,7 @@ public class PropietarioControllerTests {
 							.param("apellido", "Alvarez")
 							.param("gmail", "Anna@gmail.com")
 		                    .param("telefono", "621213243")
-		                    .param("contraseña", "1234567")
+		                    .param("contrasena", "1234567")
 		                    
 		                    
 		                    )

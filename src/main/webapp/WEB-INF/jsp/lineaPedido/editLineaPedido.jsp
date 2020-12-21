@@ -7,19 +7,19 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 
-<petclinic:layout pageName="proveedores">
-    <h2>Proveedor</h2>
-    <form:form modelAttribute="proveedor" class="form-horizontal" id="add-proveedor-form" action="/proveedor/save">
+<petclinic:layout pageName="lineaPedido">
+    <h2>LineaPedido</h2>
+    <form:form modelAttribute="lineaPedido" class="form-horizontal" id="add-proveedor-form" action="/lineaPedido/save">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="nombre" name="name"/>
-            <petclinic:inputField label="apellido" name="apellido"/>
-            <petclinic:inputField label="gmail" name="gmail"/>
-            <petclinic:inputField label="telefono" name="telefono"/>
+            <petclinic:inputField label="producto" name="producto"/>
+            <petclinic:inputField label="cantidad" name="cantidad"/>
+            <petclinic:inputField label="precio" name="precio"/>
+            <petclinic:inputField label="pedido" name="pedido"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <input type="hidden" name="id" value="${proveedor.id}">  
-                <button class="btn btn-default" type="submit">Anadir proveedor</button>
+                <input type="hidden" name="id" value="${lineaPedido.id}">  
+                <button class="btn btn-default" type="submit">Añadir lineaPedido</button>
                   
             </div>
         </div>
