@@ -10,20 +10,20 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "platosPedidos")
+@Table(name = "platospedidos")
 public class PlatoPedido extends BaseEntity{
 	 
 	
-	@Column(name = "precioTotal")
-	private Integer precioTotal;
+	@Column(name = "estado_plato")
+	private EstadoPlato estadoPlato;
 	
 	
-	protected void setPrecioTotal(Integer precioTotal) {
-		this.precioTotal = precioTotal;
+	protected void setEstadoPlato(EstadoPlato estadoPlato) {
+		this.estadoPlato = estadoPlato;
 	}
 	
-	public Integer getPrecioTotal() {
-		return this.precioTotal;
+	public Integer getEstadoPlato() {
+		return this.estadoPlato;
 	}
 	
 	

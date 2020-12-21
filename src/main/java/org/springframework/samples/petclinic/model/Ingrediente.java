@@ -10,11 +10,12 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "comandas")
-public class Comanda extends BaseEntity{
+@Table(name = "Comandas")
+
+public class Ingrediente extends BaseEntity{
 	 
 	
-	@Column(name = "precio_total")
+	@Column(name = "precioTotal")
 	private Integer precioTotal;
 	
 	
@@ -25,8 +26,6 @@ public class Comanda extends BaseEntity{
 	public Integer getPrecioTotal() {
 		return this.precioTotal;
 	}
-	
-	
 	
 	
 	
