@@ -12,6 +12,7 @@
         <thead>
         <tr>
             <th>Nombre</th>
+            <th>Tipo Producto</th>
             <th>Fecha Caducidad</th>
             <th>Cantidad Mínima</th>
             <th>Cantidad Actual</th>
@@ -26,6 +27,9 @@
                     <c:out value="${producto.name}"/>
                 </td>
                 <td>
+                    <c:out value="${producto.tipoProducto}"/>
+                </td>
+                <td>
                     <c:out value="${producto.fechaCaducidad}"/>
                 </td>
                 <td>
@@ -38,7 +42,7 @@
                    	<c:out value="${producto.cantMax}"/>
                 </td>
                 <td>
-                   <spring:url value="/producto/delete/{productoId}" var="productoURL">
+                   <spring:url value="/producto/edit/{productoId}" var="productoURL">
                    		  <spring:param name="productoId" value="${producto.id}"/>
                    </spring:url>
                    <a href="${fn:escapeXml(productoURL)}">Editar</a>

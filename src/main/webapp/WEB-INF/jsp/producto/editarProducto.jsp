@@ -7,8 +7,8 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="producto">
-    <h2>Producto</h2>
-    <form:form modelAttribute="producto" class="form-horizontal" id="add-producto-form" action="/producto/save">
+    <h2>Editar Producto</h2>
+    <form:form modelAttribute="producto" class="form-horizontal" id="edit-producto-form"  action="/producto/edit">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="name"/>
             <div class="control-group">
@@ -18,10 +18,10 @@
             <petclinic:inputField label="Cantidad actual" name="cantAct"/>
             <petclinic:inputField label="Cantidad maxima" name="cantMax"/>
         </div>
-        <div class="form-group">
+      	<div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="hidden" name="id" value="${producto.id}">  
-                <button class="btn btn-default" type="submit">Anadir producto</button>
+                <button class="btn btn-default" type="submit">Actualizar producto</button>
             </div>
         </div>
     </form:form>
