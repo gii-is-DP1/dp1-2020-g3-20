@@ -70,6 +70,10 @@ INSERT INTO tipoproducto VALUES (4, 'lacteos');
 INSERT INTO tipoproducto VALUES (5, 'bebidas');
 INSERT INTO tipoproducto VALUES (6, 'otros');
 
+INSERT INTO estadoplato VALUES (1, 'ENPROCESO');
+INSERT INTO estadoplato VALUES (2, 'ENCOLA');
+INSERT INTO estadoplato VALUES (3, 'FINALIZADO');
+
 
 INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Victor', 'El Tito', 'eltitovictor@gmail.com',6464646464,'Bones','12345');
 INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Horacio', 'Garcia', 'horgarler@gmail.com',6969696969,'Hori','qwerty');
@@ -78,7 +82,7 @@ INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'taburete', 'E
 INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (2, 'el', 'Pana', 'elpana@gmail.com',696969696);
 INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2, 'Alexander', 'El Tribandera', 'tribanderaAlexito@gmail.com', 678431588,'Alex', '12345');
 INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Abdel', 'Ch', 'Abdch@gmail.com', 602354622,'Abd', '12345');
-
+INSERT INTO platopedido(id,estadoplato) VALUES (1, 1);
 
 INSERT INTO pedido(id,fechapedido,fechaentrega,costetotal,hallegado,proveedor_id) VALUES (1, '2020-01-04', '2020-01-20', 20, 'TRUE', 1);
 INSERT INTO lineapedido(id,producto_id,cantidad,precio,pedido_id) VALUES (1, 1, 10, 2.0, 1);
