@@ -145,3 +145,6 @@ INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (18, 'Curro', '2015
 
 INSERT INTO users(username,password,enabled) VALUES ('jose','12345',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (9,'jose','propietario');
+
+INSERT INTO users(username,password,enabled) VALUES ('pablo','12345',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (10,'pablo','camarero');
