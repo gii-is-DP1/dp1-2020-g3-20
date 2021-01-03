@@ -4,15 +4,21 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Camarero;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.CamareroRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CamareroService {
-
+	@Autowired
+	private UserService userService;
+	
 	@Autowired
 	private CamareroRepository camRep;
+	
+	@Autowired
+	private AuthoritiesService authoritiesService;
 	
 	@Transactional
 	public int camareroCount() {
@@ -29,6 +35,11 @@ public class CamareroService {
 
 	@Transactional
 	public Camarero guardarCamarero(Camarero camarero) {
+		//creating user
+		User user=authoritiesService.crearUsuario(camarero.getUsuario(), camarero.getContrasena());
+		userService.saveUser(user);
+		//creating authorities
+		authoritiesService.saveAuthorities(camarero.getUsuario(), "camarero");
 		return camRep.save(camarero);
 		
 	}

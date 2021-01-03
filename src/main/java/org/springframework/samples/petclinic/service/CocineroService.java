@@ -4,13 +4,19 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cocinero;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.CocineroRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CocineroService {
-
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private AuthoritiesService authoritiesService;
+	
 	@Autowired
 	private CocineroRepository cocineroRepo;
 	
@@ -27,6 +33,11 @@ public class CocineroService {
 
 	@Transactional
 	public Cocinero guardarCocinero(Cocinero cocinero) {
+		//creating user
+				User user=authoritiesService.crearUsuario(cocinero.getUsuario(), cocinero.getContrasena());
+				userService.saveUser(user);
+				//creating authorities
+				authoritiesService.saveAuthorities(cocinero.getUsuario(), "cocinero");
 		return cocineroRepo.save(cocinero);
 		
 	}

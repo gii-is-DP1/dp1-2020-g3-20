@@ -8,6 +8,8 @@ INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
 INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 
+
+
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
 INSERT INTO vets VALUES (3, 'Linda', 'Douglas');
@@ -89,6 +91,8 @@ INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'taburete', 'E
 INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (2, 'el', 'Pana', 'elpana@gmail.com',696969696);
 INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2, 'Alexander', 'El Tribandera', 'tribanderaAlexito@gmail.com', 678431588,'Alex', '12345');
 INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Abdel', 'Ch', 'Abdch@gmail.com', 602354622,'Abd', '12345');
+
+
 INSERT INTO platopedido(id,estadoplato,plato_id) VALUES (1, 1, 1);
 
 INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima) VALUES (2,1,'Carne picada', '2030-01-01', 2, 5, 20);
@@ -137,3 +141,7 @@ INSERT INTO users(username,password,enabled) VALUES ('jostabrod','vEvRvOL123',TR
 INSERT INTO authorities(id,username,authority) VALUES (8,'jostabrod','owner');
 INSERT INTO owners VALUES (15, 'Jose', 'Tabares', 'Calle Franco', 'Sevilla', '647235916', 'jostabrod');
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (18, 'Curro', '2015-01-18', 2, 15);
+
+
+INSERT INTO users(username,password,enabled) VALUES ('jose','12345',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (9,'jose','propietario');

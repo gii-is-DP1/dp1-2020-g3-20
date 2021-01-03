@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.model.Propietario;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.PropietarioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,11 @@ public class PropietarioService {
 	@Autowired
 	private PropietarioRepository propRepo;
 	
+	@Autowired
+	private AuthoritiesService authoritiesService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Transactional
 	public int propietarioCount() {
@@ -31,6 +37,11 @@ public class PropietarioService {
 	}
 	@Transactional
 	public Propietario guardarPropietario(Propietario propietario) {
+		//creating user
+				User user=authoritiesService.crearUsuario(propietario.getUsuario(), propietario.getContrasena());
+				userService.saveUser(user);
+				//creating authorities
+				authoritiesService.saveAuthorities(propietario.getUsuario(), "propietario");
 		return propRepo.save(propietario);
 	}
 	
