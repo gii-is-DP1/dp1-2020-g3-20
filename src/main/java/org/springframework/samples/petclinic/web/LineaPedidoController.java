@@ -4,7 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.LineaPedido;
-import org.springframework.samples.petclinic.service.ProductoService;
+import org.springframework.samples.petclinic.service.ProveedorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -17,16 +17,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LineaPedidoController {
 	
 	@Autowired
-	private ProductoService productoService;
+	private ProveedorService proveedorService;
 	
 	@GetMapping()
 	public String listadoDeLineaPedido(ModelMap modelMap) {
 		String vista="lineaPedido/listaLineaPedido";
-		Iterable<LineaPedido> lineaPedido= productoService.findAllLineaPedido();
+		Iterable<LineaPedido> lineaPedido= proveedorService.findAllLineaPedido();
 		modelMap.addAttribute("lineaPedido", lineaPedido);
 		return vista;
 	}
 	
+	@GetMapping(path="/porPedido")
+	public String listadoDeLineaPedidosPorPedido(Integer pedidoID, ModelMap modelMap) {
+		String vista="lineaPedido/listaLineaPedido";
+		Iterable<LineaPedido> lineapedido= proveedorService.findLineaPedidoByPedidoId(pedidoID);
+		modelMap.addAttribute("lineapedido", lineapedido);
+		return vista;
+	}
 	
 	@GetMapping(path="/new")
 	public String crearLineaPedido(ModelMap modelMap) {
@@ -43,7 +50,7 @@ public class LineaPedidoController {
 			modelMap.addAttribute("lineaPedido", lineaPedido);
 			return "lineaPedido/editLineaPedido";
 		}else {
-			productoService.saveLineaPedido(lineaPedido);
+			proveedorService.saveLineaPedido(lineaPedido);
 			modelMap.addAttribute("message", "lineaPedido successfuly saved");
 			view=listadoDeLineaPedido(modelMap);
 		}

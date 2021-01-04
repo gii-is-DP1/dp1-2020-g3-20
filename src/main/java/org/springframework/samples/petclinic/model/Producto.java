@@ -28,13 +28,16 @@ public class Producto extends NamedEntity{
 	private LocalDate fechaCaducidad;
 
 	@Column(name = "cantidad_minima")
-	private int cantMin;
+	private double cantMin;
 
 	@Column(name = "cantidad_actual")
-	private int cantAct;
+	private double cantAct;
 	
 	@Column(name = "cantidad_maxima")
-	private int cantMax;
+	private double cantMax;
+	
+	@Column(name = "proveedor")
+	private String proveedor;
 	
 	
 	public TipoProducto getTipoProducto() {
@@ -53,27 +56,35 @@ public class Producto extends NamedEntity{
 		this.fechaCaducidad = fechaCaducidad;
 	}
 
-	public int getCantMin() {
+	public double getCantMin() {
 		return cantMin;
 	}
 
-	public void setCantMin(int cantMin) {
+	public void setCantMin(double cantMin) {
 		this.cantMin = cantMin;
 	}
 
-	public int getCantAct() {
+	public double getCantAct() {
 		return cantAct;
 	}
 
-	public void setCantAct(int cantAct) {
+	public void setCantAct(double cantAct) {
 		this.cantAct = cantAct;
 	}
 
-	public int getCantMax() {
+	public double getCantMax() {
 		return cantMax;
 	}
 
-	public void setCantMax(int cantMax) {
+	public void setCantMax(double cantMax) {
 		this.cantMax = cantMax;
+	}
+	
+	public String getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(String proveedor) {
+		this.proveedor = proveedor;
 	}
 }

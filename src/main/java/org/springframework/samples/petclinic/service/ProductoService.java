@@ -16,17 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ProductoService {
 	
-	private ProductoRepository productoRepo;
-	//Hemos añadido lineaPedido 
-	private LineaPedidoRepository linRepo;
-	
-	//Hemos añadido esto
 	@Autowired
-	public ProductoService(ProductoRepository productoRepo,
-			LineaPedidoRepository linRepo) {
-		this.productoRepo = productoRepo;
-		this.linRepo = linRepo;
-	}
+	private ProductoRepository productoRepo;
+
 	
 	@Transactional
 	public int productoCount() {
@@ -63,25 +55,4 @@ public class ProductoService {
 		return productoRepo.encontrarTiposProducto();
 	}
 	
-	
-	@Transactional
-	public void saveLineaPedido(LineaPedido lineaPedido) throws DataAccessException {
-		linRepo.save(lineaPedido);
-	}
-	
-	@Transactional
-	public void borrarLineaPedido(Integer id) {
-		linRepo.deleteById(id);
-	}
-	
-	
-	@Transactional
-	public Iterable<LineaPedido> findAllLineaPedido(){
-		return linRepo.findAll();
-	}
-	
-	@Transactional
-	public Optional<LineaPedido> buscaLineaPedido(Integer id) {
-		return linRepo.findById(id);
-	}
 }

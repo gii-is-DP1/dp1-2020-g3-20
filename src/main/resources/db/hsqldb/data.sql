@@ -86,9 +86,14 @@ INSERT INTO platos VALUES (6, 'Ensalada', '4', TRUE);
 
 INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Victor', 'El Tito', 'eltitovictor@gmail.com',6464646464,'Bones','12345');
 INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Horacio', 'Garcia', 'horgarler@gmail.com',6969696969,'Hori','qwerty');
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima) VALUES (1,6,'Pan', '2020-01-01', 2, 5, 10);
+INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (1,6,'Pan', '2020-01-01', 2.0, 5.0, 10.0,'taburete');
+INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (2,1,'Solomillo', '2020-01-01', 3.0, 1.0, 10.0,'taburete');
+INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (3,2,'Pez Espada', '2020-01-01', 2.0, 6.0, 10.0, 'taburete');
+INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (4,3,'lechuga', '2020-01-01', 5.0, 10.0, 15.0, 'el');
+INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (5,4,'leche', '2020-01-01', 6.0, 20.0, 25.0, 'el');
 INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'taburete', 'El capo', 'eltitocapo@gmail.com',646464664);
 INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (2, 'el', 'Pana', 'elpana@gmail.com',696969696);
+INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (3, 'Alex', 'Hossdorf', 'alexito@gmail.com',777777777);
 INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2, 'Alexander', 'El Tribandera', 'tribanderaAlexito@gmail.com', 678431588,'Alex', '12345');
 INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Abdel', 'Ch', 'Abdch@gmail.com', 602354622,'Abd', '12345');
 

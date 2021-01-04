@@ -17,6 +17,7 @@
             <th>Cantidad Mínima</th>
             <th>Cantidad Actual</th>
             <th>Cantidad Máxima</th>
+            <th>Proveedor</th>
             <th>Acciones</th>
         </tr>
         </thead>
@@ -42,14 +43,23 @@
                    	<c:out value="${producto.cantMax}"/>
                 </td>
                 <td>
+                   	<c:out value="${producto.proveedor}"/>
+                </td>
+                <td>
                    <spring:url value="/producto/edit/{productoId}" var="productoURL">
                    		  <spring:param name="productoId" value="${producto.id}"/>
                    </spring:url>
                    <a href="${fn:escapeXml(productoURL)}">Editar</a>
+                   
                    <spring:url value="/producto/delete/{productoId}" var="productoURL">
                    		  <spring:param name="productoId" value="${producto.id}"/>
                    </spring:url>
                    <a href="${fn:escapeXml(productoURL)}">Eliminar</a>
+                   
+                   <spring:url value="/producto/savePedido/{productoId}" var="productoURL">
+                   		  <spring:param name="productoId" value="${producto.id}"/>
+                   </spring:url>
+                   <a href="${fn:escapeXml(productoURL)}">Pedir</a>          
                 </td>                
             </tr>
         </c:forEach>

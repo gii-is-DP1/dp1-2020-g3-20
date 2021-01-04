@@ -14,7 +14,7 @@ import lombok.Data;
 public class LineaPedido extends BaseEntity{
 
 	@Column(name = "cantidad")        
-	private Integer cantidad;
+	private double cantidad;
 	
 	@Column(name = "precio")        
 	private Double precio;
@@ -32,11 +32,11 @@ public class LineaPedido extends BaseEntity{
     
 	
 	
-	public Integer getCantidad() {
+	public double getCantidad() {
 		return this.cantidad;
 	}
 	
-	public void setCantidad (Integer cantidad) {
+	public void setCantidad (double cantidad) {
 		this.cantidad = cantidad;
 	}
 	

@@ -8,12 +8,16 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.model.ProductoDTO;
+import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.samples.petclinic.model.TipoProducto;
 import org.springframework.samples.petclinic.service.ProductoService;
+import org.springframework.samples.petclinic.service.ProveedorService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Controller;
 import org.springframework.samples.petclinic.web.TipoProductoFormatter;
@@ -30,6 +34,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProductoController {
 	@Autowired
 	private ProductoService productoService;
+	
+	@Autowired 
+	private ProveedorService proveedorService;
 	
 	@Autowired
 	private ProductoConverter productoConverter;
@@ -54,7 +61,9 @@ public class ProductoController {
 		public String crearProducto(ModelMap modelMap) {
 			String vista= "producto/editProducto";
 			Collection<TipoProducto> collectionTipoProducto = this.productoService.encontrarTiposProducto();
+			Collection<String> collectionProveedor = this.proveedorService.findAllNames();
 			modelMap.addAttribute("producto",new ProductoDTO());
+			modelMap.addAttribute("listaProveedores", collectionProveedor);
 			modelMap.addAttribute("listaTipos", collectionTipoProducto);
 			return vista;
 		}
@@ -102,8 +111,11 @@ public class ProductoController {
 			model.addAttribute("listaTipos", collectionTipoProducto);
 			Producto producto =  productoService.buscaProductoPorId(productoId).get();
 			ProductoDTO productoConvertido = productoConverter.convertEntityToProductoDTO(producto);
+
+			Collection<String> collectionProveedor = this.proveedorService.findAllNames();
 			productoConvertido.setTipoproductodto(producto.getTipoProducto().getName());
-			System.out.println(productoConvertido.toString());
+			model.addAttribute("listaProveedores", collectionProveedor);
+
 			model.addAttribute("producto", productoConvertido);
 			return vista;
 		}
@@ -121,4 +133,26 @@ public class ProductoController {
 			return "redirect:/producto";
 		}
 	}
+			
+		
+		@GetMapping(path="/savePedido/{productoId}")
+		public String recargarStock(@PathVariable("productoId") int productoId, ModelMap modelMap) {
+			String vista= "producto/listaProducto";
+			Optional<Producto> prod= productoService.buscaProductoPorId(productoId);
+			if(prod.isPresent()) {
+				Producto p = prod.get();
+				String proveedor = p.getProveedor();
+				Pedido pedido = proveedorService.crearPedido(proveedor);
+				LineaPedido lp = proveedorService.crearLineaPedido(p, pedido);
+//				modelMap.addAttribute("pedido", pedido);
+				proveedorService.savePedido(pedido);
+				proveedorService.saveLineaPedido(lp);
+				modelMap.addAttribute("message", "Se ha creado el pedido correctamente");
+				vista = listadoProducto(modelMap);
+			}else {
+				modelMap.addAttribute("message", "not found");
+				vista=listadoProducto(modelMap);
+			}
+			return vista;
+		}
 }
