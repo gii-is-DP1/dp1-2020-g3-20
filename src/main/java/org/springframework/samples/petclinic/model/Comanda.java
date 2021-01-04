@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.model;
+/*package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
 
@@ -30,4 +30,4 @@ public class Comanda extends BaseEntity{
 	
 	
 	
-}
+}*/
