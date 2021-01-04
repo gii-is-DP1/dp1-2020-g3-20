@@ -21,11 +21,10 @@
 				<petclinic:selectField name="proveedor" label="Proveedor " names="${listaProveedores}" size="6"/>
             </div>
         </div>
-      <div class="form-group">
+      	<div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="hidden" name="id" value="${producto.id}">  
                 <button class="btn btn-default" type="submit">Actualizar producto</button>
-                  
             </div>
         </div>
     </form:form>

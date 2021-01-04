@@ -83,7 +83,6 @@ public class ProductoController {
 				vista=listadoProducto(modelMap);
 			}
 			return vista; 
-			
 		}
 		
 		@GetMapping(path="/delete/{productoId}")
@@ -112,10 +111,11 @@ public class ProductoController {
 			model.addAttribute("listaTipos", collectionTipoProducto);
 			Producto producto =  productoService.buscaProductoPorId(productoId).get();
 			ProductoDTO productoConvertido = productoConverter.convertEntityToProductoDTO(producto);
+
 			Collection<String> collectionProveedor = this.proveedorService.findAllNames();
 			productoConvertido.setTipoproductodto(producto.getTipoProducto().getName());
-			System.out.println(productoConvertido.toString());
 			model.addAttribute("listaProveedores", collectionProveedor);
+
 			model.addAttribute("producto", productoConvertido);
 			return vista;
 		}

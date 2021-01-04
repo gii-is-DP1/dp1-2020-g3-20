@@ -3,39 +3,47 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
 
 <petclinic:layout pageName="home">
-    <h2><fmt:message key="welcome"/></h2>
+
+
+    <sec:authorize access="hasAuthority('admin')">
+		<a class="btn btn-default" href='<spring:url value="/owners/new" htmlEscape="true"/>'>Add Owner</a>
+	</sec:authorize>
+	
+	<sec:authorize access="!isAuthenticated()">
+	
+	<H1 align="center">
+	bienvenido a foorder, por favor identifícate y disfruta de la aplicación
+	<br>
+	
+	<img  src="resources/images/restaurante.jpg">
+	
+	<br>
+	<br>
+	
+		<a href="<c:url value="/login" />">Login</a>
+	</H1>
+	</sec:authorize>
+
+	<sec:authorize access="isAuthenticated()">
+	<H1>Bienvenido
+	<sec:authentication property="name" />
+	
+	</H1>
+	Busca arriba todas las funcionalidades pertenecientes a tu rol!
+	</sec:authorize>
+	
+	
+
     <div class="row">
-    <h2>Project ${title}</h2>
-    <p><h2>Group ${group} </h2></p>
-        <img src="/resources/images/Foorder1x191.png" alt="FoorderLogo"/>
-        <form method="get" action="/propietarios">
-      		<button class="btn btn-default" type="submit">Propietarios</button>
- 		</form>
-  		<form method="get" action="/managers">
-      		<button class="btn btn-default" type="submit">Managers</button>
-  		</form>
-  		<form method="get" action="/camareros">
-      		<button class="btn btn-default" type="submit">Camareros</button>
-  		</form>
-  		<form method="get" action="/cocinero">
-      		<button class="btn btn-default" type="submit">Cocineros</button>
-  		</form>
-  		<form method="get" action="/proveedor">
-      		<button class="btn btn-default" type="submit">Proveedores</button>
-  		</form>
-  		<form method="get" action="/platos">
-      		<button class="btn btn-default" type="submit">Platos</button>
-  		</form>
-  		<form method="get" action="/producto">
-      		<button class="btn btn-default" type="submit">Productos</button>
-  		</form>
-    	<p><ul>
-    	<c:forEach items="${people}" var="person">
-    		<li>${person.firstName} ${person.lastName}</li>
-    	</c:forEach>
-    	</ul></p>
+    <footer>
+       <H1 align="left"> <img src="/resources/images/Foorder1x191.png" alt="FoorderLogo"/></H1>
+	</footer>
+    	
     </div>
 </petclinic:layout>
