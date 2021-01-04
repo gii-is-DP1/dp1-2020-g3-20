@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.samples.petclinic.service.ProveedorService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,9 +43,16 @@ public class ProveedorController {
 			modelMap.addAttribute("proveedor", proveedor);
 			return "proveedor/editProveedor";
 		}else {
-			proveedorService.save(proveedor);
-			modelMap.addAttribute("message", "proveedor successfuly saved");
-			view=listadoDeProveedores(modelMap);
+				if (proveedorService.esIgual(proveedor.getName(), proveedor.getapellido())) {
+					modelMap.addAttribute("message", "El proveedor ya existe");
+					modelMap.addAttribute("proveedor", proveedor);
+					return "proveedor/editProveedor";
+				} else {
+					proveedorService.save(proveedor);
+					modelMap.addAttribute("message", "proveedor successfuly saved");
+					view=listadoDeProveedores(modelMap);
+				}
+			
 		}
 		return view	;
 		
@@ -54,7 +62,7 @@ public class ProveedorController {
 		String view= "proveedor/listadoDeProveedores";
 		Optional<Proveedor> proveedor= proveedorService.provedroporid(proveedorid);
 		if(proveedor.isPresent()) {
-			proveedorService.delete(proveedor.get());
+			proveedorService.borrarProv(proveedorid);
 			modelMap.addAttribute("message", "proveedor successfuly deleted");
 			view=listadoDeProveedores(modelMap);
 		}else {
@@ -64,6 +72,8 @@ public class ProveedorController {
 		return view;
 		
 	}
+	
+
 	@GetMapping(value = "/edit/{proveedorId}")
 	public String initUpdateProveedorForm(@PathVariable("proveedorId") int proveedorId, ModelMap model) {
 		String vista= "proveedor/editarProveedor";
