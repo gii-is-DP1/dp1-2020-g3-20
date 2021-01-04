@@ -91,6 +91,7 @@ INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,canti
 INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (3,2,'Pez Espada', '2020-01-01', 2.0, 6.0, 10.0, 'taburete');
 INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (4,3,'lechuga', '2020-01-01', 5.0, 10.0, 15.0, 'el');
 INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (5,4,'leche', '2020-01-01', 6.0, 20.0, 25.0, 'el');
+INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (6,4,'yogurt', '2020-01-01', 5.0, 15.0, 20.0, 'el');
 INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'taburete', 'El capo', 'eltitocapo@gmail.com',646464664);
 INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (2, 'el', 'Pana', 'elpana@gmail.com',696969696);
 INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (3, 'Alex', 'Hossdorf', 'alexito@gmail.com',777777777);
@@ -99,14 +100,6 @@ INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena) VALU
 
 
 INSERT INTO platopedido(id,estadoplato,plato_id) VALUES (1, 1, 1);
-
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima) VALUES (2,1,'Carne picada', '2030-01-01', 2, 5, 20);
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima) VALUES (3,2,'Pez Espada', '2030-01-01', 2, 5, 30);
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima) VALUES (4,4,'Leche', '2030-01-01', 2, 5, 30);
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima) VALUES (5,5,'Cocacola', '2030-01-01', 2, 5, 40);
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima) VALUES (6,3,'Lechuga', '2030-01-01', 2, 5, 40);
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima) VALUES (7,1,'Huevo', '2030-01-01', 2, 5, 40);
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima) VALUES (8,6,'Pasta', '2030-01-01', 2, 5, 60);
 
 INSERT INTO ingrediente VALUES (1,2,3);
 INSERT INTO ingrediente VALUES (2,3,6);
