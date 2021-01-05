@@ -134,6 +134,11 @@ public class ProveedorService {
 		return pediRepo.findAll();
 	}
 	
+	@Transactional
+	public Optional<Pedido> pedidoPorId(Integer id) {
+		return pediRepo.findById(id);
+	} 
+	
 	public Iterable<Pedido> findPedidoByProveedorId(int proveedorID) {
 		
 		return pediRepo.findByProveedorId(proveedorID);

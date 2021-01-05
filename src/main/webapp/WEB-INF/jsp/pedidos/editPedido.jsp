@@ -24,9 +24,10 @@
             	<petclinic:inputField label="fechaEntrega" name="fechaEntrega"/>
             	<petclinic:inputField label="costeTotal" name="costeTotal"/>
             	<petclinic:inputField label="haLlegado" name="haLlegado"/>
-            	<div class="control-group">
+            	<petclinic:inputField label="proveedor" name="proveedor"/>
+            	<%-- <div class="control-group">
                     <petclinic:selectField name="proveedor" label="proveedor " names="${proveedor}" size="5"/>
-                </div>
+                </div>--%>
         	</div>
         	<div class="form-group">
             	<div class="col-sm-offset-2 col-sm-10">

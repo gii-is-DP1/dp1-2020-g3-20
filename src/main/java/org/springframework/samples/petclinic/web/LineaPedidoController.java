@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.LineaPedido;
+import org.springframework.samples.petclinic.model.ProductoDTO;
 import org.springframework.samples.petclinic.service.ProveedorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,7 +32,7 @@ public class LineaPedidoController {
 	public String listadoDeLineaPedidosPorPedido(Integer pedidoID, ModelMap modelMap) {
 		String vista="lineaPedido/listaLineaPedido";
 		Iterable<LineaPedido> lineapedido= proveedorService.findLineaPedidoByPedidoId(pedidoID);
-		modelMap.addAttribute("lineapedido", lineapedido);
+		modelMap.addAttribute("lineaPedido", lineapedido);
 		return vista;
 	}
 	
@@ -39,6 +40,7 @@ public class LineaPedidoController {
 	public String crearLineaPedido(ModelMap modelMap) {
 		String view= "lineaPedido/editLineaPedido";
 		modelMap.addAttribute("lineaPedido",new LineaPedido());
+		modelMap.addAttribute("productoString", new ProductoDTO());
 		return view;
 	}
 	
@@ -46,6 +48,7 @@ public class LineaPedidoController {
 	@PostMapping(path="/save")
 	public String guardarLineaPedido(@Valid LineaPedido lineaPedido,BindingResult result,ModelMap modelMap) {
 		String view= "lineaPedido/listaLineaPedido";
+		
 		if(result.hasErrors()) {
 			modelMap.addAttribute("lineaPedido", lineaPedido);
 			return "lineaPedido/editLineaPedido";
