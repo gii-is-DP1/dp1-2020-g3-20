@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.EstadoPlato;
-import org.springframework.samples.petclinic.model.Plato;
 import org.springframework.samples.petclinic.model.PlatoPedido;
 import org.springframework.samples.petclinic.repository.PlatoPedidoRepository;
 import org.springframework.stereotype.Service;
@@ -62,5 +61,11 @@ public class PlatoPedidoService {
 	public Collection<String> encontrarPlatos() throws DataAccessException {
 		return ppRepo.encontrarPlatos();
 	}
+	
+//	//Esto pertenece a la clase Comanda
+//	@Transactional(readOnly = true)
+//	public Collection<IngredientePedido> encontrarIngredientePedido() throws DataAccessException {
+//		return ppRepo.encontrarIngredientePedido();
+//	}
 		
 }

@@ -34,7 +34,7 @@
                     <c:out value="${pedido.costeTotal}"/>
                 </td>
                 <td>
-                   	<c:out value="${pedido.haLlegado}"/>
+                   	<c:out value="${pedido.haLlegado ? 'Si' : 'No'}"/>
                 </td>
                 <td>
                    	<c:out value="${pedido.proveedor.name}"/>
@@ -44,7 +44,7 @@
                 </td>  
                 <td>
                 	<c:choose>
-  						<c:when test="${pedido.haLlegado.equals('FALSE')}">
+  						<c:when test="${!pedido.haLlegado}">
     				    	<spring:url value="/pedidos/terminarPedido/{pedidoID}" var="pedidoURL">
                    		  	<spring:param name="pedidoID" value="${pedido.id}"/>
                    			</spring:url>

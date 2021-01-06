@@ -107,9 +107,9 @@ class ValidatorTests {
 			LocaleContextHolder.setLocale(Locale.ENGLISH);
 			Proveedor Proveedor = new Proveedor();
 			Proveedor.setName("juan");;
-			Proveedor.setapellido("montes");
+			Proveedor.setApellido("montes");
 			Proveedor.setTelefono("600234321");
-			Proveedor.setgmail("dbfche@gmail.com");
+			Proveedor.setGmail("dbfche@gmail.com");
 
 			Validator validator = createValidator();
 			Set<ConstraintViolation<Proveedor>> constraintViolations = validator.validate(Proveedor);
@@ -123,9 +123,9 @@ class ValidatorTests {
 
 			Proveedor Proveedor = new Proveedor();
 			Proveedor.setName("");
-			Proveedor.setapellido("");
+			Proveedor.setApellido("");
 			Proveedor.setTelefono("");
-			Proveedor.setgmail("");
+			Proveedor.setGmail("");
 
 			Validator validator = createValidator();
 			Set<ConstraintViolation<Proveedor>> constraintViolations = validator.validate(Proveedor);

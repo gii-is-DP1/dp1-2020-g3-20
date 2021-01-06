@@ -20,10 +20,7 @@
 		<h2>Pedido</h2>
     	<form:form modelAttribute="pedido" class="form-horizontal" id="add-pedido-form" action="/pedidos/save">
         	<div class="form-group has-feedback">
-           		<petclinic:inputField label="fechaPedido" name="fechaPedido"/>
-            	<petclinic:inputField label="fechaEntrega" name="fechaEntrega"/>
             	<petclinic:inputField label="costeTotal" name="costeTotal"/>
-            	<petclinic:inputField label="haLlegado" name="haLlegado"/>
             	<petclinic:inputField label="proveedor" name="proveedor"/>
             	<%-- <div class="control-group">
                     <petclinic:selectField name="proveedor" label="proveedor " names="${proveedor}" size="5"/>

@@ -105,9 +105,9 @@ INSERT INTO ingrediente VALUES (1,2,3);
 INSERT INTO ingrediente VALUES (2,3,6);
 
 
-INSERT INTO pedido(id,fechapedido,fechaentrega,costetotal,hallegado,proveedor_id) VALUES (1, '2020-01-04', '2020-01-20', 20, 'FALSE', 1);
+INSERT INTO pedido(id,fechapedido,costetotal,hallegado,proveedor_id) VALUES (1, '2020-01-04', 20, FALSE, 1);
 INSERT INTO lineapedido(id,producto_id,cantidad,precio,pedido_id) VALUES (1, 1, 10, 2.0, 1);
-INSERT INTO pedido(id,fechapedido,fechaentrega,costetotal,hallegado,proveedor_id) VALUES (2, '2022-04-08', '2022-04-10', 80, 'TRUE', 2);
+INSERT INTO pedido(id,fechapedido,fechaentrega,costetotal,hallegado,proveedor_id) VALUES (2, '2020-01-05', '2020-01-06', 80, TRUE, 2);
 INSERT INTO lineapedido(id,producto_id,cantidad,precio,pedido_id) VALUES (2, 1, 52, 9.0, 2);
 
 

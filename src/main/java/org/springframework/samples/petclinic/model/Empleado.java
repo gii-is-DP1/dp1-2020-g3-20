@@ -3,19 +3,19 @@ package org.springframework.samples.petclinic.model;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @MappedSuperclass
-public class Empleado extends BaseEntity {
+public class Empleado extends NamedEntity {
 
-	@Column(name = "name")
-	@NotEmpty
-	private String name;
-    
     @Size(min = 3, max = 50)
 	@Column(name = "apellido")
 	private String apellido;
+    
     @Email(message="text is not a valid email")
     @Size(min = 3, max = 50)
 	@Column(name = "gmail")
@@ -32,64 +32,5 @@ public class Empleado extends BaseEntity {
     @Size(min = 3, max = 50)
 	@Column(name = "contrasena")
 	private String contrasena;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public String getGmail() {
-		return gmail;
-	}
-
-	public void setGmail(String gmail) {
-		this.gmail = gmail;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-	
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
-	public String getContrasena() {
-		return contrasena;
-	}
-
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
-	}
-
-	@Override
-	public String toString() {
-		return "Empleado [name=" + name + ", apellido=" + apellido + ", gmail=" + gmail + ", telefono=" + telefono
-				+ ", usuario=" + usuario + "]";
-	}
-
-
-
-
-	
-
+    
 }

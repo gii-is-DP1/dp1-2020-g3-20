@@ -43,7 +43,7 @@ public class ProveedorController {
 			modelMap.addAttribute("proveedor", proveedor);
 			return "proveedor/editProveedor";
 		}else {
-				if (proveedorService.esIgual(proveedor.getName(), proveedor.getapellido())) {
+				if (proveedorService.esIgual(proveedor.getName(), proveedor.getApellido())) {
 					modelMap.addAttribute("message", "El proveedor ya existe");
 					modelMap.addAttribute("proveedor", proveedor);
 					return "proveedor/editProveedor";

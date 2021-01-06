@@ -1,12 +1,14 @@
 package org.springframework.samples.petclinic.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class PlatoPedidoDTO {
+	
 	private Integer id;
-	
 	private String estadoplatodto;
-	
 	private String platodto;
+	
 }

@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Plato;
 import org.springframework.samples.petclinic.service.PlatoService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -67,7 +66,6 @@ public class PlatoController {
 			vista=listadoPlatos(modelMap);
 		}
 		return vista;
-		
 	}
 	
 
@@ -88,12 +86,9 @@ public class PlatoController {
 			modelMap.addAttribute("plato", plato);
 		
 			return vista;
-		}
-		else {
+		}else {
 		this.platoService.guardarPlato(plato);
 			return "redirect:/platos";
+		}
 	}
-		
-	}
-
 }

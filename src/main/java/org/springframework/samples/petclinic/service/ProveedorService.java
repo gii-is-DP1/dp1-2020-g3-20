@@ -79,7 +79,7 @@ public class ProveedorService {
 	
 		while (it.hasNext()) {
 			Proveedor p = it.next();
-			if (p.getName().equals(nombre) && p.getapellido().equals(apellido)) {
+			if (p.getName().equals(nombre) && p.getApellido().equals(apellido)) {
 				aux = true;
 			}	
 		}
@@ -124,7 +124,7 @@ public class ProveedorService {
 		Proveedor aux = findProveedorbyName(proveedor);
 		pedido.setProveedor(aux);
 		pedido.setFechaPedido(LocalDate.now());
-		pedido.setHaLlegado("FALSE");
+		pedido.setHaLlegado(Boolean.FALSE);
 		pedido.setCosteTotal(8.0);
 		return pedido;
 	}
