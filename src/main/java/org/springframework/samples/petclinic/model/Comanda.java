@@ -24,8 +24,4 @@ public class Comanda extends BaseEntity{
 	@Column(name = "fecha_finalizado")
 	private LocalDateTime fechaFinalizado;
 	
-	private void setFechaCreado() {
-		this.fechaCreado = LocalDateTime.now();
-	}
-	
 }
