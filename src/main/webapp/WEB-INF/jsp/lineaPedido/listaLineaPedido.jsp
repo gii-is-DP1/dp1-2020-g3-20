@@ -13,7 +13,6 @@
         <tr>
             <th>Producto</th>
             <th>Cantidad</th>
-            <th>Precio</th>
             <th>Pedido</th>
         </tr>
         </thead>
@@ -25,9 +24,6 @@
                 </td>
                 <td>
                     <c:out value="${lineaPedido.cantidad}"/>
-                </td>
-                <td>
-                    <c:out value="${lineaPedido.precio}"/>
                 </td>
                 <td>
                    	<c:out value="${lineaPedido.pedido.id}"/>

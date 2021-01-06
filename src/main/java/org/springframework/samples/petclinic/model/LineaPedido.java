@@ -18,9 +18,6 @@ public class LineaPedido extends BaseEntity{
 	@Column(name = "cantidad")        
 	private double cantidad;
 	
-	@Column(name = "precio")        
-	private Double precio;
-	
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "producto_id")
 	private Producto producto;

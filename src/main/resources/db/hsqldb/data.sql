@@ -65,12 +65,12 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
 
-INSERT INTO tipoproducto VALUES (1, 'carne');
-INSERT INTO tipoproducto VALUES (2, 'pescado');
-INSERT INTO tipoproducto VALUES (3, 'frutas y verduras');
-INSERT INTO tipoproducto VALUES (4, 'lacteos');
-INSERT INTO tipoproducto VALUES (5, 'bebidas');
-INSERT INTO tipoproducto VALUES (6, 'otros');
+INSERT INTO tipoproducto VALUES (1, 'Carne');
+INSERT INTO tipoproducto VALUES (2, 'Pescado');
+INSERT INTO tipoproducto VALUES (3, 'Frutas y Verduras');
+INSERT INTO tipoproducto VALUES (4, 'Lácteos');
+INSERT INTO tipoproducto VALUES (5, 'Bebidas');
+INSERT INTO tipoproducto VALUES (6, 'Otros');
 
 INSERT INTO estadoplato VALUES (1, 'ENPROCESO');
 INSERT INTO estadoplato VALUES (2, 'ENCOLA');
@@ -83,18 +83,17 @@ INSERT INTO platos VALUES (4, 'Huevo frito', '4', TRUE);
 INSERT INTO platos VALUES (5, 'Salchichon', '4', TRUE);
 INSERT INTO platos VALUES (6, 'Ensalada', '4', TRUE);
 
-
+INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'Taburete', 'El capo', 'eltitocapo@gmail.com',646464664);
+INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (2, 'El', 'Pana', 'elpana@gmail.com',696969696);
+INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (3, 'Alex', 'Hossdorf', 'alexito@gmail.com',777777777);
 INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Victor', 'El Tito', 'eltitovictor@gmail.com',6464646464,'Bones','12345');
 INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Horacio', 'Garcia', 'horgarler@gmail.com',6969696969,'Hori','qwerty');
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (1,6,'Pan', '2020-01-01', 2.0, 5.0, 10.0,'taburete');
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (2,1,'Solomillo', '2020-01-01', 3.0, 1.0, 10.0,'taburete');
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (3,2,'Pez Espada', '2020-01-01', 2.0, 6.0, 10.0, 'taburete');
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (4,3,'lechuga', '2020-01-01', 5.0, 10.0, 15.0, 'el');
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (5,4,'leche', '2020-01-01', 6.0, 20.0, 25.0, 'el');
-INSERT INTO producto(id,tipo_producto,name,fecha_caducidad,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor) VALUES (6,4,'yogurt', '2020-01-01', 5.0, 15.0, 20.0, 'el');
-INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'taburete', 'El capo', 'eltitocapo@gmail.com',646464664);
-INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (2, 'el', 'Pana', 'elpana@gmail.com',696969696);
-INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (3, 'Alex', 'Hossdorf', 'alexito@gmail.com',777777777);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (1,6,'Pan', 2.0, 5.0, 10.0, 1);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (2,1,'Solomillo', 3.0, 1.0, 10.0, 1);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (3,2,'Pez Espada', 2.0, 6.0, 10.0, 1);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (4,3,'lechuga', 5.0, 10.0, 15.0, 2);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (5,4,'leche', 6.0, 20.0, 25.0, 2);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (6,4,'yogurt', 5.0, 15.0, 20.0, 3);
 INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2, 'Alexander', 'El Tribandera', 'tribanderaAlexito@gmail.com', 678431588,'Alex', '12345');
 INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Abdel', 'Ch', 'Abdch@gmail.com', 602354622,'Abd', '12345');
 
@@ -106,9 +105,9 @@ INSERT INTO ingrediente VALUES (2,3,6);
 
 
 INSERT INTO pedido(id,fechapedido,costetotal,hallegado,proveedor_id) VALUES (1, '2020-01-04', 20, FALSE, 1);
-INSERT INTO lineapedido(id,producto_id,cantidad,precio,pedido_id) VALUES (1, 1, 10, 2.0, 1);
+INSERT INTO lineapedido(id,producto_id,cantidad,pedido_id) VALUES (1, 1, 10, 1);
 INSERT INTO pedido(id,fechapedido,fechaentrega,costetotal,hallegado,proveedor_id) VALUES (2, '2020-01-05', '2020-01-06', 80, TRUE, 2);
-INSERT INTO lineapedido(id,producto_id,cantidad,precio,pedido_id) VALUES (2, 1, 52, 9.0, 2);
+INSERT INTO lineapedido(id,producto_id,cantidad,pedido_id) VALUES (2, 1, 52, 2);
 
 
 INSERT INTO users(username,password,enabled) VALUES ('f3rangmor','f3rpass',TRUE);

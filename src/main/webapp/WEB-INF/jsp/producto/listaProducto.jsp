@@ -13,7 +13,6 @@
         <tr>
             <th>Nombre</th>
             <th>Tipo Producto</th>
-            <th>Fecha Caducidad</th>
             <th>Cantidad Mínima</th>
             <th>Cantidad Actual</th>
             <th>Cantidad Máxima</th>
@@ -31,9 +30,6 @@
                     <c:out value="${producto.tipoProducto}"/>
                 </td>
                 <td>
-                    <c:out value="${producto.fechaCaducidad}"/>
-                </td>
-                <td>
                     <c:out value="${producto.cantMin}"/>
                 </td>
                 <td>
@@ -43,7 +39,7 @@
                    	<c:out value="${producto.cantMax}"/>
                 </td>
                 <td>
-                   	<c:out value="${producto.proveedor}"/>
+                   	<c:out value="${producto.proveedor.name}"/>
                 </td>
                 <td>
                    <spring:url value="/producto/edit/{productoId}" var="productoURL">
