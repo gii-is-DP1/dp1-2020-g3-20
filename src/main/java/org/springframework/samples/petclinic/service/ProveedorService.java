@@ -153,13 +153,7 @@ public class ProveedorService {
 	public Collection<Producto> encontrarProductoProveedor(Producto producto) throws DataAccessException {
 		Collection<Producto> res = new ArrayList<>();
 		Proveedor proveedor = producto.getProveedor();
-		Iterable<Producto> aux = productoRepository.findAll();
-		Iterator<Producto> it_aux = aux.iterator();
-		while (it_aux.hasNext()) {
-			if (it_aux.next().getProveedor().equals(proveedor)) {
-				res.add(it_aux.next());
-			}	
-		}
+		res = productoRepository.findByProveedor(proveedor);
 		return res; 
 	}
 

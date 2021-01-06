@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Optional;
@@ -135,6 +136,10 @@ public class ProductoController {
 			Producto producto = prodOpt.get();
 			Collection<Producto> listaProducto = proveedorService.encontrarProductoProveedor(producto);
 			Pedido pedido = new Pedido();
+			pedido.setProveedor(producto.getProveedor());
+			pedido.setFechaPedido(LocalDate.now());
+			pedido.setHaLlegado(Boolean.FALSE);
+			proveedorService.savePedido(pedido);
 			LineaPedido lineaPedido = new LineaPedido();
 			for(Producto p : listaProducto) {
 				lineaPedido = proveedorService.anadirLineaPedido(p, pedido);
