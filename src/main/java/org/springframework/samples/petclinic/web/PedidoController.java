@@ -81,7 +81,6 @@ public class PedidoController {
 		if(pedi.isPresent()) {
 			Pedido p = pedi.get();
 			if (p.getHaLlegado().equals(Boolean.FALSE)) {
-				
 				//Modificacion de producto
 				while (lp_it.hasNext()) {
 					LineaPedido lp = lp_it.next();

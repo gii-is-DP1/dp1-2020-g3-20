@@ -1,7 +1,6 @@
 package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -38,55 +37,8 @@ public class Producto extends NamedEntity{
 	@Column(name = "cantidad_maxima")
 	private double cantMax;
 	
-	@Column(name = "proveedor")
-	private String proveedor;
-	
-	
-	public TipoProducto getTipoProducto() {
-		return tipoProducto;
-	}
+	@ManyToOne
+	@JoinColumn(name = "proveedor_id")
+	private Proveedor proveedor;
 
-	public void setTipoProducto(TipoProducto tipoProducto) {
-		this.tipoProducto = tipoProducto;
-	}
-
-	public LocalDate getFechaCaducidad() {
-		return fechaCaducidad;
-	}
-
-	public void setFechaCaducidad(LocalDate fechaCaducidad) {
-		this.fechaCaducidad = fechaCaducidad;
-	}
-
-	public double getCantMin() {
-		return cantMin;
-	}
-
-	public void setCantMin(double cantMin) {
-		this.cantMin = cantMin;
-	}
-
-	public double getCantAct() {
-		return cantAct;
-	}
-
-	public void setCantAct(double cantAct) {
-		this.cantAct = cantAct;
-	}
-
-	public double getCantMax() {
-		return cantMax;
-	}
-
-	public void setCantMax(double cantMax) {
-		this.cantMax = cantMax;
-	}
-	
-	public String getProveedor() {
-		return proveedor;
-	}
-
-	public void setProveedor(String proveedor) {
-		this.proveedor = proveedor;
-	}
 }

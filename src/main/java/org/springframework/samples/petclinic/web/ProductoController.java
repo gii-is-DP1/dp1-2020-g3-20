@@ -10,6 +10,7 @@ import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.model.ProductoDTO;
+import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.samples.petclinic.model.TipoProducto;
 import org.springframework.samples.petclinic.service.ProductoService;
 import org.springframework.samples.petclinic.service.ProveedorService;
@@ -36,6 +37,9 @@ public class ProductoController {
 	
 	@Autowired
 	private TipoProductoFormatter tipoProductoFormatter;
+	
+	@Autowired
+	private ProveedorFormatter proveedorFormatter;
 	
 	@ModelAttribute("tipoproducto") 				//Esto pertenece a TipoProducto
 	public Collection<TipoProducto> poblarTiposProducto() {
@@ -66,6 +70,7 @@ public class ProductoController {
 		String vista= "producto/listaProducto";
 		final Producto productoFinal = productoConverter.convertProductoDTOToEntity(producto);
 		productoFinal.setTipoProducto(tipoProductoFormatter.parse(producto.getTipoproductodto(), Locale.ENGLISH));
+		productoFinal.setProveedor(proveedorFormatter.parse(producto.getProveedor(), Locale.ENGLISH));
 			
 		if(result.hasErrors()) {
 			modelMap.addAttribute("producto", producto);
@@ -125,14 +130,17 @@ public class ProductoController {
 	@GetMapping(path="/savePedido/{productoId}")
 	public String recargarStock(@PathVariable("productoId") int productoId, ModelMap modelMap) {
 		String vista= "producto/listaProducto";
-		Optional<Producto> prod= productoService.buscaProductoPorId(productoId);
-		if(prod.isPresent()) {
-			Producto p = prod.get();
-			String proveedor = p.getProveedor();
-			Pedido pedido = proveedorService.crearPedido(proveedor);
-			LineaPedido lp = proveedorService.crearLineaPedido(p, pedido);
+		Optional<Producto> prodOpt= productoService.buscaProductoPorId(productoId);
+		if(prodOpt.isPresent()) {
+			Producto producto = prodOpt.get();
+			Collection<Producto> listaProducto = proveedorService.encontrarProductoProveedor(producto);
+			Pedido pedido = new Pedido();
+			LineaPedido lineaPedido = new LineaPedido();
+			for(Producto p : listaProducto) {
+				lineaPedido = proveedorService.anadirLineaPedido(p, pedido);
+				proveedorService.saveLineaPedido(lineaPedido);
+			}
 			proveedorService.savePedido(pedido);
-			proveedorService.saveLineaPedido(lp);
 			modelMap.addAttribute("message", "Se ha creado el pedido correctamente");
 			vista = listadoProducto(modelMap);
 		}else {

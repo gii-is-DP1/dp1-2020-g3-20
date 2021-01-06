@@ -34,7 +34,7 @@
                     <c:out value="${pedido.costeTotal}"/>
                 </td>
                 <td>
-                   	<c:out value="${pedido.haLlegado ? 'Si' : 'No'}"/>
+                   	<c:out value="${pedido.haLlegado ? 'Sí' : 'No'}"/>
                 </td>
                 <td>
                    	<c:out value="${pedido.proveedor.name}"/>
