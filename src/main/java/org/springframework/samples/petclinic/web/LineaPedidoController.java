@@ -31,7 +31,7 @@ public class LineaPedidoController {
 	public String listadoDeLineaPedidosPorPedido(Integer pedidoID, ModelMap modelMap) {
 		String vista="lineaPedido/listaLineaPedido";
 		Iterable<LineaPedido> lineapedido= proveedorService.findLineaPedidoByPedidoId(pedidoID);
-		modelMap.addAttribute("lineapedido", lineapedido);
+		modelMap.addAttribute("lineaPedido", lineapedido);
 		return vista;
 	}
 	

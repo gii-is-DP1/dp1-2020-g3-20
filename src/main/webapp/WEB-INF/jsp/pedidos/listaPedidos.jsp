@@ -48,7 +48,7 @@
       	<button class="btn btn-default" type="submit">New</button>
   	</form>
   	<form method="get" action="/pedidos/porProveedor">
-  		<input name="proveedorID" value="${proveedor.id}"> 
+  		<input name="proveedorID" > 
       	<button class="btn btn-default" type="submit">Buscar</button>
   	</form>
     

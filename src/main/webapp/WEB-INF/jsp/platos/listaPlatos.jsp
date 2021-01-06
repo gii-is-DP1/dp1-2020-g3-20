@@ -19,9 +19,11 @@
         <tbody>
         <c:forEach items="${platos}" var="plato">
             <tr>
-                <td>
-                    <c:out value="${plato.name}"/>
-                </td>
+            	<td>
+                  <spring:url value="platos/{platoId}" var="platoUrl">
+                        <spring:param name="platoId" value="${plato.id}"/>
+                    </spring:url>
+                    <a href="${fn:escapeXml(platoUrl)}"><c:out value="${plato.name}"/></a>
                 <td>
                     <c:out value="${plato.precio}"/> euros
                 </td>

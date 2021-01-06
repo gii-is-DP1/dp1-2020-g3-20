@@ -170,6 +170,7 @@ public class ProveedorService {
 	}
 	
 	public Iterable<LineaPedido> findLineaPedidoByPedidoId(int pedidoID) {
+		
 		return linRepo.findByPedidoId(pedidoID);
 	}
 	
