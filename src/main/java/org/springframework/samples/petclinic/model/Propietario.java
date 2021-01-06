@@ -1,10 +1,13 @@
 package org.springframework.samples.petclinic.model;
+
 import javax.persistence.Entity;
 
-import lombok.Data;
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 public class Propietario extends Empleado {
-	
 
 }

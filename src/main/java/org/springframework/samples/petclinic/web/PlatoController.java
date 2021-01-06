@@ -18,9 +18,7 @@ import org.springframework.samples.petclinic.model.Plato;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.PlatoService;
-import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -97,7 +95,6 @@ public class PlatoController {
 			vista=listadoPlatos(modelMap);
 		}
 		return vista;
-		
 	}
 	
 
@@ -202,4 +199,6 @@ public class PlatoController {
 //		return vista; 
 //	}
 
+
+	
 }

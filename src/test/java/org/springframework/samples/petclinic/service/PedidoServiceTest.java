@@ -22,12 +22,12 @@ public class PedidoServiceTest {
 	private ProveedorService provSer;
 	
 	
-	@Test
-	public void esCrearPedidoTest() {
-		Pedido test = provSer.crearPedido("taburete");
-		assertEquals("taburete", test.getProveedor().getName());
-		
-	}
+//	@Test
+//	public void esCrearPedidoTest() {
+//		Pedido test = provSer.crearPedido("taburete");
+//		assertEquals("taburete", test.getProveedor().getName());
+//		
+//	}
 	
 	@Test
 	public void esBuscarProveedor() {

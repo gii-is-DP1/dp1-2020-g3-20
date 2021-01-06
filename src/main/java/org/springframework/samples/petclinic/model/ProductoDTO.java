@@ -1,9 +1,10 @@
 package org.springframework.samples.petclinic.model;
 
+import lombok.Getter;
+import lombok.Setter;
 
-import lombok.Data;
-
-@Data
+@Getter
+@Setter
 public class ProductoDTO {
 
 	private String tipoproductodto;

@@ -16,3 +16,4 @@ public interface IngredienteRepository extends CrudRepository<Ingrediente, Integ
 	List<Producto> encontrarProductos() throws DataAccessException;
 	
 }
+

@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
+
 <petclinic:layout pageName="pedidos">
     <h2>Pedido</h2>
 
@@ -17,6 +18,7 @@
             <th>¿Ha Llegado?</th>
             <th>Proveedor</th>
             <th>Apellidos </th>
+             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -32,13 +34,23 @@
                     <c:out value="${pedido.costeTotal}"/>
                 </td>
                 <td>
-                   	<c:out value="${pedido.haLlegado}"/>
+                   	<c:out value="${pedido.haLlegado ? 'Sí' : 'No'}"/>
                 </td>
                 <td>
                    	<c:out value="${pedido.proveedor.name}"/>
                 </td>
                  <td>
                    	<c:out value="${pedido.proveedor.apellido}"/>
+                </td>  
+                <td>
+                	<c:choose>
+  						<c:when test="${!pedido.haLlegado}">
+    				    	<spring:url value="/pedidos/terminarPedido/{pedidoID}" var="pedidoURL">
+                   		  	<spring:param name="pedidoID" value="${pedido.id}"/>
+                   			</spring:url>
+                   			<a href="${fn:escapeXml(pedidoURL)}">Finalizar Pedido</a>
+ 					   	</c:when>
+					</c:choose>
                 </td>
             </tr>
         </c:forEach>

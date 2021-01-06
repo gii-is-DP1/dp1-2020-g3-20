@@ -3,12 +3,13 @@ package org.springframework.samples.petclinic.model;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "platopedido")
 public class PlatoPedido extends BaseEntity{
@@ -20,5 +21,4 @@ public class PlatoPedido extends BaseEntity{
 	@JoinColumn(name = "plato_id")
 	private Plato plato;
 	
-
 }
