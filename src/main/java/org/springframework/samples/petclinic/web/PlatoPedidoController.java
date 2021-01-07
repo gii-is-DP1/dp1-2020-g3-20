@@ -2,11 +2,15 @@ package org.springframework.samples.petclinic.web;
 
 import java.text.ParseException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.EstadoPlato;
+import org.springframework.samples.petclinic.model.Ingrediente;
+import org.springframework.samples.petclinic.model.IngredientePedido;
+import org.springframework.samples.petclinic.model.Plato;
 import org.springframework.samples.petclinic.model.PlatoPedido;
 import org.springframework.samples.petclinic.model.PlatoPedidoDTO;
 import org.springframework.samples.petclinic.service.PlatoPedidoService;
@@ -117,6 +121,17 @@ public class PlatoPedidoController {
 			modelMap.addAttribute("message", "successfuly saved");
 			String vista=listadoPlatosPedido(modelMap);
 			return vista;
+				}
 		}
-	}
+		
+		//parte correspondiente a ingrediente pedido
+		@GetMapping("/{ppId}")
+		public String showIngredientePedido(@PathVariable("ppId") int ppId, ModelMap model) {
+			PlatoPedido pp= ppService.buscaPPPorId(ppId).get();
+			model.addAttribute("platopedido", pp);
+			List<IngredientePedido> ls= ppService.ingredientePedidoPorPlatoPedido(ppId);
+			model.addAttribute("ingredientespedido", ls);
+			return "platosPedido/ingredientesDePlatoPedido";
+			
+		}
 }

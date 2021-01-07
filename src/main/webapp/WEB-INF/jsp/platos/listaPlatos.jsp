@@ -20,7 +20,7 @@
         <c:forEach items="${platos}" var="plato">
             <tr>
             	<td>
-                  <spring:url value="platos/{platoId}" var="platoUrl">
+                  <spring:url value="/platos/{platoId}" var="platoUrl">
                         <spring:param name="platoId" value="${plato.id}"/>
                     </spring:url>
                     <a href="${fn:escapeXml(platoUrl)}"><c:out value="${plato.name}"/></a>
@@ -32,12 +32,8 @@
                    <spring:url value="/platos/delete/{platoId}" var="platoURL">
                    		  <spring:param name="platoId" value="${plato.id}"/>
                    </spring:url>
-                   <a href="${fn:escapeXml(platoURL)}">Delete</a>
+                   <a href="${fn:escapeXml(platoURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                
-                <spring:url value="/platos/edit/{platoId}" var="platoEditUrl">
-    		  			<spring:param name="platoId" value="${plato.id}"/>
-  					</spring:url>
-                	<a href="${fn:escapeXml(platoEditUrl)}">Modify</a>
                 </td>
             </tr>
         </c:forEach>
