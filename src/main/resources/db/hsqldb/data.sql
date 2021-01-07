@@ -104,6 +104,11 @@ INSERT INTO platopedido(id,estadoplato,plato_id) VALUES (1, 1, 1);
 INSERT INTO ingrediente(id,cantidad,producto_id,plato_id) VALUES (1,2,3,1);
 INSERT INTO ingrediente(id,cantidad,producto_id,plato_id) VALUES (2,3,6,1);
 
+INSERT INTO ingediente_pedido(id,cant_pedida,ingrediente_id,pp_id) VALUES (1,3,2,1);
+INSERT INTO ingediente_pedido(id,cant_pedida,ingrediente_id,pp_id) VALUES (2,3,2,1);
+INSERT INTO ingediente_pedido(id,cant_pedida,ingrediente_id,pp_id) VALUES (3,3,2,1);
+
+
 
 INSERT INTO pedido(id,fechapedido,costetotal,hallegado,proveedor_id) VALUES (1, '2020-01-04', 20, FALSE, 1);
 INSERT INTO lineapedido(id,producto_id,cantidad,pedido_id) VALUES (1, 1, 10, 1);

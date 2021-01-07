@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.samples.petclinic.model.EstadoPlato;
+import org.springframework.samples.petclinic.model.IngredientePedido;
 import org.springframework.samples.petclinic.model.PlatoPedido;
 
 
@@ -18,6 +19,10 @@ public interface PlatoPedidoRepository extends CrudRepository<PlatoPedido, Integ
 	@Autowired
 	@Query("SELECT ptype.name FROM Plato ptype ORDER BY ptype.id")
 	List<String> encontrarPlatos() throws DataAccessException;
+	
+	@Autowired
+	@Query("SELECT ptype FROM IngredientePedido ptype ORDER BY ptype.id")
+	List<IngredientePedido> encontrarIngredientesPedido() throws DataAccessException;
 	
 //	@Autowired
 //	@Query("SELECT ip.* FROM IngredientePedido ip INNER JOIN PlatoPedido pp "
