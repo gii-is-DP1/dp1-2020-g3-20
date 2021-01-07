@@ -51,7 +51,12 @@
                    			<a href="${fn:escapeXml(pedidoURL)}">Finalizar Pedido</a>
  					   	</c:when>
 					</c:choose>
-                </td>
+                <form method="get" action="/lineaPedido/porPedido">
+  				<input name="pedidoID" type="hidden" value="${pedido.id}"> 
+  		
+      			<button class="btn btn-default" type="submit">Buscar</button>
+  				</form>
+  	</td> 
             </tr>
         </c:forEach>
         </tbody>

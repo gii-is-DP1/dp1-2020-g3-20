@@ -60,6 +60,10 @@
                 
             </tr>
         </c:forEach>
+         </table>
+    	<form method="get" action="/camareros/new">
+      	<button class="btn btn-default" type="submit">crear camarero</button>
+  		</form>
+  		
         </tbody>
-    </table>
 </petclinic:layout>
