@@ -29,10 +29,10 @@
 				</petclinic:menuItem>
 
 				<sec:authorize access="hasAuthority('propietario')">
-				<petclinic:menuItem active="${name eq 'personas'}" url="/personas"
-					title="personas">
+				<petclinic:menuItem active="${name eq 'empleados'}" url="/empleados"
+					title="empleados">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>personas</span>
+					<span>empleados</span>
 				</petclinic:menuItem>
 				
 				

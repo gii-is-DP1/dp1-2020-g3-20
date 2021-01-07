@@ -54,4 +54,7 @@
         </c:forEach>
         </tbody>
     </table>
+        <form method="get" action="/managers/new">
+      	<button class="btn btn-default" type="submit">crear manager</button>
+  		</form>
 </petclinic:layout>

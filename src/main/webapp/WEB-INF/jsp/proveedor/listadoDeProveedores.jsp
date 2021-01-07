@@ -57,4 +57,7 @@
         </c:forEach>
         </tbody>
     </table>
+        <form method="get" action="/proveedor/new">
+      	<button class="btn btn-default" type="submit">crear proveedor</button>
+  		</form>
 </petclinic:layout>
