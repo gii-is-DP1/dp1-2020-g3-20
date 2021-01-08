@@ -36,7 +36,7 @@
                    </spring:url>
                    <a href="${fn:escapeXml(ppURL)}">Eliminar</a>
                    
-                   <spring:url value="/{ppId}" var="ppURL">
+                   <spring:url value="/platopedido/{ppId}" var="ppURL">
                    		  <spring:param name="ppId" value="${platopedido.id}"/>
                    </spring:url>
                    <a href="${fn:escapeXml(ppURL)}">Ingredientes</a>
