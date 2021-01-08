@@ -34,7 +34,11 @@
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<span>empleados</span>
 				</petclinic:menuItem>
-				
+				<petclinic:menuItem active="${name eq 'empleados'}" url="/producto"
+					title="producto">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span>producto</span>
+				</petclinic:menuItem>
 				
 				
 				<petclinic:menuItem active="${name eq 'platos'}" url="/platos"

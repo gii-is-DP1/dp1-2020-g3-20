@@ -68,5 +68,8 @@
   		<input name="proveedorID" > 
       	<button class="btn btn-default" type="submit">Buscar</button>
   	</form>
+  	<form method="get" action="/lineaPedido">
+      	<button class="btn btn-default" type="submit">Todas las lineas pedido</button>
+  	</form>
     
 </petclinic:layout>
