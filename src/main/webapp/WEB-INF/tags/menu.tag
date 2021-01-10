@@ -29,12 +29,16 @@
 				</petclinic:menuItem>
 
 				<sec:authorize access="hasAuthority('propietario')">
-				<petclinic:menuItem active="${name eq 'personas'}" url="/personas"
-					title="personas">
+				<petclinic:menuItem active="${name eq 'empleados'}" url="/empleados"
+					title="empleados">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>personas</span>
+					<span>empleados</span>
 				</petclinic:menuItem>
-				
+				<petclinic:menuItem active="${name eq 'empleados'}" url="/producto"
+					title="producto">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span>producto</span>
+				</petclinic:menuItem>
 				
 				
 				<petclinic:menuItem active="${name eq 'platos'}" url="/platos"

@@ -51,7 +51,12 @@
                    			<a href="${fn:escapeXml(pedidoURL)}">Finalizar Pedido</a>
  					   	</c:when>
 					</c:choose>
-                </td>
+                <form method="get" action="/lineaPedido/porPedido">
+  				<input name="pedidoID" type="hidden" value="${pedido.id}"> 
+  		
+      			<button class="btn btn-default" type="submit">Buscar</button>
+  				</form>
+  	</td> 
             </tr>
         </c:forEach>
         </tbody>
@@ -60,8 +65,11 @@
       	<button class="btn btn-default" type="submit">New</button>
   	</form>
   	<form method="get" action="/pedidos/porProveedor">
-  		<input name="proveedorID" value="${proveedor.id}"> 
+  		<input name="proveedorID" > 
       	<button class="btn btn-default" type="submit">Buscar</button>
+  	</form>
+  	<form method="get" action="/lineaPedido">
+      	<button class="btn btn-default" type="submit">Todas las lineas pedido</button>
   	</form>
     
 </petclinic:layout>

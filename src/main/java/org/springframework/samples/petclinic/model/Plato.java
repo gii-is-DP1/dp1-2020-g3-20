@@ -1,8 +1,11 @@
 package org.springframework.samples.petclinic.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,9 +17,10 @@ import lombok.Setter;
 public class Plato extends NamedEntity{
 	
 	@Column(name = "precio")
-	private Integer precio;
+	private Double precio;
 	
 	@Column(name = "disponible")
 	private Boolean disponible;
 	
+
 }

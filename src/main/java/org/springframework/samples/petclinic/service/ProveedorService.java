@@ -11,14 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Pedido;
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.samples.petclinic.repository.LineaPedidoRepository;
 import org.springframework.samples.petclinic.repository.PedidoRepository;
 import org.springframework.samples.petclinic.repository.ProductoRepository;
 import org.springframework.samples.petclinic.repository.ProveedorRepository;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 @Service
 public class ProveedorService {
@@ -117,11 +121,23 @@ public class ProveedorService {
 	
 	//PEDIDO
 	
-	@Transactional
-	public void savePedido(Pedido pedido) throws DataAccessException {
-		pedidoRepository.save(pedido);
+
+	@Transactional(rollbackFor = DuplicatedPedidoException.class)
+	public void savePedido(Pedido pedido) throws DataAccessException, DuplicatedPedidoException {
+		Iterable<Pedido> lista = pedidoRepository.findAll();
+		Iterator<Pedido> it = lista.iterator();
+       	Boolean Hayrepetido = false;
+       	while(it.hasNext()) {
+       		Pedido p = it.next();
+			    if (p.getProveedor()==pedido.getProveedor()&& p.getHaLlegado()==false) {
+				      Hayrepetido = true;
+		    	}		
+       	}
+       	if (Hayrepetido)  {    
+       	throw new DuplicatedPedidoException();
+    }else
+     pediRepo.save(pedido);
 	}
-	
 	@Transactional
 	public Pedido crearPedido(Proveedor proveedor) throws DataAccessException {
 		Pedido pedido = new Pedido();

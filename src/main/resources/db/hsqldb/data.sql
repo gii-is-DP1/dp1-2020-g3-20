@@ -76,12 +76,13 @@ INSERT INTO estadoplato VALUES (1, 'ENPROCESO');
 INSERT INTO estadoplato VALUES (2, 'ENCOLA');
 INSERT INTO estadoplato VALUES (3, 'FINALIZADO');
 
-INSERT INTO platos VALUES (1, 'Albondigas', '4', TRUE);
-INSERT INTO platos VALUES (2, 'Cocretas', '4', TRUE);
-INSERT INTO platos VALUES (3, 'Macarrones', '4', TRUE);
-INSERT INTO platos VALUES (4, 'Huevo frito', '4', TRUE);
-INSERT INTO platos VALUES (5, 'Salchichon', '4', TRUE);
-INSERT INTO platos VALUES (6, 'Ensalada', '4', TRUE);
+INSERT INTO platos(id,name,precio,disponible) VALUES (1, 'Albondigas',4, TRUE);
+INSERT INTO platos(id,name,precio,disponible)  VALUES (2, 'Cocretas',4, TRUE);
+INSERT INTO platos(id,name,precio,disponible)  VALUES (3, 'Macarrones',4, TRUE);
+INSERT INTO platos(id,name,precio,disponible)  VALUES (4, 'Huevo frito',4, TRUE);
+INSERT INTO platos(id,name,precio,disponible)  VALUES (5, 'Salchichon',4, TRUE);
+INSERT INTO platos(id,name,precio,disponible)  VALUES (6, 'Ensalada',4, TRUE);
+INSERT INTO platos(id,name,precio,disponible)  VALUES (7, 'Arroz frito',18, TRUE);
 
 INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'Taburete', 'El capo', 'eltitocapo@gmail.com',646464664);
 INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (2, 'El', 'Pana', 'elpana@gmail.com',696969696);
@@ -100,8 +101,13 @@ INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena) VALU
 
 INSERT INTO platopedido(id,estadoplato,plato_id) VALUES (1, 1, 1);
 
-INSERT INTO ingrediente VALUES (1,2,3);
-INSERT INTO ingrediente VALUES (2,3,6);
+INSERT INTO ingrediente(id,cantidad,producto_id,plato_id) VALUES (1,2,3,1);
+INSERT INTO ingrediente(id,cantidad,producto_id,plato_id) VALUES (2,3,6,1);
+
+INSERT INTO ingediente_pedido(id,cant_pedida,ingrediente_id,pp_id) VALUES (1,3,2,1);
+INSERT INTO ingediente_pedido(id,cant_pedida,ingrediente_id,pp_id) VALUES (2,3,2,1);
+INSERT INTO ingediente_pedido(id,cant_pedida,ingrediente_id,pp_id) VALUES (3,3,2,1);
+
 
 
 INSERT INTO pedido(id,fechapedido,costetotal,hallegado,proveedor_id) VALUES (1, '2020-01-04', 20, FALSE, 1);

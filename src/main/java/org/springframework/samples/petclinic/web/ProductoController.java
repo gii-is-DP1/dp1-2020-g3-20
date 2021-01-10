@@ -15,6 +15,8 @@ import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.samples.petclinic.model.TipoProducto;
 import org.springframework.samples.petclinic.service.ProductoService;
 import org.springframework.samples.petclinic.service.ProveedorService;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -128,11 +130,38 @@ public class ProductoController {
 		}
 	}		
 		
+//	@GetMapping(path="/savePedido/{productoId}")
+//	public String recargarStock(@PathVariable("productoId") int productoId, ModelMap modelMap) {
+//		String vista= "producto/listaProducto";
+//		Optional<Producto> prodOpt= productoService.buscaProductoPorId(productoId);
+//		if(prodOpt.isPresent()) {
+//			Producto producto = prodOpt.get();
+//			Collection<Producto> listaProducto = proveedorService.encontrarProductoProveedor(producto);
+//			Pedido pedido = new Pedido();
+//			pedido.setProveedor(producto.getProveedor());
+//			pedido.setFechaPedido(LocalDate.now());
+//			pedido.setHaLlegado(Boolean.FALSE);
+//			proveedorService.savePedido(pedido);
+//			LineaPedido lineaPedido = new LineaPedido();
+//			for(Producto p : listaProducto) {
+//				lineaPedido = proveedorService.anadirLineaPedido(p, pedido);
+//				proveedorService.saveLineaPedido(lineaPedido);
+//			}
+//			proveedorService.savePedido(pedido);
+//			modelMap.addAttribute("message", "Se ha creado el pedido correctamente");
+//			vista = listadoProducto(modelMap);
+//		}else {
+//			modelMap.addAttribute("message", "not found");
+//			vista=listadoProducto(modelMap);
+//		}
+//		return vista;
+//	}
 	@GetMapping(path="/savePedido/{productoId}")
 	public String recargarStock(@PathVariable("productoId") int productoId, ModelMap modelMap) {
 		String vista= "producto/listaProducto";
 		Optional<Producto> prodOpt= productoService.buscaProductoPorId(productoId);
 		if(prodOpt.isPresent()) {
+			try {
 			Producto producto = prodOpt.get();
 			Collection<Producto> listaProducto = proveedorService.encontrarProductoProveedor(producto);
 			Pedido pedido = new Pedido();
@@ -145,9 +174,13 @@ public class ProductoController {
 				lineaPedido = proveedorService.anadirLineaPedido(p, pedido);
 				proveedorService.saveLineaPedido(lineaPedido);
 			}
-			proveedorService.savePedido(pedido);
+	// no se por que hay dos te lo dejo comentao		proveedorService.savePedido(pedido);
 			modelMap.addAttribute("message", "Se ha creado el pedido correctamente");
 			vista = listadoProducto(modelMap);
+			}catch(DuplicatedPedidoException ex){
+				modelMap.addAttribute("message", "Ya hay un pedido pendiente a ese proveedor ");
+				vista=listadoProducto(modelMap);
+			}
 		}else {
 			modelMap.addAttribute("message", "not found");
 			vista=listadoProducto(modelMap);

@@ -52,4 +52,7 @@
         </c:forEach>
         </tbody>
     </table>
+        <form method="get" action="/cocinero/new">
+      	<button class="btn btn-default" type="submit">crear cocinero</button>
+  		</form>
 </petclinic:layout>

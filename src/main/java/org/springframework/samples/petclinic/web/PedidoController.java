@@ -12,6 +12,7 @@ import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.service.ProductoService;
 import org.springframework.samples.petclinic.service.ProveedorService;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -55,6 +56,21 @@ public class PedidoController {
 	}
 	
 	
+//	@PostMapping(path="/save")
+//	public String guardarPedido(@Valid Pedido pedido,BindingResult result,ModelMap modelMap) {
+//		String view= "pedidos/listaPedidos";
+//		pedido.setFechaPedido(LocalDate.now());
+//		pedido.setHaLlegado(Boolean.FALSE);
+//		if(result.hasErrors()) {
+//			modelMap.addAttribute("pedido", pedido);
+//			return "pedidos/editPedido";
+//		}else {
+//			proveedorService.savePedido(pedido);
+//			modelMap.addAttribute("message", "pedido successfuly saved");
+//			view=listadoDePedidos(modelMap);
+//		}
+//		return view	;
+//	}
 	@PostMapping(path="/save")
 	public String guardarPedido(@Valid Pedido pedido,BindingResult result,ModelMap modelMap) {
 		String view= "pedidos/listaPedidos";
@@ -64,9 +80,14 @@ public class PedidoController {
 			modelMap.addAttribute("pedido", pedido);
 			return "pedidos/editPedido";
 		}else {
-			proveedorService.savePedido(pedido);
-			modelMap.addAttribute("message", "pedido successfuly saved");
-			view=listadoDePedidos(modelMap);
+			 try {                    
+				proveedorService.savePedido(pedido);
+				modelMap.addAttribute("message", "pedido successfuly saved");
+				view=listadoDePedidos(modelMap);              
+             } catch (DuplicatedPedidoException ex) {
+                 result.rejectValue("proveedor", "duplicate", "already exists");
+                 view= "pedidos/listaPedidos";
+             }
 		}
 		return view	;
 	}
