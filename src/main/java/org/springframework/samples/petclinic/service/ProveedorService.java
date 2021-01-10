@@ -134,9 +134,10 @@ public class ProveedorService {
 		    	}		
        	}
        	if (Hayrepetido)  {    
-       	throw new DuplicatedPedidoException();
-    }else
-     pediRepo.save(pedido);
+       		throw new DuplicatedPedidoException();
+       	}else {
+       		pedidoRepository.save(pedido);
+       	}
 	}
 	@Transactional
 	public Pedido crearPedido(Proveedor proveedor) throws DataAccessException {
