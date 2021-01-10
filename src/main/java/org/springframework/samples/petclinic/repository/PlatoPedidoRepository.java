@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.samples.petclinic.model.EstadoPlato;
 import org.springframework.samples.petclinic.model.IngredientePedido;
 import org.springframework.samples.petclinic.model.PlatoPedido;
+import org.springframework.samples.petclinic.model.Producto;
+import org.springframework.samples.petclinic.model.Proveedor;
 
 
 public interface PlatoPedidoRepository extends CrudRepository<PlatoPedido, Integer>{

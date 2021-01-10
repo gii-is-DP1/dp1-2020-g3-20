@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -84,6 +85,7 @@ public class PlatoPedidoController {
 			String vista= "platosPedido/listaPlatosPedido";
 			Optional<PlatoPedido> pp= ppService.buscaPPPorId(ppId);
 			if(pp.isPresent()) {
+				
 				ppService.borrarPP(ppId);
 				modelMap.addAttribute("message", "successfuly deleted");
 				vista=listadoPlatosPedido(modelMap);
@@ -100,8 +102,10 @@ public class PlatoPedidoController {
 			Collection<EstadoPlato> collectionEstadosPlato= this.ppService.encontrarEstadoPlato();
 			model.addAttribute("estadosPlato", collectionEstadosPlato);
 			Collection<String> listaPlatos= this.ppService.encontrarPlatos();
-			model.addAttribute("listaPlatos", listaPlatos);
+			Collection<String> listaPlatos2 = new ArrayList<String>();
 			PlatoPedido pp=  ppService.buscaPPPorId(ppId).get();
+			listaPlatos2.add(pp.getPlato().getName());
+			model.addAttribute("listaPlatos", listaPlatos2);
 			PlatoPedidoDTO platoConvertido = ppConverter.convertEntityToPPDTO(pp);
 			platoConvertido.setEstadoplatodto(pp.getEstadoplato().getName());
 			model.addAttribute("platopedido", platoConvertido);

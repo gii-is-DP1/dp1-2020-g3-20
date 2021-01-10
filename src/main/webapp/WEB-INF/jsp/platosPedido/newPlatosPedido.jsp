@@ -17,7 +17,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="hidden" name="id" value="${platopedido.id}">
-                <input type="hidden" name=estadoplatodto value="ENPROCESO"> 
+                <input type="hidden" name=estadoplatodto value="ENCOLA"> 
                 <button class="btn btn-default" type="submit">Anadir plato pedido</button>
             </div>
         </div>

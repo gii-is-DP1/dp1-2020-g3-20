@@ -12,7 +12,7 @@
         <thead>
         <tr>
    			<th>Estado del plato</th>
-   			<th>Id del plato asociado</th>		
+   			<th>Nombre del plato</th>		
    			<th>Acciones</th>	
         </tr>
         </thead>
