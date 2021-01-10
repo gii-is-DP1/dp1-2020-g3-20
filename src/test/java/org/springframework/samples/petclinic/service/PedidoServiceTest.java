@@ -4,6 +4,8 @@ package org.springframework.samples.petclinic.service;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -22,18 +24,37 @@ public class PedidoServiceTest {
 	private ProveedorService provSer;
 	
 	
-//	@Test
-//	public void esCrearPedidoTest() {
-//		Pedido test = provSer.crearPedido("taburete");
-//		assertEquals("taburete", test.getProveedor().getName());
-//		
-//	}
-	
 	@Test
-	public void esBuscarProveedor() {
-		Proveedor test = provSer.findProveedorbyName("taburete");
-		assertEquals("taburete", test.getName());
+	public void esCrearPedidoTest() {
+		Proveedor prov = new Proveedor();
+		prov.setApellido("prueba2");
+		prov.setName("prueba");
+		prov.setGmail("ffff@gmail");
+		prov.setTelefono("655666666");
+		Pedido test = provSer.crearPedido(prov);
+		assertEquals("prueba", test.getProveedor().getName());
+		assertEquals("655666666", test.getProveedor().getTelefono());
 		
 	}
+	
+
+	@Test
+	public void findPedidoByProveedorId() {
+		Iterable<Pedido> test = this.provSer.findPedidoByProveedorId(1);
+		assertEquals("1", test.iterator().next().getId().toString());
+		assertEquals(false, test.iterator().next().getHaLlegado());
+		assertEquals("Taburete", test.iterator().next().getProveedor().getName());
+		
+	}
+	@Test
+	public void testprueba() {
+		Optional<Pedido> test = this.provSer.pedidoPorId(1);
+		assertEquals("1", test.get().getId().toString());
+		assertEquals(false, test.get().getHaLlegado());
+		assertEquals("Taburete", test.get().getProveedor().getName());
+
+		
+	}
+	
 	
 }

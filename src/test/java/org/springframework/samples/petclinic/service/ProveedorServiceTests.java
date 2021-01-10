@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.stereotype.Service;
 
 
@@ -40,8 +41,15 @@ public class ProveedorServiceTests {
 //		proveedor3.setGmail("jeje");
 //		proveedor3.setTelefono("989898987");
 		
-		assertEquals(provSer.esIgual("taburete", "El capo"),true);
+		assertEquals(provSer.esIgual("Taburete", "El capo"),true);
 		assertEquals(provSer.esIgual("Jose", "Diaz"),false);
 		
 	}
+	@Test
+	public void esBuscarProveedor() {
+		Proveedor test = provSer.findProveedorbyName("Taburete");
+		assertEquals("Taburete", test.getName());
+		
+	}
+
 }

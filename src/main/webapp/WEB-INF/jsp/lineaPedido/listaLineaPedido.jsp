@@ -36,10 +36,11 @@
     <form method="get" action="/lineaPedido/new">
       	<button class="btn btn-default" type="submit">New</button>
   	</form>
-	<form method="get" action="/lineaPedido/porPedido">
+  	<%--  	<form method="get" action="/lineaPedido/porPedido">
   		<input name="pedidoID" type="number"> 
   		
       	<button class="btn btn-default" type="submit">Buscar</button>
   	</form>
-    
+      --%>
+
 </petclinic:layout>

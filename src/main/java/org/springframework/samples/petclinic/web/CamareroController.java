@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.service.CamareroService;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -45,9 +46,15 @@ public class CamareroController {
 			modelMap.addAttribute("camarero", camarero);
 			return "camareros/editCamarero";
 		}else {
-			camareroService.guardarCamarero(camarero);
-			modelMap.addAttribute("message", "successfuly saved");
-			vista=listadoCamareros(modelMap);
+			try {
+				camareroService.guardarCamarero(camarero);
+				modelMap.addAttribute("message", "successfuly saved");
+				vista=listadoCamareros(modelMap);
+			} catch (DuplicatedPedidoException e) {
+				modelMap.addAttribute("message", "mismo usuario ");
+				vista=listadoCamareros(modelMap);
+			}
+
 		}
 		return vista;
 		
@@ -86,7 +93,12 @@ public class CamareroController {
 			return vista;
 		}
 		else {
-		this.camareroService.guardarCamarero(camarero);
+		try {
+			this.camareroService.guardarCamarero(camarero);
+		} catch (DuplicatedPedidoException e) {
+			modelMap.addAttribute("message", "mismo usuario ");
+			vista=listadoCamareros(modelMap);
+		}
 			return "redirect:/camareros";
 	}
 		
