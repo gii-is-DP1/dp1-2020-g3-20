@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Comanda;
 import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Pet;
@@ -28,34 +27,34 @@ import org.springframework.util.StringUtils;
 @Service
 public class ProveedorService {
 	@Autowired
-	private ProveedorRepository provRepo;
-	private PedidoRepository pediRepo;
-	private LineaPedidoRepository linRepo;
+	private ProveedorRepository proveedorRepository;
+	private PedidoRepository pedidoRepository;
+	private LineaPedidoRepository lineaPedidoRepository;
 	private ProductoRepository productoRepository;
 
 	@Autowired
-	public ProveedorService(ProveedorRepository provRepo,
-			PedidoRepository pediRepo, LineaPedidoRepository linRepo,
+	public ProveedorService(ProveedorRepository proveedorRepository,
+			PedidoRepository pedidoRepository, LineaPedidoRepository lineaPedidoRepository,
 			ProductoRepository productoRepository) {
-		this.provRepo = provRepo;
-		this.pediRepo = pediRepo;
-		this.linRepo = linRepo;
+		this.proveedorRepository = proveedorRepository;
+		this.pedidoRepository = pedidoRepository;
+		this.lineaPedidoRepository = lineaPedidoRepository;
 		this.productoRepository = productoRepository;
 	}
 	
 	
 	@Transactional
 	public int Provercount(){
-		return (int) provRepo.count();
+		return (int) proveedorRepository.count();
 	}
 	@Transactional
 	public Iterable<Proveedor> findAll(){
-		return provRepo.findAll();
+		return proveedorRepository.findAll();
 	}
 	
 	@Transactional
 	public Collection<String> findAllNames(){
-		Iterable<Proveedor> aux = provRepo.findAll();
+		Iterable<Proveedor> aux = proveedorRepository.findAll();
 		Iterator<Proveedor> it_aux = aux.iterator();
 		Collection<String> res = new ArrayList<String>();
 		while(it_aux.hasNext()) {
@@ -66,7 +65,7 @@ public class ProveedorService {
 	
 	@Transactional
 	public Proveedor findProveedorbyName(String nombre){
-		Iterable<Proveedor> aux = provRepo.findAll();
+		Iterable<Proveedor> aux = proveedorRepository.findAll();
 		Iterator<Proveedor> it_aux = aux.iterator();
 		while(it_aux.hasNext()) {
 			Proveedor proveedor = it_aux.next();
@@ -82,7 +81,7 @@ public class ProveedorService {
 	
 	@Transactional
 	public boolean esIgual(String nombre, String apellido){
-		Iterable<Proveedor> lista = provRepo.findAll();
+		Iterable<Proveedor> lista = proveedorRepository.findAll();
 		Iterator<Proveedor> it = lista.iterator();
 		boolean aux = false;
 	
@@ -98,19 +97,18 @@ public class ProveedorService {
 
 	@Transactional
 	public void save(Proveedor proveedor) {
-		
-		 provRepo.save(proveedor);
+		proveedorRepository.save(proveedor);
 	}
 	
 	@Transactional
 	public void delete(Proveedor proveedor) {
-		provRepo.delete(proveedor);
+		proveedorRepository.delete(proveedor);
 		
 	}
 	
 	@Transactional
 	public void borrarProv(Integer id) {
-		provRepo.deleteById(id);
+		proveedorRepository.deleteById(id);
 		
 	}
 	
@@ -118,28 +116,27 @@ public class ProveedorService {
 	
 	@Transactional
 	public Optional<Proveedor> provedroporid(Integer id) {
-		return provRepo.findById(id);
+		return proveedorRepository.findById(id);
 	}
 	
 	//PEDIDO
 	
+
 	@Transactional(rollbackFor = DuplicatedPedidoException.class)
 	public void savePedido(Pedido pedido) throws DataAccessException, DuplicatedPedidoException {
-		Iterable<Pedido> lista = pediRepo.findAll();
+		Iterable<Pedido> lista = pedidoRepository.findAll();
 		Iterator<Pedido> it = lista.iterator();
        	Boolean Hayrepetido = false;
        	while(it.hasNext()) {
        		Pedido p = it.next();
-			if (p.getProveedor()==pedido.getProveedor()&& p.getHaLlegado()==false) {
-				Hayrepetido = true;
-			}	
-       		
+			    if (p.getProveedor()==pedido.getProveedor()&& p.getHaLlegado()==false) {
+				      Hayrepetido = true;
+		    	}		
        	}
        	if (Hayrepetido)  {    
        	throw new DuplicatedPedidoException();
     }else
      pediRepo.save(pedido);
-		
 	}
 	@Transactional
 	public Pedido crearPedido(Proveedor proveedor) throws DataAccessException {
@@ -153,17 +150,17 @@ public class ProveedorService {
 	
 	@Transactional
 	public Iterable<Pedido> findAllPedido(){
-		return pediRepo.findAll();
+		return pedidoRepository.findAll();
 	}
 	
 	@Transactional
 	public Optional<Pedido> pedidoPorId(Integer id) {
-		return pediRepo.findById(id);
+		return pedidoRepository.findById(id);
 	} 
 	
 	public Iterable<Pedido> findPedidoByProveedorId(int proveedorID) {
 		
-		return pediRepo.findByProveedorId(proveedorID);
+		return pedidoRepository.findByProveedorId(proveedorID);
 	}
 	
 	//Esto se usa al realizar un pedido pues se necesita la lista de productos con el mismo proveedor
@@ -180,33 +177,32 @@ public class ProveedorService {
 	
 	@Transactional
 	public int lineaPedidoCount() {
-		return (int) linRepo.count();	
+		return (int) lineaPedidoRepository.count();	
 	}
 	
 	@Transactional
 	public void saveLineaPedido(LineaPedido lineaPedido) throws DataAccessException {
-		linRepo.save(lineaPedido);
+		lineaPedidoRepository.save(lineaPedido);
 	}
 	
 	@Transactional
 	public void borrarLineaPedido(Integer id) {
-		linRepo.deleteById(id);
+		lineaPedidoRepository.deleteById(id);
 	}
 	
 	
 	@Transactional
 	public Iterable<LineaPedido> findAllLineaPedido(){
-		return linRepo.findAll();
+		return lineaPedidoRepository.findAll();
 	}
 	
 	@Transactional
 	public Optional<LineaPedido> buscaLineaPedido(Integer id) {
-		return linRepo.findById(id);
+		return lineaPedidoRepository.findById(id);
 	}
 	
 	public Iterable<LineaPedido> findLineaPedidoByPedidoId(int pedidoID) {
-		
-		return linRepo.findByPedidoId(pedidoID);
+		return lineaPedidoRepository.findByPedidoId(pedidoID);
 	}
 	
 //	@Transactional
