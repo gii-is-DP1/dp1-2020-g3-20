@@ -68,7 +68,7 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04',
 INSERT INTO tipoproducto VALUES (1, 'Carne');
 INSERT INTO tipoproducto VALUES (2, 'Pescado');
 INSERT INTO tipoproducto VALUES (3, 'Frutas y Verduras');
-INSERT INTO tipoproducto VALUES (4, 'Lácteos');
+INSERT INTO tipoproducto VALUES (4, 'Lacteos');
 INSERT INTO tipoproducto VALUES (5, 'Bebidas');
 INSERT INTO tipoproducto VALUES (6, 'Otros');
 
