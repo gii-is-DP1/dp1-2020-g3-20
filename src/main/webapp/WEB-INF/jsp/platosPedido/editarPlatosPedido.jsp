@@ -13,6 +13,7 @@
             <div class="control-group">
 				<petclinic:selectField name="estadoplatodto" label="estado" names="${estadosPlato}" size="6"/>
             </div>
+      
              <div class="control-group">
 				<petclinic:selectField name="platodto" label="platos" names="${listaPlatos}" size="6"/>
             </div>
