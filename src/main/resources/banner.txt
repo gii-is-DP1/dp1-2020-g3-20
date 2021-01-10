@@ -23,11 +23,23 @@
                                      %&&&&&&&&&&% 
 
 
-  ______      __                            ______      ____                        
- /_  ______ _/ /_  ____ _________  _____   / ________ _/ / /_  ____                 
-  / / / __ `/ __ \/ __ `/ ___/ _ \/ ___/  / /   / __ `/ / __ \/ __ \                
- / / / /_/ / /_/ / /_/ / /  /  __(__  )  / /___/ /_/ / / /_/ / /_/ / _________________             
-/_/  \__,_/_.___/\__,_/_/   \___/____/   \____/\__,_/_/_.___/\____/ /____/_____/_____/
+                                                                                     dddddddd                                        
+FFFFFFFFFFFFFFFFFFFFFF                                                               d::::::d                                        
+F::::::::::::::::::::F                                                               d::::::d                                        
+F::::::::::::::::::::F                                                               d::::::d                                        
+FF::::::FFFFFFFFF::::F                                                               d:::::d                                         
+  F:::::F       FFFFFFooooooooooo      ooooooooooo   rrrrr   rrrrrrrrr       ddddddddd:::::d     eeeeeeeeeeee    rrrrr   rrrrrrrrr   
+  F:::::F           oo:::::::::::oo  oo:::::::::::oo r::::rrr:::::::::r    dd::::::::::::::d   ee::::::::::::ee  r::::rrr:::::::::r  
+  F::::::FFFFFFFFFFo:::::::::::::::oo:::::::::::::::or:::::::::::::::::r  d::::::::::::::::d  e::::::eeeee:::::eer:::::::::::::::::r 
+  F:::::::::::::::Fo:::::ooooo:::::oo:::::ooooo:::::orr::::::rrrrr::::::rd:::::::ddddd:::::d e::::::e     e:::::err::::::rrrrr::::::r
+  F:::::::::::::::Fo::::o     o::::oo::::o     o::::o r:::::r     r:::::rd::::::d    d:::::d e:::::::eeeee::::::e r:::::r     r:::::r
+  F::::::FFFFFFFFFFo::::o     o::::oo::::o     o::::o r:::::r     rrrrrrrd:::::d     d:::::d e:::::::::::::::::e  r:::::r     rrrrrrr
+  F:::::F          o::::o     o::::oo::::o     o::::o r:::::r            d:::::d     d:::::d e::::::eeeeeeeeeee   r:::::r            
+  F:::::F          o::::o     o::::oo::::o     o::::o r:::::r            d:::::d     d:::::d e:::::::e            r:::::r            
+FF:::::::FF        o:::::ooooo:::::oo:::::ooooo:::::o r:::::r            d::::::ddddd::::::dde::::::::e           r:::::r            
+F::::::::FF        o:::::::::::::::oo:::::::::::::::o r:::::r             d:::::::::::::::::d e::::::::eeeeeeee   r:::::r            
+F::::::::FF         oo:::::::::::oo  oo:::::::::::oo  r:::::r              d:::::::::ddd::::d  ee:::::::::::::e   r:::::r            
+FFFFFFFFFFF           ooooooooooo      ooooooooooo    rrrrrrr               ddddddddd   ddddd    eeeeeeeeeeeeee   rrrrrrr   
                                                                  
 :: Built with Spring Boot :: ${spring-boot.version}
 

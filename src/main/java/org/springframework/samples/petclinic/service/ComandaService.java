@@ -59,8 +59,7 @@ public class ComandaService {
 		Iterable<Comanda> aux = comandaRepo.findAll();
 		Iterator<Comanda> it_aux = aux.iterator();
 		while (it_aux.hasNext()) {
-			if (it_aux.next().getFechaCreado().toLocalDate().equals(LocalDate.now()) 
-					&& it_aux.next().getFechaFinalizado().equals(null)) {
+			if (it_aux.next().getFechaFinalizado().equals(null)) {
 				res.add(it_aux.next());
 			}	
 		}
