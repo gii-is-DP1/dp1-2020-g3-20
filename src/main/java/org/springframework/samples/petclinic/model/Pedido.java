@@ -37,5 +37,21 @@ public class Pedido extends BaseEntity{
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "proveedor_id")
 	private Proveedor proveedor;
+
+	public Pedido(LocalDate fechaPedido, LocalDate fechaEntrega, Double costeTotal, Boolean haLlegado,
+			Proveedor proveedor) {
+		super();
+		this.fechaPedido = fechaPedido;
+		this.fechaEntrega = fechaEntrega;
+		this.costeTotal = costeTotal;
+		this.haLlegado = haLlegado;
+		this.proveedor = proveedor;
+	}
+
+	public Pedido() {
+		super();
+	}
+
+	
 	
 }

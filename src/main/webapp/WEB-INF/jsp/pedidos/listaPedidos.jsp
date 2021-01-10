@@ -61,15 +61,14 @@
         </c:forEach>
         </tbody>
     </table>
-    <form method="get" action="/pedidos/new">
-      	<button class="btn btn-default" type="submit">New</button>
-  	</form>
+
+
   	<form method="get" action="/pedidos/porProveedor">
   		<input name="proveedorID" > 
       	<button class="btn btn-default" type="submit">Buscar</button>
   	</form>
-  	<form method="get" action="/lineaPedido">
+  	<%--   <form method="get" action="/lineaPedido">
       	<button class="btn btn-default" type="submit">Todas las lineas pedido</button>
-  	</form>
+  	</form> --%>
     
 </petclinic:layout>

@@ -21,7 +21,7 @@ public class Empleado extends NamedEntity {
 	@Column(name = "gmail")
 	private String gmail;
 
-    @Size(min = 3, max = 50)
+    @Size(min = 9, max = 12)
 	@Column(name = "telefono")
 	private String telefono;
     
