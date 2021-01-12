@@ -61,8 +61,10 @@ public class IngredientePedidoService {
 		return ingPedidoRepo.encontrarIngredientes();
 	}
 	
-
-	
+	@Transactional(readOnly = true)
+	public Ingrediente ingredienteAsociado(Integer ingrediente_pedido_id) throws DataAccessException{
+		return ingPedidoRepo.ingredienteAsociado(ingrediente_pedido_id);
+	}
 
 		
 }

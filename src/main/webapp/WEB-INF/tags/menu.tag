@@ -72,6 +72,22 @@
 				</petclinic:menuItem>
  				</sec:authorize>
  				
+ 				
+ 				<sec:authorize access="hasAuthority('cocinero')">
+				<petclinic:menuItem active="${name eq 'platos'}" url="/platos"
+					title="platos">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span>platos</span>
+				</petclinic:menuItem>
+				
+
+				<petclinic:menuItem active="${name eq 'pedidos'}" url="/pedidos"
+					title="pedidos">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>pedidos</span>
+				</petclinic:menuItem>
+ 				</sec:authorize>
+ 				
 					<petclinic:menuItem active="${name eq 'error'}" url="/oups"
 				
 					title="trigger a RuntimeException to see how it is handled">

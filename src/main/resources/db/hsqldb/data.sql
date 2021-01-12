@@ -104,7 +104,7 @@ INSERT INTO platopedido(id,estadoplato,plato_id) VALUES (1, 1, 1);
 INSERT INTO ingrediente(id,cantidad,producto_id,plato_id) VALUES (1,2,3,1);
 INSERT INTO ingrediente(id,cantidad,producto_id,plato_id) VALUES (2,3,6,1);
 
-INSERT INTO ingediente_pedido(id,cant_pedida,ingrediente_id,pp_id) VALUES (1,3,2,1);
+INSERT INTO ingediente_pedido(id,cant_pedida,ingrediente_id,pp_id) VALUES (1,4,2,1);
 INSERT INTO ingediente_pedido(id,cant_pedida,ingrediente_id,pp_id) VALUES (2,3,2,1);
 INSERT INTO ingediente_pedido(id,cant_pedida,ingrediente_id,pp_id) VALUES (3,3,2,1);
 
@@ -151,3 +151,6 @@ INSERT INTO authorities(id,username,authority) VALUES (9,'jose','propietario');
 
 INSERT INTO users(username,password,enabled) VALUES ('pablo','12345',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (10,'pablo','camarero');
+
+INSERT INTO users(username,password,enabled) VALUES ('juan','12345',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (11,'juan','cocinero');
