@@ -29,4 +29,8 @@ public class PlatoPedido extends BaseEntity{
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "pp")
 	private Set<IngredientePedido> ingredientesPedidos;
 	
+	@ManyToOne
+	@JoinColumn(name = "comanda_id")
+	private Comanda comanda;
+	
 }

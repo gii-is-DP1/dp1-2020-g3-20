@@ -99,7 +99,12 @@ INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (
 INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Abdel', 'Ch', 'Abdch@gmail.com', 602354622,'Abd', '12345');
 
 
-INSERT INTO platopedido(id,estadoplato,plato_id) VALUES (1, 1, 1);
+INSERT INTO comanda(ID ,FECHA_CREADO ,FECHA_FINALIZADO ,PRECIO_TOTAL ) VALUES (1,'2020-12-10 14:56:17','2020-12-11 14:56:17',15);
+INSERT INTO comanda(ID ,FECHA_CREADO ,FECHA_FINALIZADO ,PRECIO_TOTAL ) VALUES (2,'2020-12-12 14:56:17','2020-12-14 14:56:17',15);
+
+
+INSERT INTO platopedido(id,comanda_id,estadoplato,plato_id) VALUES (1,1, 1, 1);
+INSERT INTO platopedido(id,comanda_id,estadoplato,plato_id) VALUES (2,2, 1, 2);
 
 INSERT INTO ingrediente(id,cantidad,producto_id,plato_id) VALUES (1,2,3,1);
 INSERT INTO ingrediente(id,cantidad,producto_id,plato_id) VALUES (2,3,6,1);

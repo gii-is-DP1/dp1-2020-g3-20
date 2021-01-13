@@ -74,14 +74,14 @@
  				
  				
  				<sec:authorize access="hasAuthority('cocinero')">
-				<petclinic:menuItem active="${name eq 'platos'}" url="/platos"
+				<petclinic:menuItem active="${name eq 'platos'}" url="/platopedido"
 					title="platos">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<span>platos</span>
 				</petclinic:menuItem>
 				
 
-				<petclinic:menuItem active="${name eq 'pedidos'}" url="/pedidos"
+				<petclinic:menuItem active="${name eq 'pedidos'}" url="/"
 					title="pedidos">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>pedidos</span>
