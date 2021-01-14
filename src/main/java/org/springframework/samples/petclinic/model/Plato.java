@@ -1,6 +1,9 @@
 package org.springframework.samples.petclinic.model;
 
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -22,5 +25,7 @@ public class Plato extends NamedEntity{
 	@Column(name = "disponible")
 	private Boolean disponible;
 	
+	@OneToMany(mappedBy = "plato")
+	private Set<Ingrediente> ingredientes;
 
 }

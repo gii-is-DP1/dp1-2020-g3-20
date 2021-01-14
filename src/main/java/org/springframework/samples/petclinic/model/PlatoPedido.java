@@ -10,12 +10,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.sprigframework.samples.petclinic.validators.ValidatePlatoPedidoDisponible;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@ValidatePlatoPedidoDisponible
 @Table(name = "platopedido")
 public class PlatoPedido extends BaseEntity{
 	@ManyToOne

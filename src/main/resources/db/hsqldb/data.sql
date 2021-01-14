@@ -159,3 +159,6 @@ INSERT INTO authorities(id,username,authority) VALUES (10,'pablo','camarero');
 
 INSERT INTO users(username,password,enabled) VALUES ('juan','12345',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (11,'juan','cocinero');
+
+INSERT INTO users(username,password,enabled) VALUES ('antonio','12345',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (12,'antonio','manager');
