@@ -2,7 +2,9 @@ package org.springframework.samples.petclinic.web;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -54,6 +56,23 @@ public class ProductoController {
 		String vista= "producto/listaProducto";
 		Iterable<Producto> producto = productoService.productoList();
 		modelMap.addAttribute("producto",producto);
+		return vista;	
+	}
+	
+	@GetMapping(path="/notificaciones")
+	public String productos_que_faltan(ModelMap modelMap) {
+		String vista= "producto/notificaciones";
+		Collection<Producto> lista = new ArrayList<Producto>();
+		Iterable<Producto> producto = productoService.productoList();
+		Iterator<Producto> iter = producto.iterator();
+		while(iter.hasNext()) {
+			Producto product = iter.next();
+			if(product.getCantMin() > product.getCantAct()) {
+				lista.add(product);
+			}
+		}
+		Iterable<Producto> res = lista;
+		modelMap.addAttribute("producto",res);
 		return vista;	
 	}
 	
