@@ -6,7 +6,10 @@ import java.util.Collection;
 import java.util.Locale;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Producto;
@@ -17,6 +20,7 @@ import org.springframework.samples.petclinic.service.ProductoService;
 import org.springframework.samples.petclinic.service.ProveedorService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
+import org.springframework.samples.petclinic.service.exceptions.PedidoPendienteException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -87,19 +91,28 @@ public class ProductoController {
 	}
 		
 	@GetMapping(path="/delete/{productoId}")
-	public String borrarProducto(@PathVariable("productoId") int productoId, ModelMap modelMap) {
+	public String borrarProducto(@PathVariable("productoId") int productoId, ModelMap modelMap)  {
 		String vista= "producto/listaProducto";
 		Optional<Producto> prod= productoService.buscaProductoPorId(productoId);
 		if(prod.isPresent()) {
-			productoService.borrarProducto(productoId);
-			modelMap.addAttribute("message", "successfuly deleted");
-		}else {
+			try {
+				productoService.borrarProducto(productoId);
+				modelMap.addAttribute("message", "successfuly deleted");
+				vista=listadoProducto(modelMap);
+			} 
+			catch (PedidoPendienteException ex) {
+				modelMap.addAttribute("message", "No se puede borrar porque hay un pedido pendiente con ese producto");
+				vista=listadoProducto(modelMap);
+         }
+
+		}
+		else {
 			modelMap.addAttribute("message", "not found");
 			vista=listadoProducto(modelMap);
 		}
 		return vista;
 	}
-	
+
 	@GetMapping(value = "/edit/{productoId}")
 	public String initUpdateProductoForm(@PathVariable("productoId") int productoId, ModelMap model) {		
 		String vista= "producto/editarProducto";	
@@ -130,32 +143,7 @@ public class ProductoController {
 		}
 	}		
 		
-//	@GetMapping(path="/savePedido/{productoId}")
-//	public String recargarStock(@PathVariable("productoId") int productoId, ModelMap modelMap) {
-//		String vista= "producto/listaProducto";
-//		Optional<Producto> prodOpt= productoService.buscaProductoPorId(productoId);
-//		if(prodOpt.isPresent()) {
-//			Producto producto = prodOpt.get();
-//			Collection<Producto> listaProducto = proveedorService.encontrarProductoProveedor(producto);
-//			Pedido pedido = new Pedido();
-//			pedido.setProveedor(producto.getProveedor());
-//			pedido.setFechaPedido(LocalDate.now());
-//			pedido.setHaLlegado(Boolean.FALSE);
-//			proveedorService.savePedido(pedido);
-//			LineaPedido lineaPedido = new LineaPedido();
-//			for(Producto p : listaProducto) {
-//				lineaPedido = proveedorService.anadirLineaPedido(p, pedido);
-//				proveedorService.saveLineaPedido(lineaPedido);
-//			}
-//			proveedorService.savePedido(pedido);
-//			modelMap.addAttribute("message", "Se ha creado el pedido correctamente");
-//			vista = listadoProducto(modelMap);
-//		}else {
-//			modelMap.addAttribute("message", "not found");
-//			vista=listadoProducto(modelMap);
-//		}
-//		return vista;
-//	}
+
 	@GetMapping(path="/savePedido/{productoId}")
 	public String recargarStock(@PathVariable("productoId") int productoId, ModelMap modelMap) {
 		String vista= "producto/listaProducto";

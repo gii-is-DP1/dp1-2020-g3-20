@@ -3,14 +3,17 @@ package org.springframework.samples.petclinic.service;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Iterator;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.stereotype.Service;
 
-
+//tambien testea pedido y linea pedido
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class ProveedorServiceTests {
@@ -51,5 +54,16 @@ public class ProveedorServiceTests {
 		assertEquals("Taburete", test.getName());
 		
 	}
+	@Test
+	public void esBuscarLineaPedidoconProductoId() {
+	//	System.out.println("000000000000000000000000000000000000000000000000000000000000000000000000");
+		Iterable<LineaPedido> test = provSer.findLineaPedidoByProductoId(1);
+		LineaPedido a=test.iterator().next();
+//		System.out.println("1111111111111111111111111111111111111111111111111111111111111111111111111");
+//		System.out.println(a.getPedido()+"777777777777777777777777777777777777777777777777777777777777777777777777");
+//		System.out.println(a.getPedido()+"7777777777777777777777777777777777777777777777777777777777777777777777778");
+//		
+	}
+
 
 }

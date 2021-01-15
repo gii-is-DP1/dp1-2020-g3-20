@@ -40,15 +40,16 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
  * @author Victor y tabares
  */
 
-@WebMvcTest(controllers=PedidoController.class,
+@WebMvcTest(controllers=ProveedorController.class,
 		excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 		excludeAutoConfiguration= SecurityConfiguration.class)
-class PedidoControllerTests2 {
-// toca revisarlo no funciona aun 
-	private static final int TEST_PEDIDO_ID = 1;
+class ProveedorControllerTests {
+	private static final int TEST_PROVEEDOR_ID = 1;
+
+
 
 	@Autowired
-	private PedidoController pedidoController;
+	private ProveedorController ProveedorController;
 
 	@MockBean
 	private ProveedorService proveedorService;
@@ -56,32 +57,47 @@ class PedidoControllerTests2 {
 	@Autowired
 	private MockMvc mockMvc;
 
-	private Pedido prueba;
-	private Proveedor proveedor;
+
+	private Proveedor jorge;
 
 	@BeforeEach
-	void test() {
-		proveedor = new Proveedor();
-		proveedor.setId(7);
-		proveedor.setName("jorge");
-		prueba = new Pedido();
-		prueba.setId(TEST_PEDIDO_ID);
-		prueba.setProveedor(proveedor);
-		prueba.setHaLlegado(true);
-		prueba.setFechaEntrega(LocalDate.now());
-		prueba.setFechaPedido(LocalDate.now());
-		prueba.setCosteTotal(60.55);
-		given(this.proveedorService.findProveedorbyName("jorge")).willReturn(proveedor);
-		given(this.proveedorService.findPedidoByProveedorId(7).iterator().next()).willReturn(prueba);
+	void setup() {
+		jorge = new Proveedor();
+		jorge.setId(TEST_PROVEEDOR_ID);
+		jorge.setName("jorge");
+		jorge.setApellido("monteperrito");
+		jorge.setGmail("patata@gmail.com");
+		jorge.setTelefono("954333333");
+//		prueba = new Pedido();
+//		prueba.setId(TEST_PEDIDO_ID);
+//		prueba.setProveedor(proveedor);
+//		prueba.setHaLlegado(true);
+//		prueba.setFechaEntrega(LocalDate.now());
+//		prueba.setFechaPedido(LocalDate.now());
+//		prueba.setCosteTotal(60.55);
+		given(this.proveedorService.findProveedorbyName("jorge")).willReturn(jorge);
+//		given(this.proveedorService.findPedidoByProveedorId(7).iterator().next()).willReturn(prueba);
+
 
 }
-//	@WithMockUser(value = "spring")
+	@WithMockUser(value = "spring")
+    @Test
+    void testInitCreationForm() throws Exception {
+	mockMvc.perform(get("/proveedor/new")).andExpect(status().isOk()).andExpect(model().attributeExists("proveedor"))
+			.andExpect(view().name("proveedor/editProveedor"));
+}
+//    @WithMockUser(value = "spring")
 //    @Test
-//    void testInitCreationForm() throws Exception {
-//	mockMvc.perform(get("/proveedor/new")).andExpect(status().isOk()).andExpect(model().attributeExists("proveedor"))
-//			.andExpect(view().name("proveedor/editProveedor"));
+//    void testEditproveedor() throws Exception {
+//    	mockMvc.perform(get("/proveedor/edit/{proveedorId}",TEST_PROVEEDOR_ID)).andExpect(status().isOk())
+//   			.andExpect(model().attributeExists("proveedor"))
+//   			.andExpect(model().attribute("proveedor", hasProperty("apellido", is("monteperrito"))))
+//   			.andExpect(model().attribute("proveedor", hasProperty("name", is("jorge"))))
+//   			.andExpect(model().attribute("proveedor", hasProperty("gmail", is("patata@gmail.com"))))
+//    		.andExpect(model().attribute("proveedor", hasProperty("telefono", is("954333333"))))
+//    		.andExpect(view().name("proveedor/editarProveedor"));
 //}
-
+//
 
 
 }

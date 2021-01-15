@@ -80,8 +80,8 @@ public class ProveedorController {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		
 		Proveedor proveedor =  proveedorService.provedroporid(proveedorId).get();
-			model.addAttribute(proveedor);
-			return vista;
+		model.addAttribute(proveedor);
+		return vista;
 	}
 	@PostMapping(value = "/edit")
 	public String processUpdateProveedorForm(@Valid Proveedor proveedor, BindingResult result,ModelMap modelMap) {
