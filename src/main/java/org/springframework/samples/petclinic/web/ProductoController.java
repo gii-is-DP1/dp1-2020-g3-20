@@ -122,14 +122,12 @@ public class ProductoController {
 	@GetMapping(value = "/edit/{productoId}")
 	public String initUpdateProductoForm(@PathVariable("productoId") int productoId, ModelMap model) {		
 		String vista= "producto/editarProducto";	
-		
 		Collection<TipoProducto> collectionTipoProducto = this.productoService.encontrarTiposProducto();
-		model.addAttribute("listaTipos", collectionTipoProducto);
 		Producto producto =  productoService.buscaProductoPorId(productoId).get();
 		ProductoDTO productoConvertido = productoConverter.convertEntityToProductoDTO(producto);
 		Collection<String> collectionProveedor = this.proveedorService.findAllNames();
 		productoConvertido.setTipoproductodto(producto.getTipoProducto().getName());
-		
+		model.addAttribute("listaTipos", collectionTipoProducto);
 		model.addAttribute("listaProveedores", collectionProveedor);
 		model.addAttribute("producto", productoConvertido);
 		return vista;
@@ -139,6 +137,7 @@ public class ProductoController {
 	public String processUpdateProductoForm(ProductoDTO producto, BindingResult result,ModelMap modelMap) throws ParseException {
 		final Producto productoFinal = productoConverter.convertProductoDTOToEntity(producto);
 		productoFinal.setTipoProducto(tipoProductoFormatter.parse(producto.getTipoproductodto(), Locale.ENGLISH));
+		productoFinal.setProveedor(proveedorFormatter.parse(producto.getProveedor(), Locale.ENGLISH));
 		if(result.hasErrors()) {
 			modelMap.addAttribute("producto", producto);
 			return "producto/editarProducto";

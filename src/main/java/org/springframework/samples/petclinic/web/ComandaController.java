@@ -22,6 +22,7 @@ public class ComandaController {
 	@Autowired
 	private ComandaService comandaService;
 	
+	//Vista de Camarero para la lista actual de Comandas sin finalizar
 	@GetMapping()
 	public String listadoComandaActual(ModelMap modelMap) {
 		String vista= "comanda/listaComandaTotal";
@@ -30,6 +31,8 @@ public class ComandaController {
 		return vista;	
 	}
 	
+	
+	//Vista de Propietario para la lista total de Comandas
 	@GetMapping(path="/listaComandaTotal")
 	public String listadoComandaTotal(ModelMap modelMap) {
 		String vista= "comanda/listaComandaTotal";
@@ -38,6 +41,7 @@ public class ComandaController {
 		return vista;	
 	}
 	
+	//Vista de Propietario para la lista de Comandas de UN DIA concreto
 	@GetMapping(path="/listaComandaDia/{dia}")
 	public String listadoComandaDia(@PathVariable("dia") LocalDate dia, ModelMap modelMap) {
 		String vista= "comanda/listaComandaTotal";
