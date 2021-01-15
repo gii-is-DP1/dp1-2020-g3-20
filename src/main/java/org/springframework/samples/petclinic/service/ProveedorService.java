@@ -205,6 +205,9 @@ public class ProveedorService {
 	public Iterable<LineaPedido> findLineaPedidoByPedidoId(int pedidoID) {
 		return lineaPedidoRepository.findByPedidoId(pedidoID);
 	}
+	public Iterable<LineaPedido> findLineaPedidoByProductoId(int productoID) {
+		return lineaPedidoRepository.findByProductoId(productoID);
+	}
 	
 //	@Transactional
 //	public LineaPedido crearLineaPedido(Producto producto, Pedido pedido) throws DataAccessException {
