@@ -61,4 +61,7 @@
         </c:forEach>
         </tbody>
     </table>
+    <form method="get" action="/producto/new">
+      	<button class="btn btn-default" type="submit">Crear Producto</button>
+  	</form>
 </petclinic:layout>

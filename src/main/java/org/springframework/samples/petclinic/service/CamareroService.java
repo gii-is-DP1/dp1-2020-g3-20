@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Camarero;
-import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.CamareroRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
@@ -39,7 +38,6 @@ public class CamareroService {
 	@Transactional(rollbackFor = DuplicatedPedidoException.class)
 	public void guardarCamarero(Camarero camarero) throws DuplicatedPedidoException {
 		//creating user
-		Boolean Repetido = false;
 		Iterable<Camarero> lista = camRep.findAll();
 		Iterator<Camarero> it = lista.iterator();
        	Boolean Hayrepetido = false;

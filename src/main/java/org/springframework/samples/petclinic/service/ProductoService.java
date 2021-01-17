@@ -69,6 +69,7 @@ public class ProductoService {
 	public Optional<Producto> buscaProductoPorId(Integer id) {
 		return productoRepo.findById(id);
 	}
+	
 	public Iterable<LineaPedido> findLineaPedidoByProductoId(int productoID) {
 		return lineaPedidoRepository.findByProductoId(productoID);
 	}

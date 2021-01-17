@@ -48,10 +48,10 @@ public class CamareroController {
 		}else {
 			try {
 				camareroService.guardarCamarero(camarero);
-				modelMap.addAttribute("message", "successfuly saved");
+				modelMap.addAttribute("message", "Guardado correctamente");
 				vista=listadoCamareros(modelMap);
 			} catch (DuplicatedPedidoException e) {
-				modelMap.addAttribute("message", "mismo usuario ");
+				modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
 				vista=listadoCamareros(modelMap);
 			}
 
@@ -65,10 +65,10 @@ public class CamareroController {
 		Optional<Camarero> cam= camareroService.buscaCamareroPorId(camareroId);
 		if(cam.isPresent()) {
 			camareroService.borrarCamarero(camareroId);
-			modelMap.addAttribute("message", "successfuly deleted");
+			modelMap.addAttribute("message", "Borrado correctamente");
 			vista=listadoCamareros(modelMap);
 		}else {
-			modelMap.addAttribute("message", "not found");
+			modelMap.addAttribute("message", "Camarero no encontrado");
 			vista=listadoCamareros(modelMap);
 		}
 		return vista;
@@ -96,7 +96,7 @@ public class CamareroController {
 		try {
 			this.camareroService.guardarCamarero(camarero);
 		} catch (DuplicatedPedidoException e) {
-			modelMap.addAttribute("message", "mismo usuario ");
+			modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
 			vista=listadoCamareros(modelMap);
 		}
 			return "redirect:/camareros";

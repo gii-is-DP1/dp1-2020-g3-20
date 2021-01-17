@@ -65,7 +65,7 @@ public class ComandaController {
 			return "comanda/editComanda";
 		}else {
 			comandaService.guardarComanda(comanda);
-			modelMap.addAttribute("message", "successfuly saved");
+			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista=listadoComandaActual(modelMap);
 		}
 		return vista; 
@@ -84,7 +84,7 @@ public class ComandaController {
 			return "producto/editarComanda";
 		}else {
 			this.comandaService.guardarComanda(comanda);
-			modelMap.addAttribute("message", "successfuly saved");
+			modelMap.addAttribute("message", "Guardado Correctamente");
 			return "redirect:/comanda";
 		}
 	}		

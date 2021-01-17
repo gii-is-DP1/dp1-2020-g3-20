@@ -77,7 +77,7 @@ public class PlatoController {
 			return "platos/editPlatos";
 		}else {
 			platoService.guardarPlato(plato);
-			modelMap.addAttribute("message", "successfuly saved");
+			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista=listadoPlatos(modelMap);
 		}
 		return vista;
@@ -89,10 +89,10 @@ public class PlatoController {
 		Optional<Plato> cam= platoService.buscaPlatoPorId(platoId);
 		if(cam.isPresent()) {
 			platoService.borrarPlato(platoId);
-			modelMap.addAttribute("message", "successfuly deleted");
+			modelMap.addAttribute("message", "Borrado Correctamente");
 			vista=listadoPlatos(modelMap);
 		}else {
-			modelMap.addAttribute("message", "not found");
+			modelMap.addAttribute("message", "Plato no encontrado");
 			vista=listadoPlatos(modelMap);
 		}
 		return vista;

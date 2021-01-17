@@ -54,7 +54,7 @@ public class LineaPedidoController {
 			return "lineaPedido/editLineaPedido";
 		}else {
 			proveedorService.saveLineaPedido(lineaPedido);
-			modelMap.addAttribute("message", "lineaPedido successfuly saved");
+			modelMap.addAttribute("message", "Guardado Correctamente");
 			view=listadoDeLineaPedido(modelMap);
 		}
 		return view	;

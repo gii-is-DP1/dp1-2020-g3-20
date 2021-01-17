@@ -86,18 +86,18 @@ class ProveedorControllerTests {
 	mockMvc.perform(get("/proveedor/new")).andExpect(status().isOk()).andExpect(model().attributeExists("proveedor"))
 			.andExpect(view().name("proveedor/editProveedor"));
 }
-//    @WithMockUser(value = "spring")
-//    @Test
-//    void testEditproveedor() throws Exception {
-//    	mockMvc.perform(get("/proveedor/edit/{proveedorId}",TEST_PROVEEDOR_ID)).andExpect(status().isOk())
-//   			.andExpect(model().attributeExists("proveedor"))
-//   			.andExpect(model().attribute("proveedor", hasProperty("apellido", is("monteperrito"))))
-//   			.andExpect(model().attribute("proveedor", hasProperty("name", is("jorge"))))
-//   			.andExpect(model().attribute("proveedor", hasProperty("gmail", is("patata@gmail.com"))))
-//    		.andExpect(model().attribute("proveedor", hasProperty("telefono", is("954333333"))))
-//    		.andExpect(view().name("proveedor/editarProveedor"));
-//}
-//
+    @WithMockUser(value = "spring")
+    @Test
+    void testEditproveedor() throws Exception {
+    	mockMvc.perform(get("/proveedor/edit/{proveedorId}",TEST_PROVEEDOR_ID)).andExpect(status().isOk())
+   			.andExpect(model().attributeExists("proveedor"))
+   			.andExpect(model().attribute("proveedor", hasProperty("apellido", is("monteperrito"))))
+   			.andExpect(model().attribute("proveedor", hasProperty("name", is("jorge"))))
+   			.andExpect(model().attribute("proveedor", hasProperty("gmail", is("patata@gmail.com"))))
+    		.andExpect(model().attribute("proveedor", hasProperty("telefono", is("954333333"))))
+    		.andExpect(view().name("proveedor/editarProveedor"));
+}
+
 
 
 }

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Producto;
-import org.springframework.samples.petclinic.service.ProductoService;
 import org.springframework.samples.petclinic.service.ProveedorService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
 import org.springframework.stereotype.Controller;
@@ -28,8 +27,6 @@ public class PedidoController {
 	@Autowired
 	private ProveedorService proveedorService;
 	
-	@Autowired
-	private ProductoService productoService;
 	
 	@GetMapping()
 	public String listadoDePedidos(ModelMap modelMap) {
@@ -82,7 +79,7 @@ public class PedidoController {
 		}else {
 			 try {                    
 				proveedorService.savePedido(pedido);
-				modelMap.addAttribute("message", "pedido successfuly saved");
+				modelMap.addAttribute("message", "Guardado Correctamente");
 				view=listadoDePedidos(modelMap);              
              } catch (DuplicatedPedidoException ex) {
                  result.rejectValue("proveedor", "duplicate", "already exists");

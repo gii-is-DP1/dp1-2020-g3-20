@@ -1,6 +1,11 @@
 package org.springframework.samples.petclinic.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,32 +14,67 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Producto;
-import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.stereotype.Service;
+
+
 
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class LineaPedidoServiceTests {
 	@Autowired
-	private ProveedorService lineaPedidoService;
+	private ProveedorService proveedorService;
+	
+	@Autowired
 	private ProductoService productoService;
+	
+	//Contar cuantas lineas de pedido hay.
 	@Test
 	public void testCountWithInitialData() {
-		int count = lineaPedidoService.lineaPedidoCount();
+		int count = proveedorService.lineaPedidoCount();
 		assertEquals(count,2);
 	}
 	
-//	@Test
-//	public void testCrearLineaPedido() {
-//		System.out.println("0000000000000000000000000000000000000000000000000000000000000000000000");
-//		Producto producto = productoService.buscaProductoPorId(1).get();
-//		System.out.println("1111111111111111111111111111111111111111111111111111111111111111111111111");
-//		Proveedor proveedor = lineaPedidoService.findProveedorbyName("taburete");
-//		System.out.println("2222222222222222222222222222222222222222222222222222222222222222222222222");
-//		Pedido pedido = lineaPedidoService.findPedidoByProveedorId(proveedor.getId()).iterator().next();
-//		System.out.println("333333333333333333333333333333333333333333333333333333333333333333333333333333");
-//		LineaPedido lp = lineaPedidoService.crearLineaPedido(producto, pedido);
-//		System.out.println("999999999999999999999999999999999999999999999999999999999999999999999999999999999");
-//		System.out.println(lp);
-//	}
+	
+	//FindLineaPEdidoByProductoID
+	@Test
+	public void esBuscarLineaPedidoconProductoId() {
+		Iterable<LineaPedido> test = proveedorService.findLineaPedidoByProductoId(1);
+		Iterator<LineaPedido> it_test = test.iterator();
+		int i = 0;
+		while(it_test.hasNext()) {
+			LineaPedido lineaPedido = it_test.next();
+			int productoID = lineaPedido.getProducto().getId();
+			assertEquals(1,productoID);
+			assertThat(lineaPedido.getPedido()).isNotNull();
+			assertThat(lineaPedido.getProducto()).isNotNull();
+			i++;
+		}
+		assertEquals(i,2);
+	}
+	
+	//AñadirLineaPedido
+	@Test
+	public void añadirLineaPedidoAPedido() {
+
+		Producto producto = productoService.buscaProductoPorId(5).get();
+		Pedido pedido1 = proveedorService.pedidoPorId(2).get();
+		int found = pedido1.getLineasPedidas().size();
+		
+		LineaPedido lineapedido = proveedorService.anadirLineaPedido(producto, pedido1);
+		proveedorService.saveLineaPedido(lineapedido);
+		assertThat(lineapedido.getId()).isNotNull();
+		
+		double cantidad = producto.getCantMax()-producto.getCantAct();
+		assertThat(lineapedido.getCantidad()).isEqualTo(cantidad);
+		
+		Iterable<LineaPedido> test = proveedorService.findLineaPedidoByProductoId(1);
+		Iterator<LineaPedido> it_test = test.iterator();
+		List<LineaPedido> aux = new ArrayList<LineaPedido>();
+		while (it_test.hasNext()) {
+			aux.add(it_test.next());
+		}
+		assertEquals(aux.size(), found+1);
+	}
+	
+	
 }

@@ -44,7 +44,7 @@ public class CocineroController {
 			return "cocinero/editCocinero";
 		}else {
 			cocineroService.guardarCocinero(cocinero);
-			modelMap.addAttribute("message", "successfuly saved");
+			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista=listadoCocinero(modelMap);
 		}
 		return vista;
@@ -56,9 +56,9 @@ public class CocineroController {
 		Optional<Cocinero> cam= cocineroService.buscaCocineroPorId(cocineroId);
 		if(cam.isPresent()) {
 			cocineroService.borrarCocinero(cocineroId);
-			modelMap.addAttribute("message", "successfuly deleted");
+			modelMap.addAttribute("message", "Borrado Correctamente");
 		}else {
-			modelMap.addAttribute("message", "not found");
+			modelMap.addAttribute("message", "Cocinero no encontrado");
 			vista=listadoCocinero(modelMap);
 		}
 		return vista;

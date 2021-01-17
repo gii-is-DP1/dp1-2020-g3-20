@@ -56,7 +56,7 @@ public class IngredienteController {
 			return "platosPedido/newPlatosPedido";
 		}else {
 			ingService.guardarIngrediente(ingFinal);
-			modelMap.addAttribute("message", "successfuly saved");
+			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista=listadoIngrediente(modelMap);
 		}
 		return vista; 
@@ -68,10 +68,10 @@ public class IngredienteController {
 		Optional<Ingrediente> pp= ingService.buscaIngPorId(ingId);
 		if(pp.isPresent()) {
 			ingService.borrarIngrediente(ingId);
-			modelMap.addAttribute("message", "successfuly deleted");
+			modelMap.addAttribute("message", "Borrado Correctamente");
 			vista=listadoIngrediente(modelMap);
 		}else {
-			modelMap.addAttribute("message", "not found");
+			modelMap.addAttribute("message", "Ingrediente no encontrado");
 			vista=listadoIngrediente(modelMap);
 		}
 		return vista;
