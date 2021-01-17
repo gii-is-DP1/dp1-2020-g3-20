@@ -103,7 +103,7 @@ public class ProductoController {
 			return "producto/editProducto";
 		}else {
 			productoService.guardarProducto(productoFinal);
-			modelMap.addAttribute("message", "successfuly saved");
+			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista=listadoProducto(modelMap);
 		}
 		return vista; 
@@ -116,7 +116,7 @@ public class ProductoController {
 		if(prod.isPresent()) {
 			try {
 				productoService.borrarProducto(productoId);
-				modelMap.addAttribute("message", "successfuly deleted");
+				modelMap.addAttribute("message", "Borrado Correctamente");
 				vista=listadoProducto(modelMap);
 			} 
 			catch (PedidoPendienteException ex) {
@@ -126,7 +126,7 @@ public class ProductoController {
 
 		}
 		else {
-			modelMap.addAttribute("message", "not found");
+			modelMap.addAttribute("message", "Producto no encontrado");
 			vista=listadoProducto(modelMap);
 		}
 		return vista;
@@ -156,7 +156,7 @@ public class ProductoController {
 			return "producto/editarProducto";
 		}else {
 			this.productoService.guardarProducto(productoFinal);
-			modelMap.addAttribute("message", "successfuly saved");
+			modelMap.addAttribute("message", "Guardado Correctamente");
 			return "redirect:/producto";
 		}
 	}		
@@ -188,7 +188,7 @@ public class ProductoController {
 				vista=listadoProducto(modelMap);
 			}
 		}else {
-			modelMap.addAttribute("message", "not found");
+			modelMap.addAttribute("message", "Producto no encontrado");
 			vista=listadoProducto(modelMap);
 		}
 		return vista;

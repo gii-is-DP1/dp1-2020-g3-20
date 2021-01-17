@@ -1,18 +1,13 @@
 package org.springframework.samples.petclinic.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
+import java.util.Collection;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.IngredientePedido;
-import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.repository.IngredientePedidoRepository;
-import org.springframework.samples.petclinic.repository.IngredienteRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,7 +1,6 @@
 package org.springframework.samples.petclinic.service;
 
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Pedido;
-import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.samples.petclinic.repository.LineaPedidoRepository;
@@ -19,10 +17,8 @@ import org.springframework.samples.petclinic.repository.PedidoRepository;
 import org.springframework.samples.petclinic.repository.ProductoRepository;
 import org.springframework.samples.petclinic.repository.ProveedorRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
-import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 @Service
 public class ProveedorService {
@@ -121,6 +117,11 @@ public class ProveedorService {
 	
 	//PEDIDO
 	
+	
+	@Transactional
+	public int Pedidocount(){
+		return (int) pedidoRepository.count();
+	}
 
 	@Transactional(rollbackFor = DuplicatedPedidoException.class)
 	public void savePedido(Pedido pedido) throws DataAccessException, DuplicatedPedidoException {
@@ -129,9 +130,9 @@ public class ProveedorService {
        	Boolean Hayrepetido = false;
        	while(it.hasNext()) {
        		Pedido p = it.next();
-			    if (p.getProveedor()==pedido.getProveedor()&& p.getHaLlegado()==false) {
+			if (p.getProveedor()==pedido.getProveedor()&& p.getHaLlegado()==false) {
 				      Hayrepetido = true;
-		    	}		
+		    }		
        	}
        	if (Hayrepetido)  {    
        		throw new DuplicatedPedidoException();
@@ -139,15 +140,7 @@ public class ProveedorService {
        		pedidoRepository.save(pedido);
        	}
 	}
-	@Transactional
-	public Pedido crearPedido(Proveedor proveedor) throws DataAccessException {
-		Pedido pedido = new Pedido();
-		pedido.setProveedor(proveedor);
-		pedido.setFechaPedido(LocalDate.now());
-		pedido.setHaLlegado(Boolean.FALSE);
-		pedido.setCosteTotal(8.0);
-		return pedido;
-	}
+
 	
 	@Transactional
 	public Iterable<Pedido> findAllPedido(){
@@ -209,17 +202,6 @@ public class ProveedorService {
 		return lineaPedidoRepository.findByProductoId(productoID);
 	}
 	
-//	@Transactional
-//	public LineaPedido crearLineaPedido(Producto producto, Pedido pedido) throws DataAccessException {
-//		LineaPedido lp = new LineaPedido();
-//		double cantidad = producto.getCantMax()-producto.getCantAct();
-//		
-//		lp.setCantidad(cantidad);
-//		lp.setPrecio(cantidad*2);    //El numero dos se sutituye mas tarde por el precio del producto si lo decidimos meter. 
-//		lp.setPedido(pedido);
-//		lp.setProducto(producto);
-//		return lp;
-//	}
 	
 	@Transactional
 	public LineaPedido anadirLineaPedido(Producto producto, Pedido pedido) throws DataAccessException {

@@ -48,7 +48,7 @@ public class MenuController {
 			return "menus/editMenu";
 		}else {
 			menuService.guardarMenu(menu);
-			modelMap.addAttribute("message", "successfuly saved");
+			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista=listadoMenus(modelMap);
 		}
 		return vista;
@@ -60,9 +60,9 @@ public class MenuController {
 		Optional<Menu> cam= menuService.buscaMenuPorId(menuId);
 		if(cam.isPresent()) {
 			menuService.borrarMenu(menuId);
-			modelMap.addAttribute("message", "successfuly deleted");
+			modelMap.addAttribute("message", "Borrado Correctamente");
 		}else {
-			modelMap.addAttribute("message", "not found");
+			modelMap.addAttribute("message", "Menu no Encontrado");
 			vista=listadoMenus(modelMap);
 		}
 		return vista;
