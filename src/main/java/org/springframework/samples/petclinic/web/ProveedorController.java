@@ -5,8 +5,10 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.samples.petclinic.service.ProveedorService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -41,9 +43,16 @@ public class ProveedorController {
 			modelMap.addAttribute("proveedor", proveedor);
 			return "proveedor/editProveedor";
 		}else {
-			proveedorService.save(proveedor);
-			modelMap.addAttribute("message", "proveedor successfuly saved");
-			view=listadoDeProveedores(modelMap);
+				if (proveedorService.esIgual(proveedor.getName(), proveedor.getApellido())) {
+					modelMap.addAttribute("message", "El proveedor ya existe");
+					modelMap.addAttribute("proveedor", proveedor);
+					return "proveedor/editProveedor";
+				} else {
+					proveedorService.save(proveedor);
+					modelMap.addAttribute("message", "proveedor successfuly saved");
+					view=listadoDeProveedores(modelMap);
+				}
+			
 		}
 		return view	;
 		
@@ -53,7 +62,7 @@ public class ProveedorController {
 		String view= "proveedor/listadoDeProveedores";
 		Optional<Proveedor> proveedor= proveedorService.provedroporid(proveedorid);
 		if(proveedor.isPresent()) {
-			proveedorService.delete(proveedor.get());
+			proveedorService.borrarProv(proveedorid);
 			modelMap.addAttribute("message", "proveedor successfuly deleted");
 			view=listadoDeProveedores(modelMap);
 		}else {
@@ -64,4 +73,31 @@ public class ProveedorController {
 		
 	}
 	
+
+	@GetMapping(value = "/edit/{proveedorId}")
+	public String initUpdateProveedorForm(@PathVariable("proveedorId") int proveedorId, ModelMap model) {
+		String vista= "proveedor/editarProveedor";
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		Proveedor proveedor =  proveedorService.provedroporid(proveedorId).get();
+		model.addAttribute(proveedor);
+		return vista;
+	}
+	@PostMapping(value = "/edit")
+	public String processUpdateProveedorForm(@Valid Proveedor proveedor, BindingResult result,ModelMap modelMap) {
+		
+		String vista= "proveedor/editarProveedor";
+		
+		if(result.hasErrors()) {
+			modelMap.addAttribute("proveedor", proveedor);
+		
+			return vista;
+		}
+		else {
+		this.proveedorService.save(proveedor);
+			return "redirect:/proveedor";
+		
+	}
+	
 }
+	}

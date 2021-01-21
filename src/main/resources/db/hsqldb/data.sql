@@ -8,6 +8,8 @@ INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
 INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 
+
+
 INSERT INTO vets VALUES (1, 'James', 'Carter');
 INSERT INTO vets VALUES (2, 'Helen', 'Leary');
 INSERT INTO vets VALUES (3, 'Linda', 'Douglas');
@@ -63,10 +65,61 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
 
-INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'taburete', 'El capo', 'eltitocapo@gmail.com',646464664);
-INSERT INTO camarero(id,name,apellido,gmail,telefono,contraseña) VALUES (1, 'Victor', 'El Tito', 'eltitovictor@gmail.com',6464646464,'12345');
-INSERT INTO manager(id,name,apellido,gmail,telefono,contraseña) VALUES (2, 'Alexander', 'El Tribandera', 'tribanderaAlexito@gmail.com', 678431588, '12345');
-INSERT INTO propietario(id,name,apellido,gmail,telefono,contraseña) VALUES (1, 'Abdel', 'Ch', 'Abdch@gmail.com', 602354622, '12345');
+INSERT INTO tipoproducto VALUES (1, 'Carne');
+INSERT INTO tipoproducto VALUES (2, 'Pescado');
+INSERT INTO tipoproducto VALUES (3, 'Frutas y Verduras');
+INSERT INTO tipoproducto VALUES (4, 'Lacteos');
+INSERT INTO tipoproducto VALUES (5, 'Bebidas');
+INSERT INTO tipoproducto VALUES (6, 'Otros');
+
+INSERT INTO estadoplato VALUES (1, 'ENPROCESO');
+INSERT INTO estadoplato VALUES (2, 'ENCOLA');
+INSERT INTO estadoplato VALUES (3, 'FINALIZADO');
+
+INSERT INTO platos(id,name,precio,disponible) VALUES (1, 'Albondigas',4, TRUE);
+INSERT INTO platos(id,name,precio,disponible)  VALUES (2, 'Cocretas',4, TRUE);
+INSERT INTO platos(id,name,precio,disponible)  VALUES (3, 'Macarrones',4, TRUE);
+INSERT INTO platos(id,name,precio,disponible)  VALUES (4, 'Huevo frito',4, TRUE);
+INSERT INTO platos(id,name,precio,disponible)  VALUES (5, 'Salchichon',4, TRUE);
+INSERT INTO platos(id,name,precio,disponible)  VALUES (6, 'Ensalada',4, TRUE);
+INSERT INTO platos(id,name,precio,disponible)  VALUES (7, 'Arroz frito',18, TRUE);
+
+INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (1, 'Taburete', 'El capo', 'eltitocapo@gmail.com',646464664);
+INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (2, 'El', 'Pana', 'elpana@gmail.com',696969696);
+INSERT INTO proveedor(id,name,apellido,gmail,telefono) VALUES (3, 'Alex', 'Hossdorf', 'alexito@gmail.com',777777777);
+INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Victor', 'El Tito', 'eltitovictor@gmail.com',6464646464,'Bones','12345');
+INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Horacio', 'Garcia', 'horgarler@gmail.com',6969696969,'Hori','qwerty');
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (1,6,'Pan', 2.0, 5.0, 10.0, 1);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (2,1,'Solomillo', 3.0, 1.0, 10.0, 1);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (3,2,'Pez Espada', 2.0, 6.0, 10.0, 1);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (4,3,'lechuga', 5.0, 10.0, 15.0, 2);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (5,4,'leche', 6.0, 20.0, 25.0, 2);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (6,4,'yogurt', 5.0, 15.0, 20.0, 3);
+INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2, 'Alexander', 'El Tribandera', 'tribanderaAlexito@gmail.com', 678431588,'Alex', '12345');
+INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Abdel', 'Ch', 'Abdch@gmail.com', 602354622,'Abd', '12345');
+
+
+INSERT INTO comanda(ID ,FECHA_CREADO ,FECHA_FINALIZADO ,PRECIO_TOTAL ) VALUES (1,'2020-12-10 14:56:17','2020-12-11 14:56:17',15);
+INSERT INTO comanda(ID ,FECHA_CREADO ,FECHA_FINALIZADO ,PRECIO_TOTAL ) VALUES (2,'2020-12-12 14:56:17','2020-12-14 14:56:17',15);
+
+
+INSERT INTO platopedido(id,comanda_id,estadoplato,plato_id) VALUES (1,1, 1, 1);
+INSERT INTO platopedido(id,comanda_id,estadoplato,plato_id) VALUES (2,2, 1, 2);
+
+INSERT INTO ingrediente(id,cantidad,producto_id,plato_id) VALUES (1,2,3,1);
+INSERT INTO ingrediente(id,cantidad,producto_id,plato_id) VALUES (2,3,6,1);
+
+INSERT INTO ingediente_pedido(id,cant_pedida,ingrediente_id,pp_id) VALUES (1,4,2,1);
+INSERT INTO ingediente_pedido(id,cant_pedida,ingrediente_id,pp_id) VALUES (2,3,2,1);
+INSERT INTO ingediente_pedido(id,cant_pedida,ingrediente_id,pp_id) VALUES (3,3,2,1);
+
+
+
+INSERT INTO pedido(id,fechapedido,costetotal,hallegado,proveedor_id) VALUES (1, '2020-01-04', 20, FALSE, 1);
+INSERT INTO lineapedido(id,producto_id,cantidad,pedido_id) VALUES (1, 1, 10, 1);
+INSERT INTO pedido(id,fechapedido,fechaentrega,costetotal,hallegado,proveedor_id) VALUES (2, '2020-01-05', '2020-01-06', 80, TRUE, 2);
+INSERT INTO lineapedido(id,producto_id,cantidad,pedido_id) VALUES (2, 1, 52, 2);
+
 
 INSERT INTO users(username,password,enabled) VALUES ('f3rangmor','f3rpass',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (4,'f3rangmor','owner');
@@ -96,3 +149,16 @@ INSERT INTO users(username,password,enabled) VALUES ('jostabrod','vEvRvOL123',TR
 INSERT INTO authorities(id,username,authority) VALUES (8,'jostabrod','owner');
 INSERT INTO owners VALUES (15, 'Jose', 'Tabares', 'Calle Franco', 'Sevilla', '647235916', 'jostabrod');
 INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (18, 'Curro', '2015-01-18', 2, 15);
+
+
+INSERT INTO users(username,password,enabled) VALUES ('jose','12345',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (9,'jose','propietario');
+
+INSERT INTO users(username,password,enabled) VALUES ('pablo','12345',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (10,'pablo','camarero');
+
+INSERT INTO users(username,password,enabled) VALUES ('juan','12345',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (11,'juan','cocinero');
+
+INSERT INTO users(username,password,enabled) VALUES ('antonio','12345',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (12,'antonio','manager');

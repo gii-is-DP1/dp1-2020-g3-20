@@ -50,6 +50,15 @@ public class AuthoritiesService {
 	}
 	
 	@Transactional
+	public User crearUsuario(String username, String contrasena) {
+		User user= new User();
+		user.setUsername(username);
+		user.setPassword(contrasena);
+		user.setEnabled(true);
+		return user;
+	}
+	
+	@Transactional
 	public void saveAuthorities(String username, String role) throws DataAccessException {
 		Authorities authority = new Authorities();
 		Optional<User> user = userService.findUser(username);

@@ -5,9 +5,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.model.Propietario;
-import org.springframework.samples.petclinic.service.CamareroService;
 import org.springframework.samples.petclinic.service.PropietarioService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

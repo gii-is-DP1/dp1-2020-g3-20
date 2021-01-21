@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-
-
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -9,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.service.CamareroService;
+import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -47,9 +46,15 @@ public class CamareroController {
 			modelMap.addAttribute("camarero", camarero);
 			return "camareros/editCamarero";
 		}else {
-			camareroService.guardarCamarero(camarero);
-			modelMap.addAttribute("message", "successfuly saved");
-			vista=listadoCamareros(modelMap);
+			try {
+				camareroService.guardarCamarero(camarero);
+				modelMap.addAttribute("message", "successfuly saved");
+				vista=listadoCamareros(modelMap);
+			} catch (DuplicatedPedidoException e) {
+				modelMap.addAttribute("message", "mismo usuario ");
+				vista=listadoCamareros(modelMap);
+			}
+
 		}
 		return vista;
 		
@@ -61,6 +66,7 @@ public class CamareroController {
 		if(cam.isPresent()) {
 			camareroService.borrarCamarero(camareroId);
 			modelMap.addAttribute("message", "successfuly deleted");
+			vista=listadoCamareros(modelMap);
 		}else {
 			modelMap.addAttribute("message", "not found");
 			vista=listadoCamareros(modelMap);
@@ -68,6 +74,34 @@ public class CamareroController {
 		return vista;
 		
 	}
-	
+	@GetMapping(value = "/edit/{camareroId}")
+	public String initUpdateCamareroForm(@PathVariable("camareroId") int camareroId, ModelMap model) {
+		String vista= "camareros/editarCamareros";
+		
+			Camarero cam =  camareroService.buscaCamareroPorId(camareroId).get();
+			model.addAttribute(cam);
+			return vista;
+	}
+	@PostMapping(value = "/edit")
+	public String processUpdateCamareroForm(@Valid Camarero camarero, BindingResult result,ModelMap modelMap) {
+		
+		String vista= "camareros/editarCamareros";
+		
+		if(result.hasErrors()) {
+			modelMap.addAttribute("camarero", camarero);
+		
+			return vista;
+		}
+		else {
+		try {
+			this.camareroService.guardarCamarero(camarero);
+		} catch (DuplicatedPedidoException e) {
+			modelMap.addAttribute("message", "mismo usuario ");
+			vista=listadoCamareros(modelMap);
+		}
+			return "redirect:/camareros";
+	}
+		
+	}
 	
 }
