@@ -1,8 +1,10 @@
 package org.springframework.samples.petclinic.web;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -11,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.EstadoPlato;
 import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.IngredientePedido;
+import org.springframework.samples.petclinic.model.LineaPedido;
+import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Plato;
 import org.springframework.samples.petclinic.model.PlatoPedido;
 import org.springframework.samples.petclinic.model.PlatoPedidoDTO;
+import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.service.PlatoPedidoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -138,4 +143,14 @@ public class PlatoPedidoController {
 			return "platosPedido/ingredientesDePlatoPedido";
 			
 		}
+		
+		//Modifica el estado del plato al siguiente
+		/*
+		@GetMapping(path="/modificarEstado/{platopedidoID}/{cambiarA}")
+		public String Stock(@PathVariable("platopedidoID") int ppId,@PathVariable("cambiarA") String estado,ModelMap modelMap) throws ParseException {
+			String view= "platopedido";
+			PlatoPedido pp= ppService.buscaPPPorId(ppId).get();
+			pp.setEstadoplato(estadoPlatoFormatter.parse(estado, Locale.ENGLISH));
+			return view;
+		}*/
 }
