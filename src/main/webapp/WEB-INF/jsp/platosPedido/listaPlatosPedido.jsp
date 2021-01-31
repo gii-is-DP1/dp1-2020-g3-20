@@ -30,17 +30,33 @@
                    <spring:url value="/platopedido/edit/{ppId}" var="ppURL">
                    		  <spring:param name="ppId" value="${platopedido.id}"/>
                    </spring:url>
-                   <a href="${fn:escapeXml(ppURL)}">Editar</a>
-                   <spring:url value="/platopedido/delete/{ppId}" var="ppURL">
-                   		  <spring:param name="ppId" value="${platopedido.id}"/>
-                   </spring:url>
                    <a href="${fn:escapeXml(ppURL)}">Eliminar</a>
                    
                    <spring:url value="/platopedido/{ppId}" var="ppURL">
                    		  <spring:param name="ppId" value="${platopedido.id}"/>
                    </spring:url>
                    <a href="${fn:escapeXml(ppURL)}">Ingredientes</a>
-                </td>                
+                </td> 
+                <td>
+					<c:choose>
+  						<c:when test="${platopedido.estadoplato == 'ENPROCESO'}">
+  						<spring:url value="/platopedido/modificarEstado/{platopedidoID}/{cambiarA}" var="paltopedidoURL">
+                   		  	<spring:param name="paltopedidoID" value="${platopedido.id}"/>
+                   		  	<spring:param name="cambiarA" value="FINALIZADO"/>
+                   			</spring:url>
+                   			<a href="${fn:escapeXml(platopedidoURL)}">Finalizar Plato</a>
+ 					   	</c:when>
+					</c:choose>
+					<c:choose>
+  						<c:when test="${platopedido.estadoplato == 'ENCOLA'}">
+  						<spring:url value="/platopedido/modificarEstado/{platopedidoID}/{cambiarA}" var="paltopedidoURL">
+                   		  	<spring:param name="paltopedidoID" value="${platopedido.id}"/>
+                   		  	<spring:param name="cambiarA" value="ENPROCESO"/>
+                   		  	</spring:url>
+                   			<a href="${fn:escapeXml(platopedidoURL)}">Cambiar a EnProceso</a>
+ 					   	</c:when>
+					</c:choose>
+  				</td>                
             </tr>
         </c:forEach>
         </tbody>
