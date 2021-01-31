@@ -31,6 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
@@ -76,7 +77,7 @@ class ProveedorControllerTests {
 //		prueba.setFechaPedido(LocalDate.now());
 //		prueba.setCosteTotal(60.55);
 		given(this.proveedorService.findProveedorbyName("jorge")).willReturn(jorge);
-//		given(this.proveedorService.findPedidoByProveedorId(7).iterator().next()).willReturn(prueba);
+		given(this.proveedorService.provedroporid(TEST_PROVEEDOR_ID)).willReturn(Optional.of(jorge));
 
 
 }
