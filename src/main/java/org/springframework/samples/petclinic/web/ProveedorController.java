@@ -77,10 +77,10 @@ public class ProveedorController {
 	@GetMapping(value = "/edit/{proveedorId}")
 	public String initUpdateProveedorForm(@PathVariable("proveedorId") int proveedorId, ModelMap model) {
 		String vista= "proveedor/editarProveedor";
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		
 		Proveedor proveedor =  proveedorService.provedroporid(proveedorId).get();
-		model.addAttribute(proveedor);
+		System.out.println("hola");
+		model.addAttribute("proveedor", proveedor);
 		return vista;
 	}
 	@PostMapping(value = "/edit")
