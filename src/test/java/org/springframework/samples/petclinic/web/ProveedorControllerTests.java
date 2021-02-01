@@ -66,7 +66,6 @@ class ProveedorControllerTests {
 		jorge = new Proveedor();
 		jorge.setId(TEST_PROVEEDOR_ID);
 		jorge.setName("jorge");
-		jorge.setApellido("monteperrito");
 		jorge.setGmail("patata@gmail.com");
 		jorge.setTelefono("954333333");
 //		prueba = new Pedido();

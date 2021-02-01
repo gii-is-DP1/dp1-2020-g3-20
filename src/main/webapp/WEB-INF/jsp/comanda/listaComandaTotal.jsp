@@ -11,22 +11,23 @@
     <table id="lineaPedidoTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Pedido</th>
+            <th>Mesa</th>
+            <th>Fecha pedido</th>
+            <th>Camarero</th>
+            <th>Precio total</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${lineaPedido}" var="lineaPedido">
+        <c:forEach items="${comanda}" var="comanda">
             <tr>
                 <td>
-                    <c:out value="${lineaPedido.producto.name}"/>
+                    <c:out value="${comanda.mesa}"/>
                 </td>
                 <td>
-                    <c:out value="${lineaPedido.cantidad}"/>
+                    <c:out value="${comanda.mesa}"/>
                 </td>
                 <td>
-                   	<c:out value="${lineaPedido.pedido.id}"/>
+                   	<c:out value="${comanda.mesa}"/>
                 </td>
             </tr>
         </c:forEach>

@@ -13,10 +13,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "proveedor")
 public class Proveedor extends NamedEntity{
-	
-    @Size(min = 3, max = 50)
-	@Column(name = "apellido")
-	private String apellido;
     
     @Size(min = 3, max = 50)
 	@Column(name = "gmail")
