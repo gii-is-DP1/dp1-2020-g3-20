@@ -11,6 +11,7 @@ import org.springframework.samples.petclinic.model.EstadoPlato;
 import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.IngredientePedido;
 import org.springframework.samples.petclinic.model.PlatoPedido;
+import org.springframework.samples.petclinic.model.PlatoPedidoDTO;
 import org.springframework.samples.petclinic.repository.IngredientePedidoRepository;
 import org.springframework.samples.petclinic.repository.PlatoPedidoRepository;
 import org.springframework.stereotype.Service;

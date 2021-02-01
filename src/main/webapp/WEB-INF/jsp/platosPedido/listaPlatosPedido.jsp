@@ -40,8 +40,8 @@
                 <td>
 					<c:choose>
   						<c:when test="${platopedido.estadoplato == 'ENPROCESO'}">
-  						<spring:url value="/platopedido/modificarEstado/{platopedidoID}/{cambiarA}" var="paltopedidoURL">
-                   		  	<spring:param name="paltopedidoID" value="${platopedido.id}"/>
+  						<spring:url value="/platopedido/modificarEstado/{platopedidoID}/{cambiarA}" var="platopedidoURL">
+                   		  	<spring:param name="platopedidoID" value="${platopedido.id}"/>
                    		  	<spring:param name="cambiarA" value="FINALIZADO"/>
                    			</spring:url>
                    			<a href="${fn:escapeXml(platopedidoURL)}">Finalizar Plato</a>
@@ -49,8 +49,8 @@
 					</c:choose>
 					<c:choose>
   						<c:when test="${platopedido.estadoplato == 'ENCOLA'}">
-  						<spring:url value="/platopedido/modificarEstado/{platopedidoID}/{cambiarA}" var="paltopedidoURL">
-                   		  	<spring:param name="paltopedidoID" value="${platopedido.id}"/>
+  						<spring:url value="/platopedido/modificarEstado/{platopedidoID}/{cambiarA}" var="platopedidoURL">
+                   		  	<spring:param name="platopedidoID" value="${platopedido.id}"/>
                    		  	<spring:param name="cambiarA" value="ENPROCESO"/>
                    		  	</spring:url>
                    			<a href="${fn:escapeXml(platopedidoURL)}">Cambiar a EnProceso</a>

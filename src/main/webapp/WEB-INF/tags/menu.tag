@@ -58,17 +58,10 @@
  				<!-- parte de propietarios -->
  				
  				<sec:authorize access="hasAuthority('camarero')">
-				<petclinic:menuItem active="${name eq 'platos'}" url="/platos"
+				<petclinic:menuItem active="${name eq 'platos'}" url="/platopedido"
 					title="platos">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>platos</span>
-				</petclinic:menuItem>
-				
-
-				<petclinic:menuItem active="${name eq 'pedidos'}" url="/pedidos"
-					title="pedidos">
-					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>pedidos</span>
+					<span>PlatosPedidos</span>
 				</petclinic:menuItem>
  				</sec:authorize>
  				
@@ -77,15 +70,9 @@
 				<petclinic:menuItem active="${name eq 'platos'}" url="/platopedido"
 					title="platos">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>platos</span>
+					<span>PlatosPedidos</span>
 				</petclinic:menuItem>
 				
-
-				<petclinic:menuItem active="${name eq 'pedidos'}" url="/"
-					title="pedidos">
-					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>pedidos</span>
-				</petclinic:menuItem>
  				</sec:authorize>
  				
  				
