@@ -27,7 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public static final String ROLE_PROPIETARIO = "propietario";
-	public static final String ROLE_CAMARERO = "camamrero";
+	public static final String ROLE_CAMARERO = "camarero";
 	public static final String ROLE_COCINERO = "cocinero";
 	public static final String ROLE_MANAGER = "manager";
 	@Autowired

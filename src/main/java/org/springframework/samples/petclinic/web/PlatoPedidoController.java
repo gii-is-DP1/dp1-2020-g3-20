@@ -145,12 +145,24 @@ public class PlatoPedidoController {
 		}
 		
 		//Modifica el estado del plato al siguiente
-		/*
+		
 		@GetMapping(path="/modificarEstado/{platopedidoID}/{cambiarA}")
-		public String Stock(@PathVariable("platopedidoID") int ppId,@PathVariable("cambiarA") String estado,ModelMap modelMap) throws ParseException {
-			String view= "platopedido";
-			PlatoPedido pp= ppService.buscaPPPorId(ppId).get();
-			pp.setEstadoplato(estadoPlatoFormatter.parse(estado, Locale.ENGLISH));
-			return view;
-		}*/
+		public String Stock(@PathVariable("platopedidoID") Integer ppId,@PathVariable("cambiarA") String estado, ModelMap model) throws ParseException {
+			
+			Optional<PlatoPedido> pp = ppService.buscaPPPorId(ppId);
+			if(pp.isPresent()) {
+				PlatoPedido p = pp.get();
+				p.setEstadoplato(estadoPlatoFormatter.parse(estado, Locale.ENGLISH));
+				
+				this.ppService.guardarPP(p);
+				model.addAttribute("message", "Se ha cambiado el plato con exito");
+				String vista=listadoPlatosPedido(model);
+				return vista;
+			}
+			else {
+				model.addAttribute("message", "NO Se ha cambiado el plato con exito");
+				String vista=listadoPlatosPedido(model);
+				return vista;
+				}
+		}
 }
