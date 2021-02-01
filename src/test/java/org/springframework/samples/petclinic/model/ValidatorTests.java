@@ -106,8 +106,7 @@ class ValidatorTests {
 
 			LocaleContextHolder.setLocale(Locale.ENGLISH);
 			Proveedor Proveedor = new Proveedor();
-			Proveedor.setName("juan");;
-			Proveedor.setApellido("montes");
+			Proveedor.setName("juan");
 			Proveedor.setTelefono("600234321");
 			Proveedor.setGmail("dbfche@gmail.com");
 
@@ -123,7 +122,6 @@ class ValidatorTests {
 
 			Proveedor Proveedor = new Proveedor();
 			Proveedor.setName("");
-			Proveedor.setApellido("");
 			Proveedor.setTelefono("");
 			Proveedor.setGmail("");
 

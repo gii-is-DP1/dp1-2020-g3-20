@@ -38,8 +38,8 @@ public class ProveedorServiceTests {
 	//EsIgual
 	@Test
 	public void esIgualProveedorTest() {		
-		assertEquals(proveedorService.esIgual("Taburete", "El capo"),true);
-		assertEquals(proveedorService.esIgual("Jose", "Diaz"),false);
+		assertEquals(proveedorService.esIgual("Makro"),true);
+		assertEquals(proveedorService.esIgual("Codi"),false);
 	}
 	
 

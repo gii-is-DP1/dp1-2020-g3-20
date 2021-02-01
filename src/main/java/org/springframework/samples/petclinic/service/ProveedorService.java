@@ -76,14 +76,14 @@ public class ProveedorService {
 	
 	
 	@Transactional
-	public boolean esIgual(String nombre, String apellido){
+	public boolean esIgual(String nombre){
 		Iterable<Proveedor> lista = proveedorRepository.findAll();
 		Iterator<Proveedor> it = lista.iterator();
 		boolean aux = false;
 	
 		while (it.hasNext()) {
 			Proveedor p = it.next();
-			if (p.getName().equals(nombre) && p.getApellido().equals(apellido)) {
+			if (p.getName().equals(nombre)){
 				aux = true;
 			}	
 		}
