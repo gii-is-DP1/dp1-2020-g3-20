@@ -195,9 +195,9 @@ class ValidatorTests {
 			TipoProducto TestTP = new TipoProducto() ;
 			Producto.setName("Misco");
 			Producto.setTipoProducto(TestTP);
-			Producto.setCantMin(1);
-			Producto.setCantAct(2);
-			Producto.setCantMax(5);
+			Producto.setCantMin(1.0);
+			Producto.setCantAct(2.0);
+			Producto.setCantMax(5.0);
 
 			Validator validator = createValidator();
 			Set<ConstraintViolation<Producto>> constraintViolations = validator.validate(Producto);

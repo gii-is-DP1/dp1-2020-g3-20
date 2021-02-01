@@ -154,7 +154,7 @@ public class PlatoController {
 	
 	public Ingrediente ConversorAUXToIngrediente(IngredienteAUX aux) {
 		Integer id=aux.getId();
-		Integer cantidad=aux.getCantidadUsualPP();
+		Double cantidad=aux.getCantidadUsualPP();
 		Producto prod=aux.getProducto();
 		Ingrediente res= new Ingrediente();
 		res.setId(id);

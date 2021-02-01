@@ -33,13 +33,13 @@ public class Producto extends NamedEntity{
 	private LocalDate fechaCaducidad;
 
 	@Column(name = "cantidad_minima")
-	private double cantMin;
+	private Double cantMin;
 
 	@Column(name = "cantidad_actual")
-	private double cantAct;
+	private Double cantAct;
 	
 	@Column(name = "cantidad_maxima")
-	private double cantMax;
+	private Double cantMax;
 	
 	@ManyToOne
 	@JoinColumn(name = "proveedor_id")

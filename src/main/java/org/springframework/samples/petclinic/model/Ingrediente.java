@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Ingrediente extends BaseEntity{
 	
 	@Column(name="cantidad")
-	private Integer cantidadUsualPP;
+	private Double cantidadUsualPP;
 	
 	@ManyToOne(optional=false)
 	@JoinColumn(name = "producto_id")

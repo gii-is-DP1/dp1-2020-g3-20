@@ -43,7 +43,7 @@ class IngredientePedidoTests {
     @Test
     void shouldReturnIngrediente() {
     	Ingrediente p = this.ingredientePedidoService.ingredienteAsociado(1);
-    	assertThat(p.getCantidadUsualPP().equals(3));
+    	assertThat(p.getCantidadUsualPP().equals(3.0));
     	
     }
 

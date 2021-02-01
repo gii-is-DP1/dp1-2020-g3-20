@@ -18,7 +18,7 @@ public class IngredientePedido extends BaseEntity{
 	
 	
 	@Column(name = "cant_pedida")
-	private Integer cantidadPedida;
+	private Double cantidadPedida;
 	
 	@ManyToOne(optional=false)
 	@JoinColumn(name = "ingrediente_id")

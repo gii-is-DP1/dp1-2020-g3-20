@@ -9,7 +9,7 @@ import lombok.Setter;
 public class IngredienteAUX extends BaseEntity{
 
 	
-	private Integer cantidadUsualPP;
+	private Double cantidadUsualPP;
 	
 	private Producto producto;
 	
