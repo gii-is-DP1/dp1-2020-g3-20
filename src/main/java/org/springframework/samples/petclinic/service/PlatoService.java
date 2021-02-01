@@ -22,6 +22,8 @@ public class PlatoService {
 	@Autowired
 	private PlatoRepository camRep;
 	
+	@Autowired
+	private IngredienteService ingSer;
 	
 	@Transactional
 	public int platoCount() {
@@ -62,6 +64,16 @@ public class PlatoService {
 			}
 		}
  		return res;
+	}
+	
+	public void borrarIngredientePorPlato(Integer id){
+		List<Ingrediente> ls= camRep.encontrarIngredientes();	
+ 		for(Ingrediente l: ls) {
+			if(l.getPlato().getId()==id) {
+				ingSer.borrarIngrediente(l.getId());
+			}
+		}
+ 		
 	}
 	
 }
