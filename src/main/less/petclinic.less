@@ -13,13 +13,16 @@
  */
 @icon-font-path:    "../../webjars/bootstrap/fonts/";
 
-@spring-green:      #6db33f;
-@spring-dark-green: #5fa134;
+@spring-green:      #09a5cc;
+@spring-dark-green: #0e5f95;
 @spring-brown:      #34302D;
 @spring-grey:       #838789;
 @spring-light-grey: #f1f1f1;
+@spring-bg: 		linear-gradient(#969696, #81aeb8);
+	
 
-@body-bg:                           @spring-light-grey;
+//@body:                           @spring-bg;
+//@background: linear-gradient(#969696, #81aeb8)
 @text-color:                        @spring-brown;
 @link-color:                        @spring-dark-green;
 @link-hover-color:                  @spring-dark-green;
@@ -48,6 +51,13 @@
 @pagination-active-bg:                    @spring-brown;
 @pagination-active-border:                @spring-green;
 @table-border-color:                      @spring-brown;
+
+
+body{
+	background: 	linear-gradient(217deg, #8cbeca, rgba(255,0,0,0) 70.71%),
+                    linear-gradient(127deg, #969696, rgba(0,255,0,0) 70.71%),
+                    linear-gradient(336deg, #c4c4c4, rgba(0,0,255,0) 70.71%);
+}
 
 .table > thead > tr > th {
   background-color: lighten(@spring-brown, 3%);
@@ -233,6 +243,51 @@ table td.action-column {
 hr {
   border-top: 1px dotted @spring-brown;
 }
+
+
+.welcome {
+	font-family: 'Raleway',sans-serif; 
+	font-size: 62px; 
+	font-weight: 800; 
+	line-height: 72px; 
+	margin: 0 0 24px; 
+	text-align: center; 
+	text-transform: uppercase; 
+}
+
+.Container-Empleados {
+	margin-top: 10%;
+    text-align: center;
+}
+
+.Container-Empleados .Container-camareros {
+    display: inline-block;
+    font-size: inherit;
+	width: 25%; 
+	max-width: 345px;
+	margin-right: 7%;
+}
+
+.Container-Empleados .Container-cocinero {
+    display: inline-block;
+    font-size: inherit;
+	width: 25%; 
+	max-width: 345px;
+	margin-right: 7%;
+}
+
+.Container-Empleados .Container-managers {
+    display: inline-block;
+    font-size: inherit;
+	width: 25%; 
+	max-width: 345px;
+}
+
+.Container-Empleados img {
+    height: 275px;
+    width: 100%;
+}
+
 
 @import "typography.less";
 @import "header.less";
