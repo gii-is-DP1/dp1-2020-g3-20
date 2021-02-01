@@ -156,6 +156,15 @@ public class PlatoPedidoController {
 				
 				this.ppService.guardarPP(p);
 				model.addAttribute("message", "Se ha cambiado el plato con exito");
+				if(estado.equals("ENPROCESO")) {
+					Iterator<IngredientePedido> ipl = p.getIngredientesPedidos().iterator();
+					while(ipl.hasNext()) {
+						IngredientePedido ip = ipl.next();
+						Double cantidad = ip.getCantidadPedida();
+						Producto prod = ip.getIngrediente().getProducto();
+						prod.setCantAct(prod.getCantAct()-cantidad);
+					}
+				}
 				String vista=listadoPlatosPedido(model);
 				return vista;
 			}
