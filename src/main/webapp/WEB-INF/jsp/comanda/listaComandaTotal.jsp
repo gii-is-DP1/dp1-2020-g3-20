@@ -36,8 +36,8 @@
         </c:forEach>
         </tbody>
     </table>
-	<form method="get" action="/comanda/listaComandaTotal/dia">
-  		<input name="dia" value="${comanda.fechaCreado.toString}"> 
+	<form method="get" action="/lineaPedido/porPedido">
+  		<input name="pedidoID" type="date"> 
       	<button class="btn btn-default" type="submit">Buscar</button>
   	</form>
     

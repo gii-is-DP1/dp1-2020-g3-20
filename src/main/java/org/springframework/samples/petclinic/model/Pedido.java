@@ -31,9 +31,6 @@ public class Pedido extends BaseEntity{
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate fechaEntrega;
 	
-	@Column(name = "costetotal")        
-	private Double costeTotal;
-	
 	@Column(name = "hallegado")        
 	private Boolean haLlegado;
 
@@ -50,7 +47,6 @@ public class Pedido extends BaseEntity{
 		super();
 		this.fechaPedido = fechaPedido;
 		this.fechaEntrega = fechaEntrega;
-		this.costeTotal = costeTotal;
 		this.haLlegado = haLlegado;
 		this.proveedor = proveedor;
 	}
@@ -58,7 +54,4 @@ public class Pedido extends BaseEntity{
 	public Pedido() {
 		super();
 	}
-
-	
-	
 }

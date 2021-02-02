@@ -56,7 +56,7 @@ INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,canti
 INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (12,6,'Sal', 0.5, 0.8, 3.0, 2);
 			--Frutas Manolo--
 INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (13,3,'Lechuga', 5.0, 10.0, 15.0, 3);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (14,3,'Cebolla', 5.0, 1.5, 4.0, 3);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (14,3,'Cebolla', 2.0, 1.5, 10.0, 3);
 INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (15,3,'Tomate', 1.0, 2.0, 4.0, 3);
 INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (16,3,'Patatas', 1.0, 3.0, 5.0, 3);
 			--PepsiCo--
@@ -115,8 +115,8 @@ INSERT INTO ingrediente(id,cantidad,producto_id,plato_id) VALUES (26 , 1.0 , 19,
 INSERT INTO ingrediente(id,cantidad,producto_id,plato_id) VALUES (27 , 1.0 , 1 , 11);
 
 --COMANDA--
-INSERT INTO comanda(id, mesa, fecha_creado, fecha_finalizado, precio_total, camarero_id) VALUES (1,2,'2020-12-10 14:56:17','2020-12-11 14:56:17',15.5,1);
-INSERT INTO comanda(id, mesa, fecha_creado, fecha_finalizado, precio_total, camarero_id) VALUES (2,3,'2020-12-12 14:56:17','2020-12-14 14:56:17',7.5,2);
+INSERT INTO comanda(id, mesa, fecha_creado, fecha_finalizado, precio_total, camarero_id) VALUES (1,2,'2021-02-08 14:56:17','2021-02-08 15:23:02',15.5,1);
+INSERT INTO comanda(id, mesa, fecha_creado, fecha_finalizado, precio_total, camarero_id) VALUES (2,3,'2021-02-08 14:58:25','2021-02-08 15:37:17',7.5,2);
 
 --ESTADOS DEL PLATO--
 INSERT INTO estadoplato VALUES (1, 'ENCOLA');
@@ -157,8 +157,8 @@ INSERT INTO ingediente_pedido(ingrediente_id,cant_pedida,pp_id) VALUES (26 , 1.0
 INSERT INTO ingediente_pedido(ingrediente_id,cant_pedida,pp_id) VALUES (27 , 1.0 , 6);
 
 --PEDIDO--
-INSERT INTO pedido(id,fechapedido,costetotal,hallegado,proveedor_id) VALUES (1, '2020-01-04', 20, FALSE, 1);
-INSERT INTO pedido(id,fechapedido,fechaentrega,costetotal,hallegado,proveedor_id) VALUES (2, '2020-01-05', '2020-01-06', 80, TRUE, 2);
+INSERT INTO pedido(id,fechapedido,hallegado,proveedor_id) VALUES (1, '2020-01-04', FALSE, 1);
+INSERT INTO pedido(id,fechapedido,fechaentrega,hallegado,proveedor_id) VALUES (2, '2020-01-05', '2020-01-06', TRUE, 2);
 
 --LINEA PEDIDO--
 INSERT INTO lineapedido(id,producto_id,cantidad,pedido_id) VALUES (1, 1, 10.0, 1);

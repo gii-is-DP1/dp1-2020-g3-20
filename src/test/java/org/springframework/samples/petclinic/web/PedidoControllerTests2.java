@@ -70,7 +70,6 @@ class PedidoControllerTests2 {
 		prueba.setHaLlegado(true);
 		prueba.setFechaEntrega(LocalDate.now());
 		prueba.setFechaPedido(LocalDate.now());
-		prueba.setCosteTotal(60.55);
 		given(this.proveedorService.findProveedorbyName("jorge")).willReturn(proveedor);
 		given(this.proveedorService.findPedidoByProveedorId(7).iterator().next()).willReturn(prueba);
 
