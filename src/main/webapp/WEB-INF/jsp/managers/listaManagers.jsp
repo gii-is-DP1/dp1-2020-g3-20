@@ -41,12 +41,12 @@
                    <spring:url value="/managers/delete/{managerId}" var="managerURL">
                    		  <spring:param name="managerId" value="${manager.id}"/>
                    </spring:url>
-                   <a href="${fn:escapeXml(managerURL)}">Delete</a>
+                   <a href="${fn:escapeXml(managerURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true">&nbsp;</a>
                
            	    	<spring:url value="/managers/edit/{managerId}" var="managerEditUrl">
     		  			<spring:param name="managerId" value="${manager.id}"/>
   					</spring:url>
-                	<a href="${fn:escapeXml(managerEditUrl)}">Modify</a>
+                	<a href="${fn:escapeXml(managerEditUrl)}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a>
                 </td>
 
                 
@@ -55,6 +55,6 @@
         </tbody>
     </table>
         <form method="get" action="/managers/new">
-      	<button class="btn btn-default" type="submit">crear manager</button>
+      	<button class="btn btn-default" type="submit">Crear manager</button>
   		</form>
 </petclinic:layout>

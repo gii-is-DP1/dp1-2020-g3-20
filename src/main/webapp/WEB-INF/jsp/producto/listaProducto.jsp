@@ -45,12 +45,12 @@
                    <spring:url value="/producto/edit/{productoId}" var="productoURL">
                    		  <spring:param name="productoId" value="${producto.id}"/>
                    </spring:url>
-                   <a href="${fn:escapeXml(productoURL)}">Editar</a>
+                   <a href="${fn:escapeXml(productoURL)}"><span class="glyphicon glyphicon-pencil" aria-hidden="true">&nbsp;</a>
                    
                    <spring:url value="/producto/delete/{productoId}" var="productoURL">
                    		  <spring:param name="productoId" value="${producto.id}"/>
                    </spring:url>
-                   <a href="${fn:escapeXml(productoURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></a>
+                   <a href="${fn:escapeXml(productoURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true">&nbsp;</a>
                    
                    <spring:url value="/producto/savePedido/{productoId}" var="productoURL">
                    		  <spring:param name="productoId" value="${producto.id}"/>
@@ -58,7 +58,7 @@
                    
                    <c:choose>
   						<c:when test="${producto.cantMin >= producto.cantAct}">
-                			<a href="${fn:escapeXml(productoURL)}">Pedir</a>  
+                			<a href="${fn:escapeXml(productoURL)}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></a>  
  				   		</c:when>
 					</c:choose> 
                 </td>                

@@ -38,4 +38,8 @@
         </c:forEach>
         </tbody>
     </table>
+    
+    <form method="get" action="/platos/new">
+      	<button class="btn btn-default" type="submit">Crear Plato</button>
+  	</form>
 </petclinic:layout>

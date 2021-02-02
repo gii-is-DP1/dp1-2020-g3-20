@@ -41,18 +41,18 @@
                    	<spring:url value="/cocinero/delete/{cocineroId}" var="cocineroURL">
                     	<spring:param name="cocineroId" value="${cocinero.id}"/>
                    	</spring:url>
-                   	<a href="${fn:escapeXml(cocineroURL)}">Eliminar</a>
+                   	<a href="${fn:escapeXml(cocineroURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true">&nbsp;</a>
                    
                    	<spring:url value="/cocinero/edit/{cocineroId}" var="cocineroEditUrl">
     		  	   		<spring:param name="cocineroId" value="${cocinero.id}"/>
   					</spring:url>
-                	<a href="${fn:escapeXml(cocineroEditUrl)}">Editar</a>
+                	<a href="${fn:escapeXml(cocineroEditUrl)}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a>
                 </td>              
             </tr>
         </c:forEach>
         </tbody>
     </table>
         <form method="get" action="/cocinero/new">
-      	<button class="btn btn-default" type="submit">crear cocinero</button>
+      	<button class="btn btn-default" type="submit">Crear cocinero</button>
   		</form>
 </petclinic:layout>
