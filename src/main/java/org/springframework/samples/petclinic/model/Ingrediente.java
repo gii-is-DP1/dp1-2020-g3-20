@@ -36,6 +36,4 @@ public class Ingrediente extends BaseEntity{
 	public String toString() {
 		return "Ingrediente ["+"id"+this.getId()+ "cantidadUsualPP=" + cantidadUsualPP + ", producto=" + producto + ", plato=" + plato + "]";
 	}
-	
-	
 }

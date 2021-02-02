@@ -36,8 +36,6 @@
                    		  <spring:param name="ppId" value="${platopedido.id}"/>
                    </spring:url>
                    <a href="${fn:escapeXml(ppURL)}">Ingredientes</a>
-                </td> 
-                <td>
 					<c:choose>
   						<c:when test="${platopedido.estadoplato == 'ENPROCESO'}">
   						<spring:url value="/platopedido/modificarEstado/{platopedidoID}/{cambiarA}" var="platopedidoURL">

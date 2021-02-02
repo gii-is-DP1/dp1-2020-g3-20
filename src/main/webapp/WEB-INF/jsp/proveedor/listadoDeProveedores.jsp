@@ -13,11 +13,10 @@
     <table id="proveedorTable" class="table table-striped">
         <thead>
         <tr>
-            <th style="width: 150px;">Name</th>
-            <th style="width: 200px;">apellido</th>
-            <th style="width: 150px;">gmail</th>
-            <th style="width: 200px;">telefono</th>
-            <th>Actions <th>
+            <th>Nombre</th>
+            <th>Gmail</th>
+            <th>Teléfono</th>
+            <th>Acciones <th>
         </tr>
         </thead>
         <tbody>
@@ -26,10 +25,6 @@
                 <td>
                    
                  	<c:out value="${proveedor.name} "/>
-                </td>
-                <td>
-                   
-                 	<c:out value="${proveedor.apellido} "/>
                 </td>
                 <td>
                    
@@ -44,8 +39,6 @@
                     	<spring:param name="proveedorId" value="${proveedor.id}"/>
                     </spring:url>
                  	<a href="${fn:escapeXml(proveedorUrl)}">Delete</a>
-                </td>
-				<td>
            	    	<spring:url value="/proveedor/edit/{proveedorId}" var="proveedorEditUrl">
     		  			<spring:param name="proveedorId" value="${proveedor.id}"/>
   					</spring:url>

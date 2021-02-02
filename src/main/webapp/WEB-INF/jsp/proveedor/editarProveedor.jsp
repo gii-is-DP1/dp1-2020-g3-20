@@ -11,7 +11,6 @@
     <form:form modelAttribute="proveedor" class="form-horizontal" id="add-proveedor-form"  action="/proveedor/edit">
         <div class="form-group has-feedback">
             <petclinic:inputField label="nombre" name="name"/>
-            <petclinic:inputField label="apellido" name="apellido"/>
             <petclinic:inputField label="gmail" name="gmail"/>
             <petclinic:inputField label="telefono" name="telefono"/>
         </div>

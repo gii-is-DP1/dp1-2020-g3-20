@@ -54,11 +54,10 @@ public class CamareroController {
 				modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
 				vista=listadoCamareros(modelMap);
 			}
-
 		}
 		return vista;
-		
 	}
+	
 	@GetMapping(path="/delete/{camareroId}")
 	public String borrarCamarero(@PathVariable("camareroId") int camareroId, ModelMap modelMap) {
 		String vista= "camareros/listaCamareros";
@@ -72,8 +71,8 @@ public class CamareroController {
 			vista=listadoCamareros(modelMap);
 		}
 		return vista;
-		
 	}
+	
 	@GetMapping(value = "/edit/{camareroId}")
 	public String initUpdateCamareroForm(@PathVariable("camareroId") int camareroId, ModelMap model) {
 		String vista= "camareros/editarCamareros";
@@ -84,24 +83,18 @@ public class CamareroController {
 	}
 	@PostMapping(value = "/edit")
 	public String processUpdateCamareroForm(@Valid Camarero camarero, BindingResult result,ModelMap modelMap) {
-		
 		String vista= "camareros/editarCamareros";
-		
 		if(result.hasErrors()) {
 			modelMap.addAttribute("camarero", camarero);
-		
 			return vista;
+		}else {
+			try {
+				this.camareroService.guardarCamarero(camarero);
+			}catch (DuplicatedPedidoException e) {
+				modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
+				vista=listadoCamareros(modelMap);
+			}
+		return "redirect:/camareros";
 		}
-		else {
-		try {
-			this.camareroService.guardarCamarero(camarero);
-		} catch (DuplicatedPedidoException e) {
-			modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
-			vista=listadoCamareros(modelMap);
-		}
-			return "redirect:/camareros";
 	}
-		
-	}
-	
 }

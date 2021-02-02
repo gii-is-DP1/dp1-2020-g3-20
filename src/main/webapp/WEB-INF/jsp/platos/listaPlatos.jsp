@@ -25,7 +25,7 @@
                     </spring:url>
                     <a href="${fn:escapeXml(platoUrl)}"><c:out value="${plato.name}"/></a>
                 <td>
-                    <c:out value="${plato.precio}"/> euros
+                    <c:out value="${plato.precio} "/><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
                 </td>
               
                 <td>
@@ -33,7 +33,6 @@
                    		  <spring:param name="platoId" value="${plato.id}"/>
                    </spring:url>
                    <a href="${fn:escapeXml(platoURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-               
                 </td>
             </tr>
         </c:forEach>
