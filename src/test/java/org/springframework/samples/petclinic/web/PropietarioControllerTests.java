@@ -1,80 +1,116 @@
-/*package org.springframework.samples.petclinic.web;
+package org.springframework.samples.petclinic.web;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
-import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Propietario;
+import org.springframework.samples.petclinic.model.Proveedor;
+import org.springframework.test.web.servlet.MockMvc;
 
-import org.springframework.samples.petclinic.service.PropietarioService;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.BDDMockito.given;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.samples.petclinic.service.PropietarioService;
+import org.springframework.samples.petclinic.service.ProveedorService;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
+import org.springframework.security.test.context.support.WithMockUser;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.Optional;
 
-@WebMvcTest(controllers=PropietarioController.class, 
-excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE))
-public class PropietarioControllerTests {
-	
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+
+/**
+ * Test class for {@link PedidoController}
+ *
+ * @author Victor y tabares
+ */
+
+@WebMvcTest(controllers=PropietarioController.class,
+		excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
+		excludeAutoConfiguration= SecurityConfiguration.class)
+class PropietarioControllerTests {
+	private static final int TEST_PROPIETARIO_ID = 1;
+
 	@MockBean
-    private PropietarioService propietarioService;
-    private Propietario propietario;
-	
-   
+	private PropietarioService propietarioService;
 
-    @Autowired
-    private MockMvc mockMvc;
+	@Autowired
+	private MockMvc mockMvc;
 
-    @BeforeEach
-    void setup() {
-    	this.propietario = new Propietario();
-    	propietario.setName("anna");
-    	propietario.setApellido("Alvarez");
-    	propietario.setTelefono("621213243");
-    	propietario.setContrasena("1234567");
-    	propietario.setGmail("Anna@gmail.com");
-    	
-    	
-    	BDDMockito.given(this.propietarioService.buscaPropietarioPorId(1).get()).willReturn(this.propietario);
-      
-    }
-  
-	
-	  @Test void testInitCreationForm() throws Exception {
-	  
-	  mockMvc.perform(get("/propietarios/new")).andExpect(status().isOk()).
-	  andExpect(model().attributeExists("propietario"))
-	  .andExpect(view().name("propietarios/editPropietario")); }
-	 
-    
-    @Test
-	void testProcessCreationFormSuccess() throws Exception {
+
+	private Propietario propietario;
+
+	@BeforeEach
+	void setup() {
+		propietario = new Propietario();
+		propietario.setId(TEST_PROPIETARIO_ID);
+		propietario.setName("pedro");
+		propietario.setApellido("manteca");
+		propietario.setGmail("manteca@gmail.com");
+		propietario.setTelefono("954339970");
+
+		given(this.propietarioService.buscaPropietarioPorId(TEST_PROPIETARIO_ID)).willReturn(Optional.of(propietario));
 		
-		mockMvc.perform(post("/propietarios/save")
-							.with(csrf())
-							
-							.param("name", "anna")
-							.param("apellido", "Alvarez")
-							.param("gmail", "Anna@gmail.com")
-		                    .param("telefono", "621213243")
-		                    .param("contrasena", "1234567")
-		                    
-		                    
-		                    )
-		                  
-				.andExpect(status().isOk())
-				.andExpect(model().attributeHasNoErrors("propietario"))
-				.andExpect(view().name("propietarios/listaPropietarios"));
-	}*/
 
-//}
+
+}
+	@WithMockUser(value = "spring")
+    @Test
+    void testPropietarioNew() throws Exception {
+	mockMvc.perform(get("/propietarios/new")).andExpect(status().isOk()).andExpect(model().attributeExists("propietario"))
+			.andExpect(view().name("propietarios/editPropietario"));
+}
+
+	@WithMockUser(value = "spring")
+        @Test
+	void testSaveProveedorSuccess() throws Exception {
+		mockMvc.perform(post("/propietarios/save").param("name", "paco")
+				.param("apellidos", "propi")
+				.with(csrf())
+				.param("gmail", "paquitopalotes@gmail.com")
+				.param("telefono", "676661638"))
+		.andExpect(view().name("propietarios/listaPropietarios"));
+	}
+
+	
+
+    @WithMockUser(value = "spring")
+    @Test
+    void testEditproveedor() throws Exception {
+    	mockMvc.perform(get("/propietarios/edit/{propietarioId}",TEST_PROPIETARIO_ID)).andExpect(status().isOk())
+   			.andExpect(model().attributeExists("propietario"))
+    		.andExpect(view().name("propietarios/editarPropietario"));
+}
+
+    @WithMockUser(value = "spring")
+	@Test
+	void testPostProveedorEditadoSuccess() throws Exception {
+		mockMvc.perform(post("/propietarios/edit", TEST_PROPIETARIO_ID)
+							.with(csrf())
+							.param("name", "pedro")
+							.param("apellidos", "mantecao")
+							.param("gmail", "pedritomanteca@gmail.com")
+							.param("telefono", "543456666"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/propietarios"));
+	}
+
+    @WithMockUser(value = "spring")
+ 	@Test
+ 	void testDeleteProveedor() throws Exception {
+    	mockMvc.perform(get("/propietarios/delete/{propietarioId}",TEST_PROPIETARIO_ID))
+    	.andExpect(model().attributeDoesNotExist("propietario"))
+    	.andExpect(status().is3xxRedirection())
+		.andExpect(view().name("redirect:/propietarios"));
+ 	}
+}
+
+
