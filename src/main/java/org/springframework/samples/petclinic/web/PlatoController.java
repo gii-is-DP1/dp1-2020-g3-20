@@ -109,20 +109,13 @@ public class PlatoController {
 	public String processUpdatePlatoForm(@Valid Plato plato,BindingResult result,ModelMap modelMap) {
 		System.out.println(plato.getId()+"000000000000000000000000000000000000000000000000000000000000000000000000");
 		String vista= "platos/editarPlatos";
-
-	
 		if(result.hasErrors()) {
-			
 			modelMap.addAttribute("plato", plato);
-		
 			return vista;
-		}
-		else {
-		
+		}else {
 			this.platoService.guardarPlato(plato);
 			return "redirect:/platos";
-		}
-		
+		}	
 	}
 	
 	@GetMapping("/{platoId}")

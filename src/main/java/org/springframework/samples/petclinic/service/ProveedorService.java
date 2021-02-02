@@ -153,7 +153,6 @@ public class ProveedorService {
 	} 
 	
 	public Iterable<Pedido> findPedidoByProveedorId(int proveedorID) {
-		
 		return pedidoRepository.findByProveedorId(proveedorID);
 	}
 	
