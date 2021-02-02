@@ -35,7 +35,8 @@
                    	<c:out value="${pedido.proveedor.name}"/>
                 </td> 
                 <td>
-                	<form method="get" action="/lineaPedido/porPedido">
+                	
+                	<form class="btn-line" method="get" action="/lineaPedido/porPedido">
   						<input name="pedidoID" type="hidden" value="${pedido.id}"> 
       					<button class="btn btn-default" type="submit">Info</button>
   					</form>
@@ -44,7 +45,12 @@
     					   	<spring:url value="/pedidos/terminarPedido/{pedidoID}" var="pedidoURL">
                 	  		<spring:param name="pedidoID" value="${pedido.id}"/>
                 			</spring:url>
-                			<a href="${fn:escapeXml(pedidoURL)}">Finalizar Pedido</a>
+                			
+                			<form class="btn-line" action="${fn:escapeXml(pedidoURL)}">
+  								<input name="pedidoID" type="hidden" value="${pedido.id}"> 
+      							<button class="btn btn-default" type="submit">Finalizar Pedido</button>
+  							</form>
+       
  				   		</c:when>
 					</c:choose>
   				</td> 
@@ -58,8 +64,5 @@
   		<input name="proveedorID" > 
       	<button class="btn btn-default" type="submit">Buscar</button>
   	</form>
-  	<%--   <form method="get" action="/lineaPedido">
-      	<button class="btn btn-default" type="submit">Todas las lineas pedido</button>
-  	</form> --%>
     
 </petclinic:layout>

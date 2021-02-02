@@ -16,21 +16,27 @@
 		 	<spring:url value="/camareros" var="camareroURL"></spring:url>
 			<a href="${fn:escapeXml(camareroURL)}"><img  src="resources/images/camarero.jpg"></a>
 		 	<br>
-        	<h1 class="empl"><a href="${fn:escapeXml(camareroURL)}">CAMARERO</a></h1>
+		 	<form class="empl" action="${fn:escapeXml(camareroURL)}"> 
+      			<button class="btn btn-default" type="submit">CAMARERO</button>
+  			</form>
 		</div>
 		
 		<div class="Container-cocinero">
 			<spring:url value="/cocinero" var="cocineroURL"></spring:url>
         	<a href="${fn:escapeXml(cocineroURL)}"><img  src="resources/images/cocinero.jpg"></a>
          	<br>
-        	<h1 class="empl" ><a href="${fn:escapeXml(cocineroURL)}">COCINERO</a></h1>
+         	<form class="empl" action="${fn:escapeXml(cocineroURL)}"> 
+      			<button class="btn btn-default" type="submit">COCINERO</button>
+  			</form>
 		</div>
 		
 		<div class="Container-managers">
 			<spring:url value="/managers" var="managersURL"></spring:url>
 			<a href="${fn:escapeXml(managersURL)}"><img  src="resources/images/manager.jpg"></a>
 		 	<br>
-        	<h1 class="empl"> <a href="${fn:escapeXml(managersURL)}">MANAGERS </a></h1>    
+		 	<form class="empl" action="${fn:escapeXml(managersURL)}"> 
+      			<button class="btn btn-default" type="submit">MANAGERS</button>
+  			</form>   
 		</div>
 	</div>		
 
