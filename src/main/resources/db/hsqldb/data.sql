@@ -125,10 +125,10 @@ INSERT INTO estadoplato VALUES (3, 'FINALIZADO');
 
 --PLATOS PEDIDOS--
 INSERT INTO platopedido(id,comanda_id,estadoplato,plato_id) VALUES (1,1,3,3);
-INSERT INTO platopedido(id,comanda_id,estadoplato,plato_id) VALUES (2,1,3,5);
-INSERT INTO platopedido(id,comanda_id,estadoplato,plato_id) VALUES (3,1,3,8);
+INSERT INTO platopedido(id,comanda_id,estadoplato,plato_id) VALUES (2,1,2,5);
+INSERT INTO platopedido(id,comanda_id,estadoplato,plato_id) VALUES (3,1,1,8);
 INSERT INTO platopedido(id,comanda_id,estadoplato,plato_id) VALUES (4,2,1,1);
-INSERT INTO platopedido(id,comanda_id,estadoplato,plato_id) VALUES (5,2,3,10);
+INSERT INTO platopedido(id,comanda_id,estadoplato,plato_id) VALUES (5,2,1,10);
 INSERT INTO platopedido(id,comanda_id,estadoplato,plato_id) VALUES (6,2,3,11);
 
 --INGREDIENTES PEDIDOS--

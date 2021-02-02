@@ -37,9 +37,9 @@
                 <td>
 					<spring:url value="/platopedido/modificarEstado/{platopedidoID}/{cambiarA}" var="platopedidoURL">
                    	<spring:param name="platopedidoID" value="${platopedido.id}"/>
-                   	<spring:param name="cambiarA" value="ENPROCESO"/>
+                   	<spring:param name="cambiarA" value="FINALIZADO"/>
                    	</spring:url>
-                   	<a href="${fn:escapeXml(platopedidoURL)}">Cambiar a EnProceso</a>	  
+                   	<a href="${fn:escapeXml(platopedidoURL)}">Finalizar</a>	  
   				</td>
   				<td>
                    <spring:url value="/platopedido/edit/{ppId}" var="ppURL">
