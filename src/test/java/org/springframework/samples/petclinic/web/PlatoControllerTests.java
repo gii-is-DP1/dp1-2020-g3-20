@@ -82,10 +82,8 @@ void setup() {
 @WithMockUser(value = "spring")
 @Test
 void testPlatoNew() throws Exception {
-mockMvc.perform(get("/platos/new")).andExpect(status().isOk()).andExpect(model().attributeExists("platos"))
+	mockMvc.perform(get("/platos/new")).andExpect(status().isOk()).andExpect(model().attributeExists("platos"))
 	.andExpect(view().name("platos/editPlatos"));
-}
-
-
+	}
 }
 

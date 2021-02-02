@@ -14,7 +14,6 @@
         <tr>
             <th>Fecha De Realizacion</th>
             <th>Fecha De Entrega</th>
-            <th>Coste Total</th>
             <th>¿Ha Llegado?</th>
             <th>Proveedor</th>
             <th>Acciones</th>
@@ -28,9 +27,6 @@
                 </td>
                 <td>
                     <c:out value="${pedido.fechaEntrega}"/>
-                </td>
-                <td>
-                    <c:out value="${pedido.costeTotal}"/>
                 </td>
                 <td>
                    	<c:out value="${pedido.haLlegado ? 'Sí' : 'No'}"/>
