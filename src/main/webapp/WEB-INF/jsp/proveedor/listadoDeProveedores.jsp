@@ -38,11 +38,11 @@
                     <spring:url value="/proveedor/delete/{proveedorId}" var="proveedorUrl">
                     	<spring:param name="proveedorId" value="${proveedor.id}"/>
                     </spring:url>
-                 	<a href="${fn:escapeXml(proveedorUrl)}">Delete</a>
+                 	<a href="${fn:escapeXml(proveedorUrl)}"><span class="glyphicon glyphicon-trash" aria-hidden="true">&nbsp;</a>
            	    	<spring:url value="/proveedor/edit/{proveedorId}" var="proveedorEditUrl">
     		  			<spring:param name="proveedorId" value="${proveedor.id}"/>
   					</spring:url>
-                	<a href="${fn:escapeXml(proveedorEditUrl)}">Actualizar proveedor</a>
+                	<a href="${fn:escapeXml(proveedorEditUrl)}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a>
                 </td>
               
                 
@@ -51,6 +51,6 @@
         </tbody>
     </table>
         <form method="get" action="/proveedor/new">
-      	<button class="btn btn-default" type="submit">crear proveedor</button>
+      	<button class="btn btn-default" type="submit">Crear proveedor</button>
   		</form>
 </petclinic:layout>

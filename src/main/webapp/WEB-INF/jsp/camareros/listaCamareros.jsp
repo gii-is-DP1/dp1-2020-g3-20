@@ -41,12 +41,12 @@
                    <spring:url value="/camareros/delete/{camareroId}" var="camareroURL">
                    		  <spring:param name="camareroId" value="${camarero.id}"/>
                    </spring:url>
-                   <a href="${fn:escapeXml(camareroURL)}">Delete</a>
+                   <a href="${fn:escapeXml(camareroURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true">&nbsp;</a>
                    
                     <spring:url value="/camareros/edit/{camareroId}" var="camareroEditUrl">
     		  			<spring:param name="camareroId" value="${camarero.id}"/>
   					</spring:url>
-                	<a href="${fn:escapeXml(camareroEditUrl)}">Modify</a>
+                	<a href="${fn:escapeXml(camareroEditUrl)}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a>
                 </td>
       
 <!--
@@ -62,7 +62,7 @@
         </c:forEach>
          </table>
     	<form method="get" action="/camareros/new">
-      	<button class="btn btn-default" type="submit">crear camarero</button>
+      	<button class="btn btn-default" type="submit">Crear camarero</button>
   		</form>
   		
         </tbody>

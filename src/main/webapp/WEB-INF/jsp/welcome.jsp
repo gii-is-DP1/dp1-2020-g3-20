@@ -27,11 +27,16 @@
 	
 	<br>
 	
+	
 	<H1 align="center"> Por favor identifícate y disfruta de la aplicación </H1>
 	
 	<br>
 	
-	<h2  align="center"> <a href="<c:url value="/login" />">Login</a> </h2>
+	<div > 
+	<form class= "btn-login" action="/login">
+      	<button class="btn btn-default" type="submit">Login</button>
+  	</form>
+  	</div>
 	
 	</sec:authorize>
 

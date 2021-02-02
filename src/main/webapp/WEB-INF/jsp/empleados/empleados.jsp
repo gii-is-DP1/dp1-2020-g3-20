@@ -16,21 +16,21 @@
 		 	<spring:url value="/camareros" var="camareroURL"></spring:url>
 			<a href="${fn:escapeXml(camareroURL)}"><img  src="resources/images/camarero.jpg"></a>
 		 	<br>
-        	<h1><a href="${fn:escapeXml(camareroURL)}">CAMARERO</a></h1>
+        	<h1 class="empl"><a href="${fn:escapeXml(camareroURL)}">CAMARERO</a></h1>
 		</div>
 		
 		<div class="Container-cocinero">
 			<spring:url value="/cocinero" var="cocineroURL"></spring:url>
         	<a href="${fn:escapeXml(cocineroURL)}"><img  src="resources/images/cocinero.jpg"></a>
          	<br>
-        	<h1><a href="${fn:escapeXml(cocineroURL)}">COCINERO</a></h1>
+        	<h1 class="empl" ><a href="${fn:escapeXml(cocineroURL)}">COCINERO</a></h1>
 		</div>
 		
 		<div class="Container-managers">
 			<spring:url value="/managers" var="managersURL"></spring:url>
 			<a href="${fn:escapeXml(managersURL)}"><img  src="resources/images/manager.jpg"></a>
 		 	<br>
-        	<h1> <a href="${fn:escapeXml(managersURL)}">MANAGERS </a></h1>    
+        	<h1 class="empl"> <a href="${fn:escapeXml(managersURL)}">MANAGERS </a></h1>    
 		</div>
 	</div>		
 

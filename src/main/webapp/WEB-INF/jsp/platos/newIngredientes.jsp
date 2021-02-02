@@ -17,7 +17,7 @@
 				<petclinic:selectField name="producto" label="productos" names="${listaProductos}" size="6"/>
             </div>
             <petclinic:inputField label="cantidad" name="cantidadUsualPP"></petclinic:inputField>
-            <input type="text" name="platoaux" value="${plato.name}">
+            
             <input type="hidden" name="id" value="${ingrediente.id}">
             
         </div>
