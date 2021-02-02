@@ -45,8 +45,6 @@ public class PlatoController {
 	@Autowired
 	private IngredienteService ingService;
 	
-	@Autowired
-	private ProductoFormatter productoFormatter;
 	
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
