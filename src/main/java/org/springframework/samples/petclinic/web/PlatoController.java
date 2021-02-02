@@ -107,7 +107,6 @@ public class PlatoController {
 	}
 	@PostMapping(value = "/edit")
 	public String processUpdatePlatoForm(@Valid Plato plato,BindingResult result,ModelMap modelMap) {
-		System.out.println(plato.getId()+"000000000000000000000000000000000000000000000000000000000000000000000000");
 		String vista= "platos/editarPlatos";
 		if(result.hasErrors()) {
 			modelMap.addAttribute("plato", plato);
@@ -163,10 +162,8 @@ public class PlatoController {
 			return "platos/newIngredientes";
 		}
 		else {
-                
                Ingrediente res= ConversorAUXToIngrediente(ingrediente);
                res.setPlato(platoFormatter.parse(ingrediente.getPlatoaux(),Locale.ENGLISH));
-               System.out.println(res.toString()+"00000000000000000000000000000000000000000000");
                this.ingService.guardarIngrediente(res);
                     
          return showPlato(res.getPlato().getId(),model);

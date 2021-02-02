@@ -57,9 +57,9 @@ public class PropietarioController {
 	@GetMapping(path="/delete/{propietarioId}")
 	public String borrarPropietario(@PathVariable("propietarioId") final int propietarioId, final ModelMap modelMap) {
 		//String vista= "propietarios/listaPropietarios";
-		Optional<Propietario> propie= this.propietarioService.buscaPropietarioPorId(propietarioId);
-		if(propie.isPresent()) {
-			propietarioService.delete(propie.get());
+		Optional<Propietario> propietario= this.propietarioService.buscaPropietarioPorId(propietarioId);
+		if(propietario.isPresent()) {
+			propietarioService.delete(propietario.get());
 			modelMap.addAttribute("message", "successfuly deleted");
 		}else {
 			modelMap.addAttribute("message", "not found");
@@ -72,7 +72,6 @@ public class PropietarioController {
 	@GetMapping(value = "/edit/{propietarioId}")
 	public String initUpdatePropietarioForm(@PathVariable("propietarioId") int propietarioId, ModelMap model) {
 		String vista= "propietarios/editarPropietario";
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		
 		//if(username.equals(propietarioService.buscaPropietarioPorId(propietarioId).get().getName())) {
 			Propietario propietario =  propietarioService.buscaPropietarioPorId(propietarioId).get();
@@ -98,6 +97,6 @@ public class PropietarioController {
 			return "redirect:/propietarios";
 	}
 		
-	}
+}
 
 }
