@@ -24,20 +24,20 @@
                     <c:out value="${comanda.mesa}"/>
                 </td>
                 <td>
-                    <c:out value="${comanda.mesa}"/>
+                    <c:out value="${comanda.fechaCreado.dayOfMonth}/${comanda.fechaCreado.monthValue}/${comanda.fechaCreado.year} - ${comanda.fechaCreado.hour}:${comanda.fechaCreado.minute}"/>
                 </td>
                 <td>
-                   	<c:out value="${comanda.mesa}"/>
+                   	<c:out value="${comanda.camarero.name}"/>
+                </td>
+                <td>
+                   	<c:out value="${comanda.precioTotal} "/><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-    <form method="get" action="/lineaPedido/new">
-      	<button class="btn btn-default" type="submit">New</button>
-  	</form>
-	<form method="get" action="/lineaPedido/porPedido">
-  		<input name="pedidoID" value="${pedido.id}"> 
+	<form method="get" action="/comanda/listaComandaTotal/dia">
+  		<input name="dia" value="${comanda.fechaCreado.toString}"> 
       	<button class="btn btn-default" type="submit">Buscar</button>
   	</form>
     

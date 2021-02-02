@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Comanda;
+import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.service.ComandaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -42,8 +43,8 @@ public class ComandaController {
 	}
 	
 	//Vista de Propietario para la lista de Comandas de UN DIA concreto
-	@GetMapping(path="/listaComandaTotal/{dia}")
-	public String listadoComandaDia(@PathVariable("dia") LocalDate dia, ModelMap modelMap) {
+	@GetMapping(path="/listaComandaTotal/dia")
+	public String listadoComandaDia(LocalDate dia, ModelMap modelMap) {
 		String vista= "comanda/listaComandaTotal";
 		Collection<Comanda> comanda = comandaService.encontrarComandaDia(dia);
 		modelMap.addAttribute("comanda",comanda);

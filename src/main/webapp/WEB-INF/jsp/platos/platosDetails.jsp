@@ -12,7 +12,9 @@
        
         <tr>
             <th>Precio</th>
-            <td><c:out value="${plato.precio}"/> euros</td>
+            <td>
+            	<c:out value="${plato.precio} "/><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+            </td>
         </tr>
        
     </table>
@@ -26,7 +28,6 @@
         <spring:param name="platoId" value="${plato.id}"/>
     </spring:url>
     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Agregar Ingrediente</a>
-
     <br/>
     <br/>
     <br/>

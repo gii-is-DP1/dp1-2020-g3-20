@@ -18,9 +18,9 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
             <input type="hidden" name="id" value="${plato.id}">         
-            <button class="btn btn-default" type="submit">Edita</button>
-                  
-            </div>
+            <button class="btn btn-default" type="submit">Editar</button>
+ 
+        </div>
         </div>
     </form:form>
 </petclinic:layout>
