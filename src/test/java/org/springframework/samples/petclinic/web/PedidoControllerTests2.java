@@ -120,15 +120,17 @@ class PedidoControllerTests2 {
 	
 	// Test RecargarStock	
 	
-//	@WithMockUser(value = "spring")
-//    @Test
-//    void testRecargarStock() throws Exception {
-//		mockMvc.perform(get("/terminarPedido/{pedidoID}", TEST_PEDIDO_ID)).andExpect(status().isOk())
-//				.andExpect(model().attributeExists("pedido"))
-//				.andExpect(model().attribute("proveedor", hasProperty("haLlegado", is(false))))
-//				.andExpect(model().attribute("proveedor", hasProperty("fechaEntrega", is(null))))
-//				.andExpect(view().name("pedidos/listaPedidos"));
-//	}	
+	@WithMockUser(value = "spring")
+    @Test
+    void testRecargarStock() throws Exception {
+		mockMvc.perform(get("/pedidos/terminarPedido/{pedidoID}", TEST_PEDIDO_ID)).andExpect(status().isOk())
+				.andExpect(model().attributeExists("pedido"))
+//				.andExpect(model().attribute("pedido", hasProperty("fechapedido", is(false))))
+//				.andExpect(model().attribute("pedido", hasProperty("fechaEntrega", is(null))))
+				.andExpect(view().name("pedidos/listaPedidos"));
+//		System.out.println("0000000000000000000000000000000000000000000000000000");
+//		System.out.println(proveedorService.pedidoPorId(TEST_PEDIDO_ID).get().getHaLlegado());
+	}	
 
 	
 	
