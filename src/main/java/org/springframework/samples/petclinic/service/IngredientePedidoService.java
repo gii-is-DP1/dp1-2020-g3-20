@@ -39,6 +39,14 @@ public class IngredientePedidoService {
 	}
 	
 	@Transactional
+	public IngredientePedido crearIngredientePedidoPorIngrediente(Ingrediente i) {
+		IngredientePedido ip = new IngredientePedido();
+		ip.setCantidadPedida(i.getCantidadUsualPP());
+		ip.setIngrediente(i);
+		return ip;
+	}
+	
+	@Transactional
 	public void borrarIngredientePedido(Integer id) {
 		ingPedidoRepo.deleteById(id);
 		

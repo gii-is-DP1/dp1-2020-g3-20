@@ -8,6 +8,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.EstadoPlato;
@@ -70,12 +73,32 @@ public class PlatoPedidoController {
 		}
 		
 		@PostMapping(path="/save")
-		public String guardarPP(PlatoPedidoDTO ppDTO,BindingResult result,ModelMap modelMap) throws ParseException {
+		public String guardarPP(@Valid PlatoPedidoDTO ppDTO,BindingResult result,ModelMap modelMap) throws ParseException {
 			String vista= "platosPedido/listaPlatosPedido";
 			final PlatoPedido ppFinal = ppConverter.convertPPDTOToEntity(ppDTO);
 			ppFinal.setEstadoplato(estadoPlatoFormatter.parse(ppDTO.getEstadoplatodto(), Locale.ENGLISH));
 			ppFinal.setPlato(platoFormatter.parse(ppDTO.getPlatodto(), Locale.ENGLISH));
 			if(result.hasErrors()) {
+				modelMap.addAttribute("message", "ha habido un error al guardar"+result.getAllErrors().toString());
+				return "platosPedido/newPlatosPedido";
+			}else {
+				ppService.guardarPP(ppFinal);
+				modelMap.addAttribute("message", "successfuly saved");
+				vista=listadoPlatosPedido(modelMap);
+			}
+			return vista; 
+		}
+		
+		@PostMapping(path="{comandaId}/saveUsual")
+		public String guardarPPUsual(@Valid PlatoPedidoDTO ppDTO,@PathVariable("comandaId") int comandaId,BindingResult result,ModelMap modelMap) throws ParseException {
+			String vista= "platosPedido/listaPlatosPedido";
+			final PlatoPedido ppFinal = ppConverter.convertPPDTOToEntity(ppDTO);
+			ppFinal.setEstadoplato(estadoPlatoFormatter.parse(ppDTO.getEstadoplatodto(), Locale.ENGLISH));
+			ppFinal.setPlato(platoFormatter.parse(ppDTO.getPlatodto(), Locale.ENGLISH));
+			Set<IngredientePedido> lista = ppService.CrearIngredientesPedidos(ppFinal);
+			ppFinal.setIngredientesPedidos(lista);
+			if(result.hasErrors()) {
+				modelMap.addAttribute("message", "ha habido un error al guardar"+result.getAllErrors().toString());
 				return "platosPedido/newPlatosPedido";
 			}else {
 				ppService.guardarPP(ppFinal);
@@ -156,15 +179,6 @@ public class PlatoPedidoController {
 				
 				this.ppService.guardarPP(p);
 				model.addAttribute("message", "Se ha cambiado el plato con exito");
-				if(estado.equals("ENPROCESO")) {
-					Iterator<IngredientePedido> ipl = p.getIngredientesPedidos().iterator();
-					while(ipl.hasNext()) {
-						IngredientePedido ip = ipl.next();
-						Double cantidad = ip.getCantidadPedida();
-						Producto prod = ip.getIngrediente().getProducto();
-						prod.setCantAct(prod.getCantAct()-cantidad);
-					}
-				}
 				String vista=listadoPlatosPedido(model);
 				return vista;
 			}
