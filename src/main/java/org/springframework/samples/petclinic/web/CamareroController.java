@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -27,6 +28,12 @@ public class CamareroController {
 	public String listadoCamareros(ModelMap modelMap) {
 		String vista= "camareros/listaCamareros";
 		Iterable<Camarero> camareros=  camareroService.camareroList();
+		Iterator<Camarero> it_camareros = camareros.iterator();
+		
+		if (!(it_camareros.hasNext())) {
+			modelMap.addAttribute("message", "No hay camareros, contrata a alguien y crea su Ficha de Empleado");
+		}
+		
 		modelMap.addAttribute("camareros",camareros);
 		return vista;
 		
