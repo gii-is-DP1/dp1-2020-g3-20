@@ -23,11 +23,9 @@
         <c:forEach items="${proveedor}" var="proveedor">
             <tr>
                 <td>
-                   
                  	<c:out value="${proveedor.name} "/>
                 </td>
                 <td>
-                   
                  	<c:out value="${proveedor.gmail} "/>
                 </td>
                 <td>
@@ -38,11 +36,11 @@
                     <spring:url value="/proveedor/delete/{proveedorId}" var="proveedorUrl">
                     	<spring:param name="proveedorId" value="${proveedor.id}"/>
                     </spring:url>
-                 	<a href="${fn:escapeXml(proveedorUrl)}"><span class="glyphicon glyphicon-trash" aria-hidden="true">&nbsp;</a>
+                 	<a href="${fn:escapeXml(proveedorUrl)}"><span class="glyphicon glyphicon-trash" aria-hidden="true">&nbsp;</span></a>
            	    	<spring:url value="/proveedor/edit/{proveedorId}" var="proveedorEditUrl">
     		  			<spring:param name="proveedorId" value="${proveedor.id}"/>
   					</spring:url>
-                	<a href="${fn:escapeXml(proveedorEditUrl)}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a>
+                	<a href="${fn:escapeXml(proveedorEditUrl)}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                 </td>
               
                 
