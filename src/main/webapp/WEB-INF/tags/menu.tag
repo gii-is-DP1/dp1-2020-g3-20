@@ -40,11 +40,16 @@
 					<span>Producto</span>
 				</petclinic:menuItem>
 				
-				
 				<petclinic:menuItem active="${name eq 'platos'}" url="/platos"
 					title="platos">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<span>Platos</span>
+				</petclinic:menuItem>
+				
+				<petclinic:menuItem active="${name eq 'comanda'}" url="/comanda/listaComandaTotal"
+					title="comanda">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span>Comandas Realizadas</span>
 				</petclinic:menuItem>
 				
 				<petclinic:menuItem active="${name eq 'proveedor'}" url="/proveedor"
@@ -68,6 +73,12 @@
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<span>Platos Pedidos</span>
 				</petclinic:menuItem>
+				
+				<petclinic:menuItem active="${name eq 'comanda'}" url="/comanda/listaComandaActual"
+					title="comanda">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span>Comandas Actuales</span>
+				</petclinic:menuItem>
  				</sec:authorize>
  				
  				
@@ -76,6 +87,12 @@
 					title="platos">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<span>Platos Pedidos</span>
+				</petclinic:menuItem>
+				
+				<petclinic:menuItem active="${name eq 'comanda'}" url="/comanda/listaComandaActual"
+					title="comanda">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span>Comandas Actuales</span>
 				</petclinic:menuItem>
 				
  				</sec:authorize>
@@ -87,6 +104,12 @@
 					title="pedidos">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Pedidos</span>
+				</petclinic:menuItem>
+				
+				<petclinic:menuItem active="${name eq 'comanda'}" url="/comanda/listaComandaTotal"
+					title="comanda">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<span>Comandas Realizadas</span>
 				</petclinic:menuItem>
 				
 				<petclinic:menuItem active="${name eq 'empleados'}" url="/producto"
