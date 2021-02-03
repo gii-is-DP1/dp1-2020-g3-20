@@ -8,19 +8,17 @@
 
 <petclinic:layout pageName="platos">
     <h2>Plato</h2>
-    <form:form modelAttribute="plato" class="form-horizontal" id="edit-plato-form"  action="/platos/edit">
+    <form:form modelAttribute="plato" class="form-horizontal" id="add-plato-form"  action="/platos/edit">
         <div class="form-group has-feedback">
         <c:out value="${plato.id}"/> 
             <petclinic:inputField label="nombre" name="name"/>
             <petclinic:inputField label="precio" name="precio"/>
-            
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-            <input type="hidden" name="id" value="${plato.id}">         
-            <button class="btn btn-default" type="submit">Editar</button>
- 
-        </div>
+            	<input type="hidden" name="id" value="${plato.id}">         
+            	<button class="btn btn-default" type="submit">Editar</button>
+ 			</div>
         </div>
     </form:form>
 </petclinic:layout>

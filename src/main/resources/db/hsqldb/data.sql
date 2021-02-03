@@ -19,8 +19,8 @@ INSERT INTO authorities(id,username,authority) VALUES (6,'cobi','cocinero');
 
 --PERSONAS--
 INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1,'Prince','Presley','princePR@gmail.com', 616161616,'prince','12345');
-INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1,'Marcos','Martín','marcosMA@gmail.com',626262626,'marcos','12345');
-INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1,'Carlos','Catalán','carlosCA@gmail.com',636363636,'carlos','12345');
+INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1,'Marcos','Martin','marcosMA@gmail.com',626262626,'marcos','12345');
+INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1,'Carlos','Catalan','carlosCA@gmail.com',636363636,'carlos','12345');
 INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2,'Carmen','Casio','carmenCA@gmail.com',646464646,'carmen','12345');
 INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1,'Coral','Cohen','coralCO@gmail.com',656565656,'coral','12345');
 INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2,'Cobi','Connor','cobiCO@gmail.com',666666666,'coral','12345');
@@ -35,7 +35,7 @@ INSERT INTO proveedor(id,name,gmail,telefono) VALUES (4, 'PepsiCo', 'foorder.dp@
 INSERT INTO tipoproducto VALUES (1, 'Carne');
 INSERT INTO tipoproducto VALUES (2, 'Pescado');
 INSERT INTO tipoproducto VALUES (3, 'Frutas y Verduras');
-INSERT INTO tipoproducto VALUES (4, 'Lácteos');
+INSERT INTO tipoproducto VALUES (4, 'Lacteos');
 INSERT INTO tipoproducto VALUES (5, 'Bebidas');
 INSERT INTO tipoproducto VALUES (6, 'Otros');
 
@@ -65,7 +65,7 @@ INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,canti
 INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (19,5,'Lipton', 5.0, 10.0, 25.0, 4);
 
 --PLATOS--
-INSERT INTO platos(id,name,precio,disponible) VALUES (1, 'Albóndigas',5.0, TRUE);
+INSERT INTO platos(id,name,precio,disponible) VALUES (1, 'Albondigas',5.0, TRUE);
 INSERT INTO platos(id,name,precio,disponible) VALUES (2, 'Revuelto de bacalao',7.8, TRUE);
 INSERT INTO platos(id,name,precio,disponible) VALUES (3, 'Solomillo al roque',9.0, FALSE);
 INSERT INTO platos(id,name,precio,disponible) VALUES (4, 'Arroz a la cubana',4.5, TRUE);
