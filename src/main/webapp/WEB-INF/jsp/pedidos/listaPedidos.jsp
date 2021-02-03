@@ -45,12 +45,10 @@
     					   	<spring:url value="/pedidos/terminarPedido/{pedidoID}" var="pedidoURL">
                 	  		<spring:param name="pedidoID" value="${pedido.id}"/>
                 			</spring:url>
-                			
                 			<form class="btn-line" action="${fn:escapeXml(pedidoURL)}">
   								<input name="pedidoID" type="hidden" value="${pedido.id}"> 
       							<button class="btn btn-default" type="submit">Finalizar Pedido</button>
   							</form>
-       
  				   		</c:when>
 					</c:choose>
   				</td> 

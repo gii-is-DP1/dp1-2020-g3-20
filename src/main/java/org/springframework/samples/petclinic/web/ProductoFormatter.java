@@ -25,7 +25,7 @@ public class ProductoFormatter implements Formatter<Producto>{
 
 	@Override
 	public Producto parse(String text, Locale locale) throws ParseException {
-		Collection<Producto> encuentraProducto = this.prodService.productoList();
+		Iterable<Producto> encuentraProducto = this.prodService.productoList();
 		for (Producto p : encuentraProducto) {
 			if (p.getName().equals(text)) {
 				return p;

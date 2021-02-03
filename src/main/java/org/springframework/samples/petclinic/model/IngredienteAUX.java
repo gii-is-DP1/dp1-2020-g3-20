@@ -8,12 +8,8 @@ import lombok.Setter;
 @Setter
 public class IngredienteAUX extends BaseEntity{
 
-	
 	private Double cantidadUsualPP;
-	
 	private Producto producto;
-	
 	private String platoaux;
-	
 	
 }

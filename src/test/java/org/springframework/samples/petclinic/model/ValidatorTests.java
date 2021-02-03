@@ -148,7 +148,7 @@ class ValidatorTests {
 		}
 		// TESTS PARA menu -----------------------------------------------------------------------
 		@Test
-		@DisplayName("Validar una Menú Correcto")
+		@DisplayName("Validar un Menu Correcto")
 		void shouldNotValidatemenuReviewWhenValorationIncorrect() {
 
 			LocaleContextHolder.setLocale(Locale.ENGLISH);
@@ -163,7 +163,7 @@ class ValidatorTests {
 				
 			}
 		@Test
-		@DisplayName("Validar un Menú incorrecto")
+		@DisplayName("Validar un Menu incorrecto")
 		void shouldNotValidatemenuWhenAllFieldsIncorrect() {
 
 			Menu Menu = new Menu();

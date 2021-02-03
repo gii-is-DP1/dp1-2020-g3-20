@@ -44,9 +44,9 @@ public class ComandaController {
 	
 	//Vista de Propietario para la lista de Comandas de UN DIA concreto
 	@GetMapping(path="/listaComandaTotal/dia")
-	public String listadoComandaDia(LocalDate dia, ModelMap modelMap) {
-		String vista= "comanda/listaComandaTotal";
-		Collection<Comanda> comanda = comandaService.encontrarComandaDia(dia);
+	public String listadoComandaDia(String date, ModelMap modelMap) {
+		String vista= "comanda/listaComandaTotal/dia";
+		Collection<Comanda> comanda = comandaService.encontrarComandaDia(date);
 		modelMap.addAttribute("comanda",comanda);
 		return vista;	
 	}

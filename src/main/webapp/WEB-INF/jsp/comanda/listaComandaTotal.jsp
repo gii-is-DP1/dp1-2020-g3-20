@@ -36,8 +36,8 @@
         </c:forEach>
         </tbody>
     </table>
-	<form method="get" action="/listaComandaTotal/dia">
-  		<input name="pedidoID" type="date"> 
+	<form method="get" action="/comanda/listaComandaTotal/dia">
+  		<input name="date" type="date"> 
       	<button class="btn btn-default" type="submit">Buscar</button>
   	</form>
     
