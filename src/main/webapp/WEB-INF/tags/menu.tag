@@ -8,7 +8,7 @@
 	description="Name of the active menu: home, owners, vets or error"%>
 
 <nav class="navbar navbar-default bg-primary" role="navigation">
-	<div class="container">
+	<div class="container-navbar">
 		<div class="navbar-header">
 			<a class="navbar-brand"
 				href="<spring:url value="/" htmlEscape="true" />"><span></span></a>
@@ -32,26 +32,31 @@
 				<petclinic:menuItem active="${name eq 'empleados'}" url="/empleados"
 					title="empleados">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>empleados</span>
+					<span>Empleados</span>
 				</petclinic:menuItem>
 				<petclinic:menuItem active="${name eq 'producto'}" url="/producto"
 					title="producto">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>producto</span>
+					<span>Producto</span>
 				</petclinic:menuItem>
 				
 				
 				<petclinic:menuItem active="${name eq 'platos'}" url="/platos"
 					title="platos">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>platos</span>
+					<span>Platos</span>
 				</petclinic:menuItem>
 				
-
+				<petclinic:menuItem active="${name eq 'proveedor'}" url="/proveedor"
+					title="proveedor">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Proveedor</span>
+				</petclinic:menuItem>
+				
 				<petclinic:menuItem active="${name eq 'pedidos'}" url="/pedidos"
 					title="pedidos">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>pedidos</span>
+					<span>Pedidos</span>
 				</petclinic:menuItem>
  				</sec:authorize>
  				
@@ -61,7 +66,7 @@
 				<petclinic:menuItem active="${name eq 'platos'}" url="/platopedido"
 					title="platos">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>PlatosPedidos</span>
+					<span>Platos Pedidos</span>
 				</petclinic:menuItem>
  				</sec:authorize>
  				
@@ -70,7 +75,7 @@
 				<petclinic:menuItem active="${name eq 'platos'}" url="/platopedido"
 					title="platos">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>PlatosPedidos</span>
+					<span>Platos Pedidos</span>
 				</petclinic:menuItem>
 				
  				</sec:authorize>
@@ -83,11 +88,19 @@
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Pedidos</span>
 				</petclinic:menuItem>
+				
 				<petclinic:menuItem active="${name eq 'empleados'}" url="/producto"
 					title="producto">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>producto</span>
+					<span>Producto</span>
 				</petclinic:menuItem>
+				
+				<petclinic:menuItem active="${name eq 'proveedor'}" url="/proveedor"
+					title="proveedor">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Proveedor</span>
+				</petclinic:menuItem>
+				
 				<petclinic:menuItem active="${name eq 'notificaciones'}" url="/producto/notificaciones"
 					title="Notificaciones">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>

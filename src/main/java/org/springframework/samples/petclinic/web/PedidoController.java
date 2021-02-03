@@ -52,22 +52,6 @@ public class PedidoController {
 		return view;
 	}
 	
-	
-//	@PostMapping(path="/save")
-//	public String guardarPedido(@Valid Pedido pedido,BindingResult result,ModelMap modelMap) {
-//		String view= "pedidos/listaPedidos";
-//		pedido.setFechaPedido(LocalDate.now());
-//		pedido.setHaLlegado(Boolean.FALSE);
-//		if(result.hasErrors()) {
-//			modelMap.addAttribute("pedido", pedido);
-//			return "pedidos/editPedido";
-//		}else {
-//			proveedorService.savePedido(pedido);
-//			modelMap.addAttribute("message", "pedido successfuly saved");
-//			view=listadoDePedidos(modelMap);
-//		}
-//		return view	;
-//	}
 	@PostMapping(path="/save")
 	public String guardarPedido(@Valid Pedido pedido,BindingResult result,ModelMap modelMap) {
 		String view= "pedidos/listaPedidos";
