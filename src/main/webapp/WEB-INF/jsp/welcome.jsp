@@ -8,6 +8,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
 
+
 <petclinic:layout pageName="home">
 
 
@@ -17,33 +18,35 @@
 	
 	<sec:authorize access="!isAuthenticated()">
 	
-	<H1 align="center">
-	bienvenido a foorder, por favor identifícate y disfruta de la aplicación
-	<br>
-	
-	<img  src="resources/images/restaurante.jpg">
+	<H1 class="welcome" align="center">Bienvenido a foorder</H1>
 	
 	<br>
 	<br>
 	
-		<a href="<c:url value="/login" />">Login</a>
-	</H1>
+	<h1  align="center"> <img  src="resources/images/restaurante.jpg"> </h1>
+	
+	<br>
+	
+	
+	<H1 align="center"> Por favor identifícate y disfruta de la aplicación </H1>
+	
+	<br>
+	
+	<div > 
+	<form class= "btn-login" action="/login">
+      	<button class="btn btn-default" type="submit">Login</button>
+  	</form>
+  	</div>
+	
 	</sec:authorize>
 
 	<sec:authorize access="isAuthenticated()">
-	<H1>Bienvenido
-	<sec:authentication property="name" />
+	<H1 class="welcome" align="center" >Bienvenido <sec:authentication property="name" /> </H1>
 	
-	</H1>
-	Busca arriba todas las funcionalidades pertenecientes a tu rol!
+	<br>
+	<h2 align="center"> Busca arriba todas las funcionalidades pertenecientes a tu rol! </h2>
+	<br>
+	<p align="center"> Refrán del día: Dime que comes y te diré quien eres. <p>
 	</sec:authorize>
-	
-	
 
-    <div class="row">
-    <footer>
-       <H1 align="left"> <img src="/resources/images/Foorder1x191.png" alt="FoorderLogo"/></H1>
-	</footer>
-    	
-    </div>
 </petclinic:layout>

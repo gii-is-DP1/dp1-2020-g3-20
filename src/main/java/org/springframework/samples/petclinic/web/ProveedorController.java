@@ -43,7 +43,7 @@ public class ProveedorController {
 			modelMap.addAttribute("proveedor", proveedor);
 			return "proveedor/editProveedor";
 		}else {
-				if (proveedorService.esIgual(proveedor.getName(), proveedor.getApellido())) {
+				if (proveedorService.esIgual(proveedor.getName())) {
 					modelMap.addAttribute("message", "El proveedor ya existe");
 					modelMap.addAttribute("proveedor", proveedor);
 					return "proveedor/editProveedor";
@@ -52,11 +52,10 @@ public class ProveedorController {
 					modelMap.addAttribute("message", "proveedor successfuly saved");
 					view=listadoDeProveedores(modelMap);
 				}
-			
 		}
 		return view	;
-		
 	}
+	
 	@GetMapping(path="/delete/{proveedorid}")
 	public String borrarProveedor(@PathVariable("proveedorid") int proveedorid, ModelMap modelMap) {
 		String view= "proveedor/listadoDeProveedores";
@@ -66,21 +65,19 @@ public class ProveedorController {
 			modelMap.addAttribute("message", "proveedor successfuly deleted");
 			view=listadoDeProveedores(modelMap);
 		}else {
-			modelMap.addAttribute("message", " proveedor not found");
+			modelMap.addAttribute("message", "proveedor not found");
 			view=listadoDeProveedores(modelMap);
 		}
 		return view;
-		
 	}
-	
 
 	@GetMapping(value = "/edit/{proveedorId}")
 	public String initUpdateProveedorForm(@PathVariable("proveedorId") int proveedorId, ModelMap model) {
 		String vista= "proveedor/editarProveedor";
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		
 		Proveedor proveedor =  proveedorService.provedroporid(proveedorId).get();
-		model.addAttribute(proveedor);
+		System.out.println("hola");
+		model.addAttribute("proveedor", proveedor);
 		return vista;
 	}
 	@PostMapping(value = "/edit")

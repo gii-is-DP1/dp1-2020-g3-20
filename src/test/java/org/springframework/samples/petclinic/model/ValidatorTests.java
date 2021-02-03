@@ -106,8 +106,7 @@ class ValidatorTests {
 
 			LocaleContextHolder.setLocale(Locale.ENGLISH);
 			Proveedor Proveedor = new Proveedor();
-			Proveedor.setName("juan");;
-			Proveedor.setApellido("montes");
+			Proveedor.setName("juan");
 			Proveedor.setTelefono("600234321");
 			Proveedor.setGmail("dbfche@gmail.com");
 
@@ -123,7 +122,6 @@ class ValidatorTests {
 
 			Proveedor Proveedor = new Proveedor();
 			Proveedor.setName("");
-			Proveedor.setApellido("");
 			Proveedor.setTelefono("");
 			Proveedor.setGmail("");
 
@@ -150,7 +148,7 @@ class ValidatorTests {
 		}
 		// TESTS PARA menu -----------------------------------------------------------------------
 		@Test
-		@DisplayName("Validar una Menú Correcto")
+		@DisplayName("Validar un Menu Correcto")
 		void shouldNotValidatemenuReviewWhenValorationIncorrect() {
 
 			LocaleContextHolder.setLocale(Locale.ENGLISH);
@@ -165,7 +163,7 @@ class ValidatorTests {
 				
 			}
 		@Test
-		@DisplayName("Validar un Menú incorrecto")
+		@DisplayName("Validar un Menu incorrecto")
 		void shouldNotValidatemenuWhenAllFieldsIncorrect() {
 
 			Menu Menu = new Menu();
@@ -195,9 +193,9 @@ class ValidatorTests {
 			TipoProducto TestTP = new TipoProducto() ;
 			Producto.setName("Misco");
 			Producto.setTipoProducto(TestTP);
-			Producto.setCantMin(1);
-			Producto.setCantAct(2);
-			Producto.setCantMax(5);
+			Producto.setCantMin(1.0);
+			Producto.setCantAct(2.0);
+			Producto.setCantMax(5.0);
 
 			Validator validator = createValidator();
 			Set<ConstraintViolation<Producto>> constraintViolations = validator.validate(Producto);

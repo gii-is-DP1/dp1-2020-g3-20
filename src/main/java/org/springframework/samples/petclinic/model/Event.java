@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 public class Event extends NamedEntity {
 	
-	private String description;
 	       
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate start;

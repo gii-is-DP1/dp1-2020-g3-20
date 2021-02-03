@@ -13,26 +13,19 @@
     <table id="proveedorTable" class="table table-striped">
         <thead>
         <tr>
-            <th style="width: 150px;">Name</th>
-            <th style="width: 200px;">apellido</th>
-            <th style="width: 150px;">gmail</th>
-            <th style="width: 200px;">telefono</th>
-            <th>Actions <th>
+            <th>Nombre</th>
+            <th>Gmail</th>
+            <th>Teléfono</th>
+            <th>Acciones <th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${proveedor}" var="proveedor">
             <tr>
                 <td>
-                   
                  	<c:out value="${proveedor.name} "/>
                 </td>
                 <td>
-                   
-                 	<c:out value="${proveedor.apellido} "/>
-                </td>
-                <td>
-                   
                  	<c:out value="${proveedor.gmail} "/>
                 </td>
                 <td>
@@ -43,13 +36,11 @@
                     <spring:url value="/proveedor/delete/{proveedorId}" var="proveedorUrl">
                     	<spring:param name="proveedorId" value="${proveedor.id}"/>
                     </spring:url>
-                 	<a href="${fn:escapeXml(proveedorUrl)}">Delete</a>
-                </td>
-				<td>
+                 	<a href="${fn:escapeXml(proveedorUrl)}"><span class="glyphicon glyphicon-trash" aria-hidden="true">&nbsp;</span></a>
            	    	<spring:url value="/proveedor/edit/{proveedorId}" var="proveedorEditUrl">
     		  			<spring:param name="proveedorId" value="${proveedor.id}"/>
   					</spring:url>
-                	<a href="${fn:escapeXml(proveedorEditUrl)}">Actualizar proveedor</a>
+                	<a href="${fn:escapeXml(proveedorEditUrl)}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                 </td>
               
                 
@@ -58,6 +49,6 @@
         </tbody>
     </table>
         <form method="get" action="/proveedor/new">
-      	<button class="btn btn-default" type="submit">crear proveedor</button>
+      	<button class="btn btn-default" type="submit">Crear proveedor</button>
   		</form>
 </petclinic:layout>
