@@ -7,7 +7,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
-<link rel="stylesheet" type="text/css" href="css/header.css">
+
 
 <petclinic:layout pageName="home">
 

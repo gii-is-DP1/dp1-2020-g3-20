@@ -29,7 +29,7 @@
                    <spring:url value="/ingrediente/delete/{ingId}" var="ingURL">
                    		  <spring:param name="ingId" value="${ingrediente.id}"/>
                    </spring:url>
-                   <a href="${fn:escapeXml(ingURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></a>
+                   <a href="${fn:escapeXml(ingURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                  <td>              
             </tr>
         </c:forEach>

@@ -54,8 +54,8 @@ public class ProveedorController {
 				}
 		}
 		return view	;
-		
 	}
+	
 	@GetMapping(path="/delete/{proveedorid}")
 	public String borrarProveedor(@PathVariable("proveedorid") int proveedorid, ModelMap modelMap) {
 		String view= "proveedor/listadoDeProveedores";
@@ -65,13 +65,11 @@ public class ProveedorController {
 			modelMap.addAttribute("message", "proveedor successfuly deleted");
 			view=listadoDeProveedores(modelMap);
 		}else {
-			modelMap.addAttribute("message", " proveedor not found");
+			modelMap.addAttribute("message", "proveedor not found");
 			view=listadoDeProveedores(modelMap);
 		}
 		return view;
-		
 	}
-	
 
 	@GetMapping(value = "/edit/{proveedorId}")
 	public String initUpdateProveedorForm(@PathVariable("proveedorId") int proveedorId, ModelMap model) {

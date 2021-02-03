@@ -8,7 +8,7 @@
 
 
 <petclinic:layout pageName="lineaPedido">
-    <h2>LineaPedido</h2>
+    <h2>Comandas</h2>
     <form:form modelAttribute="lineaPedido" class="form-horizontal" id="add-proveedor-form" action="/lineaPedido/save">
         <div class="form-group has-feedback">
             <petclinic:inputField label="producto" name="producto"/>

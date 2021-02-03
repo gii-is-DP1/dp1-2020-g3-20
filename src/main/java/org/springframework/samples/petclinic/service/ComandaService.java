@@ -36,13 +36,14 @@ public class ComandaService {
 	}
 	
 	@Transactional
-	public Optional<Comanda> buscaComandaPorId(Integer id) {
+	public Optional<Comanda> findById(Integer id) {
 		return comandaRepo.findById(id);
 	}
 	
 	@Transactional
 	public Collection<Comanda> encontrarComandaDia(String dia) throws DataAccessException {
 		LocalDate actualDate =LocalDate.parse(dia);
+		System.out.println(actualDate + dia);
 		Collection<Comanda> res = new ArrayList<>();
 		Iterable<Comanda> aux = comandaRepo.findAll();
 		Iterator<Comanda> it_aux = aux.iterator();
@@ -60,8 +61,9 @@ public class ComandaService {
 		Iterable<Comanda> aux = comandaRepo.findAll();
 		Iterator<Comanda> it_aux = aux.iterator();
 		while (it_aux.hasNext()) {
-			if (it_aux.next().getFechaFinalizado().equals(null)) {
-				res.add(it_aux.next());
+			Comanda comAux = it_aux.next();
+			if (comAux.getFechaFinalizado()==null) {
+				res.add(comAux);
 			}	
 		}
 		return res; 

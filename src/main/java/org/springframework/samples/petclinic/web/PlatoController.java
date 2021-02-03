@@ -160,8 +160,7 @@ public class PlatoController {
 		if (result.hasErrors()) {
 			model.put("ingrediente", ingrediente);
 			return "platos/newIngredientes";
-		}
-		else {
+		}else {
                Ingrediente res= ConversorAUXToIngrediente(ingrediente);
                res.setPlato(platoFormatter.parse(ingrediente.getPlatoaux(),Locale.ENGLISH));
                this.ingService.guardarIngrediente(res);

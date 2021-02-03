@@ -14,4 +14,5 @@ public interface ComandaRepository extends CrudRepository<Comanda, Integer>{
 	@Autowired
 	@Query("SELECT ptype FROM TipoProducto ptype ORDER BY ptype.id")
 	List<TipoProducto> encontrarTiposProducto() throws DataAccessException;
+	
 }
