@@ -10,6 +10,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.samples.petclinic.model.EstadoPlato;
 import org.springframework.samples.petclinic.model.IngredientePedido;
 import org.springframework.samples.petclinic.model.PlatoPedido;
+import org.springframework.samples.petclinic.model.Producto;
+import org.springframework.samples.petclinic.model.Proveedor;
 
 
 
@@ -25,6 +27,9 @@ public interface PlatoPedidoRepository extends CrudRepository<PlatoPedido, Integ
 	@Autowired
 	@Query("SELECT ptype FROM IngredientePedido ptype ORDER BY ptype.id")
 	List<IngredientePedido> encontrarIngredientesPedido() throws DataAccessException;
+	
+//	@Query("SELECT pp FROM PlatoPedido pp WHERE comandaId=pp.comanda.")
+//	List<PlatoPedido> findByComanda(int comandaId) throws DataAccessException;
 	
 //	@Autowired
 //	@Query("SELECT ip.* FROM IngredientePedido ip INNER JOIN PlatoPedido pp "

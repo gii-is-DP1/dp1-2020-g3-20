@@ -23,7 +23,7 @@ INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (
 INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1,'Carlos','Catalan','carlosCA@gmail.com',636363636,'carlos','12345');
 INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2,'Carmen','Casio','carmenCA@gmail.com',646464646,'carmen','12345');
 INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1,'Coral','Cohen','coralCO@gmail.com',656565656,'coral','12345');
-INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2,'Cobi','Connor','cobiCO@gmail.com',666666666,'coral','12345');
+INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2,'Cobi','Connor','cobiCO@gmail.com',666666666,'cobi','12345');
 
 --PROVEEDORES--
 INSERT INTO proveedor(id,name,gmail,telefono) VALUES (1, 'Makro', 'foorder.dp@gmail.com', 666123456);
@@ -116,7 +116,7 @@ INSERT INTO ingrediente(id,cantidad,producto_id,plato_id) VALUES (27 , 1.0 , 1 ,
 
 --COMANDA--
 INSERT INTO comanda(id, mesa, fecha_creado, fecha_finalizado, precio_total, camarero_id) VALUES (1,2,'2021-02-08 14:56:17','2021-02-08 15:23:02',15.5,1);
-INSERT INTO comanda(id, mesa, fecha_creado, fecha_finalizado, precio_total, camarero_id) VALUES (2,3,'2021-02-08 14:58:25','2021-02-08 15:37:17',7.5,2);
+INSERT INTO comanda(id, mesa, fecha_creado, precio_total, camarero_id) VALUES (2,3,'2021-02-08 14:58:25',7.5,2);
 
 --ESTADOS DEL PLATO--
 INSERT INTO estadoplato VALUES (1, 'ENCOLA');
@@ -144,7 +144,7 @@ INSERT INTO ingediente_pedido(ingrediente_id,cant_pedida,pp_id) VALUES (16 , 3.0
 INSERT INTO ingediente_pedido(ingrediente_id,cant_pedida,pp_id) VALUES (17 , 0.25, 2);
 INSERT INTO ingediente_pedido(ingrediente_id,cant_pedida,pp_id) VALUES (18 , 0.02, 2);
 							--Pepsi (8)--
-INSERT INTO ingediente_pedido(ingrediente_id,cant_pedida,pp_id) VALUES (25 , 1.0 , 3);
+INSERT INTO ingediente_pedido(ingrediente_id,cant_pedida,pp_id) VALUES (24 , 1.0 , 3);
 				--COMANDA 2--
 							--Albóndigas (1)--
 INSERT INTO ingediente_pedido(ingrediente_id,cant_pedida,pp_id) VALUES (1 , 0.5 , 4);

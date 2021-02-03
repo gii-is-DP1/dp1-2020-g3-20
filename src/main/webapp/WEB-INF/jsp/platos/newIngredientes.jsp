@@ -12,14 +12,12 @@
     <form:form modelAttribute="ingredienteaux" class="form-horizontal" id="add-ingrediente-form" action="/platos/ingSave">
    
         <div class="form-group has-feedback">
-        	<h2>Plato <c:out value="${plato.name }"></c:out></h2>
+        	<h2>Plato <c:out value="${plato.name}"></c:out></h2>
             <div class="control-group">
 				<petclinic:selectField name="producto" label="productos" names="${listaProductos}" size="6"/>
             </div>
             <petclinic:inputField label="cantidad" name="cantidadUsualPP"></petclinic:inputField>
-            
-            <input type="hidden" name="id" value="${ingrediente.id}">
-            
+            <input type="hidden" name="id" value="${ingredienteaux.id}">
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
