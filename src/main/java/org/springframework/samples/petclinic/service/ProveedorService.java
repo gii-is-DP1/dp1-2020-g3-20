@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.service;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -8,6 +9,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Comanda;
 import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Producto;
@@ -164,6 +166,24 @@ public class ProveedorService {
 		res = productoRepository.findByProveedor(proveedor);
 		return res; 
 	}
+	
+	//Esto es para encontrar los pedidos por un dia de la semana 
+	@Transactional
+	public Collection<Pedido> encontrarPedidoDia(String dia) throws DataAccessException {
+		LocalDate actualDate =LocalDate.parse(dia);
+		Collection<Pedido> res = new ArrayList<>();
+		Iterable<Pedido> aux = pedidoRepository.findAll();
+		Iterator<Pedido> it_aux = aux.iterator();
+		while (it_aux.hasNext()) {
+			Pedido pedido = it_aux.next();
+			if (pedido.getFechaPedido().equals(actualDate)) {
+				res.add(pedido);
+			}	
+		}
+		return res; 
+	}
+	
+	
 
 	
 	//LINEA PEDIDO
