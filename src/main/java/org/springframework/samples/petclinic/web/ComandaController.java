@@ -60,12 +60,14 @@ public class ComandaController {
 	//Vista de Camarero para la lista actual de Comandas sin finalizar
 	@GetMapping(path="/listaComandaActual/finalizarComanda/{comandaID}")
 	public String recargarStock(@PathVariable("comandaID") int comandaID, ModelMap modelMap) {
-		String view= "/listaComandaActual";
+		String view= "comanda/listaComandaActual";
 		Optional<Comanda> comanda = comandaService.findById(comandaID);
 		if(comanda.isPresent()) {
 			Comanda res = comanda.get();
 			if(res.getFechaFinalizado()==null) {
 				res.setFechaFinalizado(LocalDateTime.now());
+				modelMap.addAttribute("message", "La comanda se ha finalizado correctamente");
+				view = listadoComandaActual(modelMap);
 			}else {
 				modelMap.addAttribute("message", "La comanda ya está finalizada");
 				view = listadoComandaActual(modelMap);
