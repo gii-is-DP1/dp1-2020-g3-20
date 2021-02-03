@@ -56,10 +56,9 @@
         </c:forEach>
         </tbody>
     </table>
-
-
-  	<form method="get" action="/pedidos/porProveedor">
-  		<input name="proveedorID" > 
+  	
+  	<form method="get" action="/pedidos/listaPedidoTotal/dia">
+  		<input name="date" type="date"> 
       	<button class="btn btn-default" type="submit">Buscar</button>
   	</form>
     

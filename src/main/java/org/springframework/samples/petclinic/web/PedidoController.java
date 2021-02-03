@@ -1,12 +1,14 @@
 package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Comanda;
 import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Producto;
@@ -106,4 +108,18 @@ public class PedidoController {
 		}
 		return view;
 	}
+	
+	//Todas las comandas de x dia. 
+		@GetMapping(path="/listaPedidoTotal/dia")
+		public String listadoPedidoDia(String date, ModelMap modelMap) {
+			String vista= "pedidos/listaPedidos";
+			Collection<Pedido> pedido = proveedorService.encontrarPedidoDia(date);
+			modelMap.addAttribute("pedido",pedido);
+			return vista;	
+		}
+	
+	
+	
+	
+	
 }
