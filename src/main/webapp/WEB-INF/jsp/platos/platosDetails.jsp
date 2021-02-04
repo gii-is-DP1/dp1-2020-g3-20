@@ -45,6 +45,13 @@
                         
                         <dt>Cantidad</dt>
                         <dd><c:out value="${ing.cantidadUsualPP}"/></dd>
+                        
+                        <dt><spring:url value="/platos/deleteIng/${ing.id}" var="deleteIngURL">
+                   		  <spring:param name="platoId" value="${plato.id}"/>
+                   		</spring:url>
+                   		<a href="${fn:escapeXml(deleteIngURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                   		</dt>
+                       
                     </dl>
                 </td>
                 <!-- 
