@@ -18,7 +18,7 @@ public class PlatoServiceTest {
 	//
 	@Test
 	public void ingredientePorPlatoTest() {	
-		assertEquals(platoService.ingredientePorPlato(2).size(), 2);
+		assertEquals(platoService.ingredientePorPlato(2).size(), 2); 
 	}
 	
 	//EsIgual
