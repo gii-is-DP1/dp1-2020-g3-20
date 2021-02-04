@@ -20,6 +20,7 @@ import org.springframework.samples.petclinic.model.PlatoPedidoDTO;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.repository.IngredientePedidoRepository;
 import org.springframework.samples.petclinic.repository.PlatoPedidoRepository;
+import org.springframework.samples.petclinic.service.IngredientePedidoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,8 +34,10 @@ public class PlatoPedidoService {
 	
 	
 	@Autowired
-	public PlatoPedidoService(PlatoPedidoRepository ppRepo) {
+	public PlatoPedidoService(IngredientePedidoService ingService, PlatoPedidoRepository ppRepo, ProductoService prodService) {
 		this.ppRepo = ppRepo;
+		this.ingService = ingService;
+		this.prodService = prodService;
 	}
 	
 	
@@ -50,7 +53,7 @@ public class PlatoPedidoService {
 	}
 	@Transactional
 	public PlatoPedido guardarPP(PlatoPedido pp) {
-		if(pp.getEstadoplato().equals("ENCOLA")) {
+		if(pp.getEstadoplato().getId().equals(1)) {
 			Iterator<IngredientePedido> ipl = pp.getIngredientesPedidos().iterator();
 			while(ipl.hasNext()) {
 				IngredientePedido ip = ipl.next();
@@ -65,15 +68,16 @@ public class PlatoPedidoService {
 	}
 	
 	@Transactional
-	public Set<IngredientePedido> CrearIngredientesPedidos(PlatoPedido pp) {
-		Set<Ingrediente> ingList = pp.getPlato().getIngredientes();
-		Set<IngredientePedido> res= new HashSet<IngredientePedido>();
-		for(Ingrediente i : ingList) {
+	public void CrearIngredientesPedidos(PlatoPedido pp) {
+		Collection<Ingrediente> ingList = pp.getPlato().getIngredientes();
+		Collection<IngredientePedido> res= new HashSet<IngredientePedido>();
+		Iterator<Ingrediente> iterator = ingList.iterator();
+		while (iterator.hasNext()) {
+			Ingrediente i = iterator.next();
 			IngredientePedido ingp = ingService.crearIngredientePedidoPorIngrediente(i);
 			res.add(ingp);
 			ingService.guardarIngredientePedido(ingp);
 		}
-		return res;
 		
 	}
 	
@@ -114,9 +118,10 @@ public class PlatoPedidoService {
 		Collection<IngredientePedido> ls= ppRepo.encontrarIngredientesPedido();
 		List<IngredientePedido> res= new ArrayList<IngredientePedido>();
  		for(IngredientePedido l: ls) {
+ 			if(l.getPp()!=null) {
 			if(l.getPp().getId()==id) {
 				res.add(l);
-			}
+			}}
 		}
  		return res;
 	}

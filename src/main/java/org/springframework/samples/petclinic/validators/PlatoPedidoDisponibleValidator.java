@@ -27,7 +27,7 @@ public class PlatoPedidoDisponibleValidator implements ConstraintValidator<Valid
 			iterator = lista.iterator();
 			while (iterator.hasNext()) {
 			    IngredientePedido ing = iterator.next();
-			    if((ing.getIngrediente().getProducto().getCantAct() >= ing.getCantidadPedida())||(platoPedido.getEstadoplato().getId().equals(3))||(platoPedido.getEstadoplato().getId().equals(2))) {
+			    if((ing.getIngrediente().getProducto().getCantAct() >= ing.getCantidadPedida())||(platoPedido.getEstadoplato().getId().equals(3))||(platoPedido.getEstadoplato().getId().equals(1))) {
 			    	res = true;
 			    }
 			}
