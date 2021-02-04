@@ -10,7 +10,7 @@
 
     <table id="comandaTable" class="table table-striped">
         <thead>
-        <tr>
+        <tr> 
             <th>Mesa</th>
             <th>Fecha pedido</th>
             <th>Camarero</th>
