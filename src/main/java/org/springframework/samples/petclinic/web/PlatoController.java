@@ -144,20 +144,34 @@ public class PlatoController {
 	
 	@PostMapping(path="/ingSave/{platoId}")
 	public String processCreationForm(@Valid Ingrediente ingrediente,@PathVariable("platoId") int platoId,BindingResult result, ModelMap model) throws ParseException {	
-		
+		Plato pl= this.platoService.buscaPlatoPorId(platoId).get();
+		ingrediente.setPlato(pl);
 		if (result.hasErrors()) {
 			model.put("ingrediente", ingrediente);
 			return "platos/newIngredientes";
 		}else {
-               
-			Plato pl= this.platoService.buscaPlatoPorId(platoId).get();
-			ingrediente.setPlato(pl);
+            if(this.platoService.ingEstaRepetido(ingrediente.getProducto().getName())) {
+            	model.put("message", "el ingrediente esta repetido");
+            	return showPlato(platoId,model);
+            }else {
+//              res.setPlato(platoFormatter.parse(ingrediente.getPlatoaux(),Locale.ENGLISH));
+    			this.ingService.guardarIngrediente(ingrediente);                
+    			return showPlato(platoId,model);
+            }
 			
-//          res.setPlato(platoFormatter.parse(ingrediente.getPlatoaux(),Locale.ENGLISH));
-			this.ingService.guardarIngrediente(ingrediente);
-                    
-			return showPlato(platoId,model);
 		}
+	}
+	
+	@GetMapping(path="/deleteIng/{ingId}")
+	public String borrarIngredienteDePlato(@PathVariable("ingId") int ingId, ModelMap modelMap) {
+		Optional<Ingrediente> ing= ingService.buscaIngPorId(ingId);
+		if(ing.isPresent()) {
+			ingService.borrarIngrediente(ingId);;
+			modelMap.addAttribute("message", "Borrado Correctamente");
+		}else {
+			modelMap.addAttribute("message", "Ingrediente no encontrado");
+		}
+		return showPlato(ing.get().getPlato().getId(),modelMap);
 	}
 	
 	

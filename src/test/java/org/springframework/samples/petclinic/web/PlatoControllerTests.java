@@ -13,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
-//import org.springframework.samples.petclinic.model.IngredienteAUX;
 import org.springframework.samples.petclinic.model.Plato;
 import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.PlatoService;
@@ -59,97 +58,93 @@ private MockMvc mockMvc;
 
 private Plato plato;
 
-//@BeforeEach
-//void setup() {
-//	plato = new Plato();
-//	plato.setId(TEST_PLATO_ID);
-//	plato.setName("espinacas");
-//	plato.setPrecio(4.0);
-//	plato.setDisponible(true);
-//	plato.setIngredientes(null);
-//	
-//	IngredienteAUX in= new IngredienteAUX();
-//	in.setId(null);
-//	in.setPlatoaux("albondigas");
-//	in.setProducto(null);
-//	in.setCantidadUsualPP(3.);
-//	
-//	given(this.platoService.buscaPlatoPorId(TEST_PLATO_ID)).willReturn(Optional.of(plato));
-//	
-//}
+@BeforeEach
+void setup() {
+	plato = new Plato();
+	plato.setId(TEST_PLATO_ID);
+	plato.setName("espinacas");
+	plato.setPrecio(4.0);
+	plato.setDisponible(true);
+	plato.setIngredientes(null);
+	
+
+	
+	given(this.platoService.buscaPlatoPorId(TEST_PLATO_ID)).willReturn(Optional.of(plato));
+	
+}
 
 
-//@WithMockUser(value = "spring")
-//@Test
-//void testCrearPlato() throws Exception {
-//mockMvc.perform(get("/platos/new")).andExpect(status().isOk()).andExpect(model().attributeExists("platos"))
-//	.andExpect(view().name("platos/editPlatos"));
-//}
-//
-//
-//@WithMockUser(value = "spring")
-//    @Test
-//void testGuardarPlato() throws Exception {
-//	mockMvc.perform(post("/platos/save").param("name", "espinacas")
-//						.with(csrf())
-//						.param("precio", "4")
-//						.param("disponible", "true"))
-//	.andExpect(view().name("platos/listaPlatos"));
-//}
-//
-//
-//@WithMockUser(value = "spring")
-//@Test
-//void testInitUpdatePlatoForm() throws Exception {
-//	mockMvc.perform(get("/platos/{platoId}/edit",TEST_PLATO_ID)).andExpect(status().isOk())
-//		.andExpect(model().attributeExists("plato"))
-//		.andExpect(model().attribute("plato", hasProperty("name", is("espinacas"))))
-//		.andExpect(model().attribute("plato", hasProperty("precio", is(4.0))))
-//		.andExpect(model().attribute("plato", hasProperty("disponible", is(true))))
-//		.andExpect(view().name("platos/editarPlatos"));
-//}
-//
-//@WithMockUser(value = "spring")
-//@Test
-//void processUpdatePlatoForm() throws Exception {
-//	mockMvc.perform(post("/platos/edit", TEST_PLATO_ID)
-//						.with(csrf())
-//						.param("name", "espinacas")
-//						.param("precio", "5.")
-//						.param("disponible", "false"))
-//			.andExpect(status().is3xxRedirection())
-//			.andExpect(view().name("redirect:/platos"));
-//}
-//
-//@WithMockUser(value = "spring")
-//	@Test
-//	void testDeletePlato() throws Exception {
-//	mockMvc.perform(get("/platos/delete/{platoId}",TEST_PLATO_ID)).andExpect(status().isOk())
-//	.andExpect(model().attributeExists("platos"))
-//	.andExpect(view().name("platos/listaPlatos"));
-//	}
-//
-//@WithMockUser(value = "spring")
-//	@Test
-//	void testShowPlato() throws Exception {
-//	mockMvc.perform(get("/platos/{platoId}",TEST_PLATO_ID)).andExpect(status().isOk())
-//	.andExpect(model().attributeExists("plato"))
-//	.andExpect(model().attributeExists("ingredientes"))
-//	.andExpect(view().name("platos/platosDetails"));
-//	}
-//	//comprobar en tutoria
-//
-//
-//@WithMockUser(value = "spring")
-//	@Test
-//	void testCrearIngrediente() throws Exception {
-//	
-//	mockMvc.perform(get("/platos/{platoId}/ingrediente/new",TEST_PLATO_ID)).andExpect(status().isOk())
-//	.andExpect(model().attributeExists("plato"))
-//	.andExpect(model().attributeExists("ingredienteaux"))
-//	.andExpect(model().attributeExists("listaProductos"))
-//	.andExpect(view().name("platos/newIngredientes"));
-//	}
+@WithMockUser(value = "spring")
+@Test
+void testCrearPlato() throws Exception {
+mockMvc.perform(get("/platos/new")).andExpect(status().isOk()).andExpect(model().attributeExists("platos"))
+	.andExpect(view().name("platos/editPlatos"));
+}
+
+
+@WithMockUser(value = "spring")
+    @Test
+void testGuardarPlato() throws Exception {
+	mockMvc.perform(post("/platos/save").param("name", "espinacas")
+						.with(csrf())
+						.param("precio", "4")
+						.param("disponible", "true"))
+	.andExpect(view().name("platos/listaPlatos"));
+}
+
+
+@WithMockUser(value = "spring")
+@Test
+void testInitUpdatePlatoForm() throws Exception {
+	mockMvc.perform(get("/platos/{platoId}/edit",TEST_PLATO_ID)).andExpect(status().isOk())
+		.andExpect(model().attributeExists("plato"))
+		.andExpect(model().attribute("plato", hasProperty("name", is("espinacas"))))
+		.andExpect(model().attribute("plato", hasProperty("precio", is(4.0))))
+		.andExpect(model().attribute("plato", hasProperty("disponible", is(true))))
+		.andExpect(view().name("platos/editarPlatos"));
+}
+
+@WithMockUser(value = "spring")
+@Test
+void processUpdatePlatoForm() throws Exception {
+	mockMvc.perform(post("/platos/edit", TEST_PLATO_ID)
+						.with(csrf())
+						.param("name", "espinacas")
+						.param("precio", "5.")
+						.param("disponible", "false"))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/platos"));
+}
+
+@WithMockUser(value = "spring")
+	@Test
+	void testDeletePlato() throws Exception {
+	mockMvc.perform(get("/platos/delete/{platoId}",TEST_PLATO_ID)).andExpect(status().isOk())
+	.andExpect(model().attributeExists("platos"))
+	.andExpect(view().name("platos/listaPlatos"));
+	}
+
+@WithMockUser(value = "spring")
+	@Test
+	void testShowPlato() throws Exception {
+	mockMvc.perform(get("/platos/{platoId}",TEST_PLATO_ID)).andExpect(status().isOk())
+	.andExpect(model().attributeExists("plato"))
+	.andExpect(model().attributeExists("ingredientes"))
+	.andExpect(view().name("platos/platosDetails"));
+	}
+	//comprobar en tutoria
+
+
+@WithMockUser(value = "spring")
+	@Test
+	void testCrearIngrediente() throws Exception {
+	
+	mockMvc.perform(get("/platos/{platoId}/ingrediente/new",TEST_PLATO_ID)).andExpect(status().isOk())
+	.andExpect(model().attributeExists("plato"))
+	.andExpect(model().attributeExists("ingredienteaux"))
+	.andExpect(model().attributeExists("listaProductos"))
+	.andExpect(view().name("platos/newIngredientes"));
+	}
 
 //@WithMockUser(value = "spring")
 //@Test

@@ -1,9 +1,11 @@
 package org.springframework.samples.petclinic.web;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,25 +79,25 @@ public class ComandaController {
 		return vista;
 	}
 	
-	//Vista de Camarero para la lista de platos de una comanda
-	@GetMapping(path="/listaComandaActual/{comandaID}")
-	public String recargarStock(@PathVariable("comandaID") int comandaID, ModelMap modelMap) {
-		String vista= "comanda/listaComandaActual/comandaDetails";		
-		Optional<Comanda> optAux = comandaService.findById(comandaID);
-		Comanda comanda = optAux.get();
-		Iterable<PlatoPedido> allPP = platoPedidoService.findAll();
-		Iterator<PlatoPedido> it = allPP.iterator();
-		Collection<PlatoPedido> platosEC = new ArrayList<>();
-		while(it.hasNext()) {
-			PlatoPedido ppAux = it.next();
-			if(ppAux.getComanda().getId()==comandaID) {
-				platosEC.add(ppAux);
-			}
-		}
-		modelMap.addAttribute("plato",platosEC);
-		modelMap.addAttribute("comanda",comanda);
-		return vista;
-	}
+//	//Vista de Camarero para la lista de platos de una comanda
+//	@GetMapping(path="/listaComandaActual/{comandaID}")
+//	public String recargarStock(@PathVariable("comandaID") int comandaID, ModelMap modelMap) {
+//		String vista= "comanda/listaComandaActual/comandaDetails";		
+//		Optional<Comanda> optAux = comandaService.findById(comandaID);
+//		Comanda comanda = optAux.get();
+//		Iterable<PlatoPedido> allPP = platoPedidoService.findAll();
+//		Iterator<PlatoPedido> it = allPP.iterator();
+//		Collection<PlatoPedido> platosEC = new ArrayList<>();
+//		while(it.hasNext()) {
+//			PlatoPedido ppAux = it.next();
+//			if(ppAux.getComanda().getId()==comandaID) {
+//				platosEC.add(ppAux);
+//			}
+//		}
+//		modelMap.addAttribute("plato",platosEC);
+//		modelMap.addAttribute("comanda",comanda);
+//		return vista;
+//	}
 	
 	@GetMapping(path="/new")
 	public String crearComanda(ModelMap modelMap) {
