@@ -6,12 +6,15 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="Historial de comandas">
-    <h2>Comanda de mesa <c:out value="${comanda.mesa}"/></h2>
-    <table id="comandaExistenteTable" class="table table-striped">
+    <h2>Comandas</h2>
+
+    <table id="comandaTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Plato</th>
-            <th>Estado</th>
+            <th>Mesa</th>
+            <th>Fecha pedido</th>
+            <th>Camarero</th>
+            <th>Precio total</th>
         </tr>
         </thead>
         <tbody>
