@@ -7,7 +7,14 @@
 
 <petclinic:layout pageName="Comanda">
     <h2>Comandas</h2>
-
+    
+   	<spring:url value="/comanda/listaComandaActual/finalizarComanda/{comandaID}" var="closeURL">
+    <spring:param name="comandaID" value="${comanda.id}"/>
+    </spring:url>
+    <form class="btn-line" action="${fn:escapeXml(closeURL)}"> 
+    <button class="btn btn-default" type="submit">Finalizar comanda</button>
+  	</form>  
+	
     <table id="comandaActualTable" class="table table-striped">
         <thead>
         <tr>

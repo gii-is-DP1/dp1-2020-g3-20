@@ -29,14 +29,13 @@ public class PlatoPedidoService {
 		this.ppRepo = ppRepo;
 	}
 	
-	
 	@Transactional
 	public int productoCount() {
 		return (int) ppRepo.count();	
 	}
 
 	@Transactional
-	public Iterable<PlatoPedido> ppList() {
+	public Iterable<PlatoPedido> findAll() {
 		return ppRepo.findAll();
 		
 	}

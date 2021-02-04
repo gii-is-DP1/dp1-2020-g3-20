@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.web;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
@@ -13,8 +14,10 @@ import org.springframework.samples.petclinic.model.IngredienteAUX;
 import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Plato;
+import org.springframework.samples.petclinic.model.PlatoPedido;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.service.ComandaService;
+import org.springframework.samples.petclinic.service.PlatoPedidoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -29,6 +32,9 @@ public class ComandaController {
 	
 	@Autowired
 	private ComandaService comandaService;
+	
+	@Autowired
+	private PlatoPedidoService platoPedidoService;
 	
 	//Vista de Propietario para la lista total de Comandas
 	@GetMapping(path="/listaComandaTotal")
@@ -59,24 +65,44 @@ public class ComandaController {
 	
 	//Vista de Camarero para la lista actual de Comandas sin finalizar
 	@GetMapping(path="/listaComandaActual/finalizarComanda/{comandaID}")
-	public String recargarStock(@PathVariable("comandaID") int comandaID, ModelMap modelMap) {
-		String view= "comanda/listaComandaActual";
+	public String finalizarComanda(@PathVariable("comandaID") int comandaID, ModelMap modelMap) {
+		String vista= "comanda/listaComandaActual";
 		Optional<Comanda> comanda = comandaService.findById(comandaID);
 		if(comanda.isPresent()) {
 			Comanda res = comanda.get();
 			if(res.getFechaFinalizado()==null) {
 				res.setFechaFinalizado(LocalDateTime.now());
 				modelMap.addAttribute("message", "La comanda se ha finalizado correctamente");
-				view = listadoComandaActual(modelMap);
+				vista = listadoComandaActual(modelMap);
 			}else {
 				modelMap.addAttribute("message", "La comanda ya está finalizada");
-				view = listadoComandaActual(modelMap);
+				vista = listadoComandaActual(modelMap);
 			}
 		}else {
 			modelMap.addAttribute("message", "La comanda pedida no existe");
-			view = listadoComandaActual(modelMap);
+			vista = listadoComandaActual(modelMap);
 		}
-		return view;
+		return vista;
+	}
+	
+	//Vista de Camarero para la lista de platos de una comanda
+	@GetMapping(path="/listaComandaActual/{comandaID}")
+	public String recargarStock(@PathVariable("comandaID") int comandaID, ModelMap modelMap) {
+		String vista= "comanda/listaComandaActual/comandaDetails";		
+		Optional<Comanda> optAux = comandaService.findById(comandaID);
+		Comanda comanda = optAux.get();
+		Iterable<PlatoPedido> allPP = platoPedidoService.findAll();
+		Iterator<PlatoPedido> it = allPP.iterator();
+		Collection<PlatoPedido> platosEC = new ArrayList<>();
+		while(it.hasNext()) {
+			PlatoPedido ppAux = it.next();
+			if(ppAux.getComanda().getId()==comandaID) {
+				platosEC.add(ppAux);
+			}
+		}
+		modelMap.addAttribute("plato",platosEC);
+		modelMap.addAttribute("comanda",comanda);
+		return vista;
 	}
 	
 	@GetMapping(path="/new")
