@@ -17,28 +17,28 @@ public class CamareroService {
 	private UserService userService;
 	
 	@Autowired
-	private CamareroRepository camRep;
+	private CamareroRepository camareroRepository;
 	
 	@Autowired
 	private AuthoritiesService authoritiesService;
 	
 	@Transactional
 	public int camareroCount() {
-		return (int) camRep.count();
+		return (int) camareroRepository.count();
 		
 	}
 	
 
 	@Transactional
 	public Iterable<Camarero> camareroList() {
-		return camRep.findAll();
+		return camareroRepository.findAll();
 		
 	}
 
 	@Transactional(rollbackFor = DuplicatedPedidoException.class)
 	public void guardarCamarero(Camarero camarero) throws DuplicatedPedidoException {
 		//creating user
-		Iterable<Camarero> lista = camRep.findAll();
+		Iterable<Camarero> lista = camareroRepository.findAll();
 		Iterator<Camarero> it = lista.iterator();
        	Boolean Hayrepetido = false;
        	while(it.hasNext()) {
@@ -54,20 +54,33 @@ public class CamareroService {
 		userService.saveUser(user);
 		//creating authorities
 		authoritiesService.saveAuthorities(camarero.getUsuario(), "camarero");
-		 camRep.save(camarero);
+		camareroRepository.save(camarero);
 		 }}
        	
 	}
 	
 	@Transactional
 	public void borrarCamarero(Integer id) {
-		camRep.deleteById(id);
+		camareroRepository.deleteById(id);
 		
 	}
 	
 	@Transactional
 	public Optional<Camarero> buscaCamareroPorId(Integer id) {
-		return camRep.findById(id);
-		
+		return camareroRepository.findById(id);
+	}
+	
+	//Se usa para asignar un camarero a una comanda dado su usario
+	@Transactional
+	public Camarero buscaCamareroPorUser(String user) {
+		Camarero camarero = new Camarero();
+		Iterable<Camarero> aux = camareroRepository.findAll();
+		Iterator<Camarero> it = aux.iterator();
+		while(it.hasNext()) {
+			camarero = it.next();
+			if(camarero.getUsuario().equals(user))
+				return camarero;
+		}
+		return camarero;
 	}
 }

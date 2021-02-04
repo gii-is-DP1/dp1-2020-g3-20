@@ -14,46 +14,46 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class IngredienteService {
 	
-	private IngredienteRepository ingRepo;
+	private IngredienteRepository ingredienteRepository;
 	
 	@Autowired
 	public IngredienteService(IngredienteRepository ingRepo) {
-		this.ingRepo = ingRepo;
+		this.ingredienteRepository = ingRepo;
 	}
 	
 	
 	@Transactional
 	public int ingCount() {
-		return (int) ingRepo.count();	
+		return (int) ingredienteRepository.count();	
 	}
 
 	@Transactional
 	public Iterable<Ingrediente> ingList() {
-		return ingRepo.findAll();
+		return ingredienteRepository.findAll();
 		
 	}
 	@Transactional
 	public Ingrediente guardarIngrediente(Ingrediente ing) {
-		return ingRepo.save(ing);
+		return ingredienteRepository.save(ing);
 		
 	}
 	
 	@Transactional
 	public void borrarIngrediente(Integer id) {
-		ingRepo.deleteById(id);
+		ingredienteRepository.deleteById(id);
 		
 	}
 	
 	@Transactional
 	public Optional<Ingrediente> buscaIngPorId(Integer id) {
-		return ingRepo.findById(id);
+		return ingredienteRepository.findById(id);
 		
 	}
 	
 	//Esto pertenece a la clase Producto
 	@Transactional(readOnly = true)
 	public Collection<Producto> encontrarProductos() throws DataAccessException {
-		return ingRepo.encontrarProductos();
+		return ingredienteRepository.encontrarProductos();
 	}
 	
 

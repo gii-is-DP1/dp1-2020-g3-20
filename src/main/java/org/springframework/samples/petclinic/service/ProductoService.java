@@ -23,28 +23,28 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductoService {
 	
 	@Autowired
-	private ProductoRepository productoRepo;
+	private ProductoRepository productoRepository;
 	private LineaPedidoRepository lineaPedidoRepository;
 	
 	@Autowired
 	public ProductoService(LineaPedidoRepository lineaPedidoRepository,ProductoRepository productoRepository) {
 		this.lineaPedidoRepository = lineaPedidoRepository;
-		this.productoRepo = productoRepository;
+		this.productoRepository = productoRepository;
 	}
 	
 	@Transactional
 	public int productoCount() {
-		return (int) productoRepo.count();	
+		return (int) productoRepository.count();	
 	}
 
 	@Transactional
 	public Iterable<Producto> productoList() {
-		return productoRepo.findAll();
+		return productoRepository.findAll();
 	}
 
 	@Transactional
 	public Producto guardarProducto(Producto producto) {
-		return productoRepo.save(producto);
+		return productoRepository.save(producto);
 	}
 	
 	@Transactional(rollbackFor = PedidoPendienteException.class)
@@ -60,14 +60,14 @@ public class ProductoService {
 		}if (HaypedidoPendiente)  {    
 			throw new PedidoPendienteException();
 		}else {
-   		productoRepo.deleteById(id);
+		productoRepository.deleteById(id);
 		}
 	}
 
 	
 	@Transactional
 	public Optional<Producto> buscaProductoPorId(Integer id) {
-		return productoRepo.findById(id);
+		return productoRepository.findById(id);
 	}
 	
 	public Iterable<LineaPedido> findLineaPedidoByProductoId(int productoID) {
@@ -76,7 +76,7 @@ public class ProductoService {
 	//Esto pertenece a la clase TipoProducto
 	@Transactional(readOnly = true)
 	public Collection<TipoProducto> encontrarTiposProducto() throws DataAccessException {
-		return productoRepo.encontrarTiposProducto();
+		return productoRepository.encontrarTiposProducto();
 	}
 	
 }

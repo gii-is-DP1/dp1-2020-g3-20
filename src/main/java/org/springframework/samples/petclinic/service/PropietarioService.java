@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class PropietarioService {
 	@Autowired
-	private PropietarioRepository propRepo;
+	private PropietarioRepository propietarioRepository;
 	
 	@Autowired
 	private AuthoritiesService authoritiesService;
@@ -22,17 +22,17 @@ public class PropietarioService {
 	
 	@Transactional
 	public int propietarioCount() {
-		return (int) propRepo.count();
+		return (int) propietarioRepository.count();
 		
 	}
 	@Transactional
 	public Iterable<Propietario> listPropietario() {
-		return propRepo.findAll();
+		return propietarioRepository.findAll();
 		
 	}
 	@Transactional
 	public void delete(final Propietario propietario) {
-		this.propRepo.delete(propietario);
+		this.propietarioRepository.delete(propietario);
 	}
 	@Transactional
 	public Propietario guardarPropietario(Propietario propietario) {
@@ -41,12 +41,12 @@ public class PropietarioService {
 				userService.saveUser(user);
 				//creating authorities
 				authoritiesService.saveAuthorities(propietario.getUsuario(), "propietario");
-		return propRepo.save(propietario);
+		return propietarioRepository.save(propietario);
 	}
 	
 	@Transactional
 	public Optional<Propietario> buscaPropietarioPorId(Integer id) {
-		return propRepo.findById(id);
+		return propietarioRepository.findById(id);
 		
 	}
 

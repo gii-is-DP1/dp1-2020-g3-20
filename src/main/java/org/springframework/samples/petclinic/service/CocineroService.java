@@ -18,16 +18,16 @@ public class CocineroService {
 	private AuthoritiesService authoritiesService;
 	
 	@Autowired
-	private CocineroRepository cocineroRepo;
+	private CocineroRepository cocineroRepository;
 	
 	@Transactional
 	public int cocineroCount() {
-		return (int) cocineroRepo.count();
+		return (int) cocineroRepository.count();
 	}
 	
 	@Transactional
 	public Iterable<Cocinero> findAll() {
-		return cocineroRepo.findAll();
+		return cocineroRepository.findAll();
 		
 	}
 
@@ -38,19 +38,19 @@ public class CocineroService {
 				userService.saveUser(user);
 				//creating authorities
 				authoritiesService.saveAuthorities(cocinero.getUsuario(), "cocinero");
-		return cocineroRepo.save(cocinero);
+		return cocineroRepository.save(cocinero);
 		
 	}
 	
 	@Transactional
 	public void borrarCocinero(Integer id) {
-		cocineroRepo.deleteById(id);
+		cocineroRepository.deleteById(id);
 		
 	}
 	
 	@Transactional
 	public Optional<Cocinero> buscaCocineroPorId(Integer id) {
-		return cocineroRepo.findById(id);
+		return cocineroRepository.findById(id);
 		
 	}
 }

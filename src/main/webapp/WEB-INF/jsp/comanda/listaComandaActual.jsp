@@ -8,11 +8,13 @@
 <petclinic:layout pageName="Comanda">
     <h2>Comandas</h2>
     
-   	<spring:url value="/comanda/listaComandaActual/finalizarComanda/{comandaID}" var="closeURL">
-    <spring:param name="comandaID" value="${comanda.id}"/>
+   	<spring:url value="/comanda/listaComandaActual/new" var="newURL">
     </spring:url>
-    <form class="btn-line" action="${fn:escapeXml(closeURL)}"> 
-    <button class="btn btn-default" type="submit">Finalizar comanda</button>
+    <form class="btn-line" action="${fn:escapeXml(newURL)}">
+    <p align="right">
+    <input name="mesa" type="number"> 
+    <button class="btn btn-default" type="submit">Nueva comanda</button>
+    </p>
   	</form>  
 	
     <table id="comandaActualTable" class="table table-striped">
@@ -37,11 +39,10 @@
                    	<c:out value="${comanda.precioTotal} "/><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
                 </td>
                 <td>
-                	<spring:url value="/comanda/comandaActual/{comandaID}" var="infoURL">
+                	<spring:url value="/comanda/listaComandaActual/{comandaID}" var="infoURL">
                 	<spring:param name="comandaID" value="${comanda.id}"/>
                 	</spring:url>
                 	<form class="btn-line" action="${fn:escapeXml(infoURL)}">
-  						<input name="pedidoID" type="hidden" value="${comanda.id}"> 
       					<button class="btn btn-default" type="submit">Info</button>
   					</form>
             		

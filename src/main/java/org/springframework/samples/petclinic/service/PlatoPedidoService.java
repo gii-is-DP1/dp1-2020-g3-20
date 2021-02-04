@@ -8,65 +8,60 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.EstadoPlato;
-import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.IngredientePedido;
 import org.springframework.samples.petclinic.model.PlatoPedido;
-import org.springframework.samples.petclinic.model.PlatoPedidoDTO;
-import org.springframework.samples.petclinic.repository.IngredientePedidoRepository;
 import org.springframework.samples.petclinic.repository.PlatoPedidoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PlatoPedidoService {
-	private PlatoPedidoRepository ppRepo;
-	
-	private IngredientePedidoRepository ingPedidoRep;
-	
+	private PlatoPedidoRepository platoPedidoRepository;
+		
 	
 	@Autowired
-	public PlatoPedidoService(PlatoPedidoRepository ppRepo) {
-		this.ppRepo = ppRepo;
+	public PlatoPedidoService(PlatoPedidoRepository platoPedidoRepository) {
+		this.platoPedidoRepository = platoPedidoRepository;
 	}
 	
 	@Transactional
 	public int productoCount() {
-		return (int) ppRepo.count();	
+		return (int) platoPedidoRepository.count();	
 	}
 
 	@Transactional
 	public Iterable<PlatoPedido> findAll() {
-		return ppRepo.findAll();
+		return platoPedidoRepository.findAll();
 		
 	}
 	@Transactional
 	public PlatoPedido guardarPP(PlatoPedido pp) {
-		return ppRepo.save(pp);
+		return platoPedidoRepository.save(pp);
 		
 	}
 	
 	@Transactional
 	public void borrarPP(Integer id) {
-		ppRepo.deleteById(id);
+		platoPedidoRepository.deleteById(id);
 		
 	}
 	
 	@Transactional
 	public Optional<PlatoPedido> buscaPPPorId(Integer id) {
-		return ppRepo.findById(id);
+		return platoPedidoRepository.findById(id);
 		
 	}
 	
 	//Esto pertenece a la clase EstadoPlato
 	@Transactional(readOnly = true)
 	public Collection<EstadoPlato> encontrarEstadoPlato() throws DataAccessException {
-		return ppRepo.encontrarEstadosPlato();
+		return platoPedidoRepository.encontrarEstadosPlato();
 	}
 	
 	//Esto pertenece a la clase Plato
 	@Transactional(readOnly = true)
 	public Collection<String> encontrarPlatos() throws DataAccessException {
-		return ppRepo.encontrarPlatos();
+		return platoPedidoRepository.encontrarPlatos();
 	}
 	
 //	//Esto pertenece a la clase Comanda
@@ -78,7 +73,7 @@ public class PlatoPedidoService {
 	
 //	//Esto pertenece a la clase IngredientePedido
 	public List<IngredientePedido> ingredientePedidoPorPlatoPedido(Integer id){
-		Collection<IngredientePedido> ls= ppRepo.encontrarIngredientesPedido();
+		Collection<IngredientePedido> ls= platoPedidoRepository.encontrarIngredientesPedido();
 		List<IngredientePedido> res= new ArrayList<IngredientePedido>();
  		for(IngredientePedido l: ls) {
 			if(l.getPp().getId()==id) {

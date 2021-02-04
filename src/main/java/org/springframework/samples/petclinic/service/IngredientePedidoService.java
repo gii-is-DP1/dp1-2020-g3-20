@@ -14,51 +14,51 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class IngredientePedidoService {
 
-	private IngredientePedidoRepository ingPedidoRepo;
+	private IngredientePedidoRepository ingredientePedidoRepository;
 	
 	@Autowired
-	public IngredientePedidoService(IngredientePedidoRepository ingPedidoRepo) {
-		this.ingPedidoRepo = ingPedidoRepo;
+	public IngredientePedidoService(IngredientePedidoRepository ingredientePedidoRepository) {
+		this.ingredientePedidoRepository = ingredientePedidoRepository;
 	}
 	
 	
 	@Transactional
 	public int ingPedidoCount() {
-		return (int) ingPedidoRepo.count();	
+		return (int) ingredientePedidoRepository.count();	
 	}
 
 	@Transactional
 	public Iterable<IngredientePedido> ingPedidoList() {
-		return ingPedidoRepo.findAll();
+		return ingredientePedidoRepository.findAll();
 		
 	}
 	@Transactional
 	public IngredientePedido guardarIngredientePedido(IngredientePedido ing) {
-		return ingPedidoRepo.save(ing);
+		return ingredientePedidoRepository.save(ing);
 		
 	}
 	
 	@Transactional
 	public void borrarIngredientePedido(Integer id) {
-		ingPedidoRepo.deleteById(id);
+		ingredientePedidoRepository.deleteById(id);
 		
 	}
 	
 	@Transactional
 	public Optional<IngredientePedido> buscaIngPedidoPorId(Integer id) {
-		return ingPedidoRepo.findById(id);
+		return ingredientePedidoRepository.findById(id);
 		
 	}
 	
 	//Esto pertenece a la clase Ingrediente
 	@Transactional(readOnly = true)
 	public Collection<Ingrediente> encontrarIngredientes() throws DataAccessException {
-		return ingPedidoRepo.encontrarIngredientes();
+		return ingredientePedidoRepository.encontrarIngredientes();
 	}
 	
 	@Transactional(readOnly = true)
 	public Ingrediente ingredienteAsociado(Integer ingrediente_pedido_id) throws DataAccessException{
-		return ingPedidoRepo.ingredienteAsociado(ingrediente_pedido_id);
+		return ingredientePedidoRepository.ingredienteAsociado(ingrediente_pedido_id);
 	}
 
 		
