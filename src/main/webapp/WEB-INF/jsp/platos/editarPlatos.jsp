@@ -8,7 +8,7 @@
 
 <petclinic:layout pageName="platos">
     <h2>Plato</h2>
-    <form:form modelAttribute="plato" class="form-horizontal" id="add-plato-form"  action="/platos/edit/${plato.id}">
+    <form:form modelAttribute="plato" class="form-horizontal" id="add-plato-form"  action="/platos/edit">
         <div class="form-group has-feedback">
         <c:out value="${plato.id}"/> 
             <petclinic:inputField label="nombre" name="name"/>

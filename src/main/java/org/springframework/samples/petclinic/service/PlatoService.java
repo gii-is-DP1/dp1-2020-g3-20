@@ -66,17 +66,6 @@ public class PlatoService {
  		return res;
 	}
 	
-	public boolean ingEstaRepetido(String nombreIng) {
-		List<Ingrediente> ls= camRep.encontrarIngredientes();	
-		boolean res = false;
- 		for(Ingrediente l: ls) {
- 			if(l.getProducto().getName().equals(nombreIng)) {
- 				res= true;
- 			}
- 		}
- 		return res;
-	}
-	
 	public void borrarIngredientePorPlato(Integer id){
 		List<Ingrediente> ls= camRep.encontrarIngredientes();	
  		for(Ingrediente l: ls) {

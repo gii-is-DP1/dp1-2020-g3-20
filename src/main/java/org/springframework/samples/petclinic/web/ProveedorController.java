@@ -1,13 +1,11 @@
 package org.springframework.samples.petclinic.web;
 
-import java.util.Iterator;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Camarero;
-import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.samples.petclinic.service.ProveedorService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,11 +27,6 @@ public class ProveedorController {
 	public String listadoDeProveedores(ModelMap modelMap) {
 		String vista="proveedor/listadoDeProveedores";
 		Iterable<Proveedor> proveedor=proveedorService.findAll();
-		Iterator<Proveedor> it_proveedor = proveedor.iterator();
-		
-		if (!(it_proveedor.hasNext())) {
-			modelMap.addAttribute("message", "No hay proveedores, necesitas alguno para obtener productos, añade uno nuevo");
-		}
 		modelMap.addAttribute("proveedor", proveedor);
 		return vista;
 	}

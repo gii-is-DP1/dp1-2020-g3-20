@@ -12,7 +12,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Cocinero;
 import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Producto;
@@ -60,11 +59,6 @@ public class ProductoController {
 	public String listadoProducto(ModelMap modelMap) {
 		String vista= "producto/listaProducto";
 		Iterable<Producto> producto = productoService.productoList();
-		Iterator<Producto> it_producto = producto.iterator();
-		
-		if (!(it_producto.hasNext())) {
-			modelMap.addAttribute("message", "No hay productos, los necesitas para poder cocinar, añade uno nuevo");
-		}
 		modelMap.addAttribute("producto",producto);
 		return vista;	
 	}
