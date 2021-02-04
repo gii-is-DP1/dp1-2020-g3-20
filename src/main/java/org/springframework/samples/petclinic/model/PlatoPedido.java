@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.model;
 
+import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@ValidatePlatoPedidoDisponible
+//@ValidatePlatoPedidoDisponible
 @Table(name = "platopedido")
 public class PlatoPedido extends BaseEntity{
 	@ManyToOne
@@ -29,7 +30,7 @@ public class PlatoPedido extends BaseEntity{
 	private Plato plato;
 	
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "pp")
-	private Set<IngredientePedido> ingredientesPedidos;
+	private Collection<IngredientePedido> ingredientesPedidos;
 	
 	@ManyToOne
 	@JoinColumn(name = "comanda_id")
