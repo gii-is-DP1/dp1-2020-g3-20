@@ -15,6 +15,7 @@
             <th>Cantidad Mínima</th>
             <th>Cantidad Actual</th>
             <th>Cantidad Máxima</th>
+            <th>Proveedor</th>
         </tr>
         </thead>
         <tbody>
@@ -31,7 +32,10 @@
                 </td>
                 <td>
                    	<c:out value="${producto.cantMax}"/>
-                </td>                
+                </td>       
+                <td>
+                   	<c:out value="${producto.proveedor}"/>
+                </td>           
             </tr>
         </c:forEach>
         </tbody>

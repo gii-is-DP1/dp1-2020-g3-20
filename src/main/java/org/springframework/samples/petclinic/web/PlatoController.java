@@ -4,17 +4,12 @@ import java.text.ParseException;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.Ingrediente;
-import org.springframework.samples.petclinic.model.IngredienteAUX;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Plato;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.service.IngredienteService;
@@ -105,23 +100,21 @@ public class PlatoController {
 			model.addAttribute(plato);
 			return vista;
 	}
-	@PostMapping(value = "/edit")
-	public String processUpdatePlatoForm(@Valid Plato plato,BindingResult result,ModelMap modelMap) {
+	@PostMapping(value = "/edit/{platoId}")
+	public String processUpdatePlatoForm(@Valid Plato plato,@PathVariable("platoId") int platoId,BindingResult result,ModelMap modelMap) {
 		String vista= "platos/editarPlatos";
-
-	
 		if(result.hasErrors()) {
-			
 			modelMap.addAttribute("plato", plato);
-		
 			return vista;
-		}
-		else {
-		
-			this.platoService.guardarPlato(plato);
+		}else {
+			Plato res= this.platoService.buscaPlatoPorId(platoId).get();
+			res.setName(plato.getName());
+			res.setPrecio(plato.getPrecio());
+			res.setDisponible(plato.getDisponible());
+			res.setIngredientes(plato.getIngredientes());
+			this.platoService.guardarPlato(res);
 			return "redirect:/platos";
-		}
-		
+		}	
 	}
 	
 	@GetMapping("/{platoId}")
@@ -134,46 +127,36 @@ public class PlatoController {
 		
 	}
 
-	
 	@GetMapping(path="/{platoId}/ingrediente/new")
 	public String crearIngrediente(ModelMap modelMap, @PathVariable("platoId") int platoId) {
 		String vista= "platos/newIngredientes";
 		Collection<Producto> listaProd= ingService.encontrarProductos();
 		Plato plato=  platoService.buscaPlatoPorId(platoId).get();
-		IngredienteAUX ing=new IngredienteAUX();
+		Ingrediente ing=new Ingrediente();
 		
 		
 		modelMap.addAttribute("plato", plato);
-		modelMap.addAttribute("ingredienteaux",ing);
+		modelMap.addAttribute("ingrediente",ing);
 		modelMap.addAttribute("listaProductos", listaProd);
 		return vista;
 	}
+
 	
-	public Ingrediente ConversorAUXToIngrediente(IngredienteAUX aux) {
-		Integer id=aux.getId();
-		Double cantidad=aux.getCantidadUsualPP();
-		Producto prod=aux.getProducto();
-		Ingrediente res= new Ingrediente();
-		res.setId(id);
-		res.setCantidadUsualPP(cantidad);
-		
-		res.setProducto(prod);
-		return res;
-	}
-	
-	@PostMapping(path="/ingSave")
-	public String processCreationForm(@Valid IngredienteAUX ingrediente,BindingResult result, ModelMap model) throws ParseException {	
+	@PostMapping(path="/ingSave/{platoId}")
+	public String processCreationForm(@Valid Ingrediente ingrediente,@PathVariable("platoId") int platoId,BindingResult result, ModelMap model) throws ParseException {	
 		
 		if (result.hasErrors()) {
 			model.put("ingrediente", ingrediente);
 			return "platos/newIngredientes";
-		}
-		else {
-               Ingrediente res= ConversorAUXToIngrediente(ingrediente);
-               res.setPlato(platoFormatter.parse(ingrediente.getPlatoaux(),Locale.ENGLISH));
-               this.ingService.guardarIngrediente(res);
+		}else {
+               
+			Plato pl= this.platoService.buscaPlatoPorId(platoId).get();
+			ingrediente.setPlato(pl);
+			
+//          res.setPlato(platoFormatter.parse(ingrediente.getPlatoaux(),Locale.ENGLISH));
+			this.ingService.guardarIngrediente(ingrediente);
                     
-         return showPlato(res.getPlato().getId(),model);
+			return showPlato(platoId,model);
 		}
 	}
 	

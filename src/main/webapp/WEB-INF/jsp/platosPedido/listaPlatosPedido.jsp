@@ -1,4 +1,4 @@
-<%@ page session="false" trimDirectiveWhitespaces="true" %>
+%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -37,9 +37,9 @@
                 <td>
 					<spring:url value="/platopedido/modificarEstado/{platopedidoID}/{cambiarA}" var="platopedidoURL">
                    	<spring:param name="platopedidoID" value="${platopedido.id}"/>
-                   	<spring:param name="cambiarA" value="ENPROCESO"/>
+                   	<spring:param name="cambiarA" value="FINALIZADO"/>
                    	</spring:url>
-                   	<a href="${fn:escapeXml(platopedidoURL)}">Cambiar a EnProceso</a>	  
+                   	<a href="${fn:escapeXml(platopedidoURL)}">Finalizar</a>	  
   				</td>
   				<td>
                    <spring:url value="/platopedido/edit/{ppId}" var="ppURL">
@@ -67,6 +67,7 @@
    			<th>Comanda Id</th>		
    			<th>Cambiar Estado</th>
    			<th>Acciones</th>	
+   			<th></th>
         </tr>
         </thead>
         <tbody>
@@ -95,7 +96,7 @@
                    <spring:url value="/platopedido/edit/{ppId}" var="ppURL">
                    		  <spring:param name="ppId" value="${platopedido.id}"/>
                    </spring:url>
-                   <a href="${fn:escapeXml(ppURL)}">Eliminar</a>
+                   <a href="${fn:escapeXml(ppURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                    
                    <spring:url value="/platopedido/{ppId}" var="ppURL">
                    		  <spring:param name="ppId" value="${platopedido.id}"/>

@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.model;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,10 +24,6 @@ public class Producto extends NamedEntity{
 	@ManyToOne
 	@JoinColumn(name = "tipo_producto")
 	private TipoProducto tipoProducto;
-    
-	@Column(name = "fecha_caducidad")
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private LocalDate fechaCaducidad;
 
 	@Column(name = "cantidad_minima")
 	private Double cantMin;

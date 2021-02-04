@@ -36,18 +36,20 @@ public class ComandaService {
 	}
 	
 	@Transactional
-	public Optional<Comanda> buscaComandaPorId(Integer id) {
+	public Optional<Comanda> findById(Integer id) {
 		return comandaRepo.findById(id);
 	}
 	
 	@Transactional
-	public Collection<Comanda> encontrarComandaDia(LocalDate dia) throws DataAccessException {
+	public Collection<Comanda> encontrarComandaDia(String dia) throws DataAccessException {
+		LocalDate actualDate =LocalDate.parse(dia);
 		Collection<Comanda> res = new ArrayList<>();
 		Iterable<Comanda> aux = comandaRepo.findAll();
 		Iterator<Comanda> it_aux = aux.iterator();
 		while (it_aux.hasNext()) {
-			if (it_aux.next().getFechaCreado().toLocalDate().equals(dia)) {
-				res.add(it_aux.next());
+			Comanda comanda = it_aux.next();
+			if (comanda.getFechaCreado().toLocalDate().equals(actualDate)) {
+				res.add(comanda);
 			}	
 		}
 		return res; 
@@ -59,8 +61,9 @@ public class ComandaService {
 		Iterable<Comanda> aux = comandaRepo.findAll();
 		Iterator<Comanda> it_aux = aux.iterator();
 		while (it_aux.hasNext()) {
-			if (it_aux.next().getFechaFinalizado().equals(null)) {
-				res.add(it_aux.next());
+			Comanda comAux = it_aux.next();
+			if (comAux.getFechaFinalizado()==null) {
+				res.add(comAux);
 			}	
 		}
 		return res; 

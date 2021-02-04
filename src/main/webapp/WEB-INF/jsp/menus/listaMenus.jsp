@@ -25,7 +25,7 @@
                    <spring:url value="/menus/delete/{menuId}" var="menuURL">
                    		  <spring:param name="menuId" value="${menu.id}"/>
                    </spring:url>
-                   <a href="${fn:escapeXml(menuURL)}">Delete</a>
+                   <a href="${fn:escapeXml(menuURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></a>
                 </td>
       
                 

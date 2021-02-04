@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -27,6 +28,12 @@ public class CamareroController {
 	public String listadoCamareros(ModelMap modelMap) {
 		String vista= "camareros/listaCamareros";
 		Iterable<Camarero> camareros=  camareroService.camareroList();
+		Iterator<Camarero> it_camareros = camareros.iterator();
+		
+		if (!(it_camareros.hasNext())) {
+			modelMap.addAttribute("message", "No hay camareros, contrata a alguien y crea su Ficha de Empleado");
+		}
+		
 		modelMap.addAttribute("camareros",camareros);
 		return vista;
 		
@@ -54,11 +61,10 @@ public class CamareroController {
 				modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
 				vista=listadoCamareros(modelMap);
 			}
-
 		}
 		return vista;
-		
 	}
+	
 	@GetMapping(path="/delete/{camareroId}")
 	public String borrarCamarero(@PathVariable("camareroId") int camareroId, ModelMap modelMap) {
 		String vista= "camareros/listaCamareros";
@@ -72,8 +78,8 @@ public class CamareroController {
 			vista=listadoCamareros(modelMap);
 		}
 		return vista;
-		
 	}
+	
 	@GetMapping(value = "/edit/{camareroId}")
 	public String initUpdateCamareroForm(@PathVariable("camareroId") int camareroId, ModelMap model) {
 		String vista= "camareros/editarCamareros";
@@ -84,24 +90,18 @@ public class CamareroController {
 	}
 	@PostMapping(value = "/edit")
 	public String processUpdateCamareroForm(@Valid Camarero camarero, BindingResult result,ModelMap modelMap) {
-		
 		String vista= "camareros/editarCamareros";
-		
 		if(result.hasErrors()) {
 			modelMap.addAttribute("camarero", camarero);
-		
 			return vista;
+		}else {
+			try {
+				this.camareroService.guardarCamarero(camarero);
+			}catch (DuplicatedPedidoException e) {
+				modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
+				vista=listadoCamareros(modelMap);
+			}
+		return "redirect:/camareros";
 		}
-		else {
-		try {
-			this.camareroService.guardarCamarero(camarero);
-		} catch (DuplicatedPedidoException e) {
-			modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
-			vista=listadoCamareros(modelMap);
-		}
-			return "redirect:/camareros";
 	}
-		
-	}
-	
 }

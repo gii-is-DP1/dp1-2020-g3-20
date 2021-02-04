@@ -9,17 +9,15 @@
 <petclinic:layout pageName="platos">
     <h2>Nuevo ingrediente</h2>
      
-    <form:form modelAttribute="ingredienteaux" class="form-horizontal" id="add-ingrediente-form" action="/platos/ingSave">
+    <form:form modelAttribute="ingrediente" class="form-horizontal" id="add-ingrediente-form" action="/platos/ingSave/${plato.id}">
    
         <div class="form-group has-feedback">
-        	<h2>Plato <c:out value="${plato.name }"></c:out></h2>
+        	<h2>Plato <c:out value="${plato.name}"></c:out></h2>
             <div class="control-group">
 				<petclinic:selectField name="producto" label="productos" names="${listaProductos}" size="6"/>
             </div>
             <petclinic:inputField label="cantidad" name="cantidadUsualPP"></petclinic:inputField>
-            <input type="text" name="platoaux" value="${plato.name}">
-            <input type="hidden" name="id" value="${ingrediente.id}">
-            
+            <input type="hidden" name="id" value="${ingredienteaux.id}">
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

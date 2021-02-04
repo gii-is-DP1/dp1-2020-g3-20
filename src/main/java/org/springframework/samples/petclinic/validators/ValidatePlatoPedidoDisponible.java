@@ -1,4 +1,4 @@
-package org.sprigframework.samples.petclinic.validators;
+package org.springframework.samples.petclinic.validators;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

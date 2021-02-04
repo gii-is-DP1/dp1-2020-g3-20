@@ -38,8 +38,8 @@ public class ProductoService {
 	}
 
 	@Transactional
-	public Collection<Producto> productoList() {
-		return (Collection<Producto>) productoRepo.findAll();
+	public Iterable<Producto> productoList() {
+		return productoRepo.findAll();
 	}
 
 	@Transactional

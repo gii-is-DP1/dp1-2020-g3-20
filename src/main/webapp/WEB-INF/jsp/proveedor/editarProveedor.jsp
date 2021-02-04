@@ -11,15 +11,13 @@
     <form:form modelAttribute="proveedor" class="form-horizontal" id="add-proveedor-form"  action="/proveedor/edit">
         <div class="form-group has-feedback">
             <petclinic:inputField label="nombre" name="name"/>
-            <petclinic:inputField label="apellido" name="apellido"/>
             <petclinic:inputField label="gmail" name="gmail"/>
             <petclinic:inputField label="telefono" name="telefono"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="hidden" name="id" value="${proveedor.id}">  
-                <button class="btn btn-default" type="submit">guardar</button>
-                  
+                <button class="btn btn-default" type="submit">Guardar</button>
             </div>
         </div>
     </form:form>

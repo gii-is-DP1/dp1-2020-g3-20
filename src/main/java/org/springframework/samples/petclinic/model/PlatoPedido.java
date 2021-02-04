@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.sprigframework.samples.petclinic.validators.ValidatePlatoPedidoDisponible;
+import org.springframework.samples.petclinic.validators.ValidatePlatoPedidoDisponible;
 
 import lombok.Getter;
 import lombok.Setter;

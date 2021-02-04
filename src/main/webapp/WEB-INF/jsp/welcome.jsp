@@ -7,7 +7,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
-<link rel="stylesheet" type="text/css" href="css/header.css">
+
 
 <petclinic:layout pageName="home">
 
@@ -27,12 +27,11 @@
 	
 	<br>
 	
+	
 	<H1 align="center"> Por favor identifícate y disfruta de la aplicación </H1>
 	
 	<br>
-	
-	<h2  align="center"> <a href="<c:url value="/login" />">Login</a> </h2>
-	
+
 	</sec:authorize>
 
 	<sec:authorize access="isAuthenticated()">
