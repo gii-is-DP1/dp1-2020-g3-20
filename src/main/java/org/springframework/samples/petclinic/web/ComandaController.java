@@ -1,21 +1,13 @@
 package org.springframework.samples.petclinic.web;
 
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Comanda;
-import org.springframework.samples.petclinic.model.IngredienteAUX;
-import org.springframework.samples.petclinic.model.LineaPedido;
-import org.springframework.samples.petclinic.model.Pedido;
-import org.springframework.samples.petclinic.model.Plato;
-import org.springframework.samples.petclinic.model.PlatoPedido;
-import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.service.ComandaService;
 import org.springframework.samples.petclinic.service.PlatoPedidoService;
 import org.springframework.stereotype.Controller;
