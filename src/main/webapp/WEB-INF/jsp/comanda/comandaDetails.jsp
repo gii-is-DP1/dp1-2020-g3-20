@@ -1,4 +1,4 @@
-<%@ page session="false" trimDirectiveWhitespaces="true" %>
+0.................................................................<%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -6,12 +6,15 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="Historial de comandas">
-    <h2>Comanda de mesa <c:out value="${comanda.mesa}"/></h2>
-    <table id="comandaExistenteTable" class="table table-striped">
+    <h2>Comandas</h2>
+
+    <table id="comandaTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Plato</th>
-            <th>Estado</th>
+            <th>Mesa</th>
+            <th>Fecha pedido</th>
+            <th>Camarero</th>
+            <th>Precio total</th>
         </tr>
         </thead>
         <tbody>

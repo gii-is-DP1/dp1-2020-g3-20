@@ -55,7 +55,7 @@ public class PlatoPedidoController {
 	@GetMapping()
 	public String listadoPlatosPedido(ModelMap modelMap) {
 		String vista= "platosPedido/listaPlatosPedido";
-		Iterable<PlatoPedido> pp = ppService.ppList();
+		Iterable<PlatoPedido> pp = ppService.findAll();
 		modelMap.addAttribute("platopedido",pp);
 		return vista;	
 	}
