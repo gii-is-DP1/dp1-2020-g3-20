@@ -66,11 +66,6 @@ public class CamareroService {
 		
 	}
 	
-	@Transactional
-	public Optional<Camarero> buscaCamareroPorId(Integer id) {
-		return camareroRepository.findById(id);
-	}
-	
 	//Se usa para asignar un camarero a una comanda dado su usario
 	@Transactional
 	public Camarero buscaCamareroPorUser(String user) {
@@ -85,7 +80,7 @@ public class CamareroService {
 		return camarero;
 	}
 	@Transactional
-	public Camarero findCamereroById(int camareroId) throws DataAccessException {
-		return this.camareroRepository.findCamareroById(camareroId);
+	public Optional<Camarero> findById(int camareroId) throws DataAccessException {
+		return this.camareroRepository.findById(camareroId);
 	}
 }

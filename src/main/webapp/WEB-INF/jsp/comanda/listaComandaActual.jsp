@@ -46,11 +46,10 @@
       					<button class="btn btn-default" type="submit">Info</button>
   					</form>
             		
-            		<spring:url value="/comanda/comandaActual/finalizarComanda/{comandaID}" var="closeURL">
+            		<spring:url value="/comanda/listaComandaActual/finalizarComanda/{comandaID}" var="closeURL">
                 	<spring:param name="comandaID" value="${comanda.id}"/>
                 	</spring:url>
-                	<form class="btn-line" action="${fn:escapeXml(closeURL)}">
-  						<input name="pedidoID" type="hidden" value="${comanda.id}"> 
+                	<form class="btn-line" action="${fn:escapeXml(closeURL)}"> 
       					<button class="btn btn-default" type="submit">Finalizar comanda</button>
   					</form>            
                 </td>

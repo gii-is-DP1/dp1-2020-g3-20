@@ -31,25 +31,22 @@ public class PlatoPedidoService {
 
 	@Transactional
 	public Iterable<PlatoPedido> findAll() {
-		return platoPedidoRepository.findAll();
-		
+		return platoPedidoRepository.findAll();	
 	}
+	
 	@Transactional
 	public PlatoPedido guardarPP(PlatoPedido pp) {
 		return platoPedidoRepository.save(pp);
-		
 	}
 	
 	@Transactional
 	public void borrarPP(Integer id) {
 		platoPedidoRepository.deleteById(id);
-		
 	}
 	
 	@Transactional
 	public Optional<PlatoPedido> buscaPPPorId(Integer id) {
 		return platoPedidoRepository.findById(id);
-		
 	}
 	
 	//Esto pertenece a la clase EstadoPlato

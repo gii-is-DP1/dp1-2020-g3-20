@@ -31,13 +31,7 @@
 	<H1 align="center"> Por favor identifícate y disfruta de la aplicación </H1>
 	
 	<br>
-	
-	<div > 
-	<form class= "btn-login" action="/login">
-      	<button class="btn btn-default" type="submit">Login</button>
-  	</form>
-  	</div>
-	
+
 	</sec:authorize>
 
 	<sec:authorize access="isAuthenticated()">

@@ -9,7 +9,7 @@
 <petclinic:layout pageName="platos">
     <h2>Nuevo ingrediente</h2>
      
-    <form:form modelAttribute="ingredienteaux" class="form-horizontal" id="add-ingrediente-form" action="/platos/ingSave">
+    <form:form modelAttribute="ingrediente" class="form-horizontal" id="add-ingrediente-form" action="/platos/ingSave/${plato.id}">
    
         <div class="form-group has-feedback">
         	<h2>Plato <c:out value="${plato.name}"></c:out></h2>

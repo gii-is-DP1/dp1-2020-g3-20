@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -27,6 +28,12 @@ public class CamareroController {
 	public String listadoCamareros(ModelMap modelMap) {
 		String vista= "camareros/listaCamareros";
 		Iterable<Camarero> camareros=  camareroService.camareroList();
+		Iterator<Camarero> it_camareros = camareros.iterator();
+		
+		if (!(it_camareros.hasNext())) {
+			modelMap.addAttribute("message", "No hay camareros, contrata a alguien y crea su Ficha de Empleado");
+		}
+		
 		modelMap.addAttribute("camareros",camareros);
 		return vista;
 		
@@ -61,7 +68,7 @@ public class CamareroController {
 	@GetMapping(path="/delete/{camareroId}")
 	public String borrarCamarero(@PathVariable("camareroId") int camareroId, ModelMap modelMap) {
 		String vista= "camareros/listaCamareros";
-		Optional<Camarero> cam= camareroService.buscaCamareroPorId(camareroId);
+		Optional<Camarero> cam= camareroService.findById(camareroId);
 		if(cam.isPresent()) {
 			camareroService.borrarCamarero(camareroId);
 			modelMap.addAttribute("message", "Borrado correctamente");
@@ -77,7 +84,7 @@ public class CamareroController {
 	public String initUpdateCamareroForm(@PathVariable("camareroId") int camareroId, ModelMap model) {
 		String vista= "camareros/editarCamareros";
 		
-			Camarero cam =  camareroService.buscaCamareroPorId(camareroId).get();
+			Camarero cam =  camareroService.findById(camareroId).get();
 			model.addAttribute(cam);
 			return vista;
 	}

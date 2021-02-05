@@ -6,7 +6,8 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="Historial de comandas">
-    <h2>Comanda</h2>
+
+    <h2>Historial de comandas</h2>
     <table id="comandaExistenteTable" class="table table-striped">
 
         <thead>

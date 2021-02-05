@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.Iterator;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,13 @@ public class CocineroController {
 	public String listadoCocinero(ModelMap modelMap) {
 		String vista= "cocinero/listaCocinero";
 		Iterable<Cocinero> cocinero=  cocineroService.findAll();
+		Iterator<Cocinero> it_cocinero = cocinero.iterator();
+		
+		if (!(it_cocinero.hasNext())) {
+			modelMap.addAttribute("message", "No hay cocineros, contrata a alguien y crea su Ficha de Empleado");
+		}
 		modelMap.addAttribute("cocinero",cocinero);
+		
 		return vista;
 		
 	}
@@ -53,7 +60,7 @@ public class CocineroController {
 	@GetMapping(path="/delete/{cocineroId}")
 	public String borrarCocinero(@PathVariable("cocineroId") int cocineroId, ModelMap modelMap) {
 		String vista= "cocinero/listaCocinero";
-		Optional<Cocinero> cam= cocineroService.buscaCocineroPorId(cocineroId);
+		Optional<Cocinero> cam= cocineroService.findById(cocineroId);
 		if(cam.isPresent()) {
 			cocineroService.borrarCocinero(cocineroId);
 			modelMap.addAttribute("message", "Borrado Correctamente");
@@ -69,7 +76,7 @@ public class CocineroController {
 	public String initUpdateCocineroForm(@PathVariable("cocineroId") int cocineroId, ModelMap model) {
 		String vista= "cocinero/editarCocinero";
 		
-			Cocinero cocinero =  cocineroService.buscaCocineroPorId(cocineroId).get();
+			Cocinero cocinero =  cocineroService.findById(cocineroId).get();
 			model.addAttribute(cocinero);
 			return vista;
 	}

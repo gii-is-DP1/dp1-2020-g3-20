@@ -31,6 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
@@ -44,6 +45,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 		excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class),
 		excludeAutoConfiguration= SecurityConfiguration.class)
 class PedidoControllerTests2 {
+	
 // toca revisarlo no funciona aun 
 	private static final int TEST_PEDIDO_ID = 1;
 
@@ -55,8 +57,8 @@ class PedidoControllerTests2 {
 
 	@Autowired
 	private MockMvc mockMvc;
-
-	private Pedido prueba;
+	
+	private Pedido pedido;
 	private Proveedor proveedor;
 
 	@BeforeEach
@@ -64,22 +66,77 @@ class PedidoControllerTests2 {
 		proveedor = new Proveedor();
 		proveedor.setId(7);
 		proveedor.setName("jorge");
-		prueba = new Pedido();
-		prueba.setId(TEST_PEDIDO_ID);
-		prueba.setProveedor(proveedor);
-		prueba.setHaLlegado(true);
-		prueba.setFechaEntrega(LocalDate.now());
-		prueba.setFechaPedido(LocalDate.now());
-		given(this.proveedorService.findProveedorbyName("jorge")).willReturn(proveedor);
-		given(this.proveedorService.findPedidoByProveedorId(7).iterator().next()).willReturn(prueba);
+		proveedor.setGmail("jorge@gmail.com");
+		proveedor.setTelefono("678678678");
+		
+		pedido = new Pedido();
+		pedido.setId(TEST_PEDIDO_ID);
+		pedido.setProveedor(proveedor);
+		pedido.setHaLlegado(false);
+		pedido.setFechaEntrega(null);
+		pedido.setFechaPedido(LocalDate.now());
+		
+		given(this.proveedorService.pedidoPorId(TEST_PEDIDO_ID)).willReturn(Optional.of(pedido));
+//		given(this.proveedorService.findPedidoByProveedorId(7).iterator().next()).willReturn(pedido);
+//		given(this.proveedorService.findProveedorbyName("jorge")).willReturn(proveedor);
+//		given(this.proveedorService.findPedidoByProveedorId(7).iterator().next()).willReturn(prueba);
 
-}
-//	@WithMockUser(value = "spring")
-//    @Test
-//    void testInitCreationForm() throws Exception {
-//	mockMvc.perform(get("/proveedor/new")).andExpect(status().isOk()).andExpect(model().attributeExists("proveedor"))
-//			.andExpect(view().name("proveedor/editProveedor"));
-//}
+	}
+	
+	//Test Crear Pedido (NEW)
+	
+	@WithMockUser(value = "spring")
+    @Test
+    void testPedidoNew() throws Exception {
+		mockMvc.perform(get("/pedidos/new")).andExpect(status().isOk())
+				.andExpect(model().attributeExists("pedido"))
+				.andExpect(view().name("pedidos/editPedido"));
+	}	
+	
+	
+	// Test Guardar pedido (SAVE)
+	
+	@WithMockUser(value = "spring")
+    @Test
+    void testSavePedidoSuccess() throws Exception {
+		mockMvc.perform(post("/pedidos/save").param("name", "pepito")
+				.with(csrf()))
+				.andExpect(view().name("pedidos/listaPedidos"));
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	void testSavePedidoFail() throws Exception {
+		mockMvc.perform(post("/pedidos/save").param("name", "pepito")
+				.with(csrf())
+				.param("fechaEntrega", "13 del 10 de 2020")
+				.param("haLlegado", "Si"))
+				.andExpect(model().attributeHasErrors("pedido"))
+				.andExpect(model().attributeHasFieldErrors("pedido", "haLlegado"))
+				.andExpect(model().attributeHasFieldErrors("pedido", "fechaEntrega"))
+				.andExpect(view().name("pedidos/editPedido"));
+	}
+	
+	
+	// Test RecargarStock	
+	
+	@WithMockUser(value = "spring")
+    @Test
+    void testRecargarStock() throws Exception {
+		mockMvc.perform(get("/pedidos/terminarPedido/{pedidoID}", TEST_PEDIDO_ID)).andExpect(status().isOk())
+				.andExpect(model().attributeExists("pedido"))
+//				.andExpect(model().attribute("pedido", hasProperty("fechapedido", is(false))))
+//				.andExpect(model().attribute("pedido", hasProperty("fechaEntrega", is(null))))
+				.andExpect(view().name("pedidos/listaPedidos"));
+//		System.out.println("0000000000000000000000000000000000000000000000000000");
+//		System.out.println(proveedorService.pedidoPorId(TEST_PEDIDO_ID).get().getHaLlegado());
+	}	
+
+	
+	
+	
+	
+	
 
 
 

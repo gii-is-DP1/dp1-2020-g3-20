@@ -29,8 +29,5 @@
          
         </tbody>
     </table>
-    <form method="get" action="/lineaPedido/new">
-      	<button class="btn btn-default" type="submit">New</button>
-  	</form>
 
 </petclinic:layout>

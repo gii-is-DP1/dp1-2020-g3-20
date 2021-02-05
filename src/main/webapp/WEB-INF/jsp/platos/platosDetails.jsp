@@ -24,7 +24,7 @@
     </spring:url>
     <a href="${fn:escapeXml(platoUrl)}" class="btn btn-default">Editar Plato</a>
 
-    <spring:url value="{platoId}/ingrediente/new" var="addUrl">
+    <spring:url value="/platos/{platoId}/ingrediente/new" var="addUrl">
         <spring:param name="platoId" value="${plato.id}"/>
     </spring:url>
     <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Agregar Ingrediente</a>
@@ -45,6 +45,13 @@
                         
                         <dt>Cantidad</dt>
                         <dd><c:out value="${ing.cantidadUsualPP}"/></dd>
+                        
+                        <dt><spring:url value="/platos/deleteIng/${ing.id}" var="deleteIngURL">
+                   		  <spring:param name="platoId" value="${plato.id}"/>
+                   		</spring:url>
+                   		<a href="${fn:escapeXml(deleteIngURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                   		</dt>
+                       
                     </dl>
                 </td>
                 <!-- 
