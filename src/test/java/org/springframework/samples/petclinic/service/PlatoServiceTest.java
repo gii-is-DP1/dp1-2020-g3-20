@@ -24,8 +24,8 @@ public class PlatoServiceTest {
 	//EsIgual
 		@Test
 		public void estaIngRepetidoTest() {		
-			assertEquals(platoService.ingEstaRepetido("Lechuga"),true);
-			assertEquals(platoService.ingEstaRepetido("Mayonesa"),false);
+			assertEquals(platoService.ingEstaRepetido("Lechuga",2),false);
+			assertEquals(platoService.ingEstaRepetido("Mayonesa",2),false);
 		}
 		
 	
