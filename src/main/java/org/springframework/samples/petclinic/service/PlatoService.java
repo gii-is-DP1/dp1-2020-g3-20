@@ -66,11 +66,11 @@ public class PlatoService {
  		return res;
 	}
 	
-	public boolean ingEstaRepetido(String nombreIng) {
+	public boolean ingEstaRepetido(String nombreIng, int platoId) {
 		List<Ingrediente> ls= camRep.encontrarIngredientes();	
 		boolean res = false;
  		for(Ingrediente l: ls) {
- 			if(l.getProducto().getName().equals(nombreIng)) {
+ 			if(l.getProducto().getName().equals(nombreIng) && l.getPlato().getId().equals(platoId)) {
  				res= true;
  			}
  		}

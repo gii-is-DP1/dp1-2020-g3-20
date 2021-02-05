@@ -150,7 +150,7 @@ public class PlatoController {
 			model.put("ingrediente", ingrediente);
 			return "platos/newIngredientes";
 		}else {
-            if(this.platoService.ingEstaRepetido(ingrediente.getProducto().getName())) {
+            if(this.platoService.ingEstaRepetido(ingrediente.getProducto().getName(), platoId)) {
             	model.put("message", "el ingrediente esta repetido");
             	return showPlato(platoId,model);
             }else {
