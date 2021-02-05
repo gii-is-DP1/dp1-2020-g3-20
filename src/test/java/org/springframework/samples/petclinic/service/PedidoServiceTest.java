@@ -49,7 +49,7 @@ public class PedidoServiceTest {
 		int a = aux.get(0).getId();
 		assertEquals(1, a);
 		assertEquals(false, aux.get(0).getHaLlegado());
-		assertEquals("Taburete", aux.get(0).getProveedor().getName());
+		assertEquals("Makro", aux.get(0).getProveedor().getName());
 
 		
 	}
@@ -102,7 +102,7 @@ public class PedidoServiceTest {
 		Producto producto = productoService.buscaProductoPorId(1).get();
 		Collection<Producto> aux = proveedorService.encontrarProductoProveedor(producto);
 		int size = aux.size();
-		assertEquals(size, 3);
+		assertEquals(size, 7);
 	}
 	
 	
@@ -111,7 +111,7 @@ public class PedidoServiceTest {
 		Optional<Pedido> test = this.proveedorService.pedidoPorId(1);
 		assertEquals("1", test.get().getId().toString());
 		assertEquals(false, test.get().getHaLlegado());
-		assertEquals("Taburete", test.get().getProveedor().getName());		
+		assertEquals("Makro", test.get().getProveedor().getName());		
 	}
 	
 	

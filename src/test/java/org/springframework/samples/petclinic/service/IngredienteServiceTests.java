@@ -14,37 +14,28 @@
  * limitations under the License.
  */
 package org.springframework.samples.petclinic.service;
-
 import static org.junit.Assert.assertEquals;
+import java.util.Collection;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.stereotype.Service;
 
 
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
-class IngredientePedidoTests {        
-	@Autowired
-	protected IngredientePedidoService ingredientePedidoService;
+class IngredienteServiceTests {        
 	
 	@Autowired
-    protected IngredienteService ingredienteService;
-            
+    protected IngredienteService ingredienteService;   
+      
 	@Test
-	public void testCountWithInitialData() {
-		int count = ingredientePedidoService.ingPedidoCount();
-		assertEquals(count, 15);
+	public void testEncontrarProductos() {
+		Collection<Producto> count = ingredienteService.encontrarProductos();
+		assertEquals(count.size(),19);
 	}
-        
-        
-//    @Test
-//    void shouldReturnIngrediente() {
-//    	Ingrediente p = this.ingredientePedidoService.ingredienteAsociado(1);
-//    	assertThat(p.getCantidadUsualPP().equals(1.0));
-//    	
-//    }
-       
+  
 
 }
