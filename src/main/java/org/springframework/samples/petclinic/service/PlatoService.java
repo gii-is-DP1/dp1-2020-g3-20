@@ -20,43 +20,38 @@ import org.springframework.transaction.annotation.Transactional;
 public class PlatoService {
 
 	@Autowired
-	private PlatoRepository camRep;
+	private PlatoRepository platoRepository;
 	
 	@Autowired
-	private IngredienteService ingSer;
+	private IngredienteService ingredienteService;
 	
 	@Transactional
 	public int platoCount() {
-		return (int) camRep.count();
-		
+		return (int) platoRepository.count();
 	}
 
 	@Transactional
 	public Collection<Plato> platoList() {
-		return  (Collection<Plato>) camRep.findAll();
-		
+		return  (Collection<Plato>) platoRepository.findAll();	
 	}
 
 	@Transactional
 	public Plato guardarPlato(Plato plato) {
-		return camRep.save(plato);
-		
+		return platoRepository.save(plato);	
 	}
 	
 	@Transactional
 	public void borrarPlato(Integer id) {
-		camRep.deleteById(id);
-		
+		platoRepository.deleteById(id);	
 	}
 	
 	@Transactional
 	public Optional<Plato> buscaPlatoPorId(Integer id) {
-		return camRep.findById(id);
-		
+		return platoRepository.findById(id);	
 	}
 	
 	public List<Ingrediente> ingredientePorPlato(Integer id){
-		List<Ingrediente> ls= camRep.encontrarIngredientes();
+		List<Ingrediente> ls= platoRepository.encontrarIngredientes();
 		List<Ingrediente> res= new ArrayList<Ingrediente>();
  		for(Ingrediente l: ls) {
 			if(l.getPlato().getId()==id) {
@@ -66,8 +61,10 @@ public class PlatoService {
  		return res;
 	}
 	
+
 	public boolean ingEstaRepetido(String nombreIng, int platoId) {
 		List<Ingrediente> ls= camRep.encontrarIngredientes();	
+
 		boolean res = false;
  		for(Ingrediente l: ls) {
  			if(l.getProducto().getName().equals(nombreIng) && l.getPlato().getId().equals(platoId)) {
@@ -78,13 +75,17 @@ public class PlatoService {
 	}
 	
 	public void borrarIngredientePorPlato(Integer id){
-		List<Ingrediente> ls= camRep.encontrarIngredientes();	
+		List<Ingrediente> ls= platoRepository.encontrarIngredientes();	
  		for(Ingrediente l: ls) {
 			if(l.getPlato().getId()==id) {
-				ingSer.borrarIngrediente(l.getId());
+				ingredienteService.borrarIngrediente(l.getId());
 			}
 		}
- 		
+	}
+	
+	//Mostrar platos disponibles para ofrecerlos
+	public List<Plato> findAllAvailable() {
+		return platoRepository.findAllAvailable();
 	}
 	
 }

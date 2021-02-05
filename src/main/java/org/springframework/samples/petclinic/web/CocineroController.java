@@ -60,7 +60,7 @@ public class CocineroController {
 	@GetMapping(path="/delete/{cocineroId}")
 	public String borrarCocinero(@PathVariable("cocineroId") int cocineroId, ModelMap modelMap) {
 		String vista= "cocinero/listaCocinero";
-		Optional<Cocinero> cam= cocineroService.buscaCocineroPorId(cocineroId);
+		Optional<Cocinero> cam= cocineroService.findById(cocineroId);
 		if(cam.isPresent()) {
 			cocineroService.borrarCocinero(cocineroId);
 			modelMap.addAttribute("message", "Borrado Correctamente");
@@ -76,7 +76,7 @@ public class CocineroController {
 	public String initUpdateCocineroForm(@PathVariable("cocineroId") int cocineroId, ModelMap model) {
 		String vista= "cocinero/editarCocinero";
 		
-			Cocinero cocinero =  cocineroService.buscaCocineroPorId(cocineroId).get();
+			Cocinero cocinero =  cocineroService.findById(cocineroId).get();
 			model.addAttribute(cocinero);
 			return vista;
 	}

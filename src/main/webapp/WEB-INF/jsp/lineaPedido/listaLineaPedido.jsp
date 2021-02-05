@@ -13,7 +13,6 @@
         <tr>
             <th>Producto</th>
             <th>Cantidad</th>
-            <th>Pedido</th>
         </tr>
         </thead>
         <tbody>
@@ -24,9 +23,6 @@
                 </td>
                 <td>
                     <c:out value="${lineaPedido.cantidad}"/>
-                </td>
-                <td>
-                   	<c:out value="${lineaPedido.pedido.id}"/>
                 </td>
             </tr>
         </c:forEach>
