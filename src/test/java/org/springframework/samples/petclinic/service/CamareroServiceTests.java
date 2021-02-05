@@ -16,7 +16,7 @@ class CamareroServiceTests {
 	@Test
 	public void testCountWithInitialData() {
 		int count= camSer.camareroCount();
-		assertEquals(count,1);
+		assertEquals(count,2);
 	}
 
 }

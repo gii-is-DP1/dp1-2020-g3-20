@@ -25,14 +25,14 @@ public class ProveedorServiceTests {
 	@Test
 	public void listaDeNombresDeProveedores() {
 		Collection<String> nombres = proveedorService.findAllNames();
-		assertEquals(3, nombres.size());
+		assertEquals(4, nombres.size());
 	}
 	
 	//FindProveedorByName
 	@Test
 	public void esBuscarProveedor() {
-		Proveedor test = proveedorService.findProveedorbyName("Taburete");
-		assertEquals("Taburete", test.getName());
+		Proveedor test = proveedorService.findProveedorbyName("Makro");
+		assertEquals("Makro", test.getName());
 	}
 	
 	//EsIgual

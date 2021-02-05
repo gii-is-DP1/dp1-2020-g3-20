@@ -2,11 +2,7 @@ package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -49,7 +45,7 @@ public class LineaPedidoServiceTests {
 			assertThat(lineaPedido.getProducto()).isNotNull();
 			i++;
 		}
-		assertEquals(i,2);
+		assertEquals(i,1);
 	}
 	
 	//AñadirLineaPedido
@@ -57,8 +53,7 @@ public class LineaPedidoServiceTests {
 	public void añadirLineaPedidoAPedido() {
 
 		Producto producto = productoService.buscaProductoPorId(5).get();
-		Pedido pedido1 = proveedorService.pedidoPorId(2).get();
-		int found = pedido1.getLineasPedidas().size();
+		Pedido pedido1 = proveedorService.pedidoPorId(1).get();
 		
 		LineaPedido lineapedido = proveedorService.anadirLineaPedido(producto, pedido1);
 		proveedorService.saveLineaPedido(lineapedido);
@@ -67,13 +62,6 @@ public class LineaPedidoServiceTests {
 		double cantidad = producto.getCantMax()-producto.getCantAct();
 		assertThat(lineapedido.getCantidad()).isEqualTo(cantidad);
 		
-		Iterable<LineaPedido> test = proveedorService.findLineaPedidoByProductoId(1);
-		Iterator<LineaPedido> it_test = test.iterator();
-		List<LineaPedido> aux = new ArrayList<LineaPedido>();
-		while (it_test.hasNext()) {
-			aux.add(it_test.next());
-		}
-		assertEquals(aux.size(), found+1);
 	}
 	
 	
