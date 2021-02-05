@@ -24,7 +24,7 @@ public class Comanda extends BaseEntity{
 	private Integer mesa;
 	
 	@Column(name = "precio_total")
-	private Integer precioTotal;
+	private Double precioTotal;
 	
 	@Column(name = "fecha_creado")
 	private LocalDateTime fechaCreado;

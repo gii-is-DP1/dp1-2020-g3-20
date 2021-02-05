@@ -17,34 +17,34 @@ import org.springframework.transaction.annotation.Transactional;
 public class ComandaService {
 	
 	@Autowired
-	private ComandaRepository comandaRepo;
+	private ComandaRepository comandaRepository;
 
 	
 	@Transactional
 	public int comandaCount() {
-		return (int) comandaRepo.count();	
+		return (int) comandaRepository.count();	
 	}
 
 	@Transactional
 	public Iterable<Comanda> findAll() {
-		return comandaRepo.findAll();
+		return comandaRepository.findAll();
 	}
 
 	@Transactional
 	public Comanda guardarComanda(Comanda comanda) {
-		return comandaRepo.save(comanda);
+		return comandaRepository.save(comanda);
 	}
 	
 	@Transactional
 	public Optional<Comanda> findById(Integer id) {
-		return comandaRepo.findById(id);
+		return comandaRepository.findById(id);
 	}
 	
 	@Transactional
 	public Collection<Comanda> encontrarComandaDia(String dia) throws DataAccessException {
 		LocalDate actualDate =LocalDate.parse(dia);
 		Collection<Comanda> res = new ArrayList<>();
-		Iterable<Comanda> aux = comandaRepo.findAll();
+		Iterable<Comanda> aux = comandaRepository.findAll();
 		Iterator<Comanda> it_aux = aux.iterator();
 		while (it_aux.hasNext()) {
 			Comanda comanda = it_aux.next();
@@ -58,7 +58,7 @@ public class ComandaService {
 	@Transactional
 	public Collection<Comanda> encontrarComandaActual() throws DataAccessException {
 		Collection<Comanda> res = new ArrayList<>();
-		Iterable<Comanda> aux = comandaRepo.findAll();
+		Iterable<Comanda> aux = comandaRepository.findAll();
 		Iterator<Comanda> it_aux = aux.iterator();
 		while (it_aux.hasNext()) {
 			Comanda comAux = it_aux.next();

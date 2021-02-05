@@ -17,24 +17,15 @@ import org.springframework.samples.petclinic.model.Proveedor;
 
 public interface PlatoPedidoRepository extends CrudRepository<PlatoPedido, Integer>{
 	@Autowired
-	@Query("SELECT ptype FROM EstadoPlato ptype ORDER BY ptype.id")
+	@Query("SELECT ep FROM EstadoPlato ep ORDER BY ep.id")
 	List<EstadoPlato> encontrarEstadosPlato() throws DataAccessException;
 	
 	@Autowired
-	@Query("SELECT ptype.name FROM Plato ptype ORDER BY ptype.id")
+	@Query("SELECT pl.name FROM Plato pl ORDER BY pl.id")
 	List<String> encontrarPlatos() throws DataAccessException;
 	
 	@Autowired
-	@Query("SELECT ptype FROM IngredientePedido ptype ORDER BY ptype.id")
+	@Query("SELECT ip FROM IngredientePedido ip ORDER BY ip.id")
 	List<IngredientePedido> encontrarIngredientesPedido() throws DataAccessException;
-	
-//	@Query("SELECT pp FROM PlatoPedido pp WHERE comandaId=pp.comanda.")
-//	List<PlatoPedido> findByComanda(int comandaId) throws DataAccessException;
-	
-//	@Autowired
-//	@Query("SELECT ip.* FROM IngredientePedido ip INNER JOIN PlatoPedido pp "
-//			+ "ON pp.platoPedido_id = ip.platoPedido_id "
-//			+ "WHERE pp.platoPedido_id = id LIKE :id%")
-//	List<IngredientePedido> encontrarIngredientePedido() throws DataAccessException;
 	
 }

@@ -68,7 +68,7 @@ public class CamareroController {
 	@GetMapping(path="/delete/{camareroId}")
 	public String borrarCamarero(@PathVariable("camareroId") int camareroId, ModelMap modelMap) {
 		String vista= "camareros/listaCamareros";
-		Optional<Camarero> cam= camareroService.buscaCamareroPorId(camareroId);
+		Optional<Camarero> cam= camareroService.findById(camareroId);
 		if(cam.isPresent()) {
 			camareroService.borrarCamarero(camareroId);
 			modelMap.addAttribute("message", "Borrado correctamente");
@@ -84,7 +84,7 @@ public class CamareroController {
 	public String initUpdateCamareroForm(@PathVariable("camareroId") int camareroId, ModelMap model) {
 		String vista= "camareros/editarCamareros";
 		
-			Camarero cam =  camareroService.buscaCamareroPorId(camareroId).get();
+			Camarero cam =  camareroService.findById(camareroId).get();
 			model.addAttribute(cam);
 			return vista;
 	}

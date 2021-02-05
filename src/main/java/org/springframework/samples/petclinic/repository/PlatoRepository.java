@@ -13,7 +13,9 @@ import org.springframework.samples.petclinic.model.Plato;
 
 public interface PlatoRepository extends CrudRepository<Plato, Integer>{
 	
-	@Autowired
 	@Query("SELECT ing FROM Ingrediente ing ")
 	List<Ingrediente> encontrarIngredientes() throws DataAccessException;
+	
+	@Query("SELECT pl FROM Plato pl WHERE pl.disponible=true ORDER BY pl.id")
+	List<Plato> findAllAvailable() throws DataAccessException;
 }

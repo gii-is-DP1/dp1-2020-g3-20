@@ -13,7 +13,7 @@ import org.springframework.samples.petclinic.model.IngredientePedido;
 public interface IngredientePedidoRepository extends CrudRepository<IngredientePedido, Integer>{
 
 	@Autowired
-	@Query("SELECT ptype FROM Ingrediente ptype ORDER BY ptype.id")
+	@Query("SELECT ing FROM Ingrediente ing ORDER BY ing.id")
 	Collection<Ingrediente> encontrarIngredientes() throws DataAccessException;
 	
 	
