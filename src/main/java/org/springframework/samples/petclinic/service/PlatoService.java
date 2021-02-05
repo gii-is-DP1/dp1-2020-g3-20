@@ -63,7 +63,7 @@ public class PlatoService {
 	
 
 	public boolean ingEstaRepetido(String nombreIng, int platoId) {
-		List<Ingrediente> ls= camRep.encontrarIngredientes();	
+		List<Ingrediente> ls= platoRepository.encontrarIngredientes();	
 
 		boolean res = false;
  		for(Ingrediente l: ls) {
