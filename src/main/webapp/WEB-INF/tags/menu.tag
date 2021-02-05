@@ -22,12 +22,6 @@
 		<div class="navbar-collapse collapse" id="main-navbar">
 			<ul class="nav navbar-nav">
 
-				<petclinic:menuItem active="${name eq 'home'}" url="/"
-					title="home page">
-					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-					<span>Home</span>
-				</petclinic:menuItem>
-
 				<sec:authorize access="hasAuthority('propietario')">
 				<petclinic:menuItem active="${name eq 'empleados'}" url="/empleados"
 					title="empleados">
@@ -68,12 +62,6 @@
  				<!-- parte de propietarios -->
  				
  				<sec:authorize access="hasAuthority('camarero')">
-				<petclinic:menuItem active="${name eq 'platos'}" url="/platopedido"
-					title="platos">
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Platos Pedidos</span>
-				</petclinic:menuItem>
-				
 				<petclinic:menuItem active="${name eq 'comanda'}" url="/comanda/listaComandaActual"
 					title="comanda">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -88,13 +76,6 @@
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<span>Platos Pedidos</span>
 				</petclinic:menuItem>
-				
-				<petclinic:menuItem active="${name eq 'comanda'}" url="/comanda/listaComandaActual"
-					title="comanda">
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Comandas Actuales</span>
-				</petclinic:menuItem>
-				
  				</sec:authorize>
  				
  				
@@ -118,12 +99,6 @@
 					<span>Producto</span>
 				</petclinic:menuItem>
 				
-				<petclinic:menuItem active="${name eq 'proveedor'}" url="/proveedor"
-					title="proveedor">
-					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Proveedor</span>
-				</petclinic:menuItem>
-				
 				<petclinic:menuItem active="${name eq 'notificaciones'}" url="/producto/notificaciones"
 					title="Notificaciones">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
@@ -131,13 +106,6 @@
 				</petclinic:menuItem>
 				
  				</sec:authorize>
- 				
-					<petclinic:menuItem active="${name eq 'error'}" url="/oups"
-				
-					title="trigger a RuntimeException to see how it is handled">
-					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-					<span>Error</span>
-				</petclinic:menuItem>
 
 
 			</ul>
