@@ -10,44 +10,19 @@
 
     <h2>Ingredientes:</h2>
 	
-
+	<form modelAttribute="editIngredientesP" class="form-horizontal" id="add-platopedido-form" action="/platopedido/edit">
     <table class="table table-striped">
         <c:forEach var="ingrediente" items="${listaIngredientes}">
             <tr>
                 <td valign="top">
                     <dl class="dl-horizontal">
-                        <dt>Name</dt>
-                        <dd><c:out value="${ingrediente.producto.name}"/></dd>
-                        
-                        <dt>Cantidad</dt>
-                        <dd><c:out value="${cantidadPedida}"/></dd>
+                        <dt><c:out value="${ingrediente.producto.name}"/></dt>
+                        <dd><input type="text" id="fname" name="fname" value="${ingrediente.cantidadUsualPP}"></dd>
                     </dl>
                 </td>
-                <!-- 
-                <td valign="top">
-                    <table class="table-condensed">
-                        <thead>
-                        <tr>
-                           
-                            <th>Description</th>
-                        </tr>
-                        </thead>
-                       
-                        <tr>
-                            <td>
-                                <spring:url value="/owners/{ownerId}/pets/{petId}/edit" var="petUrl">
-                                    <spring:param name="ownerId" value="${owner.id}"/>
-                                    <spring:param name="petId" value="${pet.id}"/>
-                                </spring:url>
-                                <a href="${fn:escapeXml(petUrl)}">Edit Pet</a>
-                            </td>
-                         
-                        </tr>
-                    </table>
-                </td> -->
             </tr>
-
         </c:forEach>
     </table>
+    </form>
 
 </petclinic:layout>

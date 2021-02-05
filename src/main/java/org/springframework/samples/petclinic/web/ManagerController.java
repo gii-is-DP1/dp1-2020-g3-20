@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-import java.util.Iterator;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -29,12 +28,6 @@ public class ManagerController {
 	public String listadoManagers(ModelMap modelMap) {
 		String vista = "managers/listaManagers";
 		Iterable<Manager> managers = managerService.managerList();
-		Iterator<Manager> it_managers = managers.iterator();
-		
-		if (!(it_managers.hasNext())) {
-			modelMap.addAttribute("message", "No hay managers, contrata a alguien y crea su Ficha de Empleado");
-		}
-		
 		modelMap.addAttribute("managers", managers);
 		return vista;
 	}

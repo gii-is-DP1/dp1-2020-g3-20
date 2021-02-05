@@ -32,6 +32,8 @@
                  <td>
                     <c:out value="${platopedido.comanda.id}"/>
                 </td>
+                
+            
                 <td>
 					<spring:url value="/platopedido/modificarEstado/{platopedidoID}/{cambiarA}" var="platopedidoURL">
                    	<spring:param name="platopedidoID" value="${platopedido.id}"/>

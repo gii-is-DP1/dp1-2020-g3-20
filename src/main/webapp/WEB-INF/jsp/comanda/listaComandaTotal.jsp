@@ -8,6 +8,7 @@
 <petclinic:layout pageName="Historial de comandas">
     <h2>Comanda</h2>
     <table id="comandaExistenteTable" class="table table-striped">
+
         <thead>
         <tr>
             <th>Plato</th>

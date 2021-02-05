@@ -13,12 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Comanda;
 import org.springframework.samples.petclinic.model.Plato;
 import org.springframework.samples.petclinic.model.PlatoPedido;
-import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.CamareroService;
 import org.springframework.samples.petclinic.service.ComandaService;
 import org.springframework.samples.petclinic.service.PlatoPedidoService;
 import org.springframework.samples.petclinic.service.PlatoService;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -33,7 +31,7 @@ public class ComandaController {
 	
 	@Autowired
 	private ComandaService comandaService;
-	
+
 	@Autowired
 	private PlatoPedidoService platoPedidoService;
 	
@@ -72,24 +70,22 @@ public class ComandaController {
 	
 	//Vista de Camarero para la lista actual de Comandas sin finalizar
 	@GetMapping(path="/listaComandaActual/finalizarComanda/{comandaID}")
-	public String finalizarComanda(@PathVariable("comandaID") int comandaID, ModelMap modelMap) {
-		String vista= "comanda/listaComandaActual";
+	public String recargarStock(@PathVariable("comandaID") int comandaID, ModelMap modelMap) {
+		String view= "/listaComandaActual";
 		Optional<Comanda> comanda = comandaService.findById(comandaID);
 		if(comanda.isPresent()) {
 			Comanda res = comanda.get();
 			if(res.getFechaFinalizado()==null) {
 				res.setFechaFinalizado(LocalDateTime.now());
-				modelMap.addAttribute("message", "La comanda se ha finalizado correctamente");
-				vista = listadoComandaActual(modelMap);
 			}else {
 				modelMap.addAttribute("message", "La comanda ya está finalizada");
-				vista = listadoComandaActual(modelMap);
+				view = listadoComandaActual(modelMap);
 			}
 		}else {
 			modelMap.addAttribute("message", "La comanda pedida no existe");
-			vista = listadoComandaActual(modelMap);
+			view = listadoComandaActual(modelMap);
 		}
-		return vista;
+		return view;
 	}
 	
 	//Vista de Camarero para la lista de platos de una comanda
@@ -125,33 +121,5 @@ public class ComandaController {
 		modelMap.addAttribute("comanda", comanda);
 		vista=listadoComandaActual(modelMap);
 		return vista;
-	}
-
-//	@GetMapping(value = "/listaComandaActual/{comandaId}")
-//	public String initUpdateComandaForm(@PathVariable("comandaId") int comandaId, ModelMap model) {		
-//		String vista= "comanda/editarComanda";	
-//		
-//		Collection<PlatoPedido> listaProd= ingService.encontrarProductos();
-//		Plato plato=  platoService.buscaPlatoPorId(platoId).get();
-//		IngredienteAUX ing=new IngredienteAUX();
-//		
-//		
-//		modelMap.addAttribute("plato", plato);
-//		modelMap.addAttribute("ingredienteaux",ing);
-//		modelMap.addAttribute("listaProductos", listaProd);
-//		
-//		return vista;
-//		}
-	
-	@PostMapping(value = "/edit")
-	public String processUpdateProductoForm(Comanda comanda, BindingResult result,ModelMap modelMap) throws ParseException {
-		if(result.hasErrors()) {
-			modelMap.addAttribute("comanda", comanda);
-			return "producto/editarComanda";
-		}else {
-			this.comandaService.guardarComanda(comanda);
-			modelMap.addAttribute("message", "Guardado Correctamente");
-			return "redirect:/comanda";
-		}
-	}		
+	}	
 }

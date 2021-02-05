@@ -41,8 +41,8 @@ function validarsize(){
 } 
 </script>
 <petclinic:layout pageName="producto">
-    <h2>Editar producto</h2>
-    <form:form name="producto" modelAttribute="producto" class="form-horizontal" id="edit-producto-form"  action="/producto/edit" onsubmit="return validarsize();">
+    <h2>Nuevo producto</h2>
+    <form:form name="producto" modelAttribute="producto" class="form-horizontal" id="edit-producto-form"  action="/producto/save" onsubmit="return validarsize();">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="name"/>
             <div class="control-group">
@@ -59,7 +59,7 @@ function validarsize(){
       	<div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="hidden" name="id" value="${producto.id}">  
-                <button class="btn btn-default" type="submit">Actualizar producto</button>
+                <button class="btn btn-default" type="submit">Anadir producto</button>
             </div>
         </div>
     </form:form>

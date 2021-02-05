@@ -43,13 +43,13 @@ public class ComandaService {
 	@Transactional
 	public Collection<Comanda> encontrarComandaDia(String dia) throws DataAccessException {
 		LocalDate actualDate =LocalDate.parse(dia);
+		System.out.println(actualDate + dia);
 		Collection<Comanda> res = new ArrayList<>();
 		Iterable<Comanda> aux = comandaRepository.findAll();
 		Iterator<Comanda> it_aux = aux.iterator();
 		while (it_aux.hasNext()) {
-			Comanda comanda = it_aux.next();
-			if (comanda.getFechaCreado().toLocalDate().equals(actualDate)) {
-				res.add(comanda);
+			if (it_aux.next().getFechaCreado().toLocalDate().equals(actualDate)) {
+				res.add(it_aux.next());
 			}	
 		}
 		return res; 
