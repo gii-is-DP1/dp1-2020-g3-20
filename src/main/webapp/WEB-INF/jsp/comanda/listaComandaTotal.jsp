@@ -12,7 +12,7 @@
 
         <thead>
         <tr>
-            <th>Plato</th>
+            <th>Mesa</th>
             <th>Fecha creación</th>
             <th>Fecha finalización</th>
             <th>Camarero</th>
