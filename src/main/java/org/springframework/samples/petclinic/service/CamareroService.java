@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.CamareroRepository;
@@ -70,9 +69,5 @@ public class CamareroService {
 	public Optional<Camarero> buscaCamareroPorId(Integer id) {
 		return camRep.findById(id);
 		
-	}
-	@Transactional
-	public Camarero findCamereroById(int camareroId) throws DataAccessException {
-		return this.camRep.findCamareroById(camareroId);
 	}
 }
