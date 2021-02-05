@@ -103,7 +103,7 @@ public class PlatoPedidoController {
 			return vista; 
 		}
 		
-		@PostMapping(path="{comandaId}/saveUsual")
+/*		@PostMapping(path="{comandaId}/saveUsual")
 		public String guardarPPUsual(@Valid PlatoPedidoDTO ppDTO,@PathVariable("comandaId") int comandaId,BindingResult result,ModelMap modelMap) throws ParseException {
 			String vista= "platosPedido/listaPlatosPedido";
 			final PlatoPedido ppFinal = ppConverter.convertPPDTOToEntity(ppDTO);
@@ -120,7 +120,7 @@ public class PlatoPedidoController {
 				vista=listadoPlatosPedido(modelMap);
 			}
 			return vista; 
-		}
+		}*/
 		
 		@GetMapping(path="/delete/{ppId}")
 		public String borrarPP(@PathVariable("ppId") int ppId, ModelMap modelMap) {
@@ -158,7 +158,7 @@ public class PlatoPedidoController {
 			//model.addAttribute("ingredientesPedidos", ingredientes);
 			
 			model.addAttribute("ingredientespedido", ingredientes);
-			return "platosPedido/ingredientesDePlatoPedido";
+			return vista;
 		}
 		@PostMapping(value = "/edit")
 		public String processUpdatePPForm(PlatoPedidoDTO ppDTO, BindingResult result,ModelMap modelMap) throws ParseException {
@@ -191,6 +191,22 @@ public class PlatoPedidoController {
 			
 			modelMap.addAttribute("message", "successfuly saved");
 			String vista=listadoPlatosPedido(modelMap);
+			return vista;
+				}
+		}
+		
+		@PostMapping(value = "/guardarIngrediente/{ppId}/{ingId}")
+		public String guardarIngrediente(@PathVariable("ppId") PlatoPedido pp,@PathVariable("ingredienteId") Ingrediente i,IngredientePedido ingrediente, BindingResult result,ModelMap modelMap) throws ParseException {
+			
+			
+			if(result.hasErrors()) {
+				//modelMap.addAttribute("platopedido", ppDTO);
+				return "platosPedido/editarPlatosPedido";
+			}
+			else {
+			
+			modelMap.addAttribute("message", "successfuly saved");
+			String vista="";
 			return vista;
 				}
 		}

@@ -11,8 +11,26 @@
     <h2><c:out value="${plato.name}"/></h2>
 
     <h2>Ingredientes:</h2>
-	<c:forEach items="${listaIngredientes}" var="ingrediente">
-		<c:out value="${ingrediente.cantidadPedida}" />
+	<c:forEach items="${ingredientespedido}" var="ingredientePedido">
+		<c:out value="${ingredientePedido.pp.id}" />
+		<c:out value="${ingredientePedido.ingrediente.producto.name}" />
+			<form:form modelAttribute="ingredientePedido" class="form-horizontal" id="add-ingrediente-form" action="/platopedido/guardarIngrediente">
+	        <div class="form-group has-feedback">
+	            <div class="control-group">
+	            	<input type="number" id="cantidadPedida" name="cantidadPedida" value="${ingredientePedido.cantidadPedida}"/>
+	            <%--	<petclinic:inputField label="cantidadPedida" name="cantidadPedida" value="${ingredientePedido.cantidadPedida}"/> --%>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <div class="col-sm-offset-2 col-sm-10">  
+	                <div>
+	                <input type="hidden" name="ingredienteId" value="${ingredientePedido.ingrediente.id}"> 
+	                <input type="hidden" name="ppId" value="${ingredientePedido.pp.id}"> 
+	                <button class="btn btn-default" type="submit">Añadir Ingrediente</button>
+	                </div>
+	            </div>
+	        </div>
+	    </form:form>
 	</c:forEach>
 	
 <%-- 	<form:form modelAttribute="listaIngredientes" class="form-horizontal" id="add-platopedido-form" action="/platopedido/guardarIngredientes">
@@ -37,22 +55,20 @@
 			</div>
         
     </table>
-    </form:form> --%>
+    </form:form> 
 	
-<%-- 	<form:form modelAttribute="listaIngredientes" class="form-horizontal" id="add-platopedido-form" action="/platopedido/guardarIngredientes">
+	<form:form modelAttribute="ingredientespedido" class="form-horizontal" id="add-platopedido-form" action="/platopedido/guardarIngredientes">
         <div class="form-group has-feedback">
             <div class="control-group">
-				<c:forEach var="ingrediente" items="${listaIngredientes}">
-            		<input type="number" id="fname" name="fname" value="${ingrediente.cantidadPedida}">
+				<c:forEach var="ingrediente" items="${ingredientespedido}">
+            		<input type="number" id="ingrediente" name="fname" value="${ingrediente.cantidadPedida}">
             	</c:forEach>
 				
             </div>
           
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                
-                <input type="hidden" name="listaingredientes" value="${ingredientesPedidos}">  
+            <div class="col-sm-offset-2 col-sm-10">  
                 <div>
                 <button class="btn btn-default" type="submit">Anadir plato pedido y asignar a comanda</button>
                 </div>
