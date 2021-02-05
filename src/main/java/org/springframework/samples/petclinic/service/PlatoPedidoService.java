@@ -70,13 +70,22 @@ public class PlatoPedidoService {
 	@Transactional
 	public Collection<IngredientePedido> CrearIngredientesPedidos(PlatoPedido pp) {
 		Collection<Ingrediente> ingList = pp.getPlato().getIngredientes();
+		Collection<IngredientePedido> lista2 = pp.getIngredientesPedidos();
+		Collection<Ingrediente> lista3 = new ArrayList<>();
+		Iterator<IngredientePedido> iterator2 = lista2.iterator();
+		while(iterator2.hasNext()) {
+			IngredientePedido ingredienteEnPP = iterator2.next();
+			lista3.add(ingredienteEnPP.getIngrediente());
+		}
 		Collection<IngredientePedido> res = new ArrayList<>();
 		Iterator<Ingrediente> iterator = ingList.iterator();
 		while (iterator.hasNext()) {
 			Ingrediente i = iterator.next();
+			if(!(lista3.contains(i))) {
 			IngredientePedido ingp = ingService.crearIngredientePedidoPorIngrediente(i);
 			ingp.setPp(pp);
 			res.add(ingp);
+			}
 		}
 		return res;
 		

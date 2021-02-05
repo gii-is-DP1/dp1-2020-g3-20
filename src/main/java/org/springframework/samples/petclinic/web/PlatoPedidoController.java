@@ -25,6 +25,7 @@ import org.springframework.samples.petclinic.model.PlatoPedidoDTO;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.repository.PlatoPedidoRepository;
 import org.springframework.samples.petclinic.service.IngredientePedidoService;
+import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.PlatoPedidoService;
 import org.springframework.samples.petclinic.service.ProductoService;
 import org.springframework.stereotype.Controller;
@@ -44,11 +45,13 @@ public class PlatoPedidoController {
 	
 	private PlatoPedidoService ppService;
 	private IngredientePedidoService ingService;
+	private IngredienteService ingredienteService; 
 	
 	@Autowired
-	public void PlatoPedidoService(PlatoPedidoService ppService,IngredientePedidoService ingService) {
+	public void PlatoPedidoService(PlatoPedidoService ppService,IngredientePedidoService ingService,IngredienteService ingredienteService) {
 		this.ppService = ppService;
 		this.ingService = ingService;
+		this.ingredienteService = ingredienteService;
 	}
 	
 	@Autowired
@@ -196,21 +199,26 @@ public class PlatoPedidoController {
 		}
 		
 		@PostMapping(value = "/guardarIngrediente/{ppId}/{ingId}")
-		public String guardarIngrediente(@PathVariable("ppId") int ppId,@PathVariable("ingredienteId") Ingrediente i,
-				int ingredienteId,
+		public String guardarIngrediente(@PathVariable("ppId") int ppId,
+				@PathVariable("ingId") int ingId,
+				@Valid IngredientePedido ingredientePedido,
 				BindingResult result,
 				ModelMap modelMap) throws ParseException {
-			
+			String vista="";
 			if(result.hasErrors()) {
 				//modelMap.addAttribute("platopedido", ppDTO);
 				return "platosPedido/editarPlatosPedido";
 			}
 			else {
-			
+			System.out.println("hola que tal llego aqui"+ingredientePedido);
+			ingredientePedido.setIngrediente(ingredienteService.buscaIngPorId(ingId).get());
+			ingredientePedido.setPp(ppService.buscaPPPorId(ppId).get());
+			ingService.guardarIngredientePedido(ingredientePedido);
 			modelMap.addAttribute("message", "successfuly saved");
-			String vista="";
-			return vista;
+			vista=initUpdatePPForm(ppId,modelMap);
+			
 				}
+			return vista;
 		}
 		
 		//parte correspondiente a ingrediente pedido

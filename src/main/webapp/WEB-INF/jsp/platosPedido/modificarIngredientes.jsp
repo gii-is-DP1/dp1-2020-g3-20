@@ -30,6 +30,11 @@
 	        </div>
 	    </form:form>
 	</c:forEach>
+	<spring:url value="/platopedido/modificarComanda/{comandaId}" var="platopedidoURL">
+    <spring:param name="comandaId" value="${platopedido.id}"/>
+    </spring:url>
+    <a href="${fn:escapeXml(platopedidoURL)}">Finalizar y asignar a comanda</a>
+	
 	
 <%-- 	<form:form modelAttribute="listaIngredientes" class="form-horizontal" id="add-platopedido-form" action="/platopedido/guardarIngredientes">
     
