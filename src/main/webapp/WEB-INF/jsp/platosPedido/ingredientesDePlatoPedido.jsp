@@ -6,18 +6,8 @@
 
 <petclinic:layout pageName="platopedido">
 
-    <h2>Plato <c:out value="${platopedido.plato.name}"/></h2>
+    <h2><c:out value="${platopedido.plato.name}"/></h2>
 
-  
-   <!-- 
-    <spring:url value="{platoId}/ingrediente/new" var="addUrl">
-        <spring:param name="platoId" value="${plato.id}"/>
-    </spring:url>
-    <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Agregar Ingrediente</a>
-	-->
-    <br/>
-    <br/>
-    <br/>
     <h2>Ingredientes:</h2>
 	
 

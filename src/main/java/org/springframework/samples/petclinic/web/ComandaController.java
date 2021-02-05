@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
+import java.security.Principal;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,8 +11,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Comanda;
+import org.springframework.samples.petclinic.model.Plato;
+import org.springframework.samples.petclinic.model.PlatoPedido;
+import org.springframework.samples.petclinic.service.CamareroService;
 import org.springframework.samples.petclinic.service.ComandaService;
 import org.springframework.samples.petclinic.service.PlatoPedidoService;
+import org.springframework.samples.petclinic.service.PlatoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -26,9 +31,15 @@ public class ComandaController {
 	
 	@Autowired
 	private ComandaService comandaService;
-	
+
 	@Autowired
 	private PlatoPedidoService platoPedidoService;
+	
+	@Autowired
+	private CamareroService camareroService;
+	
+	@Autowired
+	private PlatoService platoService;
 	
 	//Vista de Propietario para la lista total de Comandas
 	@GetMapping(path="/listaComandaTotal")
@@ -79,72 +90,38 @@ public class ComandaController {
 		return vista;
 	}
 	
-//	//Vista de Camarero para la lista de platos de una comanda
-//	@GetMapping(path="/listaComandaActual/{comandaID}")
-//	public String recargarStock(@PathVariable("comandaID") int comandaID, ModelMap modelMap) {
-//		String vista= "comanda/listaComandaActual/comandaDetails";		
-//		Optional<Comanda> optAux = comandaService.findById(comandaID);
-//		Comanda comanda = optAux.get();
-//		Iterable<PlatoPedido> allPP = platoPedidoService.findAll();
-//		Iterator<PlatoPedido> it = allPP.iterator();
-//		Collection<PlatoPedido> platosEC = new ArrayList<>();
-//		while(it.hasNext()) {
-//			PlatoPedido ppAux = it.next();
-//			if(ppAux.getComanda().getId()==comandaID) {
-//				platosEC.add(ppAux);
-//			}
-//		}
-//		modelMap.addAttribute("plato",platosEC);
-//		modelMap.addAttribute("comanda",comanda);
-//		return vista;
-//	}
-	
-	@GetMapping(path="/new")
-	public String crearComanda(ModelMap modelMap) {
-		String vista= "comanda/editComanda";
-		modelMap.addAttribute("comanda",new Comanda());
+	//Vista de Camarero para la lista de platos de una comanda
+	@GetMapping(path="/listaComandaActual/{comandaID}")
+	public String infoComanda(@PathVariable("comandaID") int comandaID, ModelMap modelMap) {
+		String vista= "comanda/comandaDetails";		
+		Optional<Comanda> optAux = comandaService.findById(comandaID);
+		Comanda comanda = optAux.get();
+		Iterable<Plato> listaPlatos = platoService.findAllAvailable();
+		Iterable<PlatoPedido> allPP = platoPedidoService.findAll();
+		Iterator<PlatoPedido> it = allPP.iterator();
+		Collection<PlatoPedido> platosEC = new ArrayList<>();
+		while(it.hasNext()) {
+			PlatoPedido ppAux = it.next();
+			if(ppAux.getComanda().getId()==comandaID)
+				platosEC.add(ppAux);
+		}
+		modelMap.addAttribute("platop",platosEC);
+		modelMap.addAttribute("comanda",comanda);
+		modelMap.addAttribute("listaPlatos",listaPlatos);
 		return vista;
 	}
 	
-	@PostMapping(path="/save")
-	public String guardarComanda(Comanda comanda,BindingResult result,ModelMap modelMap) throws ParseException {
-		String vista= "comanda/listaComanda";			
-		if(result.hasErrors()) {
-			modelMap.addAttribute("comanda", comanda);
-			return "comanda/editComanda";
-		}else {
-			comandaService.guardarComanda(comanda);
-			modelMap.addAttribute("message", "Guardado Correctamente");
-			vista=listadoComandaActual(modelMap);
-		}
-		return vista; 
-	}
-
-//	@GetMapping(value = "/edit/{comandaId}")
-//	public String initUpdateComandaForm(@PathVariable("comandaId") int comandaId, ModelMap model) {		
-//		String vista= "comanda/editarComanda";	
-//		
-//		Collection<PlatoPedido> listaProd= ingService.encontrarProductos();
-//		Plato plato=  platoService.buscaPlatoPorId(platoId).get();
-//		IngredienteAUX ing=new IngredienteAUX();
-//		
-//		
-//		modelMap.addAttribute("plato", plato);
-//		modelMap.addAttribute("ingredienteaux",ing);
-//		modelMap.addAttribute("listaProductos", listaProd);
-//		
-//		return vista;
-//		}
-	
-	@PostMapping(value = "/edit")
-	public String processUpdateProductoForm(Comanda comanda, BindingResult result,ModelMap modelMap) throws ParseException {
-		if(result.hasErrors()) {
-			modelMap.addAttribute("comanda", comanda);
-			return "producto/editarComanda";
-		}else {
-			this.comandaService.guardarComanda(comanda);
-			modelMap.addAttribute("message", "Guardado Correctamente");
-			return "redirect:/comanda";
-		}
-	}		
+	@GetMapping(path="/listaComandaActual/new")
+	public String crearComanda(int mesa,ModelMap modelMap,Principal user) {
+		String vista= "comanda/listaComandaActual";
+		Comanda comanda = new Comanda();		
+		comanda.setMesa(mesa);
+		comanda.setFechaCreado(LocalDateTime.now());
+		comanda.setPrecioTotal(0.0);
+		comanda.setCamarero(camareroService.buscaCamareroPorUser(user.getName()));
+		comandaService.guardarComanda(comanda);
+		modelMap.addAttribute("comanda", comanda);
+		vista=listadoComandaActual(modelMap);
+		return vista;
+	}	
 }

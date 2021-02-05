@@ -146,43 +146,6 @@ class ValidatorTests {
 			}
 
 		}
-		// TESTS PARA menu -----------------------------------------------------------------------
-		@Test
-		@DisplayName("Validar un Menu Correcto")
-		void shouldNotValidatemenuReviewWhenValorationIncorrect() {
-
-			LocaleContextHolder.setLocale(Locale.ENGLISH);
-			Menu Menu = new Menu();
-			Menu.setName("Julian");;
-
-
-			Validator validator = createValidator();
-			Set<ConstraintViolation<Menu>> constraintViolations = validator.validate(Menu);
-
-			assertThat(constraintViolations.size()).isEqualTo(0);
-				
-			}
-		@Test
-		@DisplayName("Validar un Menu incorrecto")
-		void shouldNotValidatemenuWhenAllFieldsIncorrect() {
-
-			Menu Menu = new Menu();
-			Menu.setName("");
-
-
-			Validator validator = createValidator();
-			Set<ConstraintViolation<Menu>> constraintViolations = validator.validate(Menu);
-			assertThat(constraintViolations.size()).isEqualTo(1);
-			for (ConstraintViolation<Menu> d : constraintViolations) {
-				if (d.getPropertyPath().toString().equals("name")) {
-					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
-				}
-
-
-
-			}
-
-		}
 		// TESTS PARA Producto -----------------------------------------------------------------------
 		@Test
 		@DisplayName("Validar una Producto Correcto")

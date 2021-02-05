@@ -124,12 +124,10 @@ public class ProductoController {
 				productoService.borrarProducto(productoId);
 				modelMap.addAttribute("message", "Borrado Correctamente");
 				vista=listadoProducto(modelMap);
-			} 
-			catch (PedidoPendienteException ex) {
+			}catch (PedidoPendienteException ex) {
 				modelMap.addAttribute("message", "No se puede borrar porque hay un pedido pendiente con ese producto");
 				vista=listadoProducto(modelMap);
-         }
-
+			}
 		}
 		else {
 			modelMap.addAttribute("message", "Producto no encontrado");

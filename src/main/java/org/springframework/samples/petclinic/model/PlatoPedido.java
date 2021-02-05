@@ -35,5 +35,4 @@ public class PlatoPedido extends BaseEntity{
 	@ManyToOne
 	@JoinColumn(name = "comanda_id")
 	private Comanda comanda;
-	
 }

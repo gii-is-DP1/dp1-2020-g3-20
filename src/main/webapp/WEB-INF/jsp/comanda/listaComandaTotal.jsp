@@ -6,12 +6,17 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="Historial de comandas">
-    <h2>Comanda de mesa <c:out value="${comanda.mesa}"/></h2>
+
+    <h2>Historial de comandas</h2>
     <table id="comandaExistenteTable" class="table table-striped">
+
         <thead>
         <tr>
-            <th>Plato</th>
-            <th>Estado</th>
+            <th>Mesa</th>
+            <th>Fecha creación</th>
+            <th>Fecha finalización</th>
+            <th>Camarero</th>
+            <th>Precio</th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +27,18 @@
                 </td>
                 <td>
                     <c:out value="${comanda.fechaCreado.dayOfMonth}/${comanda.fechaCreado.monthValue}/${comanda.fechaCreado.year} - ${comanda.fechaCreado.hour}:${comanda.fechaCreado.minute}"/>
+                </td>
+                <td>
+                	<c:choose>
+  						<c:when test="${comanda.fechaFinalizado == null}">
+ 							<c:out value="Comanda abierta"/>
+ 				   		</c:when>
+ 				   		<c:when test="${comanda.fechaFinalizado != null}">
+ 							<c:out value="${comanda.fechaFinalizado.dayOfMonth}/${comanda.fechaFinalizado.monthValue}/${comanda.fechaFinalizado.year} - ${comanda.fechaFinalizado.hour}:${comanda.fechaFinalizado.minute}"/>
+ 				   		</c:when>
+					</c:choose>
+                
+                    
                 </td>
                 <td>
                    	<c:out value="${comanda.camarero.name}"/>

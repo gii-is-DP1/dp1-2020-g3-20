@@ -19,16 +19,16 @@ public class ManagerService {
 	private UserService userService;
 	
 	@Autowired
-	private ManagerRepository manRep;
+	private ManagerRepository managerRepository;
 	
 	@Transactional
 	public int managerCount() {
-		return (int) manRep.count();
+		return (int) managerRepository.count();
 	}
 	
 	@Transactional
 	public Iterable<Manager> managerList(){
-		return manRep.findAll();
+		return managerRepository.findAll();
 	}
 
 	@Transactional
@@ -38,17 +38,17 @@ public class ManagerService {
 				userService.saveUser(user);
 				//creating authorities
 				authoritiesService.saveAuthorities(manager.getUsuario(), "manager");
-		return manRep.save(manager);
+		return managerRepository.save(manager);
 	}
 	
 	@Transactional
 	public void borrarManager(Integer id) {
-		manRep.deleteById(id);
+		managerRepository.deleteById(id);
 	}
 	
 	@Transactional
 	public Optional<Manager> buscaManagerPorId (Integer id){
-		return manRep.findById(id);
+		return managerRepository.findById(id);
 	}
 	
 }
