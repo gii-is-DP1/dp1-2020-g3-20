@@ -53,7 +53,8 @@ public class PlatoPedidoService {
 	}
 	@Transactional
 	public PlatoPedido guardarPP(PlatoPedido pp) {
-		if(pp.getEstadoplato().getId().equals(1)) {
+//		pp.getPlato().getIngredientes();
+		if((pp.getEstadoplato().getId().equals(1)) & (pp.getComanda() != null)) {
 			Iterator<IngredientePedido> ipl = pp.getIngredientesPedidos().iterator();
 			while(ipl.hasNext()) {
 				IngredientePedido ip = ipl.next();
@@ -68,16 +69,17 @@ public class PlatoPedidoService {
 	}
 	
 	@Transactional
-	public void CrearIngredientesPedidos(PlatoPedido pp) {
+	public Collection<IngredientePedido> CrearIngredientesPedidos(PlatoPedido pp) {
 		Collection<Ingrediente> ingList = pp.getPlato().getIngredientes();
-		Collection<IngredientePedido> res= new HashSet<IngredientePedido>();
+		Collection<IngredientePedido> res = new ArrayList<>();
 		Iterator<Ingrediente> iterator = ingList.iterator();
 		while (iterator.hasNext()) {
 			Ingrediente i = iterator.next();
 			IngredientePedido ingp = ingService.crearIngredientePedidoPorIngrediente(i);
+			ingp.setPp(pp);
 			res.add(ingp);
-			ingService.guardarIngredientePedido(ingp);
 		}
+		return res;
 		
 	}
 	

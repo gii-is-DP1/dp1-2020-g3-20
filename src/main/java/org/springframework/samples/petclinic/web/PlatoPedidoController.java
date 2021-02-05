@@ -89,6 +89,7 @@ public class PlatoPedidoController {
 			final PlatoPedido ppFinal = ppConverter.convertPPDTOToEntity(ppDTO);
 			ppFinal.setEstadoplato(estadoPlatoFormatter.parse(ppDTO.getEstadoplatodto(), Locale.ENGLISH));
 			ppFinal.setPlato(platoFormatter.parse(ppDTO.getPlatodto(), Locale.ENGLISH));
+			
 			//Collection<IngredientePedido> lista = ppService.CrearIngredientesPedidos(ppFinal);
 			//ppFinal.setIngredientesPedidos(lista);
 			if(result.hasErrors()) {
@@ -96,7 +97,6 @@ public class PlatoPedidoController {
 				return "platosPedido/newPlatosPedido";
 			}else {
 				ppService.guardarPP(ppFinal);
-				ppService.CrearIngredientesPedidos(ppFinal);
 				modelMap.addAttribute("message", "successfuly saved");
 				vista=listadoPlatosPedido(modelMap);
 			}
@@ -140,7 +140,7 @@ public class PlatoPedidoController {
 		
 		@GetMapping(value = "/edit/{ppId}")
 		public String initUpdatePPForm(@PathVariable("ppId") int ppId, ModelMap model) {		
-			String vista= "platosPedido/editarPlatosPedido";			
+			String vista= "platosPedido/modificarIngredientes";
 			Collection<EstadoPlato> collectionEstadosPlato= this.ppService.encontrarEstadoPlato();
 			model.addAttribute("estadosPlato", collectionEstadosPlato);
 			Collection<String> listaPlatos= this.ppService.encontrarPlatos();
@@ -151,7 +151,14 @@ public class PlatoPedidoController {
 			PlatoPedidoDTO platoConvertido = ppConverter.convertEntityToPPDTO(pp);
 			platoConvertido.setEstadoplatodto(pp.getEstadoplato().getName());
 			model.addAttribute("platopedido", platoConvertido);
-			return vista;
+			
+			// Asignación de ingredientespedidos a plato pedido
+			Collection<IngredientePedido> ingredientes = new ArrayList<>();
+			ingredientes = ppService.CrearIngredientesPedidos(pp);
+			//model.addAttribute("ingredientesPedidos", ingredientes);
+			
+			model.addAttribute("ingredientespedido", ingredientes);
+			return "platosPedido/ingredientesDePlatoPedido";
 		}
 		@PostMapping(value = "/edit")
 		public String processUpdatePPForm(PlatoPedidoDTO ppDTO, BindingResult result,ModelMap modelMap) throws ParseException {
@@ -164,6 +171,24 @@ public class PlatoPedidoController {
 			}
 			else {
 			this.ppService.guardarPP(ppFinal);
+			modelMap.addAttribute("message", "successfuly saved");
+			String vista=listadoPlatosPedido(modelMap);
+			return vista;
+				}
+		}
+		
+		@PostMapping(value = "/guardarIngredientes")
+		public String guardarIngredientes(Collection<IngredientePedido> lista, BindingResult result,ModelMap modelMap) throws ParseException {
+			Iterator<IngredientePedido> iterator = lista.iterator();
+			while(iterator.hasNext()) {
+				IngredientePedido i = iterator.next();
+			}
+			if(result.hasErrors()) {
+				//modelMap.addAttribute("platopedido", ppDTO);
+				return "platosPedido/editarPlatosPedido";
+			}
+			else {
+			
 			modelMap.addAttribute("message", "successfuly saved");
 			String vista=listadoPlatosPedido(modelMap);
 			return vista;
