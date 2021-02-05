@@ -42,5 +42,8 @@ public class Producto extends NamedEntity{
 	private Set<LineaPedido> lineasPedidas;
 	
 	
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "producto")
+	private Set<Ingrediente> ingredientes;
+	
 	
 }
