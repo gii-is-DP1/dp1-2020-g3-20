@@ -14,7 +14,7 @@
 	<c:forEach items="${ingredientespedido}" var="ingredientePedido">
 		<c:out value="${ingredientePedido.pp.id}" />
 		<c:out value="${ingredientePedido.ingrediente.producto.name}" />
-			<form:form modelAttribute="ingredientePedido" class="form-horizontal" id="add-ingrediente-form" action="/platopedido/guardarIngrediente">
+			<form:form modelAttribute="ingredientePedido" class="form-horizontal" id="add-ingrediente-form" action="/platopedido/guardarIngrediente/${ingredientePedido.pp.id}/${ingredientePedido.ingrediente.id}">
 	        <div class="form-group has-feedback">
 	            <div class="control-group">
 	            	<input type="number" id="cantidadPedida" name="cantidadPedida" value="${ingredientePedido.cantidadPedida}"/>
@@ -23,9 +23,7 @@
 	        </div>
 	        <div class="form-group">
 	            <div class="col-sm-offset-2 col-sm-10">  
-	                <div>
-	                <input type="hidden" name="ingredienteId" value="${ingredientePedido.ingrediente.id}"> 
-	                <input type="hidden" name="ppId" value="${ingredientePedido.pp.id}"> 
+	                <div> 
 	                <button class="btn btn-default" type="submit">Añadir Ingrediente</button>
 	                </div>
 	            </div>

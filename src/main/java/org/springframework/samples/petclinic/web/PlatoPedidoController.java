@@ -196,8 +196,10 @@ public class PlatoPedidoController {
 		}
 		
 		@PostMapping(value = "/guardarIngrediente/{ppId}/{ingId}")
-		public String guardarIngrediente(@PathVariable("ppId") PlatoPedido pp,@PathVariable("ingredienteId") Ingrediente i,IngredientePedido ingrediente, BindingResult result,ModelMap modelMap) throws ParseException {
-			
+		public String guardarIngrediente(@PathVariable("ppId") int ppId,@PathVariable("ingredienteId") Ingrediente i,
+				int ingredienteId,
+				BindingResult result,
+				ModelMap modelMap) throws ParseException {
 			
 			if(result.hasErrors()) {
 				//modelMap.addAttribute("platopedido", ppDTO);
