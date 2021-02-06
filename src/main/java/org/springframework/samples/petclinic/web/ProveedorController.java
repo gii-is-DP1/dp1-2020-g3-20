@@ -63,9 +63,11 @@ public class ProveedorController {
 						proveedorService.save(proveedorfinal);
 					}
 					else {
+					proveedor.setActivo(true);
 					proveedorService.save(proveedor);
-					}
 					
+					}
+				
 					modelMap.addAttribute("message", "El proveedor se guardo exitosamente");
 					view=listadoDeProveedores(modelMap);
 				}
