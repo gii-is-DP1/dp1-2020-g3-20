@@ -42,6 +42,10 @@ public class ProveedorService {
 	
 	
 	@Transactional
+	public Proveedor proverfindByName(String nombre){
+		return (Proveedor) proveedorRepository.findByName(nombre);
+	}
+	@Transactional
 	public int Provercount(){
 		return (int) proveedorRepository.count();
 	}
@@ -49,6 +53,11 @@ public class ProveedorService {
 	public Iterable<Proveedor> findAll(){
 		return proveedorRepository.findAll();
 	}
+	@Transactional
+	public Iterable<Proveedor> findActivos(){
+		return proveedorRepository.findByActivoTrue();
+	}
+	
 	
 	@Transactional
 	public Collection<String> findAllNames(){
@@ -79,19 +88,19 @@ public class ProveedorService {
 	
 	@Transactional
 	public boolean esIgual(String nombre){
-		Iterable<Proveedor> lista = proveedorRepository.findAll();
-		Iterator<Proveedor> it = lista.iterator();
-		boolean aux = false;
-	
-		while (it.hasNext()) {
-			Proveedor p = it.next();
-			if (p.getName().equals(nombre)){
-				aux = true;
-			}	
-		}
-		return aux; 
-	}
 
+		Proveedor proveedor = proveedorRepository.findByName(nombre);
+		if(proveedor==null) {
+			return false;
+		}
+		else if(proveedor!=null && proveedor.getActivo()==false){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+	
 
 	@Transactional
 	public void save(Proveedor proveedor) {
