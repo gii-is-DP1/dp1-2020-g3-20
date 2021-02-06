@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +25,10 @@ public class Proveedor extends NamedEntity{
     @Email
 	@Column(name = "gmail")
 	private String gmail;
+    
+    //Borrado logico
+    @Column(name = "activo",columnDefinition = "number(1,0) default 1")
+    private Boolean activo;
     
     @Size(min = 3, max = 50)
 	@Column(name = "telefono")

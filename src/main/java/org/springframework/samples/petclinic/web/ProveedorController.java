@@ -28,7 +28,7 @@ public class ProveedorController {
 	@GetMapping()
 	public String listadoDeProveedores(ModelMap modelMap) {
 		String vista="proveedor/listadoDeProveedores";
-		Iterable<Proveedor> proveedor=proveedorService.findAll();
+		Iterable<Proveedor> proveedor=proveedorService.findActivos();
 		Iterator<Proveedor> it_proveedor = proveedor.iterator();
 		
 		if (!(it_proveedor.hasNext())) {
@@ -55,8 +55,18 @@ public class ProveedorController {
 					modelMap.addAttribute("proveedor", proveedor);
 					return "proveedor/editProveedor";
 				} else {
+					Proveedor proveedorfinal = proveedorService.proverfindByName(proveedor.getName());
+					if(proveedorfinal!=null) {
+						proveedorfinal.setActivo(true);
+						proveedorfinal.setGmail(proveedor.getGmail());
+						proveedorfinal.setTelefono(proveedor.getTelefono());
+						proveedorService.save(proveedorfinal);
+					}
+					else {
 					proveedorService.save(proveedor);
-					modelMap.addAttribute("message", "proveedor successfuly saved");
+					}
+					
+					modelMap.addAttribute("message", "El proveedor se guardo exitosamente");
 					view=listadoDeProveedores(modelMap);
 				}
 		}
@@ -68,7 +78,9 @@ public class ProveedorController {
 		String view= "proveedor/listadoDeProveedores";
 		Optional<Proveedor> proveedor= proveedorService.provedroporid(proveedorid);
 		if(proveedor.isPresent()) {
-			proveedorService.borrarProv(proveedorid);
+			Proveedor proveedorfinal = proveedor.get();
+			proveedorfinal.setActivo(false);
+			proveedorService.save(proveedorfinal);
 			modelMap.addAttribute("message", "proveedor successfuly deleted");
 			view=listadoDeProveedores(modelMap);
 		}else {
