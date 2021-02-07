@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Cocinero;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.CocineroRepository;
@@ -60,5 +61,9 @@ public class CocineroService {
 	public Optional<Cocinero> findById(Integer id) {
 		return cocineroRepository.findById(id);
 		
+	}
+	@Transactional
+	public Cocinero findCamereroById(int cocineroId) throws DataAccessException {
+		return this.cocineroRepository.findCocineroById(cocineroId);
 	}
 }
