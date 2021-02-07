@@ -23,10 +23,20 @@ public class CamareroService {
 	@Autowired
 	private AuthoritiesService authoritiesService;
 	
+	
+	
+	public CamareroService(UserService userService, CamareroRepository camareroRepository,
+			AuthoritiesService authoritiesService) {
+		super();
+		this.userService = userService;
+		this.camareroRepository = camareroRepository;
+		this.authoritiesService = authoritiesService;
+	}
+
+
 	@Transactional
 	public int camareroCount() {
 		return (int) camareroRepository.count();
-		
 	}
 	
 

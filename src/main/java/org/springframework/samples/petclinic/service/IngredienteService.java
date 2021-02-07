@@ -21,7 +21,6 @@ public class IngredienteService {
 		this.ingredienteRepository = ingRepo;
 	}
 	
-	
 	@Transactional
 	public int ingCount() {
 		return (int) ingredienteRepository.count();	

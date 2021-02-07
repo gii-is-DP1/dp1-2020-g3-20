@@ -25,6 +25,12 @@ public class PlatoService {
 	@Autowired
 	private IngredienteService ingredienteService;
 	
+	public PlatoService(PlatoRepository platoRepository, IngredienteService ingredienteService) {
+		super();
+		this.platoRepository = platoRepository;
+		this.ingredienteService = ingredienteService;
+	}
+
 	@Transactional
 	public int platoCount() {
 		return (int) platoRepository.count();

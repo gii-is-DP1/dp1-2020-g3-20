@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Comanda;
 import org.springframework.samples.petclinic.model.Plato;
 import org.springframework.samples.petclinic.model.PlatoPedido;
+import org.springframework.samples.petclinic.model.PlatoPedidoDTO;
 import org.springframework.samples.petclinic.service.CamareroService;
 import org.springframework.samples.petclinic.service.ComandaService;
 import org.springframework.samples.petclinic.service.PlatoPedidoService;
@@ -94,6 +95,7 @@ public class ComandaController {
 	@GetMapping(path="/listaComandaActual/{comandaID}")
 	public String infoComanda(@PathVariable("comandaID") int comandaID, ModelMap modelMap) {
 		String vista= "comanda/comandaDetails";		
+		
 		Optional<Comanda> optAux = comandaService.findById(comandaID);
 		Comanda comanda = optAux.get();
 		Iterable<Plato> listaPlatos = platoService.findAllAvailable();
@@ -102,9 +104,13 @@ public class ComandaController {
 		Collection<PlatoPedido> platosEC = new ArrayList<>();
 		while(it.hasNext()) {
 			PlatoPedido ppAux = it.next();
-			if(ppAux.getComanda().getId()==comandaID)
-				platosEC.add(ppAux);
+			if(ppAux.getComanda()!=null) {
+				if(ppAux.getComanda().getId()==comandaID)
+					platosEC.add(ppAux);
+			}
 		}
+		
+		modelMap.addAttribute("platopedido",new PlatoPedidoDTO());
 		modelMap.addAttribute("platop",platosEC);
 		modelMap.addAttribute("comanda",comanda);
 		modelMap.addAttribute("listaPlatos",listaPlatos);
@@ -113,15 +119,26 @@ public class ComandaController {
 	
 	@GetMapping(path="/listaComandaActual/new")
 	public String crearComanda(int mesa,ModelMap modelMap,Principal user) {
-		String vista= "comanda/listaComandaActual";
 		Comanda comanda = new Comanda();		
 		comanda.setMesa(mesa);
 		comanda.setFechaCreado(LocalDateTime.now());
 		comanda.setPrecioTotal(0.0);
 		comanda.setCamarero(camareroService.buscaCamareroPorUser(user.getName()));
 		comandaService.guardarComanda(comanda);
+		int comandaId = comandaService.findLastId();
 		modelMap.addAttribute("comanda", comanda);
-		vista=listadoComandaActual(modelMap);
+		String vista=infoComanda(comandaId,modelMap);
 		return vista;
 	}	
+	
+	
+	@PostMapping(path="/listaComandaActual/asignar/{comandaId}/{ppId}")
+	public String asignarComanda(@PathVariable("comandaId") int comandaId, @PathVariable("ppId") int ppId, ModelMap modelMap) throws ParseException {
+		PlatoPedido plato = platoPedidoService.findById(ppId).get();
+		Comanda comanda = comandaService.findById(comandaId).get();
+		plato.setComanda(comanda);
+		platoPedidoService.guardarPP(plato);
+		String vista= infoComanda(comandaId,modelMap);
+		return vista; 
+	}
 }

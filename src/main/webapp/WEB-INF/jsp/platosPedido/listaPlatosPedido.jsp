@@ -7,13 +7,12 @@
 
 <petclinic:layout pageName="platopedido">
     <h2>PlatoPedido</h2>
-	
+	<p><c:out value="En proceso"></c:out></p>
     <table id="ppTable" class="table table-striped">
         <thead>
         <tr>
-   			<th>Estado del plato</th>
    			<th>Nombre del plato</th>
-   			<th>Comanda Id</th>		
+   			<th>Mesa</th>		
    			<th>Cambiar Estado</th>
    			<th>Acciones</th>	
         </tr>
@@ -24,13 +23,10 @@
   			<c:when test="${platopedido.estadoplato == 'ENPROCESO'}">
             <tr>
                 <td>
-                    <c:out value="${platopedido.estadoplato}"/>
-                </td>
-                <td>
                     <c:out value="${platopedido.plato.name}"/>
                 </td>
                  <td>
-                    <c:out value="${platopedido.comanda.id}"/>
+                    <c:out value="${platopedido.comanda.mesa}"/>
                 </td>
                 <td>
 					<spring:url value="/platopedido/modificarEstado/{platopedidoID}/{cambiarA}" var="platopedidoURL">
@@ -57,12 +53,12 @@
         </tbody>
     </table>
     
+    <p><c:out value="En cola"></c:out></p>
     <table id="ppTable" class="table table-striped">
         <thead>
         <tr>
-   			<th>Estado del plato</th>
    			<th>Nombre del plato</th>
-   			<th>Comanda Id</th>		
+   			<th>Mesa</th>		
    			<th>Cambiar Estado</th>
    			<th>Acciones</th>	
    			<th></th>
@@ -74,13 +70,10 @@
   			<c:when test="${platopedido.estadoplato == 'ENCOLA'}"> 
             <tr>
                 <td>
-                    <c:out value="${platopedido.estadoplato}"/>
-                </td>
-                <td>
                     <c:out value="${platopedido.plato.name}"/>
                 </td>
                  <td>
-                    <c:out value="${platopedido.comanda.id}"/>
+                    <c:out value="${platopedido.comanda.mesa}"/>
                 </td>
                 <td>
   					<spring:url value="/platopedido/modificarEstado/{platopedidoID}/{cambiarA}" var="platopedidoURL">

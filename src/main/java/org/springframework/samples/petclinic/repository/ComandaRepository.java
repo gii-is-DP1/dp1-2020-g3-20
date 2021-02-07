@@ -15,4 +15,7 @@ public interface ComandaRepository extends CrudRepository<Comanda, Integer>{
 	@Query("SELECT tp FROM TipoProducto tp ORDER BY tp.id")
 	List<TipoProducto> encontrarTiposProducto() throws DataAccessException;
 	
+	@Query("SELECT MAX(c.id) FROM Comanda c")
+	Integer findLastId() throws DataAccessException;
+	
 }

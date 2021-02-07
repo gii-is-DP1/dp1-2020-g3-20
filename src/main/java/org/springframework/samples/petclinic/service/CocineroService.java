@@ -20,6 +20,14 @@ public class CocineroService {
 	@Autowired
 	private CocineroRepository cocineroRepository;
 	
+	public CocineroService(UserService userService, AuthoritiesService authoritiesService,
+			CocineroRepository cocineroRepository) {
+		super();
+		this.userService = userService;
+		this.authoritiesService = authoritiesService;
+		this.cocineroRepository = cocineroRepository;
+	}
+
 	@Transactional
 	public int cocineroCount() {
 		return (int) cocineroRepository.count();
