@@ -93,4 +93,8 @@ public class CamareroService {
 	public Optional<Camarero> findById(int camareroId) throws DataAccessException {
 		return this.camareroRepository.findById(camareroId);
 	}
+	@Transactional
+	public Camarero findCamareroById(int camareroId) throws DataAccessException {
+		return this.camareroRepository.findCamareroById(camareroId);
+	}
 }

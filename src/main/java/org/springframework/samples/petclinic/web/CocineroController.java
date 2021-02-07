@@ -65,11 +65,12 @@ public class CocineroController {
 			cocineroService.borrarCocinero(cocineroId);
 			modelMap.addAttribute("message", "Borrado Correctamente");
 			vista=listadoCocinero(modelMap);
-		}else {
-			modelMap.addAttribute("message", "Cocinero no encontrado");
-			vista=listadoCocinero(modelMap);
-		}
-		return vista;
+		} 
+			  else { modelMap.addAttribute("message", "Cocinero no encontrado");
+			  vista=listadoCocinero(modelMap);
+			  }
+			 
+		 return vista;
 	}
 	
 	@GetMapping(value = "/edit/{cocineroId}")
