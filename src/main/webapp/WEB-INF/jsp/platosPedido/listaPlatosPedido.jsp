@@ -36,11 +36,6 @@
                    	<a href="${fn:escapeXml(platopedidoURL)}">Finalizar</a>	  
   				</td>
   				<td>
-                   <spring:url value="/platopedido/edit/{ppId}" var="ppURL">
-                   		  <spring:param name="ppId" value="${platopedido.id}"/>
-                   </spring:url>
-                   <a href="${fn:escapeXml(ppURL)}">Eliminar</a>
-                   
                    <spring:url value="/platopedido/{ppId}" var="ppURL">
                    		  <spring:param name="ppId" value="${platopedido.id}"/>
                    </spring:url>
@@ -84,11 +79,6 @@
  					  
   				</td>
   				<td>
-                   <spring:url value="/platopedido/edit/{ppId}" var="ppURL">
-                   		  <spring:param name="ppId" value="${platopedido.id}"/>
-                   </spring:url>
-                   <a href="${fn:escapeXml(ppURL)}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                   
                    <spring:url value="/platopedido/{ppId}" var="ppURL">
                    		  <spring:param name="ppId" value="${platopedido.id}"/>
                    </spring:url>
