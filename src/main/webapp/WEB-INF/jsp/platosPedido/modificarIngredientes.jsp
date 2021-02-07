@@ -14,32 +14,39 @@
 
 	<h2>Ingredientes:</h2>
 	<c:forEach items="${ingredientespedido}" var="ingredientePedido">
-		<c:out value="${ingredientePedido.pp.id}" />
-		<c:out value="${ingredientePedido.ingrediente.producto.name}" />
-		<form:form modelAttribute="ingredientePedido" class="form-horizontal"
-			id="add-ingrediente-form"
-			action="/platopedido/guardarIngrediente/${ingredientePedido.pp.id}/${ingredientePedido.ingrediente.id}">
-			<div class="form-group has-feedback">
-				<div class="control-group">
-					<input type="number" id="cantidadPedida" name="cantidadPedida"
-						value="${ingredientePedido.cantidadPedida}" />
-					<%--	<petclinic:inputField label="cantidadPedida" name="cantidadPedida" value="${ingredientePedido.cantidadPedida}"/> --%>
-				</div>
+		<div>
+			<div class="btn-line">
+				<c:out value="${ingredientePedido.ingrediente.producto.name}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<div>
-						<button class="btn btn-default" type="submit">Añadir
-							Ingrediente</button>
-					</div>
-				</div>
-			</div>
-		</form:form>
+			<form:form modelAttribute="ingredientePedido" class="btn-line"
+				id="add-ingrediente-form"
+				action="/platopedido/${comandaId}/guardarIngrediente/${ingredientePedido.pp.id}/${ingredientePedido.ingrediente.id}">
+
+
+				<input type="hidden" id="cantidadPedida" name="cantidadPedida"
+					value="${ingredientePedido.cantidadPedida}" />
+				<%--	<petclinic:inputField label="cantidadPedida" name="cantidadPedida" value="${ingredientePedido.cantidadPedida}"/> --%>
+
+				<button class="btn btn-default" type="submit">Anadir Ingrediente</button>
+			</form:form>
+		</div>
 	</c:forEach>
-	<spring:url value="/platopedido/modificarComanda/{comandaId}"
+	<br>
+	<br>
+	<form:form modelAttribute="ingredientePedido" class="form-horizontal"
+		id="add-comanda-form"
+		action="/comanda/listaComandaActual/asignar/${comandaId}/${platopedido.id}">
+		<button class="btn btn-default" type="submit">Finalizar y
+			asignar a comanda</button>
+	</form:form>
+
+	<%-- 
+	<spring:url
+		value="comanda/listaComandaActual/asignar/{comandaId}/{ppId}"
 		var="platopedidoURL">
-		<spring:param name="comandaId" value="${platopedido.id}" />
+		<spring:param name="comandaId" value="${comandaId}" />
+		<spring:param name="ppId" value="${platopedido.id}" />
 	</spring:url>
 	<a href="${fn:escapeXml(platopedidoURL)}">Finalizar y asignar a
-		comanda</a>
+		comanda</a>--%>
 </petclinic:layout>

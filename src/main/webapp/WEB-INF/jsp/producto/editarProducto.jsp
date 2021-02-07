@@ -52,7 +52,7 @@ function validarsize(){
             <petclinic:inputField label="Cantidad actual" name="cantAct"/>
             <petclinic:inputField label="Cantidad maxima" name="cantMax"/>
             <div class="control-group">
-				<petclinic:selectField name="proveedor" label="Tipo Producto " names="${listaProveedores}" size="6"/>
+				<petclinic:selectField name="proveedor" label="Proveedores" names="${listaProveedores}" size="6"/>
             </div>
  
         </div>

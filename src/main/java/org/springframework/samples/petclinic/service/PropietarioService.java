@@ -20,6 +20,13 @@ public class PropietarioService {
 	@Autowired
 	private UserService userService;
 	
+	public PropietarioService(PropietarioRepository propietarioRepository, AuthoritiesService authoritiesService,
+			UserService userService) {
+		super();
+		this.propietarioRepository = propietarioRepository;
+		this.authoritiesService = authoritiesService;
+		this.userService = userService;
+	}
 	@Transactional
 	public int propietarioCount() {
 		return (int) propietarioRepository.count();

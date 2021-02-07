@@ -18,8 +18,12 @@ public class ComandaService {
 	
 	@Autowired
 	private ComandaRepository comandaRepository;
-
 	
+	public ComandaService(ComandaRepository comandaRepository) {
+		super();
+		this.comandaRepository = comandaRepository;
+	}
+
 	@Transactional
 	public int comandaCount() {
 		return (int) comandaRepository.count();	
@@ -67,5 +71,9 @@ public class ComandaService {
 			}	
 		}
 		return res; 
+	}
+	
+	public Integer findLastId() throws DataAccessException{
+		return comandaRepository.findLastId();
 	}
 }

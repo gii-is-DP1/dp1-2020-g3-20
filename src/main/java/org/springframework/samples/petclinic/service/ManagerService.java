@@ -21,6 +21,14 @@ public class ManagerService {
 	@Autowired
 	private ManagerRepository managerRepository;
 	
+	public ManagerService(AuthoritiesService authoritiesService, UserService userService,
+			ManagerRepository managerRepository) {
+		super();
+		this.authoritiesService = authoritiesService;
+		this.userService = userService;
+		this.managerRepository = managerRepository;
+	}
+
 	@Transactional
 	public int managerCount() {
 		return (int) managerRepository.count();
