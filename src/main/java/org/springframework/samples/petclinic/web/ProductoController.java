@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -90,7 +91,7 @@ public class ProductoController {
 	public String crearProducto(ModelMap modelMap) {
 		String vista= "producto/editProducto";
 		Collection<TipoProducto> collectionTipoProducto = this.productoService.encontrarTiposProducto();
-		Collection<String> collectionProveedor = this.proveedorService.findAllNames();
+		List<String> collectionProveedor = this.proveedorService.findActivosName();
 		modelMap.addAttribute("producto",new ProductoDTO());
 		modelMap.addAttribute("listaProveedores", collectionProveedor);
 		modelMap.addAttribute("listaTipos", collectionTipoProducto);

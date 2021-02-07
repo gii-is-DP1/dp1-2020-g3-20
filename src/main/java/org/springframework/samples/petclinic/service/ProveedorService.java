@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,11 @@ public class ProveedorService {
 	@Transactional
 	public Iterable<Proveedor> findActivos(){
 		return proveedorRepository.findByActivoTrue();
+	}
+	
+	@Transactional
+	public List<String> findActivosName(){
+		return proveedorRepository.findActivoName();
 	}
 	
 	
