@@ -14,6 +14,7 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Comanda;
 import org.springframework.samples.petclinic.model.EstadoPlato;
 import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.IngredientePedido;
@@ -24,6 +25,7 @@ import org.springframework.samples.petclinic.model.PlatoPedido;
 import org.springframework.samples.petclinic.model.PlatoPedidoDTO;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.repository.PlatoPedidoRepository;
+import org.springframework.samples.petclinic.service.ComandaService;
 import org.springframework.samples.petclinic.service.IngredientePedidoService;
 import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.PlatoPedidoService;
@@ -45,7 +47,7 @@ public class PlatoPedidoController {
 	
 	private PlatoPedidoService ppService;
 	private IngredientePedidoService ingService;
-	private IngredienteService ingredienteService; 
+	private IngredienteService ingredienteService;
 	
 	@Autowired
 	public void PlatoPedidoService(PlatoPedidoService ppService,IngredientePedidoService ingService,IngredienteService ingredienteService) {

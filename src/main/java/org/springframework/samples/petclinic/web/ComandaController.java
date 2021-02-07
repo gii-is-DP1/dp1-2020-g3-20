@@ -76,6 +76,15 @@ public class ComandaController {
 		Optional<Comanda> comanda = comandaService.findById(comandaID);
 		if(comanda.isPresent()) {
 			Comanda res = comanda.get();
+			Iterator<PlatoPedido> listaPlatosPedidos = res.getPlatosPedidos().iterator();
+			while(listaPlatosPedidos.hasNext()) {
+				PlatoPedido platoPedido = listaPlatosPedidos.next();
+				if(!(platoPedido.getEstadoplato().getId()==3)) {
+					modelMap.addAttribute("message", "Esta comanda aún tiene platos por finalizar");
+					vista = listadoComandaActual(modelMap);
+					return vista;
+				}
+			}
 			if(res.getFechaFinalizado()==null) {
 				res.setFechaFinalizado(LocalDateTime.now());
 				modelMap.addAttribute("message", "La comanda se ha finalizado correctamente");
@@ -137,7 +146,9 @@ public class ComandaController {
 		PlatoPedido plato = platoPedidoService.findById(ppId).get();
 		Comanda comanda = comandaService.findById(comandaId).get();
 		plato.setComanda(comanda);
+		comanda.setPrecioTotal(comanda.getPrecioTotal()+plato.getPlato().getPrecio());
 		platoPedidoService.guardarPP(plato);
+		comandaService.guardarComanda(comanda);
 		String vista= infoComanda(comandaId,modelMap);
 		return vista; 
 	}

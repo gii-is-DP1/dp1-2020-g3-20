@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,9 +90,27 @@ public class PlatoService {
 		}
 	}
 	
-	//Mostrar platos disponibles para ofrecerlos
+	//Mostrar platos disponibles para ofrecerlos (elimina platos de los que falan ingredientes)
 	public List<Plato> findAllAvailable() {
-		return platoRepository.findAllAvailable();
+		Boolean falta = false;
+		List<Plato> res = platoRepository.findAllAvailable();
+		Iterator<Plato> iterator = res.iterator();
+		while (iterator.hasNext()) {
+			falta=false;
+			Plato plato = iterator.next();
+			Iterator<Ingrediente> listaIngredientes = plato.getIngredientes().iterator();
+			while (listaIngredientes.hasNext()) {
+				Ingrediente ingrediente = listaIngredientes.next();
+				if(ingrediente.getCantidadUsualPP() > ingrediente.getProducto().getCantAct()) {
+					falta = true;
+				}
+			}
+			if(falta) {
+				res.remove(plato);
+			}
+			
+		}
+		return res;
 	}
 	
 }

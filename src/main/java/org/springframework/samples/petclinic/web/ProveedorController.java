@@ -97,7 +97,6 @@ public class ProveedorController {
 		String vista= "proveedor/editarProveedor";
 		
 		Proveedor proveedor =  proveedorService.provedroporid(proveedorId).get();
-		System.out.println("hola");
 		model.addAttribute("proveedor", proveedor);
 		return vista;
 	}
