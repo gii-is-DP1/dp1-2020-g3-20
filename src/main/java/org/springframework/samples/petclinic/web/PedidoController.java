@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping("/pedidos")
 public class PedidoController {
@@ -60,6 +62,7 @@ public class PedidoController {
 		pedido.setFechaPedido(LocalDate.now());
 		pedido.setHaLlegado(Boolean.FALSE);
 		if(result.hasErrors()) {
+			log.info(String.format("Order wasn't able to be created"));
 			modelMap.addAttribute("pedido", pedido);
 			return "pedidos/editPedido";
 		}else {

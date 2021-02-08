@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping(value = "/ingrediente")
 public class IngredienteController {
@@ -53,6 +55,7 @@ public class IngredienteController {
 		final Ingrediente ingFinal = ing;
 		ingFinal.setProducto(productoFormatter.parse(ing.getProducto().getName(), Locale.ENGLISH));
 		if(result.hasErrors()) {
+			log.info(String.format("Ingredient with name %s wasn't able to be created", ing.getProducto().getName()));
 			return "platosPedido/newPlatosPedido";
 		}else {
 			ingService.guardarIngrediente(ingFinal);

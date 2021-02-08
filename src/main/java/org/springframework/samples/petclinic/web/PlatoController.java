@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping(value = "/platos")
 public class PlatoController {
@@ -66,6 +68,7 @@ public class PlatoController {
 	public String guardarPlato(@Valid Plato plato,BindingResult result,ModelMap modelMap) {
 		String vista= "platos/listaPlatos";
 		if(result.hasErrors()) {
+			log.info(String.format("Plate with name %s wasn't able to be created", plato.getName()));
 			modelMap.addAttribute("plato", plato);
 			return "platos/editPlatos";
 		}else {

@@ -13,6 +13,8 @@ import org.springframework.samples.petclinic.repository.PlatoPedidoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class IngredientePedidoService {
 
@@ -50,12 +52,15 @@ public class IngredientePedidoService {
 		IngredientePedido ip = new IngredientePedido();
 		ip.setCantidadPedida(i.getCantidadUsualPP());
 		ip.setIngrediente(i);
+		log.info(String.format("IngredientOrder with ingredient %s and amount %f has been saved", ip.getIngrediente().getProducto().getName(), ip.getCantidadPedida()));
 		return ip;
 	}
 	
 	@Transactional
 	public void borrarIngredientePedido(Integer id) {
+		IngredientePedido ip = ingredientePedidoRepository.findById(id).get();
 		ingredientePedidoRepository.deleteById(id);
+		log.info(String.format("IngredientOrder with ingredient %s and amount %f has been delete", ip.getIngrediente().getProducto().getName(), ip.getCantidadPedida()));	
 		
 	}
 	

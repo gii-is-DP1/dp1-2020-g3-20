@@ -17,6 +17,8 @@ import org.springframework.samples.petclinic.repository.PlatoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class PlatoService {
 
@@ -44,12 +46,16 @@ public class PlatoService {
 
 	@Transactional
 	public Plato guardarPlato(Plato plato) {
+		log.info(String.format("Plate with name %s has been saved", plato.getName()));
 		return platoRepository.save(plato);	
 	}
 	
 	@Transactional
 	public void borrarPlato(Integer id) {
+		Plato plato = platoRepository.findById(id).get();
 		platoRepository.deleteById(id);	
+		log.info(String.format("Plate with name %s has been saved", plato.getName()));
+		
 	}
 	
 	@Transactional
