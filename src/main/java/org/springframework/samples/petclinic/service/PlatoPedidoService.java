@@ -24,6 +24,8 @@ import org.springframework.samples.petclinic.service.IngredientePedidoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class PlatoPedidoService {
 	private PlatoPedidoRepository ppRepo;
@@ -52,7 +54,7 @@ public class PlatoPedidoService {
 	@Transactional
 	public PlatoPedido guardarPP(PlatoPedido pp) {
 //		pp.getPlato().getIngredientes();
-		if ((pp.getEstadoplato().getId().equals(1)) & (pp.getComanda() != null)) {
+   		if ((pp.getEstadoplato().getId().equals(1)) & (pp.getComanda() != null)) {
 			Iterator<IngredientePedido> ipl = pp.getIngredientesPedidos().iterator();
 			while (ipl.hasNext()) {
 				IngredientePedido ip = ipl.next();
@@ -62,10 +64,12 @@ public class PlatoPedidoService {
 				prodService.guardarProducto(prod);
 			}
 		}
+		log.info(String.format("PlateOrder with name %s has been created", pp.getPlato().getName()));		
 		return ppRepo.save(pp);
 
 	}
-
+	
+	//
 	@Transactional
 	public Collection<IngredientePedido> CrearIngredientesPedidos(PlatoPedido pp) {
 		Collection<Ingrediente> ingList = pp.getPlato().getIngredientes();
@@ -94,7 +98,10 @@ public class PlatoPedidoService {
 
 	@Transactional
 	public void borrarPP(Integer id) {
+		PlatoPedido pp = ppRepo.findById(id).get();
 		ppRepo.deleteById(id);
+		log.info(String.format("PlateOrder with name %s has been deleted", pp.getPlato().getName()));
+		
 
 	}
 
