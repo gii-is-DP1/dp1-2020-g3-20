@@ -99,7 +99,7 @@ public class PlatoPedidoController {
 			//ppFinal.setIngredientesPedidos(lista);
 			if(result.hasErrors()) {
 				modelMap.addAttribute("message", "ha habido un error al guardar"+result.getAllErrors().toString());
-				return "platosPedido/newPlatosPedido";
+				vista = initUpdatePPForm(comandaId, ppFinal.getId(),modelMap);
 			}else {
 				ppService.guardarPP(ppFinal);
 				modelMap.addAttribute("message", "successfuly saved");
@@ -108,7 +108,7 @@ public class PlatoPedidoController {
 			}
 			return vista; 
 		}
-		
+
 		
 
 		

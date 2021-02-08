@@ -37,6 +37,9 @@ public class ComandaController {
 	private PlatoPedidoService platoPedidoService;
 	
 	@Autowired
+	private PlatoPedidoController platoPedidoController;
+	
+	@Autowired
 	private CamareroService camareroService;
 	
 	@Autowired
@@ -143,13 +146,17 @@ public class ComandaController {
 	
 	@PostMapping(path="/listaComandaActual/asignar/{comandaId}/{ppId}")
 	public String asignarComanda(@PathVariable("comandaId") int comandaId, @PathVariable("ppId") int ppId, ModelMap modelMap) throws ParseException {
+		String vista= infoComanda(comandaId,modelMap);
 		PlatoPedido plato = platoPedidoService.findById(ppId).get();
 		Comanda comanda = comandaService.findById(comandaId).get();
 		plato.setComanda(comanda);
 		comanda.setPrecioTotal(comanda.getPrecioTotal()+plato.getPlato().getPrecio());
+		if(plato.getIngredientesPedidos().size()==0){
+			modelMap.addAttribute("message", "ha habido un error al guardar, No se han seleccionado ingredientes");
+			vista = platoPedidoController.initUpdatePPForm(comandaId, plato.getId(),modelMap);
+			}
 		platoPedidoService.guardarPP(plato);
 		comanda.setPrecioTotal(comanda.getPrecioTotal()+plato.getPlato().getPrecio());
-		String vista= infoComanda(comandaId,modelMap);
 		return vista; 
 	}
 }
