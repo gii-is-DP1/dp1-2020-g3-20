@@ -94,7 +94,8 @@ public class ManagerController {
 		if(result.hasErrors()) {
 			modelMap.addAttribute("manager", manager);
 			return "managers/editarManager";
-		}else if (authoritiesService.findAllUsernames().contains(manager.getUsuario())) {
+		}else if (authoritiesService.findAllUsernames().contains(manager.getUsuario())
+				&& !managerService.buscaManagerPorId(manager.getId()).get().getUsuario().equals(manager.getUsuario())) {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdateManagerForm(manager.getId(),modelMap);
 		}else if(manager.getVersion()!=managerService.buscaManagerPorId(manager.getId()).get().getVersion()){

@@ -100,7 +100,8 @@ public class CamareroController {
 		if(result.hasErrors()) {
 			modelMap.addAttribute("camarero", camarero);
 			return "camareros/editarCamareros";
-		}else if(authoritiesService.findAllUsernames().contains(camarero.getUsuario())){
+		}else if(authoritiesService.findAllUsernames().contains(camarero.getUsuario())
+				&& !camareroService.findById(camarero.getId()).get().getUsuario().equals(camarero.getUsuario())){
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdateCamareroForm(camarero.getId(),modelMap);
 		}else if(camarero.getVersion()!=camareroService.findById(camarero.getId()).get().getVersion()){

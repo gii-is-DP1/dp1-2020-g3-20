@@ -93,7 +93,8 @@ public class PropietarioController {
 		if (result.hasErrors()) {
 			modelMap.addAttribute("propietario", propietario);
 			return "propietarios/editarPropietario";
-		} else if (authoritiesService.findAllUsernames().contains(propietario.getUsuario())) {
+		} else if (authoritiesService.findAllUsernames().contains(propietario.getUsuario()) 
+				&& !propietarioService.buscaPropietarioPorId(propietario.getId()).get().getUsuario().equals(propietario.getUsuario())) {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdatePropietarioForm(propietario.getId(),modelMap);
 		} else if (propietario.getVersion()!=propietarioService.buscaPropietarioPorId(propietario.getId()).get().getVersion()) {
