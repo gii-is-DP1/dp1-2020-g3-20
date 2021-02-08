@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping(value = "/managers")
 public class ManagerController {
@@ -53,6 +55,7 @@ public class ManagerController {
 	public String guardarManager(@Valid Manager manager, BindingResult result, ModelMap modelMap) {
 		String vista= "managers/listaManager";
 		if(result.hasErrors()) {
+			log.info(String.format("Manager with name %s wasn't able to be created", manager.getName()));
 			modelMap.addAttribute("manager", manager);
 			return "managers/editManager";
 		}else if (authoritiesService.findAllUsernames().contains(manager.getUsuario())) {
@@ -93,6 +96,7 @@ public class ManagerController {
 	public String processUpdateManagerForm(@Valid Manager manager, BindingResult result,ModelMap modelMap, @RequestParam(value="version", required=false) Integer version) {
 		if(result.hasErrors()) {
 			modelMap.addAttribute("manager", manager);
+			log.info(String.format("Manager with name %s and ID %d wasn't able to be updated", manager.getName(), manager.getId()));
 			return "managers/editarManager";
 		}else if (authoritiesService.findAllUsernames().contains(manager.getUsuario())
 				&& !managerService.buscaManagerPorId(manager.getId()).get().getUsuario().equals(manager.getUsuario())) {

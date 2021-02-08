@@ -11,6 +11,8 @@ import org.springframework.samples.petclinic.repository.IngredienteRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class IngredienteService {
 	
@@ -33,13 +35,17 @@ public class IngredienteService {
 	}
 	@Transactional
 	public Ingrediente guardarIngrediente(Ingrediente ing) {
+		log.info(String.format("Ingredient with name %s and amount %f has been saved", ing.getProducto().getName(), ing.getCantidadUsualPP()));
 		return ingredienteRepository.save(ing);
 		
 	}
 	
 	@Transactional
 	public void borrarIngrediente(Integer id) {
+		Ingrediente ing = ingredienteRepository.findById(id).get();
 		ingredienteRepository.deleteById(id);
+		log.info(String.format("Ingredient with name %s and amount %f has been deleted", ing.getProducto().getName(), ing.getCantidadUsualPP()));
+		
 		
 	}
 	

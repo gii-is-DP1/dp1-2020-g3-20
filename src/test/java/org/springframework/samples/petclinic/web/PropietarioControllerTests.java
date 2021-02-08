@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.PropietarioService;
 import org.springframework.samples.petclinic.service.ProveedorService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
@@ -23,6 +24,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -41,6 +44,9 @@ class PropietarioControllerTests {
 
 	@MockBean
 	private PropietarioService propietarioService;
+	
+	@MockBean
+	private AuthoritiesService authoritiesService;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -57,11 +63,41 @@ class PropietarioControllerTests {
 		propietario.setGmail("manteca@gmail.com");
 		propietario.setTelefono("954339970");
 
+		List<Propietario> listaProp= new ArrayList<Propietario>();
+		listaProp.add(propietario);
+		Iterable<Propietario> l= listaProp;
+		
+		
 		given(this.propietarioService.buscaPropietarioPorId(TEST_PROPIETARIO_ID)).willReturn(Optional.of(propietario));
 		
-
-
+		given(this.propietarioService.guardarPropietario(propietario))
+		.willReturn(propietario);
+	
+		given(this.propietarioService.listPropietario()).willReturn(l);
+		
+		given(this.propietarioService.propietarioCount()).willReturn(1);
+	}
+	@WithMockUser(value = "spring")
+    @Test
+    void testListadoPropietariosVacia() throws Exception {
+		given(this.propietarioService.propietarioCount()).willReturn(0);
+		
+		
+	mockMvc.perform(get("/propietarios")).andExpect(status().isOk())
+	.andExpect(model().attributeExists("message"))
+	.andExpect(view().name("propietarios/listaPropietarios"));
 }
+	
+	@WithMockUser(value = "spring")
+    @Test
+    void testListadoPropietariosConAlgunPropietario() throws Exception {
+		
+	mockMvc.perform(get("/propietarios")).andExpect(status().isOk())
+	.andExpect(model().attributeExists("propietarios"))
+	.andExpect(view().name("propietarios/listaPropietarios"));
+}
+
+
 	@WithMockUser(value = "spring")
     @Test
     void testPropietarioNew() throws Exception {
@@ -101,6 +137,20 @@ class PropietarioControllerTests {
 							.param("telefono", "543456666"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/propietarios"));
+	}
+    
+    @WithMockUser(value = "spring")
+	@Test
+	void testPostProveedorEditadoNombreVacioFail() throws Exception {
+		mockMvc.perform(post("/propietarios/edit", TEST_PROPIETARIO_ID)
+							.with(csrf())
+							.param("name", "")
+							.param("apellidos", "mantecao")
+							.param("gmail", "pedritomanteca@gmail.com")
+							.param("telefono", "543456666"))
+				.andExpect(model().attributeHasErrors("propietario"))
+				.andExpect(model().attributeHasFieldErrors("propietario", "name"))
+				.andExpect(view().name("propietarios/editarPropietario"));
 	}
 
     @WithMockUser(value = "spring")

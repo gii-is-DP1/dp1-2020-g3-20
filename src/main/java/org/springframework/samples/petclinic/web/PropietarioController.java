@@ -1,10 +1,12 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.model.Propietario;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.PropietarioService;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping(value = "/propietarios")
 public class PropietarioController {
@@ -29,9 +33,14 @@ public class PropietarioController {
 	@GetMapping()
 	public String listadoPropietarios(ModelMap modelMap) {
 		String vista = "propietarios/listaPropietarios";
-		Iterable<Propietario> propietarios = propietarioService.listPropietario();
-		modelMap.addAttribute("propietarios", propietarios);
-		return vista;
+		if(propietarioService.propietarioCount()==0) {
+			modelMap.addAttribute("message", "la lista esta vacia");
+			return vista;
+		}else {
+			Iterable<Propietario> propietarios = propietarioService.listPropietario();
+			modelMap.addAttribute("propietarios", propietarios);
+			return vista;
+		}
 	}
 
 	@GetMapping(path = "/new")
@@ -45,6 +54,7 @@ public class PropietarioController {
 	public String guardarPropietario(@Valid Propietario propietario, BindingResult result, ModelMap modelMap) {
 		String vista = "propietarios/listaPropietarios";
 		if (result.hasErrors()) {
+			log.info(String.format("Owner with name %s wasn't able to be created", propietario.getName()));
 			modelMap.addAttribute("propietario", propietario);
 			return "propietarios/editPropietario";
 		} else if (authoritiesService.findAllUsernames().contains(propietario.getUsuario())) {

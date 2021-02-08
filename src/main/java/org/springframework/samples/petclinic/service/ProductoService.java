@@ -19,6 +19,8 @@ import org.springframework.samples.petclinic.service.exceptions.PedidoPendienteE
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class ProductoService {
 	
@@ -45,6 +47,7 @@ public class ProductoService {
 
 	@Transactional
 	public Producto guardarProducto(Producto producto) {
+		log.info(String.format("Product with name %s has been saved", producto.getName()));
 		return productoRepository.save(producto);
 	}
 	
@@ -61,7 +64,10 @@ public class ProductoService {
 		}if (HaypedidoPendiente)  {    
 			throw new PedidoPendienteException();
 		}else {
+		Producto producto = productoRepository.findById(id).get();
 		productoRepository.deleteById(id);
+		log.info(String.format("Product with name %s has been deleted", producto.getName()));
+		
 		}
 	}
 
