@@ -52,7 +52,7 @@ public class PlatoPedidoService {
 	@Transactional
 	public PlatoPedido guardarPP(PlatoPedido pp) {
 //		pp.getPlato().getIngredientes();
-		if ((pp.getEstadoplato().getId().equals(1)) & (pp.getComanda() != null)) {
+/*		if ((pp.getEstadoplato().getId().equals(1)) & (pp.getComanda() != null)) {
 			Iterator<IngredientePedido> ipl = pp.getIngredientesPedidos().iterator();
 			while (ipl.hasNext()) {
 				IngredientePedido ip = ipl.next();
@@ -61,11 +61,12 @@ public class PlatoPedidoService {
 				prod.setCantAct(prod.getCantAct() - cantidad);
 				prodService.guardarProducto(prod);
 			}
-		}
+		}*/
 		return ppRepo.save(pp);
 
 	}
-
+	
+	//
 	@Transactional
 	public Collection<IngredientePedido> CrearIngredientesPedidos(PlatoPedido pp) {
 		Collection<Ingrediente> ingList = pp.getPlato().getIngredientes();
