@@ -17,5 +17,4 @@ public interface ComandaRepository extends CrudRepository<Comanda, Integer>{
 	
 	@Query("SELECT MAX(c.id) FROM Comanda c")
 	Integer findLastId() throws DataAccessException;
-	
 }

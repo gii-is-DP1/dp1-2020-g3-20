@@ -101,11 +101,14 @@ public class PlatoController {
 			return vista;
 	}
 	@PostMapping(value = "/edit/{platoId}")
-	public String processUpdatePlatoForm(@Valid Plato plato,@PathVariable("platoId") int platoId,BindingResult result,ModelMap modelMap) {
+	public String processUpdatePlatoForm(@Valid Plato plato,@PathVariable("platoId") int platoId,BindingResult result,ModelMap modelMap, @RequestParam(value="version", required=false) Integer version) {
 		String vista= "platos/editarPlatos";
 		if(result.hasErrors()) {
 			modelMap.addAttribute("plato", plato);
 			return vista;
+		}else if(plato.getVersion()!=version){
+			modelMap.addAttribute("message", "El plato que intentas editar ya se estaba editando, intenta de nuevo por favor");
+			return listadoPlatos(modelMap);
 		}else {
 			Plato res= this.platoService.buscaPlatoPorId(platoId).get();
 			res.setName(plato.getName());

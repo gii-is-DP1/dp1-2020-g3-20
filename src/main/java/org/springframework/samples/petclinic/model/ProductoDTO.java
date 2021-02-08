@@ -14,5 +14,6 @@ public class ProductoDTO {
 	private double cantMin;
 	private double cantAct;
 	private double cantMax;
+	private Integer version;
 
 }

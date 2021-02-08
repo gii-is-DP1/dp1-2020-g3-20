@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.annotation.Version;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,5 +37,11 @@ public class Proveedor extends NamedEntity{
 	//para el cascada
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "proveedor")
 	private Set<Producto> Productos;
-
+	
+	@Version
+	private Integer version;
+	
+	public Integer getVersion() {
+		return this.version;
+	}
 }

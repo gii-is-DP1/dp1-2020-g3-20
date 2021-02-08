@@ -17,8 +17,9 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="hidden" name="id" value="${proveedor.id}">  
-                <button class="btn btn-default" type="submit">Guardar</button>
+                <button class="btn btn-default" type="submit">Actualizar</button>
             </div>
         </div>
+        <input type="hidden" name="version" value="${proveedor.version}" />
     </form:form>
 </petclinic:layout>
