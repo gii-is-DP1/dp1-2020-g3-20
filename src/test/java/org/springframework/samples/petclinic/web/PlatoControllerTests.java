@@ -1,19 +1,19 @@
 package org.springframework.samples.petclinic.web;
 
+import static org.mockito.ArgumentMatchers.any;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.test.web.servlet.MockMvc;
-
-
-
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
+import org.springframework.samples.petclinic.model.Ingrediente;
 import org.springframework.samples.petclinic.model.Plato;
+import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.PlatoService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
@@ -27,6 +27,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -41,6 +43,7 @@ excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classe
 excludeAutoConfiguration= SecurityConfiguration.class)
 class PlatoControllerTests {
 private static final int TEST_PLATO_ID = 1;
+private static final int TEST_ING_ID = 1;
 
 @MockBean
 private PlatoService platoService;
@@ -48,8 +51,6 @@ private PlatoService platoService;
 @MockBean
 private IngredienteService ingService;
 
-@MockBean
-private PlatoFormatter platoFormatter;
 
 @Autowired
 private MockMvc mockMvc;
@@ -57,9 +58,24 @@ private MockMvc mockMvc;
 
 
 private Plato plato;
+private Ingrediente ing;
+private Producto prd;
 
 @BeforeEach
 void setup() {
+	prd= new Producto();
+	prd.setId(1);
+	prd.setName("huevo");
+	
+	ing= new Ingrediente();
+	ing.setId(TEST_ING_ID);
+	ing.setPlato(plato);
+	ing.setCantidadUsualPP(3.);
+	ing.setProducto(prd);
+	
+	List<Ingrediente> l= new ArrayList<Ingrediente>();
+	l.add(ing);
+
 	plato = new Plato();
 	plato.setId(TEST_PLATO_ID);
 	plato.setName("espinacas");
@@ -67,9 +83,16 @@ void setup() {
 	plato.setDisponible(true);
 	plato.setIngredientes(null);
 	
-
-	
 	given(this.platoService.buscaPlatoPorId(TEST_PLATO_ID)).willReturn(Optional.of(plato));
+	
+	given(this.platoService.ingredientePorPlato(TEST_PLATO_ID)).willReturn(l);
+	
+	given(this.ingService.guardarIngrediente(ing)).willReturn(ing);
+	
+	given(this.platoService.ingEstaRepetido(any(String.class), any(Integer.class))).willReturn(false);
+	
+	given(this.ingService.buscaIngPorId(TEST_ING_ID)).willReturn(Optional.of(ing));
+	
 	
 }
 
@@ -104,17 +127,30 @@ void testInitUpdatePlatoForm() throws Exception {
 		.andExpect(view().name("platos/editarPlatos"));
 }
 
-//@WithMockUser(value = "spring")
-//@Test
-//void processUpdatePlatoForm() throws Exception {
-//	mockMvc.perform(post("/platos/edit", TEST_PLATO_ID)
-//						.with(csrf())
-//						.param("name", "espinacas")
-//						.param("precio", "5.")
-//						.param("disponible", "false"))
-//			.andExpect(status().is3xxRedirection())
-//			.andExpect(view().name("redirect:/platos"));
-//}
+@WithMockUser(value = "spring")
+@Test
+void processUpdatePlatoForm() throws Exception {
+	mockMvc.perform(post("/platos/edit/{platoId}", TEST_PLATO_ID)
+						.with(csrf())
+						.param("name", "espinac")
+						.param("precio", "5.")
+						.param("disponible", "true"))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/platos"));
+}
+
+@WithMockUser(value = "spring")
+@Test
+void processUpdatePlatoFailedNameForm() throws Exception {
+	mockMvc.perform(post("/platos/edit/{platoId}", TEST_PLATO_ID)
+						.with(csrf())
+						.param("name", "")
+						.param("precio", "5.")
+						.param("disponible", "true"))
+	.andExpect(status().isOk())
+	.andExpect(model().attributeHasFieldErrors("plato", "name"))
+	.andExpect(view().name("platos/editarPlatos"));
+}
 
 @WithMockUser(value = "spring")
 	@Test
@@ -135,25 +171,40 @@ void testInitUpdatePlatoForm() throws Exception {
 	//comprobar en tutoria
 
 
-//@WithMockUser(value = "spring")
-//	@Test
-//	void testCrearIngrediente() throws Exception {
-//	
-//	mockMvc.perform(get("/platos/{platoId}/ingrediente/new",TEST_PLATO_ID)).andExpect(status().isOk())
-//	.andExpect(model().attributeExists("plato"))
-//	.andExpect(model().attributeExists("ingredienteaux"))
-//	.andExpect(model().attributeExists("listaProductos"))
-//	.andExpect(view().name("platos/newIngredientes"));
-//	}
+@WithMockUser(value = "spring")
+	@Test
+	void testCrearIngrediente() throws Exception {
+	
+	mockMvc.perform(get("/platos/{platoId}/ingrediente/new",TEST_PLATO_ID)).andExpect(status().isOk())
+	.andExpect(model().attributeExists("plato"))
+	.andExpect(model().attributeExists("ingrediente"))
+	.andExpect(model().attributeExists("listaProductos"))
+	.andExpect(view().name("platos/newIngredientes"));
+	}
 
-//@WithMockUser(value = "spring")
-//@Test
-//void testPostProcessCreationForm() throws Exception {
-//	mockMvc.perform(post("/platos/ingSave")
-//						.with(csrf())
-//						.param("ingrediente", "in"))
-//			.andExpect(status().isOk())
-//			.andExpect(view().name("platos/platosDetails"));
-//}
-//preguntar al profe
+@WithMockUser(value = "spring")
+@Test
+void testPostProcessCreationIngForm() throws Exception {
+	mockMvc.perform(post("/platos/ingSave/{platoId}",TEST_PLATO_ID)
+						.with(csrf())
+						.param("cantidadUsualPP", "5")
+						.param("producto.name", "huevo"))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/platos/"+TEST_PLATO_ID));
+}
+
+@WithMockUser(value = "spring")
+@Test
+void testPostProcessCreationIngFormIfRepetido() throws Exception {
+	given(this.platoService.ingEstaRepetido(any(String.class), any(Integer.class))).willReturn(true);
+	
+	mockMvc.perform(post("/platos/ingSave/{platoId}",TEST_PLATO_ID)
+						.with(csrf())
+						.param("cantidadUsualPP", "5")
+						.param("producto.name", "huevo"))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(view().name("redirect:/platos/"+TEST_PLATO_ID));
+}
+
+
 }

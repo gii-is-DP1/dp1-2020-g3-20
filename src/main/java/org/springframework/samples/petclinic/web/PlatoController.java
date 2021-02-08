@@ -32,9 +32,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping(value = "/platos")
 public class PlatoController {
-	
-	@Autowired
-	private PlatoFormatter platoFormatter;
 
 	@Autowired
 	private PlatoService platoService;
@@ -69,7 +66,8 @@ public class PlatoController {
 		String vista= "platos/listaPlatos";
 		if(result.hasErrors()) {
 			log.info(String.format("Plate with name %s wasn't able to be created", plato.getName()));
-			modelMap.addAttribute("plato", plato);
+      modelMap.addAttribute("message", "el plato que estas intentanco crear es erroneo");
+		  modelMap.addAttribute("platos", plato);
 			return "platos/editPlatos";
 		}else {
 			platoService.guardarPlato(plato);
@@ -104,8 +102,10 @@ public class PlatoController {
 			return vista;
 	}
 	@PostMapping(value = "/edit/{platoId}")
-	public String processUpdatePlatoForm(@Valid Plato plato,@PathVariable("platoId") int platoId,BindingResult result,ModelMap modelMap, @RequestParam(value="version", required=false) Integer version) {
+	public String processUpdatePlatoForm(@Valid Plato plato,BindingResult result,@PathVariable("platoId") int platoId,ModelMap modelMap, @RequestParam(value="version", required=false) Integer version) {
 		String vista= "platos/editarPlatos";
+		plato.setId(platoId);
+		plato.setVersion(version);
 		if(result.hasErrors()) {
 			modelMap.addAttribute("plato", plato);
 			return vista;
@@ -113,12 +113,8 @@ public class PlatoController {
 			modelMap.addAttribute("message", "El plato que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoPlatos(modelMap);
 		}else {
-			Plato res= this.platoService.buscaPlatoPorId(platoId).get();
-			res.setName(plato.getName());
-			res.setPrecio(plato.getPrecio());
-			res.setDisponible(plato.getDisponible());
-			res.setIngredientes(plato.getIngredientes());
-			this.platoService.guardarPlato(res);
+			
+			this.platoService.guardarPlato(plato);
 			return "redirect:/platos";
 		}	
 	}
@@ -149,7 +145,7 @@ public class PlatoController {
 
 	
 	@PostMapping(path="/ingSave/{platoId}")
-	public String processCreationForm(@Valid Ingrediente ingrediente,@PathVariable("platoId") int platoId,BindingResult result, ModelMap model) throws ParseException {	
+	public String processCreationForm(@Valid Ingrediente ingrediente,BindingResult result,@PathVariable("platoId") int platoId, ModelMap model) throws ParseException {	
 		Plato pl= this.platoService.buscaPlatoPorId(platoId).get();
 		ingrediente.setPlato(pl);
 		if (result.hasErrors()) {
@@ -158,11 +154,11 @@ public class PlatoController {
 		}else {
             if(this.platoService.ingEstaRepetido(ingrediente.getProducto().getName(), platoId)) {
             	model.put("message", "el ingrediente esta repetido");
-            	return showPlato(platoId,model);
+            	return "redirect:/platos/"+platoId;
             }else {
 //              res.setPlato(platoFormatter.parse(ingrediente.getPlatoaux(),Locale.ENGLISH));
     			this.ingService.guardarIngrediente(ingrediente);                
-    			return showPlato(platoId,model);
+    			return "redirect:/platos/"+platoId;
             }
 			
 		}
@@ -171,13 +167,14 @@ public class PlatoController {
 	@GetMapping(path="/deleteIng/{ingId}")
 	public String borrarIngredienteDePlato(@PathVariable("ingId") int ingId, ModelMap modelMap) {
 		Optional<Ingrediente> ing= ingService.buscaIngPorId(ingId);
+		Integer platoId= ing.get().getPlato().getId();
 		if(ing.isPresent()) {
-			ingService.borrarIngrediente(ingId);;
+			ingService.borrarIngrediente(ingId);
 			modelMap.addAttribute("message", "Borrado Correctamente");
 		}else {
 			modelMap.addAttribute("message", "Ingrediente no encontrado");
 		}
-		return showPlato(ing.get().getPlato().getId(),modelMap);
+		return "redirect:/platos/"+platoId;
 	}
 	
 	

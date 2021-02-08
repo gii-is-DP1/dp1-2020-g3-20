@@ -38,7 +38,17 @@
       			<button class="btn btn-default" type="submit">MANAGERS</button>
   			</form>   
 		</div>
+		
 	</div>		
+
+	<br>
+	<br>
+	<div><h1 align="right">Nuevos propietarios
+	<spring:url value="/propietarios" var="propURL"></spring:url>
+			<form action="${fn:escapeXml(propURL)}"> 
+      			<button class="btn btn-default" type="submit">PROPIETARIOS</button>
+  			</form>  
+		 	</h1></div>
 
     </petclinic:layout>
     

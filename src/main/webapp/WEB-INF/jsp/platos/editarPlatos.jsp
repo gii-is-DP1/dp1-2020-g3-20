@@ -14,8 +14,7 @@
             <petclinic:inputField label="precio" name="precio"/>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-            	<input type="hidden" name="id" value="${plato.id}">         
+            <div class="col-sm-offset-2 col-sm-10">     
             	<button class="btn btn-default" type="submit">Actualizar</button>
  			</div>
         </div>
