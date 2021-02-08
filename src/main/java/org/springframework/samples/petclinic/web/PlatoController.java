@@ -113,7 +113,7 @@ public class PlatoController {
 			modelMap.addAttribute("message", "El plato que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoPlatos(modelMap);
 		}else {
-			res.setVersion(plato.getVersion()+1);
+			plato.setVersion(plato.getVersion()+1);
 			this.platoService.guardarPlato(plato);
 			return "redirect:/platos";
 		}	
