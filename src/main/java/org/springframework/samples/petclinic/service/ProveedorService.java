@@ -107,7 +107,17 @@ public class ProveedorService {
 			return true;
 		}
 	}
-	
+	@Transactional
+	public boolean esIgualParaedit(String nombre){
+
+		Proveedor proveedor = proveedorRepository.findByName(nombre);
+		if(proveedor==null) {
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
 
 	@Transactional
 	public void save(Proveedor proveedor) {

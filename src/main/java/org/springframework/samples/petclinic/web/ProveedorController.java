@@ -101,7 +101,6 @@ public class ProveedorController {
 		model.addAttribute("proveedor", proveedor);
 		return vista;
 	}
-
 	@PostMapping(value = "/edit")
 	public String processUpdateProveedorForm(@Valid Proveedor proveedor, BindingResult result, ModelMap modelMap, @RequestParam(value = "version", required = false) Integer version) {
 
@@ -111,14 +110,23 @@ public class ProveedorController {
 			modelMap.addAttribute("proveedor", proveedor);
 
 			return vista;
+			
 		} else if (proveedor.getVersion()!=proveedorService.provedroporid(proveedor.getId()).get().getVersion()) {
 			modelMap.addAttribute("message", "El proveedor que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoDeProveedores(modelMap);
 		} else {
+			if (proveedorService.esIgualParaedit(proveedor.getName())) {
+				modelMap.addAttribute("message", "El proveedor ya existe");
+				modelMap.addAttribute("proveedor", proveedor);
+				return "proveedor/editProveedor";
+			}
+			else {
 			proveedor.setActivo(true);
 			proveedor.setVersion(proveedor.getVersion()+1);
 			this.proveedorService.save(proveedor);
 			return "redirect:/proveedor";
 		}
 	}
+}
+	
 }
