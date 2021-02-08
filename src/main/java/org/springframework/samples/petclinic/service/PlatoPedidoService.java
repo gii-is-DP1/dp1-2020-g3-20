@@ -24,6 +24,8 @@ import org.springframework.samples.petclinic.service.IngredientePedidoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class PlatoPedidoService {
 	private PlatoPedidoRepository ppRepo;
@@ -62,6 +64,7 @@ public class PlatoPedidoService {
 				prodService.guardarProducto(prod);
 			}
 		}
+		log.info(String.format("PlateOrder with name %s has been created", pp.getPlato().getName()));		
 		return ppRepo.save(pp);
 
 	}
@@ -94,7 +97,10 @@ public class PlatoPedidoService {
 
 	@Transactional
 	public void borrarPP(Integer id) {
+		PlatoPedido pp = ppRepo.findById(id).get();
 		ppRepo.deleteById(id);
+		log.info(String.format("PlateOrder with name %s has been deleted", pp.getPlato().getName()));
+		
 
 	}
 

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping(value = "/propietarios")
 public class PropietarioController {
@@ -46,6 +48,7 @@ public class PropietarioController {
 	public String guardarPropietario(@Valid Propietario propietario, BindingResult result, ModelMap modelMap) {
 		String vista = "propietarios/listaPropietarios";
 		if (result.hasErrors()) {
+			log.info(String.format("Owner with name %s wasn't able to be created", propietario.getName()));
 			modelMap.addAttribute("propietario", propietario);
 			return "propietarios/editPropietario";
 		} else if (authoritiesService.findAllUsernames().contains(propietario.getUsuario())) {

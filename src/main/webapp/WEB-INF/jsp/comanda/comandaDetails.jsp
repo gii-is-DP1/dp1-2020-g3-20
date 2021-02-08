@@ -55,7 +55,7 @@
 						<input type="hidden" name="id" value="${platopedido.id}">
 						<input type="hidden" name=estadoplatodto value="ENCOLA">
 						<button class="btn btn-default" type="submit">Anadir
-							plato pedido</button>
+							plato</button>
 					</div>
 				</div>
 			</form:form>

@@ -35,6 +35,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping(value = "/producto")
 public class ProductoController {
@@ -107,6 +109,7 @@ public class ProductoController {
 		productoFinal.setProveedor(proveedorFormatter.parse(producto.getProveedor(), Locale.ENGLISH));
 			
 		if(result.hasErrors()) {
+			log.info(String.format("Product with name %s wasn't able to be created", producto.getName()));
 			modelMap.addAttribute("producto", producto);
 			return "producto/editProducto";
 		}else {

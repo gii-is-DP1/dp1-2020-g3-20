@@ -9,17 +9,20 @@ import org.springframework.samples.petclinic.repository.PropietarioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class PropietarioService {
 	@Autowired
 	private PropietarioRepository propietarioRepository;
-	
+
 	@Autowired
 	private AuthoritiesService authoritiesService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	public PropietarioService(PropietarioRepository propietarioRepository, AuthoritiesService authoritiesService,
 			UserService userService) {
 		super();
@@ -27,34 +30,40 @@ public class PropietarioService {
 		this.authoritiesService = authoritiesService;
 		this.userService = userService;
 	}
+
 	@Transactional
 	public int propietarioCount() {
 		return (int) propietarioRepository.count();
-		
+
 	}
+
 	@Transactional
 	public Iterable<Propietario> listPropietario() {
 		return propietarioRepository.findAll();
-		
+
 	}
+
 	@Transactional
 	public void delete(final Propietario propietario) {
+		log.info(String.format("Owner with name %s has been deleted", propietario.getName()));
 		this.propietarioRepository.delete(propietario);
 	}
+
 	@Transactional
 	public Propietario guardarPropietario(Propietario propietario) {
-		//creating user
-				User user=authoritiesService.crearUsuario(propietario.getUsuario(), propietario.getContrasena());
-				userService.saveUser(user);
-				//creating authorities
-				authoritiesService.saveAuthorities(propietario.getUsuario(), "propietario");
+		// creating user
+		User user = authoritiesService.crearUsuario(propietario.getUsuario(), propietario.getContrasena());
+		userService.saveUser(user);
+		// creating authorities
+		authoritiesService.saveAuthorities(propietario.getUsuario(), "propietario");
+		log.info(String.format("Owner with name %s has been saved", propietario.getName()));
 		return propietarioRepository.save(propietario);
 	}
-	
+
 	@Transactional
 	public Optional<Propietario> buscaPropietarioPorId(Integer id) {
 		return propietarioRepository.findById(id);
-		
+
 	}
 
 }

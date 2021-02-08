@@ -12,18 +12,20 @@ import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedido
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class CamareroService {
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private CamareroRepository camareroRepository;
-	
+
 	@Autowired
 	private AuthoritiesService authoritiesService;
-	
-	
+
 	public CamareroService(UserService userService, CamareroRepository camareroRepository,
 			AuthoritiesService authoritiesService) {
 		super();
@@ -32,66 +34,54 @@ public class CamareroService {
 		this.authoritiesService = authoritiesService;
 	}
 
-
 	@Transactional
 	public int camareroCount() {
 		return (int) camareroRepository.count();
 	}
-	
 
 	@Transactional
 	public Iterable<Camarero> camareroList() {
 		return camareroRepository.findAll();
-		
+
 	}
 
-//	@Transactional(rollbackFor = DuplicatedPedidoException.class)
-	public void guardarCamarero(Camarero camarero) /*throws DuplicatedPedidoException*/ {
-		//creating user
-		Iterable<Camarero> lista = camareroRepository.findAll();
-		Iterator<Camarero> it = lista.iterator();
-       	Boolean repetido = false;
-       	while(it.hasNext()) {
-       		Camarero c = it.next();
-//			if (c.getUsuario()==camarero.getUsuario()) {
-//				repetido = true;
-//			}	
-//       	if (repetido)  {    
-//       	throw new DuplicatedPedidoException();
-//    }
-//       	else {
-		User user=authoritiesService.crearUsuario(camarero.getUsuario(), camarero.getContrasena());
+	@Transactional
+	public void guardarCamarero(Camarero camarero) {
+		User user = authoritiesService.crearUsuario(camarero.getUsuario(), camarero.getContrasena());
 		userService.saveUser(user);
-		//creating authorities
 		authoritiesService.saveAuthorities(camarero.getUsuario(), "camarero");
 		camareroRepository.save(camarero);
-		 }}
-       	
-//	}
-	
+		log.info(String.format("Waiter with username %s has been saved", camarero.getUsuario(),
+				camarero.getId()));
+	}
+
 	@Transactional
 	public void borrarCamarero(Integer id) {
+		Camarero camarero = camareroRepository.findCamareroById(id);
 		camareroRepository.deleteById(id);
-		
+		log.info(String.format("Waiter with username %s has been deleted", camarero.getUsuario(),
+				camarero.getId()));
 	}
-	
-	//Se usa para asignar un camarero a una comanda dado su usario
+
+	// Se usa para asignar un camarero a una comanda dado su usario
 	@Transactional
 	public Camarero buscaCamareroPorUser(String user) {
 		Camarero camarero = new Camarero();
 		Iterable<Camarero> aux = camareroRepository.findAll();
 		Iterator<Camarero> it = aux.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			camarero = it.next();
-			if(camarero.getUsuario().equals(user))
+			if (camarero.getUsuario().equals(user))
 				return camarero;
 		}
 		return camarero;
 	}
+
 	@Transactional
 	public Optional<Camarero> findById(int camareroId) throws DataAccessException {
 		return this.camareroRepository.findById(camareroId);
 	}
+
 	@Transactional
 	public Camarero findCamareroById(int camareroId) throws DataAccessException {
 		return this.camareroRepository.findCamareroById(camareroId);
