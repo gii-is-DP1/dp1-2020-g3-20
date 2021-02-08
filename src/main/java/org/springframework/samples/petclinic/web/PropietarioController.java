@@ -1,10 +1,12 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.model.Propietario;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.PropietarioService;
@@ -30,9 +32,14 @@ public class PropietarioController {
 	@GetMapping()
 	public String listadoPropietarios(ModelMap modelMap) {
 		String vista = "propietarios/listaPropietarios";
-		Iterable<Propietario> propietarios = propietarioService.listPropietario();
-		modelMap.addAttribute("propietarios", propietarios);
-		return vista;
+		if(propietarioService.propietarioCount()==0) {
+			modelMap.addAttribute("message", "la lista esta vacia");
+			return vista;
+		}else {
+			Iterable<Propietario> propietarios = propietarioService.listPropietario();
+			modelMap.addAttribute("propietarios", propietarios);
+			return vista;
+		}
 	}
 
 	@GetMapping(path = "/new")
