@@ -7,7 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Manager;
-
+import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.ManagerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -24,6 +25,8 @@ public class ManagerController {
 	
 	@Autowired
 	private ManagerService managerService;
+	@Autowired
+	private AuthoritiesService authoritiesService;
 	
 	@GetMapping()
 	public String listadoManagers(ModelMap modelMap) {
@@ -52,6 +55,9 @@ public class ManagerController {
 		if(result.hasErrors()) {
 			modelMap.addAttribute("manager", manager);
 			return "managers/editManager";
+		}else if (authoritiesService.findAllUsernames().contains(manager.getUsuario())) {
+			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
+			vista = crearManager(modelMap);
 		}else {
 			managerService.guardarManager(manager);
 			modelMap.addAttribute("message", "Guardado Correctamente");
@@ -84,14 +90,16 @@ public class ManagerController {
 		return vista;
 	}
 	@PostMapping(value = "/edit")
-	public String processUpdateManagerForm(@Valid Manager manager, BindingResult result,ModelMap modelMap) {
-		
-		String vista= "managers/editarManager";
-		
+	public String processUpdateManagerForm(@Valid Manager manager, BindingResult result,ModelMap modelMap, @RequestParam(value="version", required=false) Integer version) {
 		if(result.hasErrors()) {
 			modelMap.addAttribute("manager", manager);
-		
-			return vista;
+			return "managers/editarManager";
+		}else if (authoritiesService.findAllUsernames().contains(manager.getUsuario())) {
+			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
+			return initUpdateManagerForm(manager.getId(),modelMap);
+		}else if(manager.getVersion()!=version){
+			modelMap.addAttribute("message", "El manager que intentas editar ya se estaba editando, intenta de nuevo por favor");
+			return listadoManagers(modelMap);
 		}else {
 		this.managerService.guardarManager(manager);
 			return "redirect:/managers";

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Version;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,5 +26,11 @@ public class Plato extends NamedEntity{
 	
 	@OneToMany(mappedBy = "plato")
 	private Set<Ingrediente> ingredientes;
-
+	
+	@Version
+	private Integer version;
+	
+	public Integer getVersion() {
+		return this.version;
+	}
 }

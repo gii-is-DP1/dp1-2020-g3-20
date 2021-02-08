@@ -43,7 +43,7 @@ public class ProductoServiceTests {
 	@Test
 	void shouldFindAllProducto() {
 		Collection<Producto> productos=Lists.newArrayList(productoervice.productoList());
-		assertThat(productos.size()).isEqualTo(6);
+		assertThat(productos.size()).isEqualTo(19);
 		
 		
 	}
@@ -80,28 +80,26 @@ public class ProductoServiceTests {
 		 
 		 
 		 this.productoervice.guardarProducto(p);
-		 assertThat(p.getId().longValue()).isEqualTo(7);
+		 assertThat(p.getId().longValue()).isEqualTo(20);
 		 
 		 int after =Lists.newArrayList(this.productoervice.productoList()).size();
 			assertThat(beforInsert+1).isEqualTo(after);
 		  
 	  }
-		/*
-		 * @Test
-		 * 
-		 * void shouldDeleteProducto() throws DataAccessException,
-		 * PedidoPendienteException {
-		 * 
-		 * int foundBefore = this.productoervice.productoList().size();
-		 * 
-		 * Producto pr = this.productoervice.buscaProductoPorId(1).get();
-		 * this.productoervice.borrarProducto(pr.getId());
-		 * 
-		 * int foundAfter = this.productoervice.productoList().size();
-		 * assertThat(foundBefore).isEqualTo(foundAfter+1);
-		 * 
-		 * }
-		 */
+		
+		@Test
+		void shouldDeleteProducto() throws DataAccessException, PedidoPendienteException {
+
+			int foundBefore = Lists.newArrayList(this.productoervice.productoList()).size();
+
+			Producto pr = this.productoervice.buscaProductoPorId(19).get();
+			this.productoervice.borrarProducto(pr.getId());
+
+			int foundAfter = Lists.newArrayList(this.productoervice.productoList()).size();
+			assertThat(foundBefore).isEqualTo(foundAfter + 1);
+
+		}
+		 
 	  
 	    @Test
 		@Transactional

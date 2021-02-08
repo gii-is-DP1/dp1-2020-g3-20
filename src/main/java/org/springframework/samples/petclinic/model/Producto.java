@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Version;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,9 +43,13 @@ public class Producto extends NamedEntity{
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "producto")
 	private Set<LineaPedido> lineasPedidas;
 	
-	
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "producto")
 	private Set<Ingrediente> ingredientes;
 	
+	@Version
+	private Integer version;
 	
+	public Integer getVersion() {
+		return this.version;
+	}
 }

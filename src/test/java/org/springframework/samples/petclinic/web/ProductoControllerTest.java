@@ -1,7 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
-
+import java.util.HashSet;
+import java.util.Set;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
-
+import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.samples.petclinic.model.TipoProducto;
@@ -57,40 +58,61 @@ public class ProductoControllerTest {
 		  this.producto = new Producto();
 		  this.proveedor= Lists.newArrayList(proveedorService.findAll()).get(1);
 		  this.tipoproducto=new TipoProducto();
+		  
+		  LineaPedido l1= new LineaPedido();
+		  LineaPedido l2= new LineaPedido();
+		  LineaPedido l3= new LineaPedido();
+		  
+		  l1.setId(2);
+		  l1.setCantidad(3);
+		  
+		  l1.setId(3);
+		  l1.setCantidad(3);
+		  
+		  l1.setId(4);
+		  l1.setCantidad(3);
+		  
+		  Set<LineaPedido> l= new HashSet<LineaPedido> ();
+		  l.add(l1);l.add(l2);l.add(l3);
+		  
 		 
 		  //this.proveedor.setId(this.TEST_PROVEEDOR_ID);
 			
+			  this.proveedor.setActivo(true);
+			  this.proveedor.setGmail("adch@gmail.com");
+			  //this.proveedor.setTelefono("123456789"); this.proveedor.setId(4);
+			  this.proveedor.setName("proveedor_1");
+			  this.proveedor.setTelefono("123456789");
+			  Producto p1=new Producto();
+			  Set<Producto> st=new HashSet<>();
+			  st.add(p1);this.proveedor.setProductos(st);
+			  this.proveedor.setId(1);
 			
-			/*
-			 * this.proveedor.setApellido("prvdr1");
-			 * this.proveedor.setGmail("adch@gmail.com");
-			 * this.proveedor.setTelefono("123456789"); this.proveedor.setId(4);
-			 */
-			 
 		  
 		  
 		 // this.proveedor.setId(ProductoControllerTest.TEST_PROVEEDOR_ID);
 		  
-		  //this.tipoproducto.setName("solmillo");
+		  this.tipoproducto.setName("solmillo");
 		  this.tipoproducto.setId(this.TEST_TIPOPRODUCTO);
+		  
 		 
 		  
 		  this.producto.setId(ProductoControllerTest.TEST_PRODUCTO_ID);
 		  this.producto.setCantAct(1.0);
 		  this.producto.setCantMax(10.0);
 		  this.producto.setCantMin(0.0);
-		  //this.producto.setFechaCaducidad(LocalDate.now());		  
+		  this.producto.setLineasPedidas(l);
 		  this.producto.setName("abi");
 		  this.producto.setProveedor(proveedor);
 		  this.producto.setTipoProducto(this.tipoproducto);
 		 
 		  BDDMockito.given(this.productoService.buscaProductoPorId(ProductoControllerTest.TEST_PRODUCTO_ID).get()).willReturn(this.producto);
-		  BDDMockito.given(this.productoService.encontrarTiposProducto()).willReturn(Lists.newArrayList(this.tipoproducto));
+		  //BDDMockito.given(this.productoService.encontrarTiposProducto()).willReturn(Lists.newArrayList(this.tipoproducto));
 	}
-	@WithMockUser(username = "antonio", roles = {
-			"MANAGER"
-		})
-
+	   
+	
+	
+	@WithMockUser(value = "spring")
 	@Test
 	@DisplayName("Vista creacion producto")
 	void testInitCreationForm() throws Exception {

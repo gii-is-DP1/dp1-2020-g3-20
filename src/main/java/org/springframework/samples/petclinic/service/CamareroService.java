@@ -24,7 +24,6 @@ public class CamareroService {
 	private AuthoritiesService authoritiesService;
 	
 	
-	
 	public CamareroService(UserService userService, CamareroRepository camareroRepository,
 			AuthoritiesService authoritiesService) {
 		super();
@@ -46,21 +45,21 @@ public class CamareroService {
 		
 	}
 
-	@Transactional(rollbackFor = DuplicatedPedidoException.class)
-	public void guardarCamarero(Camarero camarero) throws DuplicatedPedidoException {
+//	@Transactional(rollbackFor = DuplicatedPedidoException.class)
+	public void guardarCamarero(Camarero camarero) /*throws DuplicatedPedidoException*/ {
 		//creating user
 		Iterable<Camarero> lista = camareroRepository.findAll();
 		Iterator<Camarero> it = lista.iterator();
-       	Boolean Hayrepetido = false;
+       	Boolean repetido = false;
        	while(it.hasNext()) {
        		Camarero c = it.next();
-			if (c.getUsuario()==camarero.getUsuario()) {
-				Hayrepetido = true;
-			}	
-       	if (Hayrepetido)  {    
-       	throw new DuplicatedPedidoException();
-    }
-       	else {
+//			if (c.getUsuario()==camarero.getUsuario()) {
+//				repetido = true;
+//			}	
+//       	if (repetido)  {    
+//       	throw new DuplicatedPedidoException();
+//    }
+//       	else {
 		User user=authoritiesService.crearUsuario(camarero.getUsuario(), camarero.getContrasena());
 		userService.saveUser(user);
 		//creating authorities
@@ -68,7 +67,7 @@ public class CamareroService {
 		camareroRepository.save(camarero);
 		 }}
        	
-	}
+//	}
 	
 	@Transactional
 	public void borrarCamarero(Integer id) {
