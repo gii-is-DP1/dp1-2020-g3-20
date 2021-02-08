@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -102,6 +101,7 @@ public class PlatoController {
 			return vista;
 	}
 	@PostMapping(value = "/edit/{platoId}")
+
 	public String processUpdatePlatoForm(@Valid Plato plato,BindingResult result,@PathVariable("platoId") int platoId,ModelMap modelMap, @RequestParam(value="version", required=false) Integer version) {
 		String vista= "platos/editarPlatos";
 		plato.setId(platoId);
@@ -109,11 +109,11 @@ public class PlatoController {
 		if(result.hasErrors()) {
 			modelMap.addAttribute("plato", plato);
 			return vista;
-		}else if(plato.getVersion()!=version){
+		}else if(plato.getVersion()!=platoService.buscaPlatoPorId(platoId).get().getVersion()){
 			modelMap.addAttribute("message", "El plato que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoPlatos(modelMap);
 		}else {
-			
+			res.setVersion(plato.getVersion()+1);
 			this.platoService.guardarPlato(plato);
 			return "redirect:/platos";
 		}	

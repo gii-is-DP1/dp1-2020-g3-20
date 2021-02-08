@@ -99,15 +99,17 @@ public class CocineroController {
 			log.info(String.format("Chef with name %s and ID %d wasn't able to be updated", cocinero.getName(), cocinero.getId()));
 			modelMap.addAttribute("cocinero", cocinero);
 			return "cocinero/editarCocinero";
-		} else if (authoritiesService.findAllUsernames().contains(cocinero.getUsuario())) {
+		} else if (authoritiesService.findAllUsernames().contains(cocinero.getUsuario())
+				&& !cocineroService.findById(cocinero.getId()).get().getUsuario().equals(cocinero.getUsuario())) {
 			log.info(String.format("Try to update a chef with same user name as someone"));
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdateCocineroForm(cocinero.getId(),modelMap);
-		} else if (cocinero.getVersion() != version) {
+		} else if (cocinero.getVersion()!=cocineroService.findById(cocinero.getId()).get().getVersion()) {
 			modelMap.addAttribute("message",
 					"El cocinero que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoCocinero(modelMap);
 		} else {
+			cocinero.setVersion(cocinero.getVersion()+1);
 			this.cocineroService.guardarCocinero(cocinero);
 			return "redirect:/cocinero";
 		}

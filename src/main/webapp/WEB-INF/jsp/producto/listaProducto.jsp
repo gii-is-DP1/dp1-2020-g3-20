@@ -57,7 +57,7 @@
                    </spring:url>
                    
                    <c:choose>
-  						<c:when test="${producto.cantMin >= producto.cantAct}">
+  						<c:when test="${producto.cantMin >= producto.cantAct && producto.proveedor.activo}">
                 			<a href="${fn:escapeXml(productoURL)}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></a>  
  				   		</c:when>
 					</c:choose> 

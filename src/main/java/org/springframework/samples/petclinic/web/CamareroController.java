@@ -106,20 +106,17 @@ public class CamareroController {
 			log.info(String.format("Waiter with name %s and ID %d wasn't able to be updated", camarero.getName(), camarero.getId()));
 			modelMap.addAttribute("camarero", camarero);
 			return "camareros/editarCamareros";
-		}else if(authoritiesService.findAllUsernames().contains(camarero.getUsuario())){
+		}else if(authoritiesService.findAllUsernames().contains(camarero.getUsuario())
+				&& !camareroService.findById(camarero.getId()).get().getUsuario().equals(camarero.getUsuario())){
 			log.info(String.format("Try to update a waiter with same user name as someone", camarero.getName(), camarero.getId()));
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdateCamareroForm(camarero.getId(),modelMap);
-		}else if(camarero.getVersion()!=version){
+		}else if(camarero.getVersion()!=camareroService.findById(camarero.getId()).get().getVersion()){
 			modelMap.addAttribute("message", "El camarero que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoCamareros(modelMap);
 		}else {
-//			try {
-				camareroService.guardarCamarero(camarero);
-//			}catch (DuplicatedPedidoException e) {
-//				modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
-//				vista=listadoCamareros(modelMap);
-//			}
+			camarero.setVersion(camarero.getVersion()+1);
+			camareroService.guardarCamarero(camarero);
 		return "redirect:/camareros";
 		}
 	}

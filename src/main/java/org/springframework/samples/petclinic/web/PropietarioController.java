@@ -10,7 +10,6 @@ import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.model.Propietario;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.PropietarioService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -104,14 +103,16 @@ public class PropietarioController {
 		if (result.hasErrors()) {
 			modelMap.addAttribute("propietario", propietario);
 			return "propietarios/editarPropietario";
-		} else if (authoritiesService.findAllUsernames().contains(propietario.getUsuario())) {
+		} else if (authoritiesService.findAllUsernames().contains(propietario.getUsuario()) 
+				&& !propietarioService.buscaPropietarioPorId(propietario.getId()).get().getUsuario().equals(propietario.getUsuario())) {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdatePropietarioForm(propietario.getId(),modelMap);
-		} else if (propietario.getVersion() != version) {
+		} else if (propietario.getVersion()!=propietarioService.buscaPropietarioPorId(propietario.getId()).get().getVersion()) {
 			modelMap.addAttribute("message", "El propietario que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoPropietarios(modelMap);
 		} else {
 			// propietario.setOwner(propietarioService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+			propietario.setVersion(propietario.getVersion()+1);
 			this.propietarioService.guardarPropietario(propietario);
 			return "redirect:/propietarios";
 		}
