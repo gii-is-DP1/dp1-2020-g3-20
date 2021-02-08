@@ -24,6 +24,7 @@ public class ProductoService {
 	
 	@Autowired
 	private ProductoRepository productoRepository;
+	@Autowired
 	private LineaPedidoRepository lineaPedidoRepository;
 	
 	@Autowired
