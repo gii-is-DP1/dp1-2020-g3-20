@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Camarero;
+import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.CamareroService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = "/camareros")
@@ -23,6 +25,8 @@ public class CamareroController {
 	
 	@Autowired
 	private CamareroService camareroService;
+	@Autowired
+	private AuthoritiesService authoritiesService;
 	
 	@GetMapping()
 	public String listadoCamareros(ModelMap modelMap) {
@@ -43,6 +47,7 @@ public class CamareroController {
 	public String crearCamarero(ModelMap modelMap) {
 		String vista= "camareros/editCamarero";
 		modelMap.addAttribute("camarero",new Camarero());
+		modelMap.addAttribute("usernames", authoritiesService.findAllUsernames());
 		return vista;
 	}
 	
@@ -52,15 +57,18 @@ public class CamareroController {
 		if(result.hasErrors()) {
 			modelMap.addAttribute("camarero", camarero);
 			return "camareros/editCamarero";
+		}else if(authoritiesService.findAllUsernames().contains(camarero.getUsuario())){
+			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
+			vista=crearCamarero(modelMap);
 		}else {
-			try {
+//			try {
 				camareroService.guardarCamarero(camarero);
 				modelMap.addAttribute("message", "Guardado correctamente");
 				vista=listadoCamareros(modelMap);
-			} catch (DuplicatedPedidoException e) {
-				modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
-				vista=listadoCamareros(modelMap);
-			}
+//			} catch (DuplicatedPedidoException e) {
+//				modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
+//				vista=listadoCamareros(modelMap);
+//			}
 		}
 		return vista;
 	}
@@ -89,18 +97,23 @@ public class CamareroController {
 			return vista;
 	}
 	@PostMapping(value = "/edit")
-	public String processUpdateCamareroForm(@Valid Camarero camarero, BindingResult result,ModelMap modelMap) {
-		String vista= "camareros/editarCamareros";
+	public String processUpdateCamareroForm(@Valid Camarero camarero, BindingResult result,ModelMap modelMap, @RequestParam(value="version", required=false) Integer version) {
 		if(result.hasErrors()) {
 			modelMap.addAttribute("camarero", camarero);
-			return vista;
+			return "camareros/editarCamareros";
+		}else if(authoritiesService.findAllUsernames().contains(camarero.getUsuario())){
+			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
+			return initUpdateCamareroForm(camarero.getId(),modelMap);
+		}else if(camarero.getVersion()!=version){
+			modelMap.addAttribute("message", "El camarero que intentas editar ya se estaba editando, intenta de nuevo por favor");
+			return listadoCamareros(modelMap);
 		}else {
-			try {
-				this.camareroService.guardarCamarero(camarero);
-			}catch (DuplicatedPedidoException e) {
-				modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
-				vista=listadoCamareros(modelMap);
-			}
+//			try {
+				camareroService.guardarCamarero(camarero);
+//			}catch (DuplicatedPedidoException e) {
+//				modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
+//				vista=listadoCamareros(modelMap);
+//			}
 		return "redirect:/camareros";
 		}
 	}

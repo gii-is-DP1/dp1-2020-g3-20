@@ -60,7 +60,7 @@
 //
 //@DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 //class OwnerServiceTests {                
-//        @Autowired
+//  @Autowired
 //	protected OwnerService ownerService;
 //
 //	@Test

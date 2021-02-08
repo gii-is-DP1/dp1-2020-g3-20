@@ -138,6 +138,7 @@ public class ComandaController {
 		Comanda comanda = comandaService.findById(comandaId).get();
 		plato.setComanda(comanda);
 		platoPedidoService.guardarPP(plato);
+		comanda.setPrecioTotal(comanda.getPrecioTotal()+plato.getPlato().getPrecio());
 		String vista= infoComanda(comandaId,modelMap);
 		return vista; 
 	}

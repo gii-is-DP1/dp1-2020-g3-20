@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,9 @@ public class AuthoritiesService {
 		}else
 			throw new DataAccessException("User '"+username+"' not found!") {};
 	}
-
+	
+	public List<String> findAllUsernames(){
+		return authoritiesRepository.findAllUsernames();
+	}
 
 }

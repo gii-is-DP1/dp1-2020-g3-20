@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = "/producto")
@@ -152,13 +153,16 @@ public class ProductoController {
 		}
 	
 	@PostMapping(value = "/edit")
-	public String processUpdateProductoForm(ProductoDTO producto, BindingResult result,ModelMap modelMap) throws ParseException {
+	public String processUpdateProductoForm(ProductoDTO producto, BindingResult result,ModelMap modelMap, @RequestParam(value="version", required=false) Integer version) throws ParseException {
 		final Producto productoFinal = productoConverter.convertProductoDTOToEntity(producto);
 		productoFinal.setTipoProducto(tipoProductoFormatter.parse(producto.getTipoproductodto(), Locale.ENGLISH));
 		productoFinal.setProveedor(proveedorFormatter.parse(producto.getProveedor(), Locale.ENGLISH));
 		if(result.hasErrors()) {
 			modelMap.addAttribute("producto", producto);
 			return "producto/editarProducto";
+		}else if(productoFinal.getVersion()!=version){
+			modelMap.addAttribute("message", "El producto que intentas editar ya se estaba editando, intenta de nuevo por favor");
+			return listadoProducto(modelMap);
 		}else {
 			this.productoService.guardarProducto(productoFinal);
 			modelMap.addAttribute("message", "Guardado Correctamente");

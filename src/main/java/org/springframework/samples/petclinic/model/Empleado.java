@@ -1,12 +1,12 @@
 package org.springframework.samples.petclinic.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+
+import org.springframework.data.annotation.Version;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,5 +35,12 @@ public class Empleado extends NamedEntity {
     @Size(min = 3, max = 50)
 	@Column(name = "contrasena")
 	private String contrasena;
+    
+	@Version
+	private Integer version;
+	
+	public Integer getVersion() {
+		return this.version;
+	}
     
 }
