@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.CamareroService;
-import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -104,16 +103,12 @@ public class CamareroController {
 		}else if(authoritiesService.findAllUsernames().contains(camarero.getUsuario())){
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdateCamareroForm(camarero.getId(),modelMap);
-		}else if(camarero.getVersion()!=version){
+		}else if(camarero.getVersion()!=camareroService.findById(camarero.getId()).get().getVersion()){
 			modelMap.addAttribute("message", "El camarero que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoCamareros(modelMap);
 		}else {
-//			try {
-				camareroService.guardarCamarero(camarero);
-//			}catch (DuplicatedPedidoException e) {
-//				modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
-//				vista=listadoCamareros(modelMap);
-//			}
+			camarero.setVersion(camarero.getVersion()+1);
+			camareroService.guardarCamarero(camarero);
 		return "redirect:/camareros";
 		}
 	}

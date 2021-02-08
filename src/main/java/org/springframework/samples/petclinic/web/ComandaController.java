@@ -139,14 +139,11 @@ public class ComandaController {
 		String vista=infoComanda(comandaId,modelMap);
 		return vista;
 	}	
-	
-	
 	@PostMapping(path="/listaComandaActual/asignar/{comandaId}/{ppId}")
 	public String asignarComanda(@PathVariable("comandaId") int comandaId, @PathVariable("ppId") int ppId, ModelMap modelMap) throws ParseException {
 		PlatoPedido plato = platoPedidoService.findById(ppId).get();
 		Comanda comanda = comandaService.findById(comandaId).get();
 		plato.setComanda(comanda);
-		comanda.setPrecioTotal(comanda.getPrecioTotal()+plato.getPlato().getPrecio());
 		platoPedidoService.guardarPP(plato);
 		comanda.setPrecioTotal(comanda.getPrecioTotal()+plato.getPlato().getPrecio());
 		String vista= infoComanda(comandaId,modelMap);

@@ -25,14 +25,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/platos")
 public class PlatoController {
-	
-	@Autowired
-	private PlatoFormatter platoFormatter;
 
 	@Autowired
 	private PlatoService platoService;
@@ -101,12 +97,14 @@ public class PlatoController {
 			return vista;
 	}
 	@PostMapping(value = "/edit/{platoId}")
-	public String processUpdatePlatoForm(@Valid Plato plato,@PathVariable("platoId") int platoId,BindingResult result,ModelMap modelMap, @RequestParam(value="version", required=false) Integer version) {
+	public String processUpdatePlatoForm(@Valid Plato plato,@PathVariable("platoId") int platoId,
+			BindingResult result,ModelMap modelMap, @RequestParam(value="version", required=false) Integer version) {
+		
 		String vista= "platos/editarPlatos";
 		if(result.hasErrors()) {
 			modelMap.addAttribute("plato", plato);
 			return vista;
-		}else if(plato.getVersion()!=version){
+		}else if(plato.getVersion()!=platoService.buscaPlatoPorId(platoId).get().getVersion()){
 			modelMap.addAttribute("message", "El plato que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoPlatos(modelMap);
 		}else {
@@ -115,6 +113,7 @@ public class PlatoController {
 			res.setPrecio(plato.getPrecio());
 			res.setDisponible(plato.getDisponible());
 			res.setIngredientes(plato.getIngredientes());
+			res.setVersion(plato.getVersion()+1);
 			this.platoService.guardarPlato(res);
 			return "redirect:/platos";
 		}	

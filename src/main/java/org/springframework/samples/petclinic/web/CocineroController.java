@@ -98,11 +98,12 @@ public class CocineroController {
 		} else if (authoritiesService.findAllUsernames().contains(cocinero.getUsuario())) {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdateCocineroForm(cocinero.getId(),modelMap);
-		} else if (cocinero.getVersion() != version) {
+		} else if (cocinero.getVersion()!=cocineroService.findById(cocinero.getId()).get().getVersion()) {
 			modelMap.addAttribute("message",
 					"El cocinero que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoCocinero(modelMap);
 		} else {
+			cocinero.setVersion(cocinero.getVersion()+1);
 			this.cocineroService.guardarCocinero(cocinero);
 			return "redirect:/cocinero";
 		}
