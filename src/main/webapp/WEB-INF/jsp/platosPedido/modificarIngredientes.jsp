@@ -35,7 +35,7 @@
 	<br>
 	<form:form modelAttribute="ingredientePedido" class="form-horizontal"
 		id="add-comanda-form"
-		action="/comanda/listaComandaActual/asignar/${comandaId}/${platopedido.id}">
+		action="/comanda/listaComandaActual/asignar/${comandaId}/${platopedidoId}">
 		<button class="btn btn-default" type="submit">Finalizar y
 			asignar a comanda</button>
 	</form:form>
