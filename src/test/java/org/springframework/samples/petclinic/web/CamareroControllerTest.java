@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Camarero;
+import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.CamareroService;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -37,6 +38,10 @@ public class CamareroControllerTest {
 
 	@MockBean
 	private CamareroService camareroService;
+	
+
+	@MockBean
+	private AuthoritiesService authoritiesService;
 
 	@Autowired
 	private MockMvc mockMvc;
