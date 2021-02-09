@@ -60,7 +60,6 @@ public class CocineroController {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			vista = crearCocinero(modelMap);
 		} else {
-			cocinero.setVersion(0);
 			cocineroService.guardarCocinero(cocinero);
 			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista = listadoCocinero(modelMap);
@@ -94,8 +93,7 @@ public class CocineroController {
 	}
 
 	@PostMapping(value = "/edit")
-	public String processUpdateCocineroForm(@Valid Cocinero cocinero, BindingResult result, ModelMap modelMap,
-			@RequestParam(value = "version", required = false) Integer version) {
+	public String processUpdateCocineroForm(@Valid Cocinero cocinero, BindingResult result, ModelMap modelMap) {
 		if (result.hasErrors()) {
 			log.info(String.format("Chef with name %s and ID %d wasn't able to be updated", cocinero.getName(), cocinero.getId()));
 			modelMap.addAttribute("cocinero", cocinero);
@@ -105,12 +103,7 @@ public class CocineroController {
 			log.info(String.format("Try to update a chef with same user name as someone"));
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdateCocineroForm(cocinero.getId(),modelMap);
-		} else if (cocinero.getVersion()!=cocineroService.findById(cocinero.getId()).get().getVersion()) {
-			modelMap.addAttribute("message",
-					"El cocinero que intentas editar ya se estaba editando, intenta de nuevo por favor");
-			return listadoCocinero(modelMap);
-		} else {
-			cocinero.setVersion(cocinero.getVersion()+1);
+		}else {
 			this.cocineroService.guardarCocinero(cocinero);
 			return "redirect:/cocinero";
 		}

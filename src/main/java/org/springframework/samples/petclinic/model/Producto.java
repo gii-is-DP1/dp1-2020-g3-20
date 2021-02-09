@@ -50,8 +50,5 @@ public class Producto extends NamedEntity{
 	
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "producto")
 	private Set<Ingrediente> ingredientes;
-	
-	@Version
-	private Integer version;
 
 }

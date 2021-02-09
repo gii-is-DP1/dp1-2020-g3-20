@@ -62,7 +62,6 @@ public class ManagerController {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			vista = crearManager(modelMap);
 		}else {
-			manager.setVersion(0);
 			managerService.guardarManager(manager);
 			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista=listadoManagers(modelMap);
@@ -94,7 +93,7 @@ public class ManagerController {
 		return vista;
 	}
 	@PostMapping(value = "/edit")
-	public String processUpdateManagerForm(@Valid Manager manager, BindingResult result,ModelMap modelMap, @RequestParam(value="version", required=false) Integer version) {
+	public String processUpdateManagerForm(@Valid Manager manager, BindingResult result,ModelMap modelMap) {
 		if(result.hasErrors()) {
 			modelMap.addAttribute("manager", manager);
 			log.info(String.format("Manager with name %s and ID %d wasn't able to be updated", manager.getName(), manager.getId()));
@@ -103,11 +102,7 @@ public class ManagerController {
 				&& !managerService.buscaManagerPorId(manager.getId()).get().getUsuario().equals(manager.getUsuario())) {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdateManagerForm(manager.getId(),modelMap);
-		}else if(manager.getVersion()!=managerService.buscaManagerPorId(manager.getId()).get().getVersion()){
-			modelMap.addAttribute("message", "El manager que intentas editar ya se estaba editando, intenta de nuevo por favor");
-			return listadoManagers(modelMap);
 		}else {
-		manager.setVersion(manager.getVersion()+1);
 		this.managerService.guardarManager(manager);
 			return "redirect:/managers";
 		}

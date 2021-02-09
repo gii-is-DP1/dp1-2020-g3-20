@@ -18,18 +18,18 @@ INSERT INTO users(username,password,enabled) VALUES ('cobi','12345',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (6,'cobi','cocinero');
 
 --PERSONAS--
-INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena,version) VALUES (1,' Prince', 'Presley', 'princePR@gmail.com', 616161616, 'prince', '12345', 0);
-INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena,version) VALUES (1, 'Marcos', 'Martin', 'marcosMA@gmail.com', 626262626, 'marcos', '12345', 0);
-INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena,version) VALUES (1, 'Carlos', 'Catalan', 'carlosCA@gmail.com', 636363636, 'carlos', '12345', 0);
-INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena,version) VALUES (2, 'Carmen', 'Casio', 'carmenCA@gmail.com', 646464646, 'carmen', '12345', 0);
-INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena,version) VALUES (1, 'Coral', 'Cohen', 'coralCO@gmail.com', 656565656, 'coral', '12345', 0);
-INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena,version) VALUES (2, 'Cobi', 'Connor', 'cobiCO@gmail.com', 666666666, 'cobi', '12345', 0);
+INSERT INTO propietario(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1,' Prince', 'Presley', 'princePR@gmail.com', 616161616, 'prince', '12345');
+INSERT INTO manager(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Marcos', 'Martin', 'marcosMA@gmail.com', 626262626, 'marcos', '12345');
+INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Carlos', 'Catalan', 'carlosCA@gmail.com', 636363636, 'carlos', '12345');
+INSERT INTO camarero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2, 'Carmen', 'Casio', 'carmenCA@gmail.com', 646464646, 'carmen', '12345');
+INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (1, 'Coral', 'Cohen', 'coralCO@gmail.com', 656565656, 'coral', '12345');
+INSERT INTO cocinero(id,name,apellido,gmail,telefono,usuario,contrasena) VALUES (2, 'Cobi', 'Connor', 'cobiCO@gmail.com', 666666666, 'cobi', '12345');
 
 --PROVEEDORES--
-INSERT INTO proveedor(id,name,gmail,telefono,version) VALUES (1, 'Makro', 'foorder.dp@gmail.com', 666123456, 0);
-INSERT INTO proveedor(id,name,gmail,telefono,version) VALUES (2, 'CashFresh', 'foorder.dp@gmail.com',666234567, 0);
-INSERT INTO proveedor(id,name,gmail,telefono,version) VALUES (3, 'Frutas Manolo', 'foorder.dp@gmail.com',666345678, 0);
-INSERT INTO proveedor(id,name,gmail,telefono,version) VALUES (4, 'PepsiCo', 'foorder.dp@gmail.com',666345678, 0);
+INSERT INTO proveedor(id,name,gmail,telefono) VALUES (1, 'Makro', 'foorder.dp@gmail.com', 666123456);
+INSERT INTO proveedor(id,name,gmail,telefono) VALUES (2, 'CashFresh', 'foorder.dp@gmail.com',666234567);
+INSERT INTO proveedor(id,name,gmail,telefono) VALUES (3, 'Frutas Manolo', 'foorder.dp@gmail.com',666345678);
+INSERT INTO proveedor(id,name,gmail,telefono) VALUES (4, 'PepsiCo', 'foorder.dp@gmail.com',666345678);
 
 --TIPOS DE PRODUCTO--
 INSERT INTO tipoproducto VALUES (1, 'Carne');
@@ -41,41 +41,41 @@ INSERT INTO tipoproducto VALUES (6, 'Otros');
 
 --PRODUCTOS--
 			--Makro--
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (1 , 6, 'Pan'		  , 10.0, 5.0 , 30.0, 1, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (2 , 1, 'Solomillo'	  , 3.0 , 1.0 , 10.0, 1, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (3 , 2, 'Bacalao'	  , 2.0 , 6.0 , 10.0, 1, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (4 , 4, 'Roquefort'	  , 1.0 , 4.0 , 4.0 , 1, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (5 , 6, 'Huevos'	  , 12.0, 18.0, 36.0, 1, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (6 , 6, 'Arroz'		  , 1.0 , 5.5 , 10.0, 1, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (7 , 1, 'Carne Picada', 1.0 , 1.5 , 4.0 , 1, 0);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (1 , 6, 'Pan'		  , 10.0, 5.0 , 30.0, 1);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (2 , 1, 'Solomillo'	  , 3.0 , 1.0 , 10.0, 1);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (3 , 2, 'Bacalao'	  , 2.0 , 6.0 , 10.0, 1);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (4 , 4, 'Roquefort'	  , 1.0 , 4.0 , 4.0 , 1);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (5 , 6, 'Huevos'	  , 12.0, 18.0, 36.0, 1);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (6 , 6, 'Arroz'		  , 1.0 , 5.5 , 10.0, 1);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (7 , 1, 'Carne Picada', 1.0 , 1.5 , 4.0 , 1);
 			--CashFresh--
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (8 , 4, 'Leche'		  , 6.0 , 20.0, 25.0, 2, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (9 , 4, 'Mantequilla' , 5.0 , 15.0, 20.0, 2, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (10, 6, 'Nata'		  , 4.0 , 9.0 , 15.0, 2, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (11, 6, 'Tomate Frito', 5.0 , 18.0, 20.0, 2, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (12, 6, 'Sal'		  , 1 , 1.2 , 3.0 , 2, 0);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (8 , 4, 'Leche'		  , 6.0 , 20.0, 25.0, 2);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (9 , 4, 'Mantequilla' , 5.0 , 15.0, 20.0, 2);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (10, 6, 'Nata'		  , 4.0 , 9.0 , 15.0, 2);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (11, 6, 'Tomate Frito', 5.0 , 18.0, 20.0, 2);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (12, 6, 'Sal'		  , 0.5 , 0.8 , 3.0 , 2);
 			--Frutas Manolo--
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (13, 3, 'Lechuga'	  , 5.0 , 10.0, 15.0, 3, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (14, 3, 'Cebolla'	  , 2.0 , 1.5 , 10.0, 3, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (15, 3, 'Tomate'	  , 1.0 , 2.0 , 4.0 , 3, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (16, 3, 'Patatas'	  , 1.0 , 3.0 , 5.0 , 3, 0);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (13, 3, 'Lechuga'	  , 5.0 , 10.0, 15.0, 3);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (14, 3, 'Cebolla'	  , 2.0 , 1.5 , 10.0, 3);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (15, 3, 'Tomate'	  , 1.0 , 2.0 , 4.0 , 3);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (16, 3, 'Patatas'	  , 1.0 , 3.0 , 5.0 , 3);
 			--PepsiCo--
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (17, 5, 'Pepsi'		  , 10.0, 20.0, 50.0, 4, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (18, 5, '7UP'		  , 5.0 , 10.0, 25.0, 4, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (19, 5, 'Lipton'	  , 5.0 , 10.0, 25.0, 4, 0);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (17, 5, 'Pepsi'		  , 10.0, 20.0, 50.0, 4);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (18, 5, '7UP'		  , 5.0 , 10.0, 25.0, 4);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id) VALUES (19, 5, 'Lipton'	  , 5.0 , 10.0, 25.0, 4);
 
 --PLATOS--
-INSERT INTO platos(id,name,precio,disponible,version) VALUES (1, 'Albondigas'		  ,5.0, TRUE, 0);
-INSERT INTO platos(id,name,precio,disponible,version) VALUES (2, 'Revuelto de bacalao',7.8, TRUE, 0);
-INSERT INTO platos(id,name,precio,disponible,version) VALUES (3, 'Solomillo al roque' ,9.0, FALSE,0);
-INSERT INTO platos(id,name,precio,disponible,version) VALUES (4, 'Arroz a la cubana'  ,4.5, TRUE, 0);
-INSERT INTO platos(id,name,precio,disponible,version) VALUES (5, 'Tortilla de patatas',5.0, TRUE, 0);
-INSERT INTO platos(id,name,precio,disponible,version) VALUES (6, 'Ensalada'			  ,3.0, TRUE, 0);
-INSERT INTO platos(id,name,precio,disponible,version) VALUES (7, 'Arroz con leche'	  ,4.0, TRUE, 0);
-INSERT INTO platos(id,name,precio,disponible,version) VALUES (8, 'Pepsi'			  ,1.5, TRUE, 0);
-INSERT INTO platos(id,name,precio,disponible,version) VALUES (9, '7UP'				  ,1.5, TRUE, 0);
-INSERT INTO platos(id,name,precio,disponible,version) VALUES (10,'Lipton'			  ,1.5, TRUE, 0);
-INSERT INTO platos(id,name,precio,disponible,version) VALUES (11,'Cesta de pan'		  ,1.0, TRUE, 0);
+INSERT INTO platos(id,name,precio,disponible) VALUES (1, 'Albondigas'		  ,5.0, TRUE);
+INSERT INTO platos(id,name,precio,disponible) VALUES (2, 'Revuelto de bacalao',7.8, TRUE);
+INSERT INTO platos(id,name,precio,disponible) VALUES (3, 'Solomillo al roque' ,9.0, FALSE);
+INSERT INTO platos(id,name,precio,disponible) VALUES (4, 'Arroz a la cubana'  ,4.5, TRUE);
+INSERT INTO platos(id,name,precio,disponible) VALUES (5, 'Tortilla de patatas',5.0, TRUE);
+INSERT INTO platos(id,name,precio,disponible) VALUES (6, 'Ensalada'			  ,3.0, TRUE);
+INSERT INTO platos(id,name,precio,disponible) VALUES (7, 'Arroz con leche'	  ,4.0, TRUE);
+INSERT INTO platos(id,name,precio,disponible) VALUES (8, 'Pepsi'			  ,1.5, TRUE);
+INSERT INTO platos(id,name,precio,disponible) VALUES (9, '7UP'				  ,1.5, TRUE);
+INSERT INTO platos(id,name,precio,disponible) VALUES (10,'Lipton'			  ,1.5, TRUE);
+INSERT INTO platos(id,name,precio,disponible) VALUES (11,'Cesta de pan'		  ,1.0, TRUE);
 
 --INGREDIENTES--
 				--Albóndigas--

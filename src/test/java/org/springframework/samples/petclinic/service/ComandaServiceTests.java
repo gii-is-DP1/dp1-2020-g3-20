@@ -49,7 +49,6 @@ class ComandaServiceTests {
 				camarero.setTelefono("654654659");
 				camarero.setUsuario("TestComanda1");
 				camarero.setContrasena("12345");
-				camarero.setVersion(0);
 				camareroService.guardarCamarero(camarero);
 		comanda.setCamarero(camarero);
               
@@ -78,7 +77,6 @@ class ComandaServiceTests {
 				camarero.setTelefono("683683683");
 				camarero.setUsuario("TestComanda2");
 				camarero.setContrasena("12345");
-				camarero.setVersion(0);
 				camareroService.guardarCamarero(camarero);
 		comanda.setCamarero(camarero);
               
@@ -106,7 +104,6 @@ class ComandaServiceTests {
 				camarero.setTelefono("632632637");
 				camarero.setUsuario("TestComanda3");
 				camarero.setContrasena("12345");
-				camarero.setVersion(0);
 				camareroService.guardarCamarero(camarero);
 		comanda.setCamarero(camarero);
               

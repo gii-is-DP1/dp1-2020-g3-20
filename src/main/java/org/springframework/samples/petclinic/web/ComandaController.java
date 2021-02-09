@@ -156,7 +156,7 @@ public class ComandaController {
 		String vista= "";
 		PlatoPedido plato = platoPedidoService.findById(ppId).get();
 		if(plato.getIngredientesPedidos().size()==0){
-			modelMap.addAttribute("message", "ha habido un error al guardar, No se han seleccionado ingredientes");
+			modelMap.addAttribute("message", "Ha habido un error al guardar, No se han seleccionado ingredientes");
 			vista = platoPedidoController.initUpdatePPForm(comandaId, plato.getId(),modelMap);
 		}else {
 		Comanda comanda = comandaService.findById(comandaId).get();
