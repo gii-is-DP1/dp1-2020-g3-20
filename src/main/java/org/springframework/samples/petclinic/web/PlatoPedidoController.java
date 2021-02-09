@@ -75,7 +75,7 @@ public class PlatoPedidoController {
 	@GetMapping()
 	public String listadoPlatosPedido(ModelMap modelMap) {
 		String vista = "platosPedido/listaPlatosPedido";
-		Iterable<PlatoPedido> pp = ppService.findAll();
+		Iterable<PlatoPedido> pp = ppService.platosPedidosDesponibles();
 		modelMap.addAttribute("platopedido", pp);
 		return vista;
 	}
@@ -172,7 +172,7 @@ public class PlatoPedidoController {
 		return vista;
 	}
 
-	@PostMapping(value = "/edit")
+	/*@PostMapping(value = "/edit")
 	public String processUpdatePPForm(PlatoPedidoDTO ppDTO, BindingResult result, ModelMap modelMap)
 			throws ParseException {
 		final PlatoPedido ppFinal = ppConverter.convertPPDTOToEntity(ppDTO);
@@ -187,7 +187,7 @@ public class PlatoPedidoController {
 			String vista = listadoPlatosPedido(modelMap);
 			return vista;
 		}
-	}
+	}*/
 
 	/*@PostMapping(value = "/guardarIngredientes")
 	public String guardarIngredientes(Collection<IngredientePedido> lista, BindingResult result, ModelMap modelMap)

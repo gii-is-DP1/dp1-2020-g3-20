@@ -50,6 +50,12 @@ public class PlatoPedidoService {
 		return ppRepo.findAll();
 
 	}
+	
+	@Transactional
+	public Iterable<PlatoPedido> platosPedidosDesponibles() {
+		return ppRepo.platosPedidosDesponibles();
+
+	}
 
 	@Transactional
 	public PlatoPedido guardarPP(PlatoPedido pp) {

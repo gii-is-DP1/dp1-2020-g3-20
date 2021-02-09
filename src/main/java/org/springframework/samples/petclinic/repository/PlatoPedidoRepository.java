@@ -19,4 +19,7 @@ public interface PlatoPedidoRepository extends CrudRepository<PlatoPedido, Integ
 	
 	@Query("SELECT ip FROM IngredientePedido ip ORDER BY ip.id")
 	List<IngredientePedido> encontrarIngredientesPedido() throws DataAccessException;
+	
+	@Query("SELECT pp FROM PlatoPedido pp WHERE NOT(pp.comanda IS null)")
+	List<PlatoPedido> platosPedidosDesponibles() throws DataAccessException;
 }
