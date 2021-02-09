@@ -61,6 +61,7 @@ public class PropietarioController {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return crearPropietario(modelMap);
 		} else {
+			propietario.setVersion(0);
 			propietarioService.guardarPropietario(propietario);
 			modelMap.addAttribute("message", "successfuly saved");
 			vista = listadoPropietarios(modelMap);

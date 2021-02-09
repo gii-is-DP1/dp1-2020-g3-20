@@ -107,6 +107,7 @@ public class ProductoController {
 			modelMap.addAttribute("producto", producto);
 			return "producto/editProducto";
 		}else {
+			productoFinal.setVersion(0);
 			productoService.guardarProducto(productoFinal);
 			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista=listadoProducto(modelMap);

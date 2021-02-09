@@ -69,6 +69,7 @@ public class PlatoController {
 		  modelMap.addAttribute("platos", plato);
 			return "platos/editPlatos";
 		}else {
+			plato.setVersion(0);
 			platoService.guardarPlato(plato);
 			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista=listadoPlatos(modelMap);
