@@ -1,10 +1,14 @@
 package org.springframework.samples.petclinic.web;
 
+import java.text.ParseException;
 import java.time.LocalDate;
+
 import java.util.HashSet;
+
+import java.util.Optional;
 import java.util.Set;
 
-import org.assertj.core.util.Lists;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,209 +18,125 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.LineaPedido;
+import org.springframework.samples.petclinic.model.Pedido;
+
 import org.springframework.samples.petclinic.model.Producto;
+
 import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.samples.petclinic.model.TipoProducto;
 import org.springframework.samples.petclinic.service.ProductoService;
 import org.springframework.samples.petclinic.service.ProveedorService;
+import org.springframework.samples.petclinic.service.exceptions.PedidoPendienteException;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @WebMvcTest(controllers = ProductoController.class, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfigurer.class), excludeAutoConfiguration = SecurityConfiguration.class)
 public class ProductoControllerTest {
 
-	private static final int	TEST_PRODUCTO_ID	= 1;
+	private static final int TEST_PRODUCTO_ID = 20;
+	private static final int TEST_LINEAPEDIDO_ID = 3;
+	private static final int TEST_PEDIDO_ID = 1;
+	private static final int TEST_PROVEEDOR_ID = 1;
+	private static final int TEST_TIPO_PRODUCTO_ID = 1;
 
-	//private static final int	TEST_PROVEEDOR_ID	= 1;
-	private static final int	TEST_TIPOPRODUCTO	= 1;
-	
 	@MockBean
-	private ProductoService		productoService;
+	private ProductoService productoService;
 	@MockBean
-	private ProveedorService		proveedorService;
-	
+	private ProveedorService proveedorService;
+	@MockBean
+	private ProductoConverter productconverter;
+
+	@MockBean
+	private TipoProductoFormatter tipoproductoformatter;
+
+	@MockBean
+	private ProveedorFormatter proveedorformatter;
 
 	@Autowired
-	private MockMvc				mockMvc;
+	private MockMvc mockMvc;
 
-	
-	private Producto				producto;
-	private TipoProducto				tipoproducto;
-	private Proveedor				proveedor;
-	
-
+	private Producto producto = new Producto();
+	private TipoProducto tipoproducto = new TipoProducto();
+	private Proveedor proveedor = new Proveedor();
+	private LineaPedido lineapedido = new LineaPedido();
+	private Pedido pedido = new Pedido();
 
 	@BeforeEach
-	
-	void setup() {
-		
-		  this.producto = new Producto();
-		  this.proveedor= Lists.newArrayList(proveedorService.findAll()).get(1);
-		  this.tipoproducto=new TipoProducto();
-		  
-		  LineaPedido l1= new LineaPedido();
-		  LineaPedido l2= new LineaPedido();
-		  LineaPedido l3= new LineaPedido();
-		  
-		  l1.setId(2);
-		  l1.setCantidad(3);
-		  
-		  l1.setId(3);
-		  l1.setCantidad(3);
-		  
-		  l1.setId(4);
-		  l1.setCantidad(3);
-		  
-		  Set<LineaPedido> l= new HashSet<LineaPedido> ();
-		  l.add(l1);l.add(l2);l.add(l3);
-		  
-		 
-		  //this.proveedor.setId(this.TEST_PROVEEDOR_ID);
-			
-			  this.proveedor.setActivo(true);
-			  this.proveedor.setGmail("adch@gmail.com");
-			  //this.proveedor.setTelefono("123456789"); this.proveedor.setId(4);
-			  this.proveedor.setName("proveedor_1");
-			  this.proveedor.setTelefono("123456789");
-			  Producto p1=new Producto();
-			  Set<Producto> st=new HashSet<>();
-			  st.add(p1);this.proveedor.setProductos(st);
-			  this.proveedor.setId(1);
-			
-		  
-		  
-		 // this.proveedor.setId(ProductoControllerTest.TEST_PROVEEDOR_ID);
-		  
-		  this.tipoproducto.setName("solmillo");
-		  this.tipoproducto.setId(this.TEST_TIPOPRODUCTO);
-		  
-		 
-		  
-		  this.producto.setId(ProductoControllerTest.TEST_PRODUCTO_ID);
-		  this.producto.setCantAct(1.0);
-		  this.producto.setCantMax(10.0);
-		  this.producto.setCantMin(0.0);
-		  this.producto.setLineasPedidas(l);
-		  this.producto.setName("abi");
-		  this.producto.setProveedor(proveedor);
-		  this.producto.setTipoProducto(this.tipoproducto);
-		 
-		  BDDMockito.given(this.productoService.buscaProductoPorId(ProductoControllerTest.TEST_PRODUCTO_ID).get()).willReturn(this.producto);
-		  //BDDMockito.given(this.productoService.encontrarTiposProducto()).willReturn(Lists.newArrayList(this.tipoproducto));
+
+	void setup() throws DataAccessException, ParseException, PedidoPendienteException, NullPointerException {
+
+		// Data Pedido
+		pedido.setFechaEntrega(LocalDate.now());
+		pedido.setHaLlegado(true);
+		pedido.setId(TEST_PEDIDO_ID);
+		// Data Linea pedido
+		lineapedido.setCantidad(2);
+		lineapedido.setProducto(producto);
+		lineapedido.setId(TEST_LINEAPEDIDO_ID);
+		lineapedido.setPedido(pedido);
+		Set<LineaPedido> lineas = new HashSet<LineaPedido>();
+		lineas.add(lineapedido);
+		// data proveedor
+		proveedor.setActivo(true);
+		proveedor.setName("proveedor_1");
+		proveedor.setTelefono("123456789");
+		proveedor.setId(TEST_PROVEEDOR_ID);
+		// data Tipo PRoducto
+		tipoproducto.setId(TEST_TIPO_PRODUCTO_ID);
+		tipoproducto.setName("Otros");
+
+		// data PRoducto
+		producto.setCantAct(10.0);
+		producto.setCantMax(11.0);
+		producto.setCantMin(1.0);
+		producto.setName("producto_1");
+		producto.setLineasPedidas(lineas);
+		producto.setId(this.TEST_PRODUCTO_ID);
+		producto.setProveedor(proveedor);
+		producto.setTipoProducto(tipoproducto);
+
+		BDDMockito.given(this.productoService.buscaProductoPorId(TEST_PRODUCTO_ID)).willReturn(Optional.of(producto));
+		BDDMockito.given(this.proveedorService.findProveedorbyName("proveedor_1")).willReturn(this.proveedor);
+		BDDMockito.given(this.productoService.findLineaPedidoByProductoId(TEST_PRODUCTO_ID))
+				.willReturn(this.producto.getLineasPedidas());
 	}
-	   
-	
-	
+
 	@WithMockUser(value = "spring")
 	@Test
 	@DisplayName("Vista creacion producto")
 	void testInitCreationForm() throws Exception {
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/producto/new")).andExpect
-		(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.
-				view().name("producto/editProducto"))
-			.andExpect(MockMvcResultMatchers.model().attributeExists("producto"));
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/producto/new"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.view().name("producto/editProducto"))
+				.andExpect(MockMvcResultMatchers.model().attributeExists("producto"));
 	}
 
-	/*
-	 * @WithMockUser(value = "spring")
-	 * 
-	 * @Test
-	 * 
-	 * @DisplayName("Vista lista reseña") void testList() throws Exception {
-	 * this.mockMvc.perform(MockMvcRequestBuilders.get("/reviews")).andExpect(
-	 * MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.view()
-	 * .name("/reviews/listadoReviews")); }
-	 * 
-	 * @WithMockUser(username = "owner5", roles = { "OWNER" })
-	 * 
-	 * @DisplayName("Creacion reseña fallida por reserva doble")
-	 * 
-	 * @Test void testProcessCreationFormFailureDouble() throws Exception {
-	 * this.mockMvc.perform(MockMvcRequestBuilders.post("/reviews/save/")
-	 * .with(SecurityMockMvcRequestPostProcessors.csrf()) .param("description",
-	 * "description review test") .param("valoracion", "4"))
-	 * .andExpect(MockMvcResultMatchers.status().isOk())
-	 * .andExpect(MockMvcResultMatchers.view().name("reviews/editReview"));
-	 * 
-	 * }
-	 * 
-	 * 
-	 * @WithMockUser(username = "owner6", roles = { "OWNER" })
-	 * 
-	 * @DisplayName("Creacion reseña exitosa")
-	 * 
-	 * @Test void testProcessCreationFormSuccess() throws Exception {
-	 * this.mockMvc.perform(MockMvcRequestBuilders.post("/reviews/save/")
-	 * .with(SecurityMockMvcRequestPostProcessors.csrf()) .param("description",
-	 * "description review test") .param("valoracion", "4"))
-	 * .andExpect(MockMvcResultMatchers.status().isOk())
-	 * .andExpect(MockMvcResultMatchers.view().name("/reviews/listadoReviews"));
-	 * 
-	 * }
-	 * 
-	 * 
-	 * @WithMockUser(username = "owner6", roles = { "OWNER" })
-	 * 
-	 * @DisplayName("Creacion reseña fallida por parametros")
-	 * 
-	 * @Test void testProcessCreationFormHasErrors() throws Exception {
-	 * this.mockMvc.perform(MockMvcRequestBuilders.post("/reviews/save/")
-	 * .with(SecurityMockMvcRequestPostProcessors.csrf()) .param("description",
-	 * "description review test").param("valoracion", "0"))
-	 * .andExpect(MockMvcResultMatchers.status().isOk())
-	 * .andExpect(MockMvcResultMatchers.view().name("reviews/editReview")); }
-	 * 
-	 * @WithMockUser(username = "owner5", roles = { "OWNER" })
-	 * 
-	 * @DisplayName("Actualizar reseña con errores")
-	 * 
-	 * @Test void testProcessUpdateFormHasErrors() throws Exception {
-	 * this.mockMvc.perform(MockMvcRequestBuilders.post("/reviews/edit")
-	 * .with(SecurityMockMvcRequestPostProcessors.csrf()) .param("description",
-	 * "description review test").param("valoracion", "0"))
-	 * .andExpect(MockMvcResultMatchers.status().isOk())
-	 * .andExpect(MockMvcResultMatchers.view().name("reviews/editReview")); }
-	 * 
-	 * @WithMockUser(username = "owner5", roles = { "OWNER" })
-	 * 
-	 * @DisplayName("Actualizar reseña exitosamente")
-	 * 
-	 * @Test void testProcessUpdateFormSuccess() throws Exception {
-	 * this.mockMvc.perform(MockMvcRequestBuilders.post("/reviews/edit")
-	 * .with(SecurityMockMvcRequestPostProcessors.csrf()) .param("description",
-	 * "description review test").param("valoracion", "1"))
-	 * .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-	 * .andExpect(MockMvcResultMatchers.view().name("redirect:/reviews")); }
-	 * 
-	 * 
-	 * @WithMockUser(username = "owner6", roles = { "OWNER" })
-	 * 
-	 * @DisplayName("Borrar reseña fallida")
-	 * 
-	 * @Test void testProcessDeleteHasError() throws Exception {
-	 * this.mockMvc.perform(MockMvcRequestBuilders.post("/reviews/delete/"+this.
-	 * TEST_REVIEW_ID) .with(SecurityMockMvcRequestPostProcessors.csrf()) )
-	 * .andExpect(MockMvcResultMatchers.status().isOk())
-	 * .andExpect(MockMvcResultMatchers.view().name("exception")); }
-	 * 
-	 * @WithMockUser(username = "owner5", roles = { "OWNER" })
-	 * 
-	 * @DisplayName("Borrado de reseña exitoso")
-	 * 
-	 * @Test void testProcessDeleteSuccess() throws Exception {
-	 * this.mockMvc.perform(MockMvcRequestBuilders.get("/reviews/delete/"+this.
-	 * TEST_REVIEW_ID) .with(SecurityMockMvcRequestPostProcessors.csrf()) )
-	 * .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-	 * .andExpect(MockMvcResultMatchers.view().name("redirect:/reviews")); }
-	 */
-	
-	
+	@WithMockUser(value = "spring")
+	@Test
+	@DisplayName("Vista eliminar producto")
+	void initDeleteProducto() throws Exception {
+		BDDMockito.given(this.productoService.buscaProductoPorId(TEST_PRODUCTO_ID)).willReturn(Optional.of(producto));
+		mockMvc.perform(get("/producto/delete/{productoId}", TEST_PRODUCTO_ID))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.model().attributeExists("producto"))
+				.andExpect(MockMvcResultMatchers.view().name("producto/listaProducto"));
 
+	}
 
+	@WithMockUser(value = "spring")
+	@Test
+	@DisplayName("Vista listar productos")
+	void testListProducto() throws Exception {
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/producto/")).andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.model().attributeExists("producto"))
+				.andExpect(MockMvcResultMatchers.view().name("producto/listaProducto"));
+	}
 
 }
