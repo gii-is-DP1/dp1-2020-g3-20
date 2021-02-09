@@ -134,7 +134,7 @@ public class PlatoPedidoController {
 	 * vista=listadoPlatosPedido(modelMap); } return vista; }
 	 */
 
-	@GetMapping(path = "/delete/{ppId}")
+	/*@GetMapping(path = "/delete/{ppId}")
 	public String borrarPP(@PathVariable("ppId") int ppId, ModelMap modelMap) {
 		String vista = "platosPedido/listaPlatosPedido";
 		Optional<PlatoPedido> pp = ppService.findById(ppId);
@@ -148,8 +148,7 @@ public class PlatoPedidoController {
 			vista = listadoPlatosPedido(modelMap);
 		}
 		return vista;
-	}
-
+	}*/
 	@GetMapping(value = "/comanda/{comandaId}/{ppId}")
 	public String initUpdatePPForm(@PathVariable("comandaId") int comandaId, @PathVariable("ppId") int ppId,
 			ModelMap model) {
@@ -215,17 +214,14 @@ public class PlatoPedidoController {
 	public String guardarIngrediente(@PathVariable("comandaId") int comandaId, @PathVariable("ppId") int ppId,
 			@PathVariable("ingId") int ingId, @Valid IngredientePedido ingredientePedido, BindingResult result,
 			ModelMap modelMap) throws ParseException {
-		if (result.hasErrors()) {
-			// modelMap.addAttribute("platopedido", ppDTO);
-			return "platosPedido/editarPlatosPedido";
-		} else {
+		
 			ingredientePedido.setIngrediente(ingredienteService.buscaIngPorId(ingId).get());
 			ingredientePedido.setPp(ppService.findById(ppId).get());
 			ingService.guardarIngredientePedido(ingredientePedido);
 			log.info(String.format("IngredientOrder with ingredient %s and amount %f has been saved", ingredientePedido.getIngrediente().getProducto().getName(), ingredientePedido.getCantidadPedida()));
-			modelMap.addAttribute("message", "successfuly saved");
+			modelMap.addAttribute("message", "Añadido");
 			return initUpdatePPForm(comandaId, ppId, modelMap);
-		}
+		
 	}
 
 	// parte correspondiente a ingrediente pedido
