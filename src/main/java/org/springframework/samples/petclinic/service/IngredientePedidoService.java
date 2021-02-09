@@ -43,7 +43,8 @@ public class IngredientePedidoService {
 		Producto prod = ing.getIngrediente().getProducto();
 		prod.setCantAct(prod.getCantAct()-cantidad);
 		productoService.guardarProducto(prod);
-		return ingredientePedidoRepository.save(ing);
+		ingredientePedidoRepository.save(ing);
+		return ing;
 		
 	}
 	
