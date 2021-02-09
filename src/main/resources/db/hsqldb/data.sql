@@ -53,7 +53,7 @@ INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,canti
 INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (9 , 4, 'Mantequilla' , 5.0 , 15.0, 20.0, 2, 0);
 INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (10, 6, 'Nata'		  , 4.0 , 9.0 , 15.0, 2, 0);
 INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (11, 6, 'Tomate Frito', 5.0 , 18.0, 20.0, 2, 0);
-INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (12, 6, 'Sal'		  , 0.5 , 0.8 , 3.0 , 2, 0);
+INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (12, 6, 'Sal'		  , 1 , 1.2 , 3.0 , 2, 0);
 			--Frutas Manolo--
 INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (13, 3, 'Lechuga'	  , 5.0 , 10.0, 15.0, 3, 0);
 INSERT INTO producto(id,tipo_producto,name,cantidad_minima,cantidad_actual,cantidad_maxima,proveedor_id,version) VALUES (14, 3, 'Cebolla'	  , 2.0 , 1.5 , 10.0, 3, 0);
