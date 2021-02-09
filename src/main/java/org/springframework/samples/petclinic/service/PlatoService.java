@@ -99,14 +99,17 @@ public class PlatoService {
 	//Mostrar platos disponibles para ofrecerlos (elimina platos de los que falan ingredientes)
 	public List<Plato> findAllAvailable() {
 		Boolean falta = false;
-		List<Plato> res = platoRepository.findAllAvailable();
-		Iterator<Plato> iterator = res.iterator();
+		List<Plato> listaPlatos = platoRepository.findAllAvailable();
+		List<Plato> res = new ArrayList<>();
+		res.addAll(listaPlatos);
+		Iterator<Plato> iterator = listaPlatos.iterator();
 		while (iterator.hasNext()) {
 			falta=false;
 			Plato plato = iterator.next();
-			Iterator<Ingrediente> listaIngredientes = plato.getIngredientes().iterator();
-			while (listaIngredientes.hasNext()) {
-				Ingrediente ingrediente = listaIngredientes.next();
+			Collection<Ingrediente> listaIngredientes = plato.getIngredientes();
+			Iterator<Ingrediente> iterator2 = listaIngredientes.iterator();
+			while (iterator2.hasNext()) {
+				Ingrediente ingrediente = iterator2.next();
 				if(ingrediente.getCantidadUsualPP() > ingrediente.getProducto().getCantAct()) {
 					falta = true;
 				}

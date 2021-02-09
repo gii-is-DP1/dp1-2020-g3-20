@@ -33,7 +33,8 @@ public class ComandaService {
 
 	@Transactional
 	public Iterable<Comanda> findAll() {
-		return comandaRepository.findAll();
+		Iterable<Comanda> res = comandaRepository.findAll();
+		return res;
 	}
 
 	@Transactional

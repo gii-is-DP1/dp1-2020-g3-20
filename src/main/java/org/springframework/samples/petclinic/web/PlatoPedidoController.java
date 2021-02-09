@@ -29,6 +29,7 @@ import org.springframework.samples.petclinic.service.ComandaService;
 import org.springframework.samples.petclinic.service.IngredientePedidoService;
 import org.springframework.samples.petclinic.service.IngredienteService;
 import org.springframework.samples.petclinic.service.PlatoPedidoService;
+import org.springframework.samples.petclinic.service.PlatoService;
 import org.springframework.samples.petclinic.service.ProductoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,7 +40,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 @RequestMapping(value = "/platopedido")
 public class PlatoPedidoController {
 
@@ -75,7 +79,7 @@ public class PlatoPedidoController {
 	@GetMapping()
 	public String listadoPlatosPedido(ModelMap modelMap) {
 		String vista = "platosPedido/listaPlatosPedido";
-		Iterable<PlatoPedido> pp = ppService.findAll();
+		Iterable<PlatoPedido> pp = ppService.platosPedidosDesponibles();
 		modelMap.addAttribute("platopedido", pp);
 		return vista;
 	}
@@ -172,7 +176,7 @@ public class PlatoPedidoController {
 		return vista;
 	}
 
-	@PostMapping(value = "/edit")
+	/*@PostMapping(value = "/edit")
 	public String processUpdatePPForm(PlatoPedidoDTO ppDTO, BindingResult result, ModelMap modelMap)
 			throws ParseException {
 		final PlatoPedido ppFinal = ppConverter.convertPPDTOToEntity(ppDTO);
@@ -187,7 +191,7 @@ public class PlatoPedidoController {
 			String vista = listadoPlatosPedido(modelMap);
 			return vista;
 		}
-	}
+	}*/
 
 	/*@PostMapping(value = "/guardarIngredientes")
 	public String guardarIngredientes(Collection<IngredientePedido> lista, BindingResult result, ModelMap modelMap)
@@ -218,6 +222,7 @@ public class PlatoPedidoController {
 			ingredientePedido.setIngrediente(ingredienteService.buscaIngPorId(ingId).get());
 			ingredientePedido.setPp(ppService.findById(ppId).get());
 			ingService.guardarIngredientePedido(ingredientePedido);
+			log.info(String.format("IngredientOrder with ingredient %s and amount %f has been saved", ingredientePedido.getIngrediente().getProducto().getName(), ingredientePedido.getCantidadPedida()));
 			modelMap.addAttribute("message", "successfuly saved");
 			return initUpdatePPForm(comandaId, ppId, modelMap);
 		}

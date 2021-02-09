@@ -148,17 +148,18 @@ public class ComandaController {
 	
 	@PostMapping(path="/listaComandaActual/asignar/{comandaId}/{ppId}")
 	public String asignarComanda(@PathVariable("comandaId") int comandaId, @PathVariable("ppId") int ppId, ModelMap modelMap) throws ParseException {
-		String vista= infoComanda(comandaId,modelMap);
+		String vista= "";
 		PlatoPedido plato = platoPedidoService.findById(ppId).get();
-		Comanda comanda = comandaService.findById(comandaId).get();
-		plato.setComanda(comanda);
-		comanda.setPrecioTotal(comanda.getPrecioTotal()+plato.getPlato().getPrecio());
 		if(plato.getIngredientesPedidos().size()==0){
 			modelMap.addAttribute("message", "ha habido un error al guardar, No se han seleccionado ingredientes");
 			vista = platoPedidoController.initUpdatePPForm(comandaId, plato.getId(),modelMap);
-			}
-		platoPedidoService.guardarPP(plato);
+		}else {
+		Comanda comanda = comandaService.findById(comandaId).get();
+		plato.setComanda(comanda);
 		comanda.setPrecioTotal(comanda.getPrecioTotal()+plato.getPlato().getPrecio());
+		platoPedidoService.guardarPP(plato);
+		vista= infoComanda(comandaId,modelMap);
+		}
 		return vista; 
 	}
 }

@@ -52,7 +52,6 @@ public class IngredientePedidoService {
 		IngredientePedido ip = new IngredientePedido();
 		ip.setCantidadPedida(i.getCantidadUsualPP());
 		ip.setIngrediente(i);
-		log.info(String.format("IngredientOrder with ingredient %s and amount %f has been saved", ip.getIngrediente().getProducto().getName(), ip.getCantidadPedida()));
 		return ip;
 	}
 	
