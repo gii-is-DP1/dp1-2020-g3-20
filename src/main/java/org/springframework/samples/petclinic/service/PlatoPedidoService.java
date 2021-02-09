@@ -60,7 +60,7 @@ public class PlatoPedidoService {
 	@Transactional
 	public PlatoPedido guardarPP(PlatoPedido pp) {
 //		pp.getPlato().getIngredientes();
-   		if ((pp.getEstadoplato().getId().equals(1)) & (pp.getComanda() != null)) {
+   	/*	if ((pp.getEstadoplato().getId().equals(1)) & (pp.getComanda() != null)) {
 			Iterator<IngredientePedido> ipl = pp.getIngredientesPedidos().iterator();
 			while (ipl.hasNext()) {
 				IngredientePedido ip = ipl.next();
@@ -69,8 +69,12 @@ public class PlatoPedidoService {
 				prod.setCantAct(prod.getCantAct() - cantidad);
 				prodService.guardarProducto(prod);
 			}
+		}*/
+		if(pp.getComanda() != null & pp.getEstadoplato().getId() == 1) {
+			log.info(String.format("PlateOrder with name %s has been created for table %s", pp.getPlato().getName(), pp.getComanda().getMesa().toString()));
+		}else if(pp.getComanda() != null){
+			log.info(String.format("PlateOrder with name %s has been updated to %s", pp.getPlato().getName(), pp.getEstadoplato().getName()));
 		}
-		log.info(String.format("PlateOrder with name %s has been created", pp.getPlato().getName()));		
 		return ppRepo.save(pp);
 
 	}
