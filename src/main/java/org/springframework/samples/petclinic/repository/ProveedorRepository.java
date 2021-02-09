@@ -12,6 +12,9 @@ public interface ProveedorRepository extends  CrudRepository<Proveedor, Integer>
 	@Query("SELECT p.name FROM Proveedor p WHERE p.activo=true")
 	List<String> findActivoName() throws DataAccessException; 
 	
+	@Query("SELECT p.name FROM Proveedor p")
+	List<String> findNames() throws DataAccessException; 
+	
 	Iterable<Proveedor> findByActivoTrue() throws DataAccessException; 
 	
 	Proveedor findByName(String nombre) throws DataAccessException; 

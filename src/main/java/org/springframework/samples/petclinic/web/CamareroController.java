@@ -65,14 +65,10 @@ public class CamareroController {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			vista=crearCamarero(modelMap);
 		}else {
-//			try {
-				camareroService.guardarCamarero(camarero);
-				modelMap.addAttribute("message", "Guardado correctamente");
-				vista=listadoCamareros(modelMap);
-//			} catch (DuplicatedPedidoException e) {
-//				modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
-//				vista=listadoCamareros(modelMap);
-//			}
+			camarero.setVersion(0);
+			camareroService.guardarCamarero(camarero);
+			modelMap.addAttribute("message", "Guardado correctamente");
+			vista=listadoCamareros(modelMap);
 		}
 		return vista;
 	}

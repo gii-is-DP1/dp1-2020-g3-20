@@ -60,6 +60,7 @@ public class CocineroController {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			vista = crearCocinero(modelMap);
 		} else {
+			cocinero.setVersion(0);
 			cocineroService.guardarCocinero(cocinero);
 			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista = listadoCocinero(modelMap);

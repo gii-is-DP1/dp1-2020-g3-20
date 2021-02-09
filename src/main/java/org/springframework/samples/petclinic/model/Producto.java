@@ -48,8 +48,5 @@ public class Producto extends NamedEntity{
 	
 	@Version
 	private Integer version;
-	
-	public Integer getVersion() {
-		return this.version;
-	}
+
 }

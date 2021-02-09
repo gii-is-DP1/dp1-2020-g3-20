@@ -108,15 +108,8 @@ public class ProveedorService {
 		}
 	}
 	@Transactional
-	public boolean esIgualParaedit(String nombre){
-
-		Proveedor proveedor = proveedorRepository.findByName(nombre);
-		if(proveedor==null) {
-			return false;
-		}
-		else{
-			return true;
-		}
+	public List<String> findNames(){
+		return proveedorRepository.findNames();
 	}
 
 	@Transactional

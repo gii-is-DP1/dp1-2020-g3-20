@@ -79,18 +79,4 @@ public class IngredienteController {
 		}
 		return vista;
 	}
-//	
-//	@GetMapping(value = "/edit/{ingId}")
-//	public String initUpdatePPForm(@PathVariable("ingId") int ingId, ModelMap model) {		
-//		String vista= "ingrediente/editarIngrediente";			
-//		Collection<Producto> listaProd= this.ingService.encontrarProductos();
-//		model.addAttribute("listaProd", listaProd);
-//		Ingrediente ing=  ingService.buscaIngPorId(ingId).get();
-//		PlatoPedidoDTO platoConvertido = ppConverter.convertEntityToPPDTO(pp);
-//		platoConvertido.setEstadoplatodto(pp.getEstadoplato().getName());
-//		model.addAttribute("platopedido", platoConvertido);
-//		return vista;
-//	}
-//	
-
 }

@@ -62,6 +62,7 @@ public class ManagerController {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			vista = crearManager(modelMap);
 		}else {
+			manager.setVersion(0);
 			managerService.guardarManager(manager);
 			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista=listadoManagers(modelMap);
