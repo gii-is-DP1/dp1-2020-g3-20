@@ -40,7 +40,6 @@
 	<br>
 	<h2 align="center"> Busca arriba todas las funcionalidades pertenecientes a tu rol! </h2>
 	<br>
-	<p align="center"> Refrán del día: Dime que comes y te diré quien eres. <p>
 	</sec:authorize>
 
 </petclinic:layout>

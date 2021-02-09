@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping(value = "/cocinero")
 public class CocineroController {
@@ -51,6 +53,7 @@ public class CocineroController {
 	public String guardarCocinero(@Valid Cocinero cocinero, BindingResult result, ModelMap modelMap) {
 		String vista = "cocinero/listaCocinero";
 		if (result.hasErrors()) {
+			log.info(String.format("Chef with name %s wasn't able to be created", cocinero.getName()));
 			modelMap.addAttribute("cocinero", cocinero);
 			return "cocinero/editCocinero";
 		} else if (authoritiesService.findAllUsernames().contains(cocinero.getUsuario())) {
@@ -93,16 +96,20 @@ public class CocineroController {
 	public String processUpdateCocineroForm(@Valid Cocinero cocinero, BindingResult result, ModelMap modelMap,
 			@RequestParam(value = "version", required = false) Integer version) {
 		if (result.hasErrors()) {
+			log.info(String.format("Chef with name %s and ID %d wasn't able to be updated", cocinero.getName(), cocinero.getId()));
 			modelMap.addAttribute("cocinero", cocinero);
 			return "cocinero/editarCocinero";
-		} else if (authoritiesService.findAllUsernames().contains(cocinero.getUsuario())) {
+		} else if (authoritiesService.findAllUsernames().contains(cocinero.getUsuario())
+				&& !cocineroService.findById(cocinero.getId()).get().getUsuario().equals(cocinero.getUsuario())) {
+			log.info(String.format("Try to update a chef with same user name as someone"));
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdateCocineroForm(cocinero.getId(),modelMap);
-		} else if (cocinero.getVersion() != version) {
+		} else if (cocinero.getVersion()!=cocineroService.findById(cocinero.getId()).get().getVersion()) {
 			modelMap.addAttribute("message",
 					"El cocinero que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoCocinero(modelMap);
 		} else {
+			cocinero.setVersion(cocinero.getVersion()+1);
 			this.cocineroService.guardarCocinero(cocinero);
 			return "redirect:/cocinero";
 		}

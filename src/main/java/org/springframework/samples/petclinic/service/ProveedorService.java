@@ -22,6 +22,8 @@ import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedido
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class ProveedorService {
 	@Autowired
@@ -105,22 +107,39 @@ public class ProveedorService {
 			return true;
 		}
 	}
-	
+	@Transactional
+	public boolean esIgualParaedit(String nombre){
+
+		Proveedor proveedor = proveedorRepository.findByName(nombre);
+		if(proveedor==null) {
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
 
 	@Transactional
 	public void save(Proveedor proveedor) {
 		proveedorRepository.save(proveedor);
+		log.info(String.format("Provider with name %s has been saved", proveedor.getName()));
+		
 	}
 	
 	@Transactional
 	public void delete(Proveedor proveedor) {
 		proveedorRepository.delete(proveedor);
+		log.info(String.format("Provider with name %s has been deleted", proveedor.getName()));
+		
 		
 	}
 	
 	@Transactional
 	public void borrarProv(Integer id) {
+		Proveedor proveedor = proveedorRepository.findById(id).get();
 		proveedorRepository.deleteById(id);
+		log.info(String.format("Provider with name %s has been deleted", proveedor.getName()));
+		
 		
 	}
 	
@@ -154,6 +173,7 @@ public class ProveedorService {
        		throw new DuplicatedPedidoException();
        	}else {
        		pedidoRepository.save(pedido);
+       		log.info(String.format("Order with ID %d has been created", pedido.getId()));
        	}
 	}
 
@@ -210,6 +230,8 @@ public class ProveedorService {
 	@Transactional
 	public void saveLineaPedido(LineaPedido lineaPedido) throws DataAccessException {
 		lineaPedidoRepository.save(lineaPedido);
+		log.info(String.format("Order with product %s has been created", lineaPedido.getProducto().getName()));
+		
 	}
 	
 	@Transactional

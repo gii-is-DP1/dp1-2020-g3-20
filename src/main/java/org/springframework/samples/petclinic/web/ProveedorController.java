@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping("/proveedor")
 public class ProveedorController {
@@ -49,6 +51,7 @@ public class ProveedorController {
 	public String guardarProveedor(@Valid Proveedor proveedor, BindingResult result, ModelMap modelMap) {
 		String view = "proveedor/listadoDeProveedores";
 		if (result.hasErrors()) {
+			log.info(String.format("Provider with name %s wasn't able to be created", proveedor.getName()));
 			modelMap.addAttribute("proveedor", proveedor);
 			return "proveedor/editProveedor";
 		}else {
@@ -98,7 +101,6 @@ public class ProveedorController {
 		model.addAttribute("proveedor", proveedor);
 		return vista;
 	}
-
 	@PostMapping(value = "/edit")
 	public String processUpdateProveedorForm(@Valid Proveedor proveedor, BindingResult result, ModelMap modelMap, @RequestParam(value = "version", required = false) Integer version) {
 
@@ -108,12 +110,23 @@ public class ProveedorController {
 			modelMap.addAttribute("proveedor", proveedor);
 
 			return vista;
-		} else if (proveedor.getVersion()!=version) {
+			
+		} else if (proveedor.getVersion()!=proveedorService.provedroporid(proveedor.getId()).get().getVersion()) {
 			modelMap.addAttribute("message", "El proveedor que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoDeProveedores(modelMap);
 		} else {
+			if (proveedorService.esIgualParaedit(proveedor.getName())) {
+				modelMap.addAttribute("message", "El proveedor ya existe");
+				modelMap.addAttribute("proveedor", proveedor);
+				return "proveedor/editProveedor";
+			}
+			else {
+			proveedor.setActivo(true);
+			proveedor.setVersion(proveedor.getVersion()+1);
 			this.proveedorService.save(proveedor);
 			return "redirect:/proveedor";
 		}
 	}
+}
+	
 }

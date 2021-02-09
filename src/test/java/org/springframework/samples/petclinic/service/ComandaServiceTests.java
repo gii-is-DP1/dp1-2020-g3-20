@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 class ComandaServiceTests {                
 	@Autowired
 	protected ComandaService comandaService;
+	@Autowired
+	protected CamareroService camareroService;
 	
 	@Test
 	void shouldFindComandasByDia() {
@@ -48,6 +50,7 @@ class ComandaServiceTests {
 				camarero.setUsuario("TestComanda1");
 				camarero.setContrasena("12345");
 				camarero.setVersion(0);
+				camareroService.guardarCamarero(camarero);
 		comanda.setCamarero(camarero);
               
 		comandaService.guardarComanda(comanda);
@@ -58,6 +61,7 @@ class ComandaServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void shouldFindComandasActuales() {
 		Collection<Comanda> comandas = comandaService.encontrarComandaActual();
 		int found = comandas.size();
@@ -75,6 +79,7 @@ class ComandaServiceTests {
 				camarero.setUsuario("TestComanda2");
 				camarero.setContrasena("12345");
 				camarero.setVersion(0);
+				camareroService.guardarCamarero(camarero);
 		comanda.setCamarero(camarero);
               
 		comandaService.guardarComanda(comanda);
@@ -85,6 +90,7 @@ class ComandaServiceTests {
 	}
 	
 	@Test
+	@Transactional
 	void shouldFindLastId() {
 		Integer lastId = comandaService.findLastId();
 		
@@ -101,6 +107,7 @@ class ComandaServiceTests {
 				camarero.setUsuario("TestComanda3");
 				camarero.setContrasena("12345");
 				camarero.setVersion(0);
+				camareroService.guardarCamarero(camarero);
 		comanda.setCamarero(camarero);
               
 		comandaService.guardarComanda(comanda);
@@ -109,7 +116,6 @@ class ComandaServiceTests {
 	}
 
 	@Test
-	@Transactional
 	void shouldUpdateComanda() {
 		Collection<Comanda> comandas = comandaService.encontrarComandaActual();
 		int found = comandas.size();
@@ -118,6 +124,6 @@ class ComandaServiceTests {
 		Comanda comanda = comandaService.findById(2).get();
 		comanda.setFechaFinalizado(LocalDateTime.now());
 
-		assertThat(comandaService.encontrarComandaActual()).isEqualTo(found-1);
+		assertThat(comandaService.encontrarComandaActual().size()).isEqualTo(found-1);
 	}
 }

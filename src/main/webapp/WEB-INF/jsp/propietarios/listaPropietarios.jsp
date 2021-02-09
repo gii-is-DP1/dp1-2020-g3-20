@@ -7,6 +7,10 @@
 
 <petclinic:layout pageName="propietarios">
     <h2>Propietario</h2>
+    
+    <form method="get" action="/propietarios/new">
+      	<button class="btn btn-default" type="submit">Crear propietario</button>
+  		</form>
 
     <table id="propietariosTable" class="table table-striped">
         <thead>

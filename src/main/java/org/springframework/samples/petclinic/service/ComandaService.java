@@ -13,6 +13,8 @@ import org.springframework.samples.petclinic.repository.ComandaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class ComandaService {
 	
@@ -36,6 +38,7 @@ public class ComandaService {
 
 	@Transactional
 	public Comanda guardarComanda(Comanda comanda) {
+		log.info(String.format("Order to table  %d has been saved", comanda.getMesa()));
 		return comandaRepository.save(comanda);
 	}
 	

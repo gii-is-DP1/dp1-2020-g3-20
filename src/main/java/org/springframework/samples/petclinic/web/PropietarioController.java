@@ -1,14 +1,15 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.model.Propietario;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.PropietarioService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping(value = "/propietarios")
 public class PropietarioController {
@@ -30,9 +33,14 @@ public class PropietarioController {
 	@GetMapping()
 	public String listadoPropietarios(ModelMap modelMap) {
 		String vista = "propietarios/listaPropietarios";
-		Iterable<Propietario> propietarios = propietarioService.listPropietario();
-		modelMap.addAttribute("propietarios", propietarios);
-		return vista;
+		if(propietarioService.propietarioCount()==0) {
+			modelMap.addAttribute("message", "la lista esta vacia");
+			return vista;
+		}else {
+			Iterable<Propietario> propietarios = propietarioService.listPropietario();
+			modelMap.addAttribute("propietarios", propietarios);
+			return vista;
+		}
 	}
 
 	@GetMapping(path = "/new")
@@ -46,6 +54,7 @@ public class PropietarioController {
 	public String guardarPropietario(@Valid Propietario propietario, BindingResult result, ModelMap modelMap) {
 		String vista = "propietarios/listaPropietarios";
 		if (result.hasErrors()) {
+			log.info(String.format("Owner with name %s wasn't able to be created", propietario.getName()));
 			modelMap.addAttribute("propietario", propietario);
 			return "propietarios/editPropietario";
 		} else if (authoritiesService.findAllUsernames().contains(propietario.getUsuario())) {
@@ -94,14 +103,16 @@ public class PropietarioController {
 		if (result.hasErrors()) {
 			modelMap.addAttribute("propietario", propietario);
 			return "propietarios/editarPropietario";
-		} else if (authoritiesService.findAllUsernames().contains(propietario.getUsuario())) {
+		} else if (authoritiesService.findAllUsernames().contains(propietario.getUsuario()) 
+				&& !propietarioService.buscaPropietarioPorId(propietario.getId()).get().getUsuario().equals(propietario.getUsuario())) {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdatePropietarioForm(propietario.getId(),modelMap);
-		} else if (propietario.getVersion() != version) {
+		} else if (propietario.getVersion()!=propietarioService.buscaPropietarioPorId(propietario.getId()).get().getVersion()) {
 			modelMap.addAttribute("message", "El propietario que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoPropietarios(modelMap);
 		} else {
 			// propietario.setOwner(propietarioService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+			propietario.setVersion(propietario.getVersion()+1);
 			this.propietarioService.guardarPropietario(propietario);
 			return "redirect:/propietarios";
 		}

@@ -44,18 +44,18 @@ class ProveedorControllerTests {
 	private MockMvc mockMvc;
 
 
-	private Proveedor jorge;
+	private Proveedor proveedor;
 
 	@BeforeEach
 	void setup() {
-		jorge = new Proveedor();
-		jorge.setId(TEST_PROVEEDOR_ID);
-		jorge.setName("jorge");
-		jorge.setGmail("patata@gmail.com");
-		jorge.setTelefono("954333333");
+		proveedor = new Proveedor();
+		proveedor.setId(TEST_PROVEEDOR_ID);
+		proveedor.setName("jorge");
+		proveedor.setGmail("patata@gmail.com");
+		proveedor.setTelefono("954333333");
 
-		given(this.proveedorService.findProveedorbyName("jorge")).willReturn(jorge);
-		given(this.proveedorService.provedroporid(TEST_PROVEEDOR_ID)).willReturn(Optional.of(jorge));
+		given(this.proveedorService.findProveedorbyName("jorge")).willReturn(proveedor);
+		given(this.proveedorService.provedroporid(TEST_PROVEEDOR_ID)).willReturn(Optional.of(proveedor));
 
 
 }

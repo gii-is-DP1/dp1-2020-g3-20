@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.CamareroService;
+import org.springframework.samples.petclinic.service.ProductoService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping(value = "/camareros")
 public class CamareroController {
@@ -55,6 +58,7 @@ public class CamareroController {
 	public String guardarCamarero(@Valid Camarero camarero,BindingResult result,ModelMap modelMap) {
 		String vista= "camareros/listaCamareros";
 		if(result.hasErrors()) {
+			log.info(String.format("Waiter with name %s wasn't able to be created", camarero.getName(), camarero.getId()));
 			modelMap.addAttribute("camarero", camarero);
 			return "camareros/editCamarero";
 		}else if(authoritiesService.findAllUsernames().contains(camarero.getUsuario())){
@@ -99,21 +103,20 @@ public class CamareroController {
 	@PostMapping(value = "/edit")
 	public String processUpdateCamareroForm(@Valid Camarero camarero, BindingResult result,ModelMap modelMap, @RequestParam(value="version", required=false) Integer version) {
 		if(result.hasErrors()) {
+			log.info(String.format("Waiter with name %s and ID %d wasn't able to be updated", camarero.getName(), camarero.getId()));
 			modelMap.addAttribute("camarero", camarero);
 			return "camareros/editarCamareros";
-		}else if(authoritiesService.findAllUsernames().contains(camarero.getUsuario())){
+		}else if(authoritiesService.findAllUsernames().contains(camarero.getUsuario())
+				&& !camareroService.findById(camarero.getId()).get().getUsuario().equals(camarero.getUsuario())){
+			log.info(String.format("Try to update a waiter with same user name as someone", camarero.getName(), camarero.getId()));
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdateCamareroForm(camarero.getId(),modelMap);
-		}else if(camarero.getVersion()!=version){
+		}else if(camarero.getVersion()!=camareroService.findById(camarero.getId()).get().getVersion()){
 			modelMap.addAttribute("message", "El camarero que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoCamareros(modelMap);
 		}else {
-//			try {
-				camareroService.guardarCamarero(camarero);
-//			}catch (DuplicatedPedidoException e) {
-//				modelMap.addAttribute("message", "No se puede guardar porque ya existe un Usuario igual");
-//				vista=listadoCamareros(modelMap);
-//			}
+			camarero.setVersion(camarero.getVersion()+1);
+			camareroService.guardarCamarero(camarero);
 		return "redirect:/camareros";
 		}
 	}

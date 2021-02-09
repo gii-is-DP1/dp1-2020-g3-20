@@ -3,7 +3,9 @@ package org.springframework.samples.petclinic.service;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +44,30 @@ public class ProveedorServiceTests {
 		assertEquals(proveedorService.esIgual("Codi"),false);
 	}
 	
+	@Test
+	public void findAllNames() {		
+		assertEquals(proveedorService.findAllNames().size(),4);
+	}
+	
+	@Test
+	public void findActivosNameTest() {	
+		assertEquals(proveedorService.findActivosName().size(), 4);
+		
+	}
+	
+	@Test
+	public void findActivosTest() {
+		String name=proveedorService.findActivos()
+				.iterator().next().getName();
+		assertEquals(name, "Makro");
+		
+	}
+	
+	@Test
+	public void findProveedorByNameTest() {	
+		int id=proveedorService.findProveedorbyName("Makro").getId();
+		assertEquals(id, 1);
+		
+	}
 
 }

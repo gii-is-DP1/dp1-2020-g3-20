@@ -9,21 +9,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Cocinero;
 import org.springframework.samples.petclinic.model.LineaPedido;
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.model.ProductoDTO;
-import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.samples.petclinic.model.TipoProducto;
 import org.springframework.samples.petclinic.service.ProductoService;
 import org.springframework.samples.petclinic.service.ProveedorService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
-import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.samples.petclinic.service.exceptions.PedidoPendienteException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,6 +29,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping(value = "/producto")
 public class ProductoController {
@@ -107,6 +103,7 @@ public class ProductoController {
 		productoFinal.setProveedor(proveedorFormatter.parse(producto.getProveedor(), Locale.ENGLISH));
 			
 		if(result.hasErrors()) {
+			log.info(String.format("Product with name %s wasn't able to be created", producto.getName()));
 			modelMap.addAttribute("producto", producto);
 			return "producto/editProducto";
 		}else {
@@ -160,10 +157,11 @@ public class ProductoController {
 		if(result.hasErrors()) {
 			modelMap.addAttribute("producto", producto);
 			return "producto/editarProducto";
-		}else if(productoFinal.getVersion()!=version){
+		}else if(productoFinal.getVersion()!=productoService.buscaProductoPorId(productoFinal.getId()).get().getVersion()){
 			modelMap.addAttribute("message", "El producto que intentas editar ya se estaba editando, intenta de nuevo por favor");
 			return listadoProducto(modelMap);
 		}else {
+			productoFinal.setVersion(productoFinal.getVersion()+1);
 			this.productoService.guardarProducto(productoFinal);
 			modelMap.addAttribute("message", "Guardado Correctamente");
 			return "redirect:/producto";
@@ -189,7 +187,6 @@ public class ProductoController {
 				lineaPedido = proveedorService.anadirLineaPedido(p, pedido);
 				proveedorService.saveLineaPedido(lineaPedido);
 			}
-	// no se por que hay dos te lo dejo comentao		proveedorService.savePedido(pedido);
 			modelMap.addAttribute("message", "Se ha creado el pedido correctamente");
 			vista = listadoProducto(modelMap);
 			}catch(DuplicatedPedidoException ex){
