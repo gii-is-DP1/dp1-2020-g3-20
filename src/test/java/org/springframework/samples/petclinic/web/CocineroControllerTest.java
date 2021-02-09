@@ -21,6 +21,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Cocinero;
 import org.springframework.samples.petclinic.model.User;
+import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.CocineroService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -35,6 +36,9 @@ public class CocineroControllerTest {
 
 	@MockBean
 	private CocineroService cocineroService;
+	
+	@MockBean
+	private AuthoritiesService authoritiesService;
 
 	@Autowired
 	private MockMvc mockMvc;

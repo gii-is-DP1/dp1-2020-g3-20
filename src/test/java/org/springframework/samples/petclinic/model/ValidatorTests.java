@@ -40,7 +40,7 @@ class ValidatorTests {
 		assertThat(constraintViolations.size()).isEqualTo(1);
 		ConstraintViolation<Empleado> violation = constraintViolations.iterator().next();
 		assertThat(violation.getPropertyPath().toString()).isEqualTo("name");
-		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+		assertThat(violation.getMessage()).isEqualTo("size must be between 3 and 50");
 	}
 	
 	// TESTS PARA Propietario -----------------------------------------------------------------------
@@ -80,7 +80,7 @@ class ValidatorTests {
 			assertThat(constraintViolations.size()).isEqualTo(5);
 			for (ConstraintViolation<Propietario> d : constraintViolations) {
 				if (d.getPropertyPath().toString().equals("name")) {
-					assertThat(d.getMessage()).isEqualTo("must not be empty");
+					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
 				}
 				if (d.getPropertyPath().toString().equals("apellido")) {
 					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
@@ -89,7 +89,7 @@ class ValidatorTests {
 					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
 				}
 				if (d.getPropertyPath().toString().equals("telefono")) {
-					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
+					assertThat(d.getMessage()).isEqualTo("size must be between 9 and 12");
 				}
 				if (d.getPropertyPath().toString().equals("contrasena")) {
 					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
@@ -127,7 +127,7 @@ class ValidatorTests {
 
 			Validator validator = createValidator();
 			Set<ConstraintViolation<Proveedor>> constraintViolations = validator.validate(Proveedor);
-			assertThat(constraintViolations.size()).isEqualTo(4);
+			assertThat(constraintViolations.size()).isEqualTo(3);
 			for (ConstraintViolation<Proveedor> d : constraintViolations) {
 				if (d.getPropertyPath().toString().equals("name")) {
 					assertThat(d.getMessage()).isEqualTo("size must be between 3 and 50");
