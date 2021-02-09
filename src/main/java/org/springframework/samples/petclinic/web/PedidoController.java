@@ -99,6 +99,7 @@ public class PedidoController {
 				p.setHaLlegado(Boolean.TRUE);
 				p.setFechaEntrega(LocalDate.now());
 				modelMap.addAttribute("message", "Se ha finalizado el pedido correctamente");
+				modelMap.addAttribute("pedidoFinalizado", p);
 				view = listadoDePedidos(modelMap);
 			} else {
 				modelMap.addAttribute("message", "El pedido ya se ha finalizado");
@@ -116,12 +117,15 @@ public class PedidoController {
 		@GetMapping(path="/listaPedidoTotal/dia")
 		public String listadoPedidoDia(String date, ModelMap modelMap) {
 			String vista= "pedidos/listaPedidos";
+			if (date=="") {
+				modelMap.addAttribute("message", "Debes elegir un dia obligatoriamente");
+				vista = listadoDePedidos(modelMap);
+				return vista;
+			}
 			Collection<Pedido> pedido = proveedorService.encontrarPedidoDia(date);
 			modelMap.addAttribute("pedido",pedido);
 			return vista;	
 		}
-	
-	
 	
 	
 	

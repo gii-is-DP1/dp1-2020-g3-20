@@ -60,6 +60,11 @@ public class ComandaController {
 	@GetMapping(path="/listaComandaTotal/dia")
 	public String listadoComandaDia(String date, ModelMap modelMap) {
 		String vista= "comanda/listaComandaTotal";
+		if (date=="") {
+			modelMap.addAttribute("message", "Debes elegir un dia obligatoriamente");
+			vista = listadoComandaTotal(modelMap);
+			return vista;
+		}
 		Collection<Comanda> comanda = comandaService.encontrarComandaDia(date);
 		modelMap.addAttribute("comanda",comanda);
 		return vista;	

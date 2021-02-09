@@ -83,7 +83,6 @@ public class ComandaControllerTests {
 		proveedor.setGmail("acme@gmail.com");
 		proveedor.setTelefono("631985162");
 		proveedor.setActivo(true);
-		proveedor.setVersion(0);
 		
 		tipoProducto = new TipoProducto();
 		tipoProducto.setId(30);
@@ -97,7 +96,6 @@ public class ComandaControllerTests {
 		producto.setCantAct(1.5);
 		producto.setCantMax(2.0);
 		producto.setProveedor(proveedor);
-		producto.setVersion(0);
 		
 		plato = new Plato();
 		plato.setId(30);
@@ -120,7 +118,6 @@ public class ComandaControllerTests {
 		camarero.setTelefono("638246990");
 		camarero.setUsuario("trece");
 		camarero.setContrasena("12345");
-		camarero.setVersion(0);
 		
 		comanda = new Comanda();
 		comanda.setId(TEST_COMANDA_ID);
