@@ -15,11 +15,19 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+
+import javax.transaction.Transactional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.petclinic.model.Ingrediente;
+import org.springframework.samples.petclinic.model.IngredientePedido;
+import org.springframework.samples.petclinic.model.PlatoPedido;
+import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.stereotype.Service;
 
 
@@ -31,11 +39,38 @@ class IngredientePedidoTests {
 	
 	@Autowired
     protected IngredienteService ingredienteService;
-            
+         
+	
+	
 	@Test
-	public void testCountWithInitialData() {
-		int count = ingredientePedidoService.ingPedidoCount();
-		assertEquals(count, 15);
+	@Transactional
+	public void guardarIngredientePedido() {
+		Ingrediente in = new Ingrediente();
+		Producto p = new Producto();
+		p.setCantAct(5.0);
+		in.setProducto(p);
+		IngredientePedido i = new IngredientePedido();
+		i.setCantidadPedida(0.0);
+		i.setId(1);
+		i.setIngrediente(in);
+		i.setPp(new PlatoPedido());
+		
+		IngredientePedido ingrediente = ingredientePedidoService.guardarIngredientePedido(i);
+		
+		assertThat(ingrediente.getId()).isEqualTo(1);
+	}
+	
+	@Test
+	@Transactional
+	public void crearIngredientePedidoPorIngrediente() {
+		Ingrediente in = new Ingrediente();
+		in.setId(1);
+		in.setCantidadUsualPP(3.0);
+		
+		IngredientePedido ingrediente = ingredientePedidoService.crearIngredientePedidoPorIngrediente(in);
+		
+		assertThat(ingrediente.getIngrediente().getId()).isEqualTo(1);
+		assertThat(ingrediente.getCantidadPedida()).isEqualTo(3.0);
 	}
         
         

@@ -1,18 +1,13 @@
 package org.springframework.samples.petclinic.web;
 
-import org.assertj.core.util.Lists;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
-
 import org.springframework.samples.petclinic.model.Pedido;
 import org.springframework.samples.petclinic.model.Proveedor;
-
-import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
@@ -20,22 +15,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.samples.petclinic.service.AuthoritiesService;
-
 import org.springframework.samples.petclinic.service.ProveedorService;
-import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
-
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 /**
@@ -52,8 +41,6 @@ class PedidoControllerTests2 {
 	private static final int TEST_PEDIDO_ID = 1;
 	private static final int TEST_PEDIDO_ID2 = 2;
 
-	@Autowired
-	private PedidoController pedidoController;
 
 	@MockBean
 	private ProveedorService proveedorService;
@@ -121,7 +108,7 @@ class PedidoControllerTests2 {
 	@WithMockUser(value = "spring")
     @Test
     void testSavePedidoSuccess() throws Exception {
-		mockMvc.perform(post("/pedidos/save").param("name", "pepito")
+		mockMvc.perform(post("/pedidos/save")
 				.with(csrf()))
 				.andExpect(view().name("pedidos/listaPedidos"));
 	}
@@ -129,7 +116,7 @@ class PedidoControllerTests2 {
 	@WithMockUser(value = "spring")
 	@Test
 	void testSavePedidoFail() throws Exception {
-		mockMvc.perform(post("/pedidos/save").param("name", "pepito")
+		mockMvc.perform(post("/pedidos/save")
 				.with(csrf())
 				.param("fechaEntrega", "13 del 10 de 2020")
 				.param("haLlegado", "Si"))

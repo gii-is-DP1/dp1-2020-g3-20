@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,6 +24,7 @@ import lombok.Setter;
 @Table(name = "pedido")
 public class Pedido extends BaseEntity{
 
+	@NotNull
 	@Column(name = "fechapedido")        
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate fechaPedido;

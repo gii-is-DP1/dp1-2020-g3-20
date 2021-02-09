@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Version;
 
@@ -20,6 +21,7 @@ import lombok.Setter;
 @Table(name = "platos")
 public class Plato extends NamedEntity{
 	
+	@NotNull
 	@Column(name = "precio")
 	private Double precio;
 	
