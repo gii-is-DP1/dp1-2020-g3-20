@@ -67,7 +67,6 @@ public class ProveedorController {
 					proveedorfinal.setTelefono(proveedor.getTelefono());
 					proveedorService.save(proveedorfinal);
 				} else {
-					proveedor.setVersion(0);
 					proveedor.setActivo(true);
 					proveedorService.save(proveedor);
 				}
@@ -103,16 +102,13 @@ public class ProveedorController {
 		return vista;
 	}
 	@PostMapping(value = "/edit")
-	public String processUpdateProveedorForm(@Valid Proveedor proveedor, BindingResult result, ModelMap modelMap, @RequestParam(value = "version", required = false) Integer version) {
+	public String processUpdateProveedorForm(@Valid Proveedor proveedor, BindingResult result, ModelMap modelMap) {
 		String vista = "proveedor/editarProveedor";
 
 		if (result.hasErrors()) {
 			modelMap.addAttribute("proveedor", proveedor);
 			return vista;
-		} else if (proveedor.getVersion()!=proveedorService.provedroporid(proveedor.getId()).get().getVersion()) {
-			modelMap.addAttribute("message", "El proveedor que intentas editar ya se estaba editando, intenta de nuevo por favor");
-			return listadoDeProveedores(modelMap);
-		} else {
+		}else {
 			if (proveedorService.findNames().contains(proveedor.getName())
 					&& !proveedorService.provedroporid(proveedor.getId()).get().getName().equals(proveedor.getName())) {
 				modelMap.addAttribute("message", "El proveedor ya existe");
@@ -120,7 +116,6 @@ public class ProveedorController {
 			}
 			else {
 			proveedor.setActivo(true);
-			proveedor.setVersion(proveedor.getVersion()+1);
 			this.proveedorService.save(proveedor);
 			return "redirect:/proveedor";
 		}

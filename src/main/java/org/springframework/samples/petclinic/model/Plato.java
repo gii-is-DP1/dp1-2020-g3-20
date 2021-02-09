@@ -26,8 +26,5 @@ public class Plato extends NamedEntity{
 	
 	@OneToMany(mappedBy = "plato")
 	private Set<Ingrediente> ingredientes;
-	
-	@Version
-	private Integer version;
 
 }

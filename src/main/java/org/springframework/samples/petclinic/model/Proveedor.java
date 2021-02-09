@@ -37,7 +37,4 @@ public class Proveedor extends NamedEntity{
 	//para el cascada
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "proveedor")
 	private Set<Producto> Productos;
-	
-	@Version
-	private Integer version;
 }

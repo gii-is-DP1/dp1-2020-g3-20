@@ -61,7 +61,6 @@ public class PropietarioController {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return crearPropietario(modelMap);
 		} else {
-			propietario.setVersion(0);
 			propietarioService.guardarPropietario(propietario);
 			modelMap.addAttribute("message", "successfuly saved");
 			vista = listadoPropietarios(modelMap);
@@ -100,7 +99,7 @@ public class PropietarioController {
 	}
 
 	@PostMapping(value = "/edit")
-	public String processUpdatePropietarioForm(@Valid Propietario propietario, BindingResult result, ModelMap modelMap,	@RequestParam(value = "version", required = false) Integer version) {
+	public String processUpdatePropietarioForm(@Valid Propietario propietario, BindingResult result, ModelMap modelMap) {
 		if (result.hasErrors()) {
 			modelMap.addAttribute("propietario", propietario);
 			return "propietarios/editarPropietario";
@@ -108,12 +107,7 @@ public class PropietarioController {
 				&& !propietarioService.buscaPropietarioPorId(propietario.getId()).get().getUsuario().equals(propietario.getUsuario())) {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdatePropietarioForm(propietario.getId(),modelMap);
-		} else if (propietario.getVersion()!=propietarioService.buscaPropietarioPorId(propietario.getId()).get().getVersion()) {
-			modelMap.addAttribute("message", "El propietario que intentas editar ya se estaba editando, intenta de nuevo por favor");
-			return listadoPropietarios(modelMap);
-		} else {
-			// propietario.setOwner(propietarioService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
-			propietario.setVersion(propietario.getVersion()+1);
+		}else {
 			this.propietarioService.guardarPropietario(propietario);
 			return "redirect:/propietarios";
 		}

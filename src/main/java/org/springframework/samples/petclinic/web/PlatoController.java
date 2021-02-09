@@ -69,7 +69,6 @@ public class PlatoController {
 		  modelMap.addAttribute("platos", plato);
 			return "platos/editPlatos";
 		}else {
-			plato.setVersion(0);
 			platoService.guardarPlato(plato);
 			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista=listadoPlatos(modelMap);
@@ -103,18 +102,13 @@ public class PlatoController {
 	}
 	@PostMapping(value = "/edit/{platoId}")
 
-	public String processUpdatePlatoForm(@Valid Plato plato,BindingResult result,@PathVariable("platoId") int platoId,ModelMap modelMap, @RequestParam(value="version", required=false) Integer version) {
+	public String processUpdatePlatoForm(@Valid Plato plato,BindingResult result,@PathVariable("platoId") int platoId,ModelMap modelMap) {
 		String vista= "platos/editarPlatos";
 		plato.setId(platoId);
-		plato.setVersion(version);
 		if(result.hasErrors()) {
 			modelMap.addAttribute("plato", plato);
 			return vista;
-		}else if(plato.getVersion()!=platoService.buscaPlatoPorId(platoId).get().getVersion()){
-			modelMap.addAttribute("message", "El plato que intentas editar ya se estaba editando, intenta de nuevo por favor");
-			return listadoPlatos(modelMap);
 		}else {
-			plato.setVersion(plato.getVersion()+1);
 			this.platoService.guardarPlato(plato);
 			return "redirect:/platos";
 		}	
