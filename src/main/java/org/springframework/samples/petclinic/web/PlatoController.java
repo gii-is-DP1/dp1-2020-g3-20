@@ -171,25 +171,4 @@ public class PlatoController {
 		}
 		return "redirect:/platos/"+platoId;
 	}
-	
-	
-//	@PostMapping(path="/ingSave")
-//	public String guardarIngrediente(@Valid Ingrediente ing,@Param("platoId") int platoId,BindingResult result,ModelMap modelMap) throws ParseException {
-//	
-//		String vista= "platos/platosDetails";
-//		final Ingrediente ingFinal = ing;
-//		
-//		ingFinal.setProducto(productoFormatter.parse(ing.getProducto().getName(), Locale.ENGLISH));
-//		if(result.hasErrors()) {
-//			return "platos/newIngredientes";
-//		}else {
-//			ingService.guardarIngrediente(ingFinal);
-//			modelMap.addAttribute("message", "successfuly saved");
-//			vista=showPlato(ing.getPlato().getId(),modelMap);
-//		}
-//		return vista; 
-//	}
-
-
-	
 }
