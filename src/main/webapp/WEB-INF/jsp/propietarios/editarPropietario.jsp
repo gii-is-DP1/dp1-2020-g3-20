@@ -23,6 +23,5 @@
                 <button class="btn btn-default" type="submit">Actualizar</button>
             </div>
         </div>
-        <input type="hidden" name="version" value="${propietario.version}" />
     </form:form>
 </petclinic:layout>

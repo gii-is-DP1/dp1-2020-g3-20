@@ -52,6 +52,5 @@ function validarsize(){
                 <button class="btn btn-default" type="submit">Actualizar</button>
             </div>
         </div>
-        <input type="hidden" name="version" value="${cocinero.version}" />
     </form:form>
 </petclinic:layout>

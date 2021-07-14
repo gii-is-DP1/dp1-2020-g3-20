@@ -13,7 +13,6 @@ import org.springframework.samples.petclinic.model.PlatoPedido;
 import org.springframework.samples.petclinic.model.Producto;
 import org.springframework.samples.petclinic.model.Proveedor;
 import org.springframework.samples.petclinic.model.TipoProducto;
-import org.springframework.test.context.ContextConfiguration;
 
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -47,9 +46,6 @@ public class ComandaControllerTests {
 	
 	@Autowired
 	private MockMvc mockMvc;
-	
-	@Autowired
-	private ComandaController comandaController;
 	
 	@MockBean
 	private ComandaService comandaService;
@@ -103,7 +99,6 @@ public class ComandaControllerTests {
 		plato.setName("Sopa");
 		plato.setDisponible(true);
 		plato.setPrecio(5.0);
-		plato.setVersion(0);
 		
 		ingrediente = new Ingrediente();
 		ingrediente.setId(30);

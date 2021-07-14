@@ -18,6 +18,5 @@
             	<button class="btn btn-default" type="submit">Actualizar</button>
  			</div>
         </div>
-        <input type="hidden" name="version" value="${plato.version}" />
     </form:form>
 </petclinic:layout>
