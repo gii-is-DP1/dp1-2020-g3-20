@@ -3,7 +3,6 @@ package org.springframework.samples.petclinic.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Cocinero;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.CocineroRepository;
@@ -17,13 +16,11 @@ import lombok.extern.slf4j.Slf4j;
 public class CocineroService {
 	@Autowired
 	private UserService userService;
-
 	@Autowired
 	private AuthoritiesService authoritiesService;
-
 	@Autowired
 	private CocineroRepository cocineroRepository;
-
+	
 	public CocineroService(UserService userService, AuthoritiesService authoritiesService,
 			CocineroRepository cocineroRepository) {
 		super();
@@ -33,18 +30,17 @@ public class CocineroService {
 	}
 
 	@Transactional
-	public int cocineroCount() {
-		return (int) cocineroRepository.count();
-	}
-
-	@Transactional
 	public Iterable<Cocinero> findAll() {
 		return cocineroRepository.findAll();
-
+	}
+	
+	@Transactional
+	public Optional<Cocinero> findById(Integer id) {
+		return cocineroRepository.findById(id);
 	}
 
 	@Transactional
-	public Cocinero guardarCocinero(Cocinero cocinero) {
+	public Cocinero save(Cocinero cocinero) {
 		// creating user
 		User user = authoritiesService.crearUsuario(cocinero.getUsuario(), cocinero.getContrasena());
 		userService.saveUser(user);
@@ -53,25 +49,12 @@ public class CocineroService {
 		log.info(String.format("Chef with username %s has been saved", cocinero.getUsuario(),
 				cocinero.getId()));
 		return cocineroRepository.save(cocinero);
-
 	}
 
 	@Transactional
-	public void borrarCocinero(Integer id) {
-		Cocinero cocinero = cocineroRepository.findCocineroById(id);
+	public void deleteById(Integer id) {
+		Cocinero cocinero = cocineroRepository.findById(id).get();
 		cocineroRepository.deleteById(id);
-		log.info(String.format("Chef with username %s has been deleted", cocinero.getUsuario(),
-				cocinero.getId()));
-	}
-
-	@Transactional
-	public Optional<Cocinero> findById(Integer id) {
-		return cocineroRepository.findById(id);
-
-	}
-
-	@Transactional
-	public Cocinero findCamereroById(int cocineroId) throws DataAccessException {
-		return this.cocineroRepository.findCocineroById(cocineroId);
+		log.info(String.format("Chef with username %s has been deleted", cocinero.getUsuario()));
 	}
 }

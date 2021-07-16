@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,7 @@ import lombok.Setter;
 public class Comanda extends BaseEntity{
 	
 	@Column(name = "mesa")
+	@Min(1)
 	private Integer mesa;
 	
 	@Column(name = "precio_total")

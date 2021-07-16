@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Camarero;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.CamareroService;
-import org.springframework.samples.petclinic.service.ProductoService;
-import org.springframework.samples.petclinic.service.exceptions.DuplicatedPedidoException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -18,23 +16,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping(value = "/camareros")
 public class CamareroController {
-	
 	@Autowired
 	private CamareroService camareroService;
 	@Autowired
 	private AuthoritiesService authoritiesService;
 	
+	public CamareroController(CamareroService camareroService, AuthoritiesService authoritiesService) {
+		super();
+		this.camareroService = camareroService;
+		this.authoritiesService = authoritiesService;
+	}
+
 	@GetMapping()
 	public String listadoCamareros(ModelMap modelMap) {
 		String vista= "camareros/listaCamareros";
-		Iterable<Camarero> camareros=  camareroService.camareroList();
+		Iterable<Camarero> camareros=  camareroService.findAll();
 		Iterator<Camarero> it_camareros = camareros.iterator();
 		
 		if (!(it_camareros.hasNext())) {
@@ -55,7 +57,7 @@ public class CamareroController {
 	}
 	
 	@PostMapping(path="/save")
-	public String guardarCamarero(@Valid Camarero camarero,BindingResult result,ModelMap modelMap) {
+	public String save(@Valid Camarero camarero,BindingResult result,ModelMap modelMap) {
 		String vista= "camareros/listaCamareros";
 		if(result.hasErrors()) {
 			log.info(String.format("Waiter with name %s wasn't able to be created", camarero.getName(), camarero.getId()));
@@ -65,7 +67,7 @@ public class CamareroController {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			vista=crearCamarero(modelMap);
 		}else {
-			camareroService.guardarCamarero(camarero);
+			camareroService.save(camarero);
 			modelMap.addAttribute("message", "Guardado correctamente");
 			vista=listadoCamareros(modelMap);
 		}
@@ -77,7 +79,7 @@ public class CamareroController {
 		String vista= "camareros/listaCamareros";
 		Optional<Camarero> cam= camareroService.findById(camareroId);
 		if(cam.isPresent()) {
-			camareroService.borrarCamarero(camareroId);
+			camareroService.deleteById(camareroId);
 			modelMap.addAttribute("message", "Borrado correctamente");
 			vista=listadoCamareros(modelMap);
 		}else {
@@ -107,7 +109,7 @@ public class CamareroController {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdateCamareroForm(camarero.getId(),modelMap);
 		}else {
-			camareroService.guardarCamarero(camarero);
+			camareroService.save(camarero);
 		return "redirect:/camareros";
 		}
 	}

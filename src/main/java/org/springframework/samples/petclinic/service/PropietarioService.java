@@ -16,13 +16,11 @@ import lombok.extern.slf4j.Slf4j;
 public class PropietarioService {
 	@Autowired
 	private PropietarioRepository propietarioRepository;
-
 	@Autowired
 	private AuthoritiesService authoritiesService;
-
 	@Autowired
 	private UserService userService;
-
+	
 	public PropietarioService(PropietarioRepository propietarioRepository, AuthoritiesService authoritiesService,
 			UserService userService) {
 		super();
@@ -32,25 +30,29 @@ public class PropietarioService {
 	}
 
 	@Transactional
-	public int propietarioCount() {
-		return (int) propietarioRepository.count();
-
-	}
-
-	@Transactional
-	public Iterable<Propietario> listPropietario() {
+	public Iterable<Propietario> findAll() {
 		return propietarioRepository.findAll();
-
+	}
+	
+	@Transactional
+	public Optional<Propietario> findById(Integer id) {
+		return propietarioRepository.findById(id);
 	}
 
 	@Transactional
-	public void delete(final Propietario propietario) {
+	public int count() {
+		return (int) propietarioRepository.count();
+	}
+
+	@Transactional
+	public void deleteById(Integer id) {
+		Propietario propietario = propietarioRepository.findById(id).get();
+		this.propietarioRepository.deleteById(id);
 		log.info(String.format("Owner with name %s has been deleted", propietario.getName()));
-		this.propietarioRepository.delete(propietario);
 	}
 
 	@Transactional
-	public Propietario guardarPropietario(Propietario propietario) {
+	public Propietario save(Propietario propietario) {
 		// creating user
 		User user = authoritiesService.crearUsuario(propietario.getUsuario(), propietario.getContrasena());
 		userService.saveUser(user);
@@ -59,11 +61,4 @@ public class PropietarioService {
 		log.info(String.format("Owner with name %s has been saved", propietario.getName()));
 		return propietarioRepository.save(propietario);
 	}
-
-	@Transactional
-	public Optional<Propietario> buscaPropietarioPorId(Integer id) {
-		return propietarioRepository.findById(id);
-
-	}
-
 }

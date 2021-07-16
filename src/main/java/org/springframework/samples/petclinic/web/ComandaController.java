@@ -2,11 +2,9 @@ package org.springframework.samples.petclinic.web;
 
 import java.security.Principal;
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +12,11 @@ import org.springframework.samples.petclinic.model.Comanda;
 import org.springframework.samples.petclinic.model.Plato;
 import org.springframework.samples.petclinic.model.PlatoPedido;
 import org.springframework.samples.petclinic.model.PlatoPedidoDTO;
-import org.springframework.samples.petclinic.service.CamareroService;
 import org.springframework.samples.petclinic.service.ComandaService;
 import org.springframework.samples.petclinic.service.PlatoPedidoService;
 import org.springframework.samples.petclinic.service.PlatoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,12 +33,6 @@ public class ComandaController {
 
 	@Autowired
 	private PlatoPedidoService platoPedidoService;
-	
-	@Autowired
-	private PlatoPedidoController platoPedidoController;
-	
-	@Autowired
-	private CamareroService camareroService;
 	
 	@Autowired
 	private PlatoService platoService;
@@ -86,14 +76,10 @@ public class ComandaController {
 		Optional<Comanda> comanda = comandaService.findById(comandaID);
 		if(comanda.isPresent()) {
 			Comanda res = comanda.get();
-			Iterator<PlatoPedido> listaPlatosPedidos = res.getPlatosPedidos().iterator();
-			while(listaPlatosPedidos.hasNext()) {
-				PlatoPedido platoPedido = listaPlatosPedidos.next();
-				if(!(platoPedido.getEstadoplato().getId()==3)) {
+			if(comandaService.estaFinalizado(res)) {
 					modelMap.addAttribute("message", "Esta comanda aún tiene platos por finalizar");
 					vista = listadoComandaActual(modelMap);
 					return vista;
-				}
 			}
 			if(res.getFechaFinalizado()==null) {
 				res.setFechaFinalizado(LocalDateTime.now());
@@ -105,7 +91,7 @@ public class ComandaController {
 			}
 		}else {
 			modelMap.addAttribute("message", "La comanda pedida no existe");
-			vista = listadoComandaActual(modelMap);
+			vista = "redirect:/comanda/listaComandaActual";
 		}
 		return vista;
 	}
@@ -114,20 +100,10 @@ public class ComandaController {
 	@GetMapping(path="/listaComandaActual/{comandaID}")
 	public String infoComanda(@PathVariable("comandaID") int comandaID, ModelMap modelMap) {
 		String vista= "comanda/comandaDetails";		
-		
-		Optional<Comanda> optAux = comandaService.findById(comandaID);
-		Comanda comanda = optAux.get();
+		Comanda comanda = comandaService.findById(comandaID).get();
 		Iterable<Plato> listaPlatos = platoService.findAllAvailable();
-		Iterable<PlatoPedido> allPP = platoPedidoService.findAll();
-		Iterator<PlatoPedido> it = allPP.iterator();
-		Collection<PlatoPedido> platosEC = new ArrayList<>();
-		while(it.hasNext()) {
-			PlatoPedido ppAux = it.next();
-			if(ppAux.getComanda()!=null) {
-				if(ppAux.getComanda().getId()==comandaID)
-					platosEC.add(ppAux);
-			}
-		}
+		List<PlatoPedido> platosEC= (List<PlatoPedido>) comandaService.getPlatosPedidoDeComanda(comandaID);
+		
 		
 		modelMap.addAttribute("platopedido",new PlatoPedidoDTO());
 		modelMap.addAttribute("platop",platosEC);
@@ -137,33 +113,28 @@ public class ComandaController {
 	}
 	
 	@GetMapping(path="/listaComandaActual/new")
-	public String crearComanda(int mesa,ModelMap modelMap,Principal user) {
-		Comanda comanda = new Comanda();		
-		comanda.setMesa(mesa);
-		comanda.setFechaCreado(LocalDateTime.now());
-		comanda.setPrecioTotal(0.0);
-		comanda.setCamarero(camareroService.buscaCamareroPorUser(user.getName()));
-		comandaService.guardarComanda(comanda);
-		int comandaId = comandaService.findLastId();
-		modelMap.addAttribute("comanda", comanda);
-		String vista=infoComanda(comandaId,modelMap);
-		return vista;
-	}	
+	public String crearComanda(Integer mesa,ModelMap modelMap,Principal user) {
+        if(mesa==null||mesa>20||mesa<1) {
+            return "redirect:/comanda/listaComandaActual";
+        }else {
+        Comanda comanda = comandaService.crearComanda(mesa, user);
+        int comandaId = comandaService.findLastId();
+        modelMap.addAttribute("comanda", comanda);
+        return "redirect:/comanda/listaComandaActual/"+comandaId;
+        }
+    }
 	
 	
 	@PostMapping(path="/listaComandaActual/asignar/{comandaId}/{ppId}")
-	public String asignarComanda(@PathVariable("comandaId") int comandaId, @PathVariable("ppId") int ppId, ModelMap modelMap) throws ParseException {
+	public String asignarComanda(@PathVariable("comandaId") Integer comandaId, @PathVariable("ppId") Integer ppId, ModelMap modelMap) throws ParseException {
 		String vista= "";
 		PlatoPedido plato = platoPedidoService.findById(ppId).get();
 		if(plato.getIngredientesPedidos().size()==0){
 			modelMap.addAttribute("message", "Ha habido un error al guardar, No se han seleccionado ingredientes");
-			vista = platoPedidoController.initUpdatePPForm(comandaId, plato.getId(),modelMap);
+			vista = "redirect:/platopedido/comanda/"+comandaId+"/"+ppId;
 		}else {
-		Comanda comanda = comandaService.findById(comandaId).get();
-		plato.setComanda(comanda);
-		comanda.setPrecioTotal(comanda.getPrecioTotal()+plato.getPlato().getPrecio());
-		platoPedidoService.guardarPP(plato);
-		vista= infoComanda(comandaId,modelMap);
+			comandaService.anadirComandaAPlato(plato, comandaId);
+			vista= "redirect:/comanda/listaComandaActual/"+comandaId;
 		}
 		return vista; 
 	}

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,16 +23,21 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping(value = "/managers")
 public class ManagerController {
-	
 	@Autowired
 	private ManagerService managerService;
 	@Autowired
 	private AuthoritiesService authoritiesService;
 	
+	public ManagerController(ManagerService managerService, AuthoritiesService authoritiesService) {
+		super();
+		this.managerService = managerService;
+		this.authoritiesService = authoritiesService;
+	}
+
 	@GetMapping()
 	public String listadoManagers(ModelMap modelMap) {
 		String vista = "managers/listaManagers";
-		Iterable<Manager> managers = managerService.managerList();
+		Iterable<Manager> managers = managerService.findAll();
 		Iterator<Manager> it_managers = managers.iterator();
 		
 		if (!(it_managers.hasNext())) {
@@ -52,7 +56,7 @@ public class ManagerController {
 	}
 	
 	@PostMapping(path="/save")
-	public String guardarManager(@Valid Manager manager, BindingResult result, ModelMap modelMap) {
+	public String save(@Valid Manager manager, BindingResult result, ModelMap modelMap) {
 		String vista= "managers/listaManager";
 		if(result.hasErrors()) {
 			log.info(String.format("Manager with name %s wasn't able to be created", manager.getName()));
@@ -62,7 +66,7 @@ public class ManagerController {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			vista = crearManager(modelMap);
 		}else {
-			managerService.guardarManager(manager);
+			managerService.save(manager);
 			modelMap.addAttribute("message", "Guardado Correctamente");
 			vista=listadoManagers(modelMap);
 		}
@@ -70,11 +74,11 @@ public class ManagerController {
 	}
 	
 	@GetMapping(path="/delete/{managerId}")
-	public String borrarManager(@PathVariable("managerId") int managerId, ModelMap modelMap) {
+	public String deleteById(@PathVariable("managerId") int managerId, ModelMap modelMap) {
 		String vista= "managers/listaManagers";
-		Optional<Manager> man= managerService.buscaManagerPorId(managerId);
+		Optional<Manager> man= managerService.findById(managerId);
 		if(man.isPresent()) {
-			managerService.borrarManager(managerId);
+			managerService.deleteById(managerId);
 			modelMap.addAttribute("message", "Borrado Correctamente");
 			vista=listadoManagers(modelMap);
 		}else {
@@ -88,7 +92,7 @@ public class ManagerController {
 	@GetMapping(value = "/edit/{managerId}")
 	public String initUpdateManagerForm(@PathVariable("managerId") int managerId, ModelMap model) {
 		String vista= "managers/editarManager";
-		Manager manager =  managerService.buscaManagerPorId(managerId).get();
+		Manager manager =  managerService.findById(managerId).get();
 		model.addAttribute(manager);
 		return vista;
 	}
@@ -99,11 +103,11 @@ public class ManagerController {
 			log.info(String.format("Manager with name %s and ID %d wasn't able to be updated", manager.getName(), manager.getId()));
 			return "managers/editarManager";
 		}else if (authoritiesService.findAllUsernames().contains(manager.getUsuario())
-				&& !managerService.buscaManagerPorId(manager.getId()).get().getUsuario().equals(manager.getUsuario())) {
+				&& !managerService.findById(manager.getId()).get().getUsuario().equals(manager.getUsuario())) {
 			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
 			return initUpdateManagerForm(manager.getId(),modelMap);
 		}else {
-		this.managerService.guardarManager(manager);
+		this.managerService.save(manager);
 			return "redirect:/managers";
 		}
 	}

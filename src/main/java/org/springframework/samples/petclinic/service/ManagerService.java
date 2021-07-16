@@ -13,16 +13,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class ManagerService {
-
 	@Autowired
 	private AuthoritiesService authoritiesService;
-
 	@Autowired
 	private UserService userService;
-
 	@Autowired
 	private ManagerRepository managerRepository;
-
+	
 	public ManagerService(AuthoritiesService authoritiesService, UserService userService,
 			ManagerRepository managerRepository) {
 		super();
@@ -32,17 +29,17 @@ public class ManagerService {
 	}
 
 	@Transactional
-	public int managerCount() {
-		return (int) managerRepository.count();
-	}
-
-	@Transactional
-	public Iterable<Manager> managerList() {
+	public Iterable<Manager> findAll() {
 		return managerRepository.findAll();
 	}
+	
+	@Transactional
+	public Optional<Manager> findById(Integer id) {
+		return managerRepository.findById(id);
+	}
 
 	@Transactional
-	public Manager guardarManager(Manager manager) {
+	public Manager save(Manager manager) {
 		// creating user
 		User user = authoritiesService.crearUsuario(manager.getUsuario(), manager.getContrasena());
 		userService.saveUser(user);
@@ -54,16 +51,9 @@ public class ManagerService {
 	}
 
 	@Transactional
-	public void borrarManager(Integer id) {
+	public void deleteById(Integer id) {
 		Manager manager = managerRepository.findById(id).get();
 		managerRepository.deleteById(id);
-		log.info(String.format("Manager with username %s has been deleted", manager.getUsuario(),
-				manager.getId()));
+		log.info(String.format("Manager with username %s has been deleted", manager.getUsuario()));
 	}
-
-	@Transactional
-	public Optional<Manager> buscaManagerPorId(Integer id) {
-		return managerRepository.findById(id);
-	}
-
 }
