@@ -15,8 +15,6 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/empleados")
 public class EmpleadoController {
-	
-	
 	  @GetMapping()
 	  public String empleadoVista(ModelMap modelMap) {	   
 		  String vista= "empleados/empleados";

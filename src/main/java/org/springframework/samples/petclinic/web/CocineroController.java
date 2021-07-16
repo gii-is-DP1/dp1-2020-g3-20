@@ -7,14 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cocinero;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.CocineroService;
+import org.springframework.samples.petclinic.validators.CocineroValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -27,6 +29,11 @@ public class CocineroController {
 	@Autowired
 	private AuthoritiesService authoritiesService;
 
+	@InitBinder("cocinero")
+	public void initCocineroBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new CocineroValidator(this.authoritiesService));
+	}
+	
 	@GetMapping()
 	public String listadoCocinero(ModelMap modelMap) {
 		String vista = "cocinero/listaCocinero";
@@ -56,9 +63,6 @@ public class CocineroController {
 			log.info(String.format("Chef with name %s wasn't able to be created", cocinero.getName()));
 			modelMap.addAttribute("cocinero", cocinero);
 			return "cocinero/editCocinero";
-		} else if (authoritiesService.findAllUsernames().contains(cocinero.getUsuario())) {
-			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
-			vista = crearCocinero(modelMap);
 		} else {
 			cocineroService.guardarCocinero(cocinero);
 			modelMap.addAttribute("message", "Guardado Correctamente");
@@ -94,15 +98,13 @@ public class CocineroController {
 
 	@PostMapping(value = "/edit")
 	public String processUpdateCocineroForm(@Valid Cocinero cocinero, BindingResult result, ModelMap modelMap) {
+		if(this.cocineroService.cocineroConMismoUsuario(cocinero)) {
+			result = this.cocineroService.erroresSinMismoUser(cocinero, result);
+		}
 		if (result.hasErrors()) {
 			log.info(String.format("Chef with name %s and ID %d wasn't able to be updated", cocinero.getName(), cocinero.getId()));
 			modelMap.addAttribute("cocinero", cocinero);
 			return "cocinero/editarCocinero";
-		} else if (authoritiesService.findAllUsernames().contains(cocinero.getUsuario())
-				&& !cocineroService.findById(cocinero.getId()).get().getUsuario().equals(cocinero.getUsuario())) {
-			log.info(String.format("Try to update a chef with same user name as someone"));
-			modelMap.addAttribute("message", "Este nombre de usuario ya está en uso");
-			return initUpdateCocineroForm(cocinero.getId(),modelMap);
 		}else {
 			this.cocineroService.guardarCocinero(cocinero);
 			return "redirect:/cocinero";

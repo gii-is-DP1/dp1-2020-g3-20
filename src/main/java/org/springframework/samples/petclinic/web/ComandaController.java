@@ -2,11 +2,8 @@ package org.springframework.samples.petclinic.web;
 
 import java.security.Principal;
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,13 +12,11 @@ import org.springframework.samples.petclinic.model.Comanda;
 import org.springframework.samples.petclinic.model.Plato;
 import org.springframework.samples.petclinic.model.PlatoPedido;
 import org.springframework.samples.petclinic.model.PlatoPedidoDTO;
-import org.springframework.samples.petclinic.service.CamareroService;
 import org.springframework.samples.petclinic.service.ComandaService;
 import org.springframework.samples.petclinic.service.PlatoPedidoService;
 import org.springframework.samples.petclinic.service.PlatoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,12 +33,6 @@ public class ComandaController {
 
 	@Autowired
 	private PlatoPedidoService platoPedidoService;
-	
-	@Autowired
-	private PlatoPedidoController platoPedidoController;
-	
-	@Autowired
-	private CamareroService camareroService;
 	
 	@Autowired
 	private PlatoService platoService;
@@ -124,16 +113,16 @@ public class ComandaController {
 	
 	@GetMapping(path="/listaComandaActual/new")
     public String crearComanda(Integer mesa,ModelMap modelMap,Principal user) {
-        if(mesa==null||mesa>20||mesa<1) {
-            return "redirect:/comanda/listaComandaActual";
-        }
-        else {
+//        if(mesa==null||mesa>20||mesa<1) {
+//            return "redirect:/comanda/listaComandaActual";
+//        }
+//        else {
         Comanda comanda = comandaService.crearComanda(mesa, user);
         int comandaId = comandaService.findLastId();
         modelMap.addAttribute("comanda", comanda);
         return "redirect:/comanda/listaComandaActual/"+comandaId;
       
-        }
+//        }
     }
 	
 	

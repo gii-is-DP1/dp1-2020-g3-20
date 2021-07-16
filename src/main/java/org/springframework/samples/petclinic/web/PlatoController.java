@@ -65,8 +65,8 @@ public class PlatoController {
 		String vista= "platos/listaPlatos";
 		if(result.hasErrors()) {
 			log.info(String.format("Plate with name %s wasn't able to be created", plato.getName()));
-      modelMap.addAttribute("message", "el plato que estas intentanco crear es erroneo");
-		  modelMap.addAttribute("platos", plato);
+			modelMap.addAttribute("message", "el plato que estas intentando crear es erroneo");
+			modelMap.addAttribute("platos", plato);
 			return "platos/editPlatos";
 		}else {
 			platoService.guardarPlato(plato);

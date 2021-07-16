@@ -1,13 +1,19 @@
 package org.springframework.samples.petclinic.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Propietario;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.PropietarioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,6 +51,7 @@ public class PropietarioService {
 
 	@Transactional
 	public void delete(final Propietario propietario) {
+		this.userService.deleteUser(this.userService.findUser(propietario.getUsuario()).get());
 		log.info(String.format("Owner with name %s has been deleted", propietario.getName()));
 		this.propietarioRepository.delete(propietario);
 	}
@@ -64,6 +71,32 @@ public class PropietarioService {
 	public Optional<Propietario> buscaPropietarioPorId(Integer id) {
 		return propietarioRepository.findById(id);
 
+	}
+	
+	@Transactional
+	public Boolean propietarioConMismoUsuario(Propietario propietario) throws DataAccessException {
+		Boolean res=false;
+		Integer propietarioId= propietario.getId();
+		Propietario comp=this.propietarioRepository.findById(propietarioId).get();
+		if(comp.getUsuario().equals(propietario.getUsuario())) {
+			res=true;
+		}
+		return res;
+		
+	}
+	
+	@Transactional
+	public BindingResult erroresSinMismoUser(Propietario propietario,BindingResult result) throws DataAccessException {
+		List<FieldError> errorsToKeep = result.getFieldErrors().stream()
+                .filter(fer -> !fer.getField().equals("usuario"))
+                .collect(Collectors.toList());
+		
+		 result = new BeanPropertyBindingResult(propietario, "propietario");
+
+	        for (FieldError fieldError : errorsToKeep) {
+	            result.addError(fieldError);
+	        }
+			return result;
 	}
 
 }

@@ -25,10 +25,6 @@ function validarsize(){
         alert("La longitud del gmail debe ser mayor de 3 o menor de 75");
         return false;
     }
-	if(usuario.length < 3 || usuario.length > 75){
-        alert("La longitud del usuario debe ser mayor de 3 o menor de 75");
-        return false;
-    }
 	if(contrasena.length < 3 || contrasena.length > 75){
         alert("La longitud del contrasena debe ser mayor de 3 o menor de 75");
         return false;
